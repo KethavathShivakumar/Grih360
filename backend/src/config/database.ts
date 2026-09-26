@@ -1,6 +1,35 @@
 import mongoose from 'mongoose';
 import { config } from './env';
 
+/**
+ * Automatically cleans and properly URL-encodes special characters in MongoDB URI credentials
+ * (prevents unescaped '@' in passwords from truncating the URI and corrupting cluster hostnames)
+ */
+export function normalizeMongoUri(uri: string): string {
+  if (!uri) return uri;
+  const prefixMatch = uri.match(/^([a-z0-9+]+:\/\/)(.*)$/i);
+  if (!prefixMatch) return uri;
+  const protocol = prefixMatch[1];
+  const rest = prefixMatch[2];
+
+  const lastAtIndex = rest.lastIndexOf('@');
+  if (lastAtIndex === -1) return uri;
+
+  const userInfo = rest.substring(0, lastAtIndex);
+  const hostAndPath = rest.substring(lastAtIndex + 1);
+
+  const colonIndex = userInfo.indexOf(':');
+  if (colonIndex === -1) return uri;
+
+  const rawUser = userInfo.substring(0, colonIndex);
+  const rawPass = userInfo.substring(colonIndex + 1);
+
+  const safeUser = encodeURIComponent(decodeURIComponent(rawUser));
+  const safePass = encodeURIComponent(decodeURIComponent(rawPass));
+
+  return `${protocol}${safeUser}:${safePass}@${hostAndPath}`;
+}
+
 let cachedPromise: Promise<typeof mongoose | void> | null = null;
 let lastMongoError: string | null = null;
 
@@ -23,7 +52,8 @@ export const connectDatabase = async (): Promise<typeof mongoose | void> => {
     return;
   }
 
-  const sanitizedUri = rawUri.replace(/:([^@]+)@/, ':****@');
+  const normalizedUri = normalizeMongoUri(rawUri);
+  const sanitizedUri = normalizedUri.replace(/:([^@]+)@/, ':****@');
 
   mongoose.connection.removeAllListeners('connected');
   mongoose.connection.removeAllListeners('error');
@@ -49,7 +79,7 @@ export const connectDatabase = async (): Promise<typeof mongoose | void> => {
 
       console.log(`[Database] Initiating connection to ${sanitizedUri}...`);
 
-      const conn = await mongoose.connect(rawUri, {
+      const conn = await mongoose.connect(normalizedUri, {
         serverSelectionTimeoutMS: 15000,
         connectTimeoutMS: 15000,
         socketTimeoutMS: 45000,
