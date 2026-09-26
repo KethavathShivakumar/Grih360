@@ -71,7 +71,6 @@ export const connectDatabase = async (): Promise<typeof mongoose | void> => {
     } catch (error: any) {
       lastMongoError = error?.message || 'Failed to connect to MongoDB';
       console.error(`[Database] MongoDB Connection Notice: ${lastMongoError}`);
-      throw error;
     } finally {
       cachedPromise = null;
     }
