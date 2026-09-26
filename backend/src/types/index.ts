@@ -30,5 +30,13 @@ export interface HealthCheckResponse {
     status: string;
     host?: string;
     name?: string;
+    diagnostics?: string;
+  };
+  envStatus?: {
+    hasJwtAccessSecret: boolean;
+    hasJwtRefreshSecret: boolean;
+    hasMongodbUri: boolean;
+    hasFrontendUrl: boolean;
+    nodeEnv: string;
   };
 }

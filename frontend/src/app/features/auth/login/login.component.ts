@@ -266,7 +266,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.identifier, this.password)
       .pipe(
-        timeout(10000),
+        timeout(25000),
         finalize(() => {
           this.isLoading = false;
         })
@@ -287,6 +287,8 @@ export class LoginComponent implements OnInit {
         error: (err: any) => {
           if (err.name === 'TimeoutError') {
             this.errorMessage = 'Connection timeout. Please verify backend server is reachable and retry.';
+          } else if (err.status === 0) {
+            this.errorMessage = 'Network connection error or server unreachable. Please check your internet connection.';
           } else {
             this.errorMessage = err?.error?.message || 'Invalid email/phone or password. Please try again.';
           }

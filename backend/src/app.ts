@@ -18,21 +18,33 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // 3. CORS Configuration
-const allowedOrigins = [config.frontendUrl, 'http://localhost:4200', 'http://127.0.0.1:4200'];
+const isAllowedOrigin = (origin: string | undefined): boolean => {
+  if (!origin) return true;
+  if (config.frontendUrl && origin === config.frontendUrl) return true;
+  if (origin === 'https://nivas360.vercel.app') return true;
+  if (/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.vercel\.app$/i.test(origin)) return true;
+  if (origin === 'http://localhost:4200' || origin === 'http://127.0.0.1:4200') return true;
+  if (origin === 'http://localhost:3000' || origin === 'http://127.0.0.1:3000') return true;
+  return false;
+};
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      if (isAllowedOrigin(origin) || process.env.NODE_ENV !== 'production') {
         callback(null, true);
       } else {
-        callback(new Error('CORS Policy: Origin not allowed by Nivas360 Security Architecture'));
+        callback(null, false);
       }
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    optionsSuccessStatus: 200,
   })
 );
+
+app.options('*', cors());
 
 // 4. Rate Limiting
 app.use(apiRateLimiter);

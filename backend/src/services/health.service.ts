@@ -25,5 +25,12 @@ export const getHealthStatus = (): HealthCheckResponse => {
             diagnostics: lastErr || (!config.mongodbUri ? 'MONGODB_URI is not set in environment' : 'Connecting or unreachable'),
           }),
     },
+    envStatus: {
+      hasJwtAccessSecret: Boolean(process.env.JWT_ACCESS_SECRET),
+      hasJwtRefreshSecret: Boolean(process.env.JWT_REFRESH_SECRET),
+      hasMongodbUri: Boolean(process.env.MONGODB_URI),
+      hasFrontendUrl: Boolean(process.env.FRONTEND_URL),
+      nodeEnv: process.env.NODE_ENV || 'development',
+    },
   };
 };

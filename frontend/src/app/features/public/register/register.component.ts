@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserRole } from '../../../shared/models/user.model';
-import { finalize } from 'rxjs';
+import { finalize, timeout } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -280,6 +280,7 @@ export class RegisterComponent {
         role: this.selectedRole,
       })
       .pipe(
+        timeout(25000),
         finalize(() => {
           this.isLoading = false;
         })
@@ -295,7 +296,13 @@ export class RegisterComponent {
           }
         },
         error: (err: any) => {
-          this.errorMessage = err?.error?.message || 'Registration failed. An account with this email or phone may already exist.';
+          if (err.name === 'TimeoutError') {
+            this.errorMessage = 'Connection timeout. Please verify backend server is reachable and retry.';
+          } else if (err.status === 0) {
+            this.errorMessage = 'Network connection error or server unreachable. Please check your internet connection.';
+          } else {
+            this.errorMessage = err?.error?.message || 'Registration failed. An account with this email or phone may already exist.';
+          }
         },
       });
   }
