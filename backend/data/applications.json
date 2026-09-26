@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "app_1790430560480_j378uc",
+    "id": "app_1790430560480_j378uc",
+    "propertyId": "prop_seed_8",
+    "tenantId": "mem_usr_1790429042397_9ax1l",
+    "status": "SUBMITTED",
+    "moveInDate": "2026-10-03T00:00:00.000Z",
+    "proposedRent": 22000,
+    "verificationStatusAtSubmission": "NOT_STARTED",
+    "createdAt": "2026-09-26T13:49:20.481Z",
+    "updatedAt": "2026-09-26T13:49:20.481Z"
+  }
+]

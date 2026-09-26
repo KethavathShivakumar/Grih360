@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+import { getMongoStatus } from '../config/database';
+import { config } from '../config/env';
+import { HealthCheckResponse } from '../types';
+
+export const getHealthStatus = (): HealthCheckResponse => {
+  const mongoState = getMongoStatus();
+  const dbConnection = mongoose.connection;
+
+  return {
+    success: true,
+    message: 'Nivas360 API is running',
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(process.uptime()),
+    environment: config.nodeEnv,
+    mongodb: {
+      status: mongoState,
+      ...(mongoState === 'connected'
+        ? {
+            host: dbConnection.host,
+            name: dbConnection.name,
+          }
+        : {}),
+    },
+  };
+};

@@ -1,0 +1,583 @@
+[
+  {
+    "title": "3 BHK Gated Community Apartment in Gachibowli",
+    "description": "Spacious 3 BHK apartment in prime Financial District, Gachibowli. Featuring modular kitchen, 100% power backup, EV charging, 2 covered car parks, and biometric gate security under Model Tenancy Act.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 42000,
+    "depositAmount": 84000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1850,
+    "furnishing": "FULLY_FURNISHED",
+    "propertyLocation": {
+      "address": "Tower 4, My Home Bhooja, Financial District",
+      "locality": "Gachibowli",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500032",
+      "landmark": "Opposite Bio-Diversity Park",
+      "coordinates": {
+        "lat": 17.4401,
+        "lng": 78.3489
+      }
+    },
+    "amenities": [
+      "POWER_BACKUP",
+      "LIFT",
+      "COVERED_PARKING",
+      "SECURITY",
+      "GYM",
+      "SWIMMING_POOL",
+      "GAS_PIPELINE"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+        "isMain": true,
+        "caption": "Living Area"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+        "isMain": false,
+        "caption": "Balcony View"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_1",
+    "id": "prop_seed_1",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹42,000/mo",
+    "formattedDeposit": "₹84,000",
+    "createdAt": "2026-09-26T13:14:43.187Z",
+    "updatedAt": "2026-09-26T13:14:43.187Z"
+  },
+  {
+    "title": "2 BHK Luxury Furnished Flat near Cyber Towers",
+    "description": "Walk-to-work 2 BHK modern flat near Cyber Towers, Hitec City. High-speed fiber internet ready, smart home lights, air conditioning, and clubhouse access.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 32000,
+    "depositAmount": 64000,
+    "bhk": 2,
+    "bathrooms": 2,
+    "areaSqFt": 1250,
+    "furnishing": "FULLY_FURNISHED",
+    "propertyLocation": {
+      "address": "Plot 18, Silicon Valley Enclave, Madhapur Road",
+      "locality": "Hitec City",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081",
+      "landmark": "Near Cyber Towers Metro Station",
+      "coordinates": {
+        "lat": 17.4474,
+        "lng": 78.3762
+      }
+    },
+    "amenities": [
+      "POWER_BACKUP",
+      "LIFT",
+      "PARKING",
+      "SECURITY",
+      "AIR_CONDITIONING",
+      "FIBER_INTERNET"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+        "isMain": true,
+        "caption": "Master Bedroom"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+        "isMain": false,
+        "caption": "Kitchen"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_2",
+    "id": "prop_seed_2",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹32,000/mo",
+    "formattedDeposit": "₹64,000",
+    "createdAt": "2026-09-26T13:14:43.188Z",
+    "updatedAt": "2026-09-26T13:14:43.188Z"
+  },
+  {
+    "title": "4 BHK Independent Luxury Villa in Banjara Hills Road No. 12",
+    "description": "Exclusive 4 BHK private villa with private landscaped garden, home theatre room, servant quarters, and solar water heater in peaceful Banjara Hills enclave.",
+    "propertyType": "VILLA",
+    "rentAmount": 75000,
+    "depositAmount": 200000,
+    "bhk": 4,
+    "bathrooms": 4,
+    "areaSqFt": 3600,
+    "furnishing": "FULLY_FURNISHED",
+    "propertyLocation": {
+      "address": "Road No. 12, MLA Colony, Banjara Hills",
+      "locality": "Banjara Hills",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500034",
+      "landmark": "Near KBR Park Gate",
+      "coordinates": {
+        "lat": 17.4156,
+        "lng": 78.4357
+      }
+    },
+    "amenities": [
+      "PRIVATE_GARDEN",
+      "SERVANT_QUARTERS",
+      "SECURITY",
+      "COVERED_PARKING",
+      "POWER_BACKUP",
+      "SOLAR_HEATER"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800",
+        "isMain": true,
+        "caption": "Villa Facade"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+        "isMain": false,
+        "caption": "Private Courtyard"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_3",
+    "id": "prop_seed_3",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹75,000/mo",
+    "formattedDeposit": "₹2,00,000",
+    "createdAt": "2026-09-26T13:14:43.189Z",
+    "updatedAt": "2026-09-26T13:14:43.189Z"
+  },
+  {
+    "title": "3 BHK Semi-Furnished Flat near Botanical Garden",
+    "description": "Freshly painted 3 BHK facing Botanical Gardens with expansive balcony, wooden wardrobes, piped gas, and 24-hour Kaveri/Manjeera water supply.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 34000,
+    "depositAmount": 68000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1650,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Block C, Sri Ram Heights, Raghavendra Colony",
+      "locality": "Kondapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500084",
+      "landmark": "Opposite Botanical Garden Gate 2",
+      "coordinates": {
+        "lat": 17.4622,
+        "lng": 78.3568
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "PARKING",
+      "WATER_SUPPLY_24X7",
+      "SECURITY",
+      "BALCONY",
+      "CHILDRENS_PLAY_AREA"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
+        "isMain": true,
+        "caption": "Balcony"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800",
+        "isMain": false,
+        "caption": "Kitchen"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_4",
+    "id": "prop_seed_4",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹34,000/mo",
+    "formattedDeposit": "₹68,000",
+    "createdAt": "2026-09-26T13:14:43.190Z",
+    "updatedAt": "2026-09-26T13:14:43.190Z"
+  },
+  {
+    "title": "3 BHK Independent Builder Floor in Subedari, Hanamkonda",
+    "description": "Well-ventilated 3 BHK independent floor close to Kakatiya University and Subedari Collectorate. Peaceful residential zone with borewell and municipal water, covered parking, and wide 40ft road.",
+    "propertyType": "INDEPENDENT_HOUSE",
+    "rentAmount": 16500,
+    "depositAmount": 33000,
+    "bhk": 3,
+    "bathrooms": 2,
+    "areaSqFt": 1500,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "House No. 2-5-184, Subedari Main Road",
+      "locality": "Subedari",
+      "city": "Warangal",
+      "state": "Telangana",
+      "pincode": "506001",
+      "landmark": "Near Kakatiya University Cross Road",
+      "coordinates": {
+        "lat": 17.9942,
+        "lng": 79.5638
+      }
+    },
+    "amenities": [
+      "COVERED_PARKING",
+      "BOREWELL_WATER",
+      "MUNICIPAL_WATER",
+      "CCTV",
+      "BALCONY"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+        "isMain": true,
+        "caption": "Front Elevation"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800",
+        "isMain": false,
+        "caption": "Living Space"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_5",
+    "id": "prop_seed_5",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹16,500/mo",
+    "formattedDeposit": "₹33,000",
+    "createdAt": "2026-09-26T13:14:43.192Z",
+    "updatedAt": "2026-09-26T13:14:43.192Z"
+  },
+  {
+    "title": "2 BHK Premium Apartment in Nakkalagutta",
+    "description": "Heart of Hanamkonda city, 2 minutes from Asian Sridevi Mall. 2 BHK flat with lift, generator backup, dedicated stilt parking, and rainwater harvesting.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 13500,
+    "depositAmount": 27000,
+    "bhk": 2,
+    "bathrooms": 2,
+    "areaSqFt": 1100,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Flat 204, Balaji Residency, Nakkalagutta",
+      "locality": "Nakkalagutta",
+      "city": "Warangal",
+      "state": "Telangana",
+      "pincode": "506001",
+      "landmark": "Near Asian Sridevi Mall",
+      "coordinates": {
+        "lat": 18.0076,
+        "lng": 79.575
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "POWER_BACKUP",
+      "STILT_PARKING",
+      "RAINWATER_HARVESTING",
+      "SECURITY"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800",
+        "isMain": true,
+        "caption": "Apartment"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_6",
+    "id": "prop_seed_6",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹13,500/mo",
+    "formattedDeposit": "₹27,000",
+    "createdAt": "2026-09-26T13:14:43.193Z",
+    "updatedAt": "2026-09-26T13:14:43.193Z"
+  },
+  {
+    "title": "2 BHK Independent House near Kazipet Railway Station",
+    "description": "Prime residential spot near Kazipet Junction. 2 BHK home with separate utility area, spacious terrace, covered portico for car, and round-the-clock water.",
+    "propertyType": "INDEPENDENT_HOUSE",
+    "rentAmount": 11000,
+    "depositAmount": 22000,
+    "bhk": 2,
+    "bathrooms": 2,
+    "areaSqFt": 1050,
+    "furnishing": "UNFURNISHED",
+    "propertyLocation": {
+      "address": "Quarter Lane 4, Railway Officers Colony",
+      "locality": "Kazipet",
+      "city": "Warangal",
+      "state": "Telangana",
+      "pincode": "506003",
+      "landmark": "500m from Kazipet Railway Junction",
+      "coordinates": {
+        "lat": 17.9818,
+        "lng": 79.5222
+      }
+    },
+    "amenities": [
+      "CAR_PORTICO",
+      "TERRACE",
+      "BOREWELL_WATER",
+      "SECURITY"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800",
+        "isMain": true,
+        "caption": "Home Elevation"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_7",
+    "id": "prop_seed_7",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹11,000/mo",
+    "formattedDeposit": "₹22,000",
+    "createdAt": "2026-09-26T13:14:43.196Z",
+    "updatedAt": "2026-09-26T13:14:43.196Z"
+  },
+  {
+    "title": "3 BHK Gated Villa near NIT Warangal",
+    "description": "Peaceful 3 BHK gated community villa on Hunter Road near NIT Warangal. Premium vitrified tiles, 3 en-suite bathrooms, private garden, and 24x7 security guards.",
+    "propertyType": "VILLA",
+    "rentAmount": 22000,
+    "depositAmount": 50000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 2200,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Villa 12, Kakatiya Enclave, Hunter Road",
+      "locality": "Hunter Road",
+      "city": "Warangal",
+      "state": "Telangana",
+      "pincode": "506002",
+      "landmark": "Near NIT Warangal Campus",
+      "coordinates": {
+        "lat": 17.9622,
+        "lng": 79.5885
+      }
+    },
+    "amenities": [
+      "GATED_COMMUNITY",
+      "SECURITY_24X7",
+      "PRIVATE_GARDEN",
+      "PARKING",
+      "POWER_BACKUP"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
+        "isMain": true,
+        "caption": "Villa"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_8",
+    "id": "prop_seed_8",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹22,000/mo",
+    "formattedDeposit": "₹50,000",
+    "createdAt": "2026-09-26T13:14:43.198Z",
+    "updatedAt": "2026-09-26T13:14:43.198Z"
+  },
+  {
+    "title": "3 BHK Sea Breeze & City View Apartment at Benz Circle",
+    "description": "Luxurious 3 BHK high-rise flat on MG Road / Benz Circle junction. 24-hour Krishna river treated water, 2 high-speed lifts, gym, and CCTV surveillance.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 28000,
+    "depositAmount": 60000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1750,
+    "furnishing": "FULLY_FURNISHED",
+    "propertyLocation": {
+      "address": "Tower A, Krishna Heights, MG Road",
+      "locality": "Benz Circle",
+      "city": "Vijayawada",
+      "state": "Andhra Pradesh",
+      "pincode": "520010",
+      "landmark": "Near Benz Circle Flyover",
+      "coordinates": {
+        "lat": 16.5012,
+        "lng": 80.6436
+      }
+    },
+    "amenities": [
+      "HIGH_SPEED_LIFTS",
+      "GYM",
+      "CCTV",
+      "RIVER_WATER",
+      "COVERED_PARKING",
+      "SECURITY"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+        "isMain": true,
+        "caption": "Living Room"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_9",
+    "id": "prop_seed_9",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹28,000/mo",
+    "formattedDeposit": "₹60,000",
+    "createdAt": "2026-09-26T13:14:43.199Z",
+    "updatedAt": "2026-09-26T13:14:43.199Z"
+  },
+  {
+    "title": "4 BHK Luxury Oceanfront Penthouse on RK Beach Road",
+    "description": "Spectacular uninterrupted Bay of Bengal ocean view! 4 BHK luxury penthouse with wrap-around terrace, private elevator, VRV air conditioning, and 24/7 armed security.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 58000,
+    "depositAmount": 150000,
+    "bhk": 4,
+    "bathrooms": 4,
+    "areaSqFt": 3200,
+    "furnishing": "FULLY_FURNISHED",
+    "propertyLocation": {
+      "address": "Penthouse 1401, Sea Pearl Towers, Beach Road",
+      "locality": "Beach Road",
+      "city": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "pincode": "530002",
+      "landmark": "Opposite Submarine Museum",
+      "coordinates": {
+        "lat": 17.7164,
+        "lng": 83.3189
+      }
+    },
+    "amenities": [
+      "OCEAN_VIEW",
+      "WRAP_AROUND_TERRACE",
+      "VRV_AC",
+      "SECURITY",
+      "SWIMMING_POOL",
+      "GYM"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800",
+        "isMain": true,
+        "caption": "Oceanfront View"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_10",
+    "id": "prop_seed_10",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹58,000/mo",
+    "formattedDeposit": "₹1,50,000",
+    "createdAt": "2026-09-26T13:14:43.200Z",
+    "updatedAt": "2026-09-26T13:14:43.200Z"
+  },
+  {
+    "title": "3 BHK Family Apartment in MVP Colony Sector 4",
+    "description": "One of Visakhapatnam premier residential colonies. 3 BHK with north-east facing balcony, piped cooking gas, covered car parking, and generator backup.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 24000,
+    "depositAmount": 48000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1550,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Flat 301, Sagarika Heights, Sector 4",
+      "locality": "MVP Colony",
+      "city": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "pincode": "530017",
+      "landmark": "Near MVP Double Road Park",
+      "coordinates": {
+        "lat": 17.7412,
+        "lng": 83.3341
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "POWER_BACKUP",
+      "COVERED_PARKING",
+      "PIPED_GAS",
+      "SECURITY"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1502005229762-ee1b2da97a06?w=800",
+        "isMain": true,
+        "caption": "Dining and Living"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_11",
+    "id": "prop_seed_11",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹24,000/mo",
+    "formattedDeposit": "₹48,000",
+    "createdAt": "2026-09-26T13:14:43.201Z",
+    "updatedAt": "2026-09-26T13:14:43.201Z"
+  },
+  {
+    "_id": "prop_1790430928588_j9k9uy",
+    "id": "prop_1790430928588_j9k9uy",
+    "ownerId": "usr_owner_1790428482726",
+    "title": "3 BHK Lakeview Luxury Villa in Madhapur",
+    "description": "Stunning villa with lake view, private garden, modular Italian kitchen, solar water heating, and 24/7 security.",
+    "propertyType": "VILLA",
+    "rentAmount": 65000,
+    "depositAmount": 130000,
+    "formattedRent": "₹65,000/mo",
+    "formattedDeposit": "₹1,30,000",
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 2600,
+    "furnishing": "FULLY_FURNISHED",
+    "propertyLocation": {
+      "address": "Villa 7, Durgam Cheruvu View, Madhapur",
+      "locality": "Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081",
+      "landmark": "Near Inorbit Mall",
+      "coordinates": {
+        "lat": 17.4385,
+        "lng": 78.3842
+      }
+    },
+    "amenities": [
+      "POWER_BACKUP",
+      "SECURITY",
+      "PRIVATE_GARDEN",
+      "CAR_PARKING"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+        "caption": "Front Elevation"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "createdAt": "2026-09-26T13:55:28.709Z",
+    "updatedAt": "2026-09-26T13:55:28.709Z"
+  }
+]

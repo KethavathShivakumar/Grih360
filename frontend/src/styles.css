@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/* Nivas360 — Deccan Civic Bento Design System Styles & Design Tokens */
+
+:root {
+  /* Color Palette Tokens */
+  --color-primary: #0F2937;
+  --color-primary-container: #0F2937;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #2D7A5E;
+  --color-secondary-container: #EBF5F0;
+  --color-on-secondary: #FFFFFF;
+  --color-tertiary: #E26D46;
+  --color-background: #FAF9F5;
+  --color-surface: #FFFFFF;
+  --color-surface-container: #E8E6DF;
+  --color-on-surface: #1B1C1A;
+  --color-on-surface-variant: #64748B;
+  --color-border: #E8E6DF;
+
+  /* Status Tokens */
+  --status-verified-bg: #EBF5F0;
+  --status-verified-text: #2D7A5E;
+  --status-verified-border: #D1EADF;
+
+  --status-review-bg: #FFF7ED;
+  --status-review-text: #C2410C;
+  --status-review-border: #FFEDD5;
+
+  --status-action-bg: #FEF2F2;
+  --status-action-text: #B91C1C;
+  --status-action-border: #FEE2E2;
+
+  --status-notstarted-bg: #F1F5F9;
+  --status-notstarted-text: #64748B;
+  --status-notstarted-border: #E2E8F0;
+
+  /* Typography */
+  --font-family-base: 'Plus Jakarta Sans', sans-serif;
+
+  /* Radii */
+  --radius-bento: 1.5rem;
+  --radius-control: 1rem;
+  --radius-pill: 9999px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  margin: 0;
+  padding: 0;
+}
+
+/* Bento Layout Utilities */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-bento);
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(15, 41, 55, 0.04), 0 4px 12px rgba(15, 41, 55, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 41, 55, 0.07);
+}
+
+/* Status Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.badge-verified {
+  background-color: var(--status-verified-bg);
+  color: var(--status-verified-text);
+  border-color: var(--status-verified-border);
+}
+
+.badge-under-review {
+  background-color: var(--status-review-bg);
+  color: var(--status-review-text);
+  border-color: var(--status-review-border);
+}
+
+.badge-pending {
+  background-color: var(--status-action-bg);
+  color: var(--status-action-text);
+  border-color: var(--status-action-border);
+}
+
+.badge-not-started {
+  background-color: var(--status-notstarted-bg);
+  color: var(--status-notstarted-text);
+  border-color: var(--status-notstarted-border);
+}
+
+/* Reference Image Inspired Visual Components */
+
+/* Floating Hero Pill Search Engine (Image 1, 3, 4) */
+.hero-pill-search {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 9999px;
+  box-shadow: 0 20px 40px -15px rgba(15, 41, 55, 0.12), 0 0 1px rgba(15, 41, 55, 0.1);
+}
+
+/* Accent Highlight Bento Cards (Image 1, 2) */
+.accent-bento-card {
+  background: #FEF9C3;
+  border: 1px solid #FDE047;
+  border-radius: 1.75rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px -4px rgba(234, 179, 8, 0.15);
+}
+
+/* Action Circle Button (Image 1, 3) */
+.action-circle-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  background-color: #FACC15;
+  color: #0F2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
+}
+
+.action-circle-btn:hover {
+  background-color: #EAB308;
+  transform: scale(1.06);
+}
+
+/* Property Image Spec Badge Pill (Image 3, 5) */
+.property-spec-pill {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.75rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+}
+
