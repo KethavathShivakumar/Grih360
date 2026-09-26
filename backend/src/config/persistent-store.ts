@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.resolve(__dirname, '../../data');
+const SEED_DATA_DIR = path.resolve(__dirname, '../../data');
+const DATA_DIR = process.env.DATA_DIR || (process.env.VERCEL ? '/tmp/nivas360-data' : SEED_DATA_DIR);
 
 export class PersistentStore {
   private static caches: Map<string, any[]> = new Map();
@@ -9,6 +10,19 @@ export class PersistentStore {
   private static ensureDataDir(): void {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (DATA_DIR !== SEED_DATA_DIR && fs.existsSync(SEED_DATA_DIR)) {
+      try {
+        const files = fs.readdirSync(SEED_DATA_DIR);
+        for (const file of files) {
+          const dest = path.join(DATA_DIR, file);
+          if (!fs.existsSync(dest)) {
+            fs.copyFileSync(path.join(SEED_DATA_DIR, file), dest);
+          }
+        }
+      } catch {
+        // continue
+      }
     }
   }
 
