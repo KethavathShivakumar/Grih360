@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
-import { getMongoStatus } from '../config/database';
+import { getMongoStatus, getLastMongoError } from '../config/database';
 import { config } from '../config/env';
 import { HealthCheckResponse } from '../types';
 
 export const getHealthStatus = (): HealthCheckResponse => {
   const mongoState = getMongoStatus();
   const dbConnection = mongoose.connection;
+  const lastErr = getLastMongoError();
 
   return {
     success: true,
@@ -20,7 +21,9 @@ export const getHealthStatus = (): HealthCheckResponse => {
             host: dbConnection.host,
             name: dbConnection.name,
           }
-        : {}),
+        : {
+            diagnostics: lastErr || (!config.mongodbUri ? 'MONGODB_URI is not set in environment' : 'Connecting or unreachable'),
+          }),
     },
   };
 };

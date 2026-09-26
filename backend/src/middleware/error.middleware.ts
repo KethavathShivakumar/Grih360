@@ -41,6 +41,17 @@ export const errorHandler = (
     message = `A record with this ${field} already exists`;
   }
 
+  // Handle Mongo Server Selection & Network Errors (Atlas connection failures)
+  if (
+    err.name === 'MongooseServerSelectionError' ||
+    err.name === 'MongoNetworkError' ||
+    err.name === 'MongoServerSelectionError'
+  ) {
+    statusCode = 503;
+    code = 'DATABASE_UNAVAILABLE';
+    message = 'Database service is currently unreachable. Please verify MongoDB Atlas network access whitelist (0.0.0.0/0).';
+  }
+
   const isProd = config.nodeEnv === 'production';
   const finalMessage = isProd && statusCode === 500 ? 'An unexpected error occurred. Please try again later.' : message;
   const stackDetails = !isProd && err.stack ? err.stack : undefined;

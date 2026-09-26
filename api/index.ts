@@ -1,20 +1,27 @@
 import app from '../backend/src/app';
 import { connectDatabase } from '../backend/src/config/database';
 import { AuthService } from '../backend/src/services/auth.service';
+import mongoose from 'mongoose';
 
-let isInitialized = false;
+let isSeeded = false;
 
 export default async function handler(req: any, res: any) {
-  if (!isInitialized) {
+  try {
+    await connectDatabase();
+  } catch (err: any) {
+    console.error('[Vercel Serverless] DB connection notice:', err?.message || err);
+  }
+
+  if (!isSeeded && mongoose.connection.readyState === 1) {
     try {
-      connectDatabase();
       await AuthService.seedDemoUsers();
       const { PropertyService } = require('../backend/src/services/property.service');
       await PropertyService.seedDefaultProperties();
+      isSeeded = true;
     } catch (e) {
-      console.warn('[Vercel Serverless Init Notice]:', e);
+      console.warn('[Vercel Serverless Seed Notice]:', e);
     }
-    isInitialized = true;
   }
+
   return app(req, res);
 }
