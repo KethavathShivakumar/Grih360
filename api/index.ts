@@ -1,6 +1,7 @@
 import app from '../backend/src/app';
 import { connectDatabase } from '../backend/src/config/database';
 import { AuthService } from '../backend/src/services/auth.service';
+import { PropertyService } from '../backend/src/services/property.service';
 import mongoose from 'mongoose';
 
 let isSeeded = false;
@@ -17,7 +18,6 @@ export default async function handler(req: any, res: any) {
     if (!isSeeded && mongoose.connection.readyState === 1) {
       try {
         await AuthService.seedDemoUsers();
-        const { PropertyService } = require('../backend/src/services/property.service');
         await PropertyService.seedDefaultProperties();
         isSeeded = true;
       } catch (e) {
