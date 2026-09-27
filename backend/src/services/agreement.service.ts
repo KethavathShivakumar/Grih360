@@ -1,12 +1,35 @@
 import { RentalAgreementModel, PropertyModel, RentalModel } from '../models';
 import { NotificationService } from './notification.service';
 import mongoose from 'mongoose';
+import { PersistentStore } from '../config/persistent-store';
 
 export const memoryAgreements = new Map<string, any>();
+
+// Initialize memory cache from persistent disk store
+const loadedAgreements = PersistentStore.loadCollection('agreements');
+for (const a of loadedAgreements) {
+  memoryAgreements.set(a._id || a.id, a);
+}
 
 export class AgreementService {
   private static isMongoConnected(): boolean {
     return mongoose.connection.readyState === 1;
+  }
+
+  /**
+   * Get all rental agreements for a user (Tenant or Owner)
+   */
+  static async getUserAgreements(userId: string, role?: string) {
+    if (AgreementService.isMongoConnected()) {
+      const query = role === 'TENANT' ? { tenantId: userId } : { ownerId: userId };
+      return RentalAgreementModel.find(query).sort({ createdAt: -1 }).lean();
+    } else {
+      return Array.from(memoryAgreements.values()).filter((a) => {
+        const tId = (a.tenantId?._id || a.tenantId?.id || a.tenantId)?.toString();
+        const oId = (a.ownerId?._id || a.ownerId?.id || a.ownerId)?.toString();
+        return role === 'TENANT' ? tId === userId.toString() : oId === userId.toString();
+      });
+    }
   }
 
   /**
@@ -51,6 +74,7 @@ export class AgreementService {
         createdAt: new Date(),
       };
       memoryAgreements.set(agreementId, agreement);
+      PersistentStore.insert('agreements', agreement);
       return agreement;
     }
   }
@@ -140,13 +164,16 @@ export class AgreementService {
           termsSummary: 'Standard Nivas360 Residential Rental Agreement v1.0',
         };
         memoryAgreements.set(agreementId, agreement);
+        PersistentStore.insert('agreements', agreement);
       } else {
         if (role !== 'ADMIN' && agreement.ownerId !== ownerId) {
           throw { statusCode: 403, code: 'FORBIDDEN', message: 'You are not authorized to confirm this agreement' };
         }
         agreement.status = 'CONFIRMED';
         agreement.confirmedAt = new Date();
-        memoryAgreements.set(agreement._id || agreement.id, agreement);
+        const aId = agreement._id || agreement.id;
+        memoryAgreements.set(aId, agreement);
+        PersistentStore.update('agreements', aId, { status: 'CONFIRMED', confirmedAt: agreement.confirmedAt });
       }
 
       await NotificationService.createNotification({

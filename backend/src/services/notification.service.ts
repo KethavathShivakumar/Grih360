@@ -1,7 +1,14 @@
 import { NotificationModel } from '../models';
 import mongoose from 'mongoose';
+import { PersistentStore } from '../config/persistent-store';
 
 export const memoryNotifications = new Map<string, any>();
+
+// Initialize memory cache from persistent disk store
+const loadedNotifs = PersistentStore.loadCollection('notifications');
+for (const n of loadedNotifs) {
+  memoryNotifications.set(n._id || n.id, n);
+}
 
 export class NotificationService {
   private static isMongoConnected(): boolean {
@@ -12,7 +19,9 @@ export class NotificationService {
     if (NotificationService.isMongoConnected()) {
       return NotificationModel.find({ recipientId }).sort({ createdAt: -1 }).lean();
     } else {
-      return Array.from(memoryNotifications.values()).filter((n) => n.recipientId === recipientId);
+      return Array.from(memoryNotifications.values())
+        .filter((n) => n.recipientId?.toString() === recipientId.toString())
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }
   }
 
@@ -32,6 +41,7 @@ export class NotificationService {
       }
       notification.isRead = true;
       memoryNotifications.set(notificationId, notification);
+      PersistentStore.update('notifications', notificationId, { isRead: true });
       return notification;
     }
   }
@@ -41,9 +51,10 @@ export class NotificationService {
       await NotificationModel.updateMany({ recipientId, isRead: false }, { $set: { isRead: true } });
     } else {
       for (const [id, notif] of memoryNotifications.entries()) {
-        if (notif.recipientId === recipientId) {
+        if (notif.recipientId?.toString() === recipientId.toString()) {
           notif.isRead = true;
           memoryNotifications.set(id, notif);
+          PersistentStore.update('notifications', id, { isRead: true });
         }
       }
     }
@@ -60,15 +71,17 @@ export class NotificationService {
     if (NotificationService.isMongoConnected() && mongoose.Types.ObjectId.isValid(data.recipientId)) {
       return NotificationModel.create(data);
     } else {
-      const id = 'mem_notif_' + Date.now();
+      const id = 'mem_notif_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
       const notif = {
         _id: id,
         id,
         ...data,
+        recipientId: data.recipientId.toString(),
         isRead: false,
         createdAt: new Date(),
       };
       memoryNotifications.set(id, notif);
+      PersistentStore.insert('notifications', notif);
       return notif;
     }
   }

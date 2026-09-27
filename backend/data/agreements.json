@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "mem_agree_1790525840588",
+    "id": "mem_agree_1790525840588",
+    "rentalId": "mem_rental_1790525840575",
+    "propertyId": "prop_1790525839761_cajrpo",
+    "tenantId": "mem_usr_1790525840128_i6x88",
+    "ownerId": "mem_usr_1790525839681_h0137",
+    "agreementVersion": "v1.0",
+    "status": "PENDING_CONFIRMATION",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "createdAt": "2026-09-27T16:17:20.588Z",
+    "updatedAt": "2026-09-27T16:17:20.588Z"
+  },
+  {
+    "_id": "mem_agree_1790526256689",
+    "id": "mem_agree_1790526256689",
+    "rentalId": "mem_rental_1790526256684",
+    "propertyId": "prop_1790526254976_anlkbi",
+    "tenantId": "mem_usr_1790526255767_nsyu9",
+    "ownerId": "mem_usr_1790526254846_69i51",
+    "agreementVersion": "v1.0",
+    "status": "PENDING_CONFIRMATION",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "createdAt": "2026-09-27T16:24:16.689Z",
+    "updatedAt": "2026-09-27T16:24:16.689Z"
+  }
+]

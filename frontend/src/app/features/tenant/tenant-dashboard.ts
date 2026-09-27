@@ -110,7 +110,7 @@ import { CustomerCareComponent } from '../../shared/components/customer-care/cus
       <!-- Quick Actions Grid -->
       <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm space-y-4">
         <h2 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Tenant Quick Workspace Actions</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
           <button
             (click)="navigateTo('/tenant/homes')"
             type="button"
@@ -126,6 +126,14 @@ import { CustomerCareComponent } from '../../shared/components/customer-care/cus
           >
             <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">❤️</span>
             Saved Homes
+          </button>
+          <button
+            (click)="navigateTo('/tenant/verification')"
+            type="button"
+            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+          >
+            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">🛡️</span>
+            Identity Verification
           </button>
           <button
             (click)="navigateTo('/tenant/services')"

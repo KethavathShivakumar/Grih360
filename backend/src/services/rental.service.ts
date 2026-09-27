@@ -1,9 +1,16 @@
 import { RentalModel, PropertyModel, ApplicationModel, RentRecordModel } from '../models';
 import { memoryProperties } from './property.service';
 import mongoose from 'mongoose';
+import { PersistentStore } from '../config/persistent-store';
 
 export const memoryRentals = new Map<string, any>();
 export const memoryRentRecords = new Map<string, any>();
+
+// Initialize memory cache from persistent disk store
+const loadedRentals = PersistentStore.loadCollection('rentals');
+for (const r of loadedRentals) {
+  memoryRentals.set(r._id || r.id, r);
+}
 
 export class RentalService {
   private static isMongoConnected(): boolean {
@@ -11,18 +18,30 @@ export class RentalService {
   }
 
   /**
-   * Get all rentals for owner
+   * Get all rentals for user (Tenant or Owner)
    */
-  static async getOwnerRentals(ownerId: string) {
+  static async getUserRentals(userId: string, role?: string) {
     if (RentalService.isMongoConnected()) {
-      return RentalModel.find({ ownerId })
+      const query = role === 'TENANT' ? { tenantId: userId } : { ownerId: userId };
+      return RentalModel.find(query)
         .populate('propertyId')
         .populate('tenantId', 'name email phone identityVerificationStatus')
         .sort({ createdAt: -1 })
         .lean();
     } else {
-      return Array.from(memoryRentals.values()).filter((r) => r.ownerId === ownerId);
+      return Array.from(memoryRentals.values()).filter((r) => {
+        const tId = (r.tenantId?._id || r.tenantId?.id || r.tenantId)?.toString();
+        const oId = (r.ownerId?._id || r.ownerId?.id || r.ownerId)?.toString();
+        return role === 'TENANT' ? tId === userId.toString() : oId === userId.toString();
+      });
     }
+  }
+
+  /**
+   * Get all rentals for owner
+   */
+  static async getOwnerRentals(ownerId: string) {
+    return RentalService.getUserRentals(ownerId, 'OWNER');
   }
 
   /**
@@ -226,6 +245,7 @@ export class RentalService {
         agreementVersion: 'v1.0',
       };
       memoryRentals.set(rentalId, rentalDoc);
+      PersistentStore.insert('rentals', rentalDoc);
 
       const recordId = 'mem_rentrec_' + Date.now();
       memoryRentRecords.set(recordId, {
@@ -299,6 +319,7 @@ export class RentalService {
 
       rental.status = 'ACTIVE';
       memoryRentals.set(rentalId, rental);
+      PersistentStore.update('rentals', rentalId, { status: 'ACTIVE' });
 
       const property = memoryProperties.get(rental.propertyId);
       if (property) {
@@ -368,6 +389,7 @@ export class RentalService {
 
       rental.status = 'TERMINATED';
       memoryRentals.set(rentalId, rental);
+      PersistentStore.update('rentals', rentalId, { status: 'TERMINATED' });
 
       const property = memoryProperties.get(rental.propertyId);
       if (property) {

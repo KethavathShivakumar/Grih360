@@ -7,6 +7,9 @@ const router = Router();
 
 router.use(authenticateToken);
 
+// Get all agreements for current user
+router.get('/', AgreementController.getAgreements);
+
 // Get agreement by rental ID
 router.get('/rental/:rentalId', AgreementController.getAgreement);
 

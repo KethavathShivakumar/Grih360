@@ -141,7 +141,7 @@ export class TenantApplicationsComponent implements OnInit {
   }
 
   getAppDate(app: RentalApplication): string {
-    return app.createdAt || new Date().toISOString();
+    return (app as any)?.submittedAt || app.createdAt || new Date().toISOString();
   }
 
   getPropertyTitle(app: RentalApplication): string {

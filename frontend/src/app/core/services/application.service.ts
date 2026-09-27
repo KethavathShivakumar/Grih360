@@ -30,6 +30,10 @@ export class ApplicationService {
     proposedRent: number;
     moveInDate: string;
     message?: string;
+    employmentStatus?: string;
+    monthlyIncome?: number;
+    occupantsCount?: number;
+    notes?: string;
   }): Observable<{ success: boolean; data: RentalApplication }> {
     return this.apiService.post<{ success: boolean; data: RentalApplication }>('/applications', appData);
   }

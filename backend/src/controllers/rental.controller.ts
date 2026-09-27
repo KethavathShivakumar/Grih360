@@ -10,7 +10,7 @@ export class RentalController {
         ApiResponseUtil.error(res, 'Authentication required', 401, 'UNAUTHORIZED');
         return;
       }
-      const rentals = await RentalService.getOwnerRentals(req.user.userId);
+      const rentals = await RentalService.getUserRentals(req.user.userId, req.user.role);
       ApiResponseUtil.success(res, 'Rentals list retrieved', rentals);
     } catch (err) {
       next(err);

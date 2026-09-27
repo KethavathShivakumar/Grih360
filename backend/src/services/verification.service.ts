@@ -2,9 +2,21 @@ import { RentalVerificationModel, UserModel, ApplicationModel, PropertyModel } f
 import { VerificationDocumentStorageService } from './verification-document.service';
 import { NotificationService } from './notification.service';
 import { memoryApplications } from './application.service';
+import { memoryUsers } from './auth.service';
+import { memoryProperties } from './property.service';
+import { PersistentStore } from '../config/persistent-store';
 import mongoose, { Types } from 'mongoose';
 
 export const memoryVerifications = new Map<string, any>();
+
+// Initialize memory cache from persistent disk store
+const loadedVerifs = PersistentStore.loadCollection('verifications');
+for (const v of loadedVerifs) {
+  memoryVerifications.set(v.id || v._id, v);
+  if (v.applicationId) {
+    memoryVerifications.set(v.applicationId, v);
+  }
+}
 
 function getDefaultSteps() {
   return [
@@ -339,22 +351,116 @@ export class VerificationService {
 
       return verification;
     } else {
-      // In-Memory
-      let verification = memoryVerifications.get(applicationId) || {
-        _id: 'verif_' + applicationId,
-        id: 'verif_' + applicationId,
-        applicationId,
-        tenantId,
-        steps: getDefaultSteps(),
-        documents: [],
-      };
+      // In-Memory Fallback
+      const app = memoryApplications.get(applicationId) || PersistentStore.findById('applications', applicationId);
+      let verification = memoryVerifications.get(applicationId) || Array.from(memoryVerifications.values()).find((v) => v.applicationId === applicationId);
+      if (!verification) {
+        verification = {
+          _id: 'verif_' + applicationId,
+          id: 'verif_' + applicationId,
+          applicationId,
+          tenantId,
+          steps: getDefaultSteps(),
+          documents: [],
+        };
+      }
+
+      const processedDocs = (payload.documents || []).map((doc: any) => ({
+        documentId: 'doc_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+        documentType: doc.documentType,
+        documentNumber: doc.documentNumber,
+        maskedNumber: doc.documentNumber
+          ? doc.documentNumber.replace(/.(?=.{4})/g, '*')
+          : '****',
+        fileUrl: doc.fileUrl || '/mock/documents/' + doc.documentType.toLowerCase() + '.pdf',
+        status: 'PENDING',
+        uploadedAt: new Date(),
+        notes: doc.notes,
+      }));
+
+      // Update steps status
+      verification.steps = (verification.steps || getDefaultSteps()).map((step: any) => {
+        if (step.stepId === 'ID_VERIFICATION' && processedDocs.some((d: any) => ['AADHAAR', 'PAN', 'PASSPORT', 'VOTER_ID'].includes(d.documentType))) {
+          return {
+            ...step,
+            status: 'PENDING',
+            completedAt: new Date(),
+            providerNotice: 'Verification provider integration required. Document submitted for manual administrative review.',
+          };
+        }
+        if (step.stepId === 'INCOME_VERIFICATION' && (payload.submittedInfo?.monthlyIncome || processedDocs.some((d: any) => ['SALARY_SLIP', 'BANK_STATEMENT'].includes(d.documentType)))) {
+          return {
+            ...step,
+            status: 'PENDING',
+            completedAt: new Date(),
+          };
+        }
+        if (step.stepId === 'RENTAL_HISTORY' && (payload.submittedInfo?.previousLandlordContact || payload.submittedInfo?.currentAddress)) {
+          return {
+            ...step,
+            status: 'PENDING',
+            completedAt: new Date(),
+          };
+        }
+        return step;
+      });
 
       verification.status = 'PENDING';
       verification.submittedAt = new Date();
-      verification.submittedInfo = payload.submittedInfo;
+      if (processedDocs.length > 0) {
+        verification.documents = [...(verification.documents || []), ...processedDocs];
+      }
+      if (payload.submittedInfo) {
+        verification.submittedInfo = {
+          ...verification.submittedInfo,
+          ...payload.submittedInfo,
+          declarationAccepted: true,
+        };
+      }
+      verification.notes = payload.notes || verification.notes;
       verification.nextAction = 'Awaiting administrative verification review';
 
       memoryVerifications.set(applicationId, verification);
+      memoryVerifications.set(verification.id || verification._id, verification);
+      PersistentStore.saveCollection('verifications', Array.from(memoryVerifications.values()));
+
+      // Update tenant KYC status in memory & persistent store
+      PersistentStore.update('users', tenantId, { identityVerificationStatus: 'PENDING' });
+      const memUser = memoryUsers.get(tenantId);
+      if (memUser) {
+        memUser.identityVerificationStatus = 'PENDING';
+        memoryUsers.set(tenantId, memUser);
+      }
+
+      // Update Application if linked
+      if (app && (app.status === 'VERIFICATION_REQUIRED' || app.status === 'SUBMITTED')) {
+        app.status = 'VERIFICATION_PENDING';
+        memoryApplications.set(applicationId, app);
+        PersistentStore.update('applications', applicationId, { status: 'VERIFICATION_PENDING' });
+      }
+
+      // Notifications
+      const prop = memoryProperties.get(app?.propertyId) || PersistentStore.findById('properties', app?.propertyId);
+      const propTitle = prop?.title || 'Property';
+      await NotificationService.createNotification({
+        recipientId: tenantId,
+        title: 'Verification Details Submitted',
+        message: `Your verification details for ${propTitle} have been submitted. Status: PENDING review.`,
+        type: 'APPLICATION',
+        link: `/tenant/verification/${applicationId}`,
+      });
+
+      const ownerIdStr = (app?.ownerId || prop?.ownerId)?.toString();
+      if (ownerIdStr) {
+        await NotificationService.createNotification({
+          recipientId: ownerIdStr,
+          title: 'Tenant Verification Submitted',
+          message: `Applicant has submitted verification details for ${propTitle}. Status is now Pending Review.`,
+          type: 'APPLICATION',
+          link: `/owner/applications/${applicationId}`,
+        });
+      }
+
       return verification;
     }
   }
@@ -401,12 +507,50 @@ export class VerificationService {
 
       return { success: true, message: 'Verification requested successfully', verification };
     } else {
-      const app = memoryApplications.get(applicationId);
-      if (app) {
-        app.status = 'VERIFICATION_REQUIRED';
-        memoryApplications.set(applicationId, app);
+      const app = memoryApplications.get(applicationId) || PersistentStore.findById('applications', applicationId);
+      if (!app) {
+        throw { statusCode: 404, code: 'APPLICATION_NOT_FOUND', message: 'Application record not found' };
       }
-      return { success: true, message: 'Verification requested successfully' };
+
+      const prop = memoryProperties.get(app.propertyId) || PersistentStore.findById('properties', app.propertyId);
+      const propOwnerId = (app.ownerId || prop?.ownerId)?.toString();
+      if (role !== 'ADMIN' && propOwnerId !== ownerId) {
+        throw { statusCode: 403, code: 'FORBIDDEN', message: 'Only the property owner can request verification' };
+      }
+
+      app.status = 'VERIFICATION_REQUIRED';
+      memoryApplications.set(applicationId, app);
+      PersistentStore.update('applications', applicationId, { status: 'VERIFICATION_REQUIRED' });
+
+      let verification = memoryVerifications.get(applicationId) || Array.from(memoryVerifications.values()).find((v) => v.applicationId === applicationId);
+      if (!verification) {
+        verification = {
+          _id: 'verif_' + applicationId,
+          id: 'verif_' + applicationId,
+          applicationId,
+          propertyId: app.propertyId,
+          ownerId: propOwnerId,
+          tenantId: app.tenantId,
+          status: 'NOT_STARTED',
+          steps: getDefaultSteps(),
+          documents: [],
+          nextAction: 'Tenant required to submit identity verification',
+        };
+        memoryVerifications.set(applicationId, verification);
+        memoryVerifications.set(verification.id, verification);
+        PersistentStore.insert('verifications', verification);
+      }
+
+      const propTitle = prop?.title || 'Property';
+      await NotificationService.createNotification({
+        recipientId: (app.tenantId?._id || app.tenantId || '').toString(),
+        title: 'Verification Requested',
+        message: `The owner has requested identity and background verification for ${propTitle}. Please complete the required steps.`,
+        type: 'APPLICATION',
+        link: `/tenant/verification/${applicationId}`,
+      });
+
+      return { success: true, message: 'Verification requested successfully', verification };
     }
   }
 
@@ -436,9 +580,27 @@ export class VerificationService {
         .sort({ submittedAt: -1, updatedAt: -1 })
         .lean();
     } else {
-      const all = Array.from(memoryVerifications.values());
+      const seen = new Set<string>();
+      let all: any[] = [];
+      for (const v of memoryVerifications.values()) {
+        const key = v.id || v._id;
+        if (!seen.has(key)) {
+          seen.add(key);
+          const tenant = memoryUsers.get(v.tenantId) || PersistentStore.findById('users', v.tenantId) || { name: 'Applicant', email: '' };
+          const app = memoryApplications.get(v.applicationId) || PersistentStore.findById('applications', v.applicationId) || { status: 'PENDING' };
+          const prop = memoryProperties.get(v.propertyId) || PersistentStore.findById('properties', v.propertyId) || { title: 'Listing' };
+          const owner = memoryUsers.get(v.ownerId) || PersistentStore.findById('users', v.ownerId) || { name: 'Owner', email: '' };
+          all.push({
+            ...v,
+            tenantId: tenant,
+            applicationId: app,
+            propertyId: prop,
+            ownerId: owner,
+          });
+        }
+      }
       if (filters?.status && filters.status !== 'ALL') {
-        return all.filter((v) => v.status === filters.status);
+        all = all.filter((v) => v.status === filters.status);
       }
       return all;
     }
@@ -473,10 +635,23 @@ export class VerificationService {
 
       return verification;
     } else {
-      const verification = memoryVerifications.get(verificationId);
+      const verification = memoryVerifications.get(verificationId) ||
+        Array.from(memoryVerifications.values()).find((v) => v.id === verificationId || v._id === verificationId || v.applicationId === verificationId);
       if (!verification) {
         throw { statusCode: 404, code: 'NOT_FOUND', message: 'Verification record not found' };
       }
+
+      const tenantIdStr = (verification.tenantId as any)?._id?.toString() || verification.tenantId?.toString();
+      const ownerIdStr = (verification.ownerId as any)?._id?.toString() || verification.ownerId?.toString();
+
+      if (requesterRole !== 'ADMIN' && tenantIdStr !== requesterId && ownerIdStr !== requesterId) {
+        throw { statusCode: 403, code: 'FORBIDDEN', message: 'Access denied to this verification record' };
+      }
+
+      if (requesterRole === 'OWNER' && requesterId !== tenantIdStr) {
+        return VerificationService.sanitizeForOwner(verification);
+      }
+
       return verification;
     }
   }
@@ -568,7 +743,8 @@ export class VerificationService {
 
       return verification;
     } else {
-      let verification = memoryVerifications.get(verificationId);
+      let verification = memoryVerifications.get(verificationId) ||
+        Array.from(memoryVerifications.values()).find((v) => v.id === verificationId || v._id === verificationId || v.applicationId === verificationId || v.tenantId === verificationId);
       if (!verification) {
         throw { statusCode: 404, code: 'NOT_FOUND', message: 'Verification record not found' };
       }
@@ -576,7 +752,68 @@ export class VerificationService {
       verification.reviewedAt = new Date();
       if (rejectionReason) verification.rejectionReason = rejectionReason;
       if (adminNotes) verification.adminNotes = adminNotes;
-      memoryVerifications.set(verificationId, verification);
+
+      // Update verification steps
+      verification.steps = (verification.steps || getDefaultSteps()).map((step: any) => ({
+        ...step,
+        status: newStatus === 'VERIFIED' ? 'VERIFIED' : (newStatus === 'REJECTED' ? 'REJECTED' : 'UNDER_REVIEW'),
+        completedAt: newStatus === 'VERIFIED' ? new Date() : step.completedAt,
+      }));
+
+      verification.nextAction = newStatus === 'VERIFIED'
+        ? 'Verification approved. Ready for tenancy lease agreement processing.'
+        : (newStatus === 'REJECTED' ? 'Verification rejected. Tenant must address concerns and resubmit.' : 'Under active administrative review');
+
+      memoryVerifications.set(verification.applicationId || verification.id, verification);
+      memoryVerifications.set(verification.id || verification._id, verification);
+      PersistentStore.saveCollection('verifications', Array.from(memoryVerifications.values()));
+
+      // Update User verification status
+      const tenantIdStr = (verification.tenantId?._id || verification.tenantId)?.toString();
+      if (tenantIdStr) {
+        const memUser = memoryUsers.get(tenantIdStr);
+        if (memUser) {
+          memUser.identityVerificationStatus = newStatus;
+          memoryUsers.set(tenantIdStr, memUser);
+        }
+        PersistentStore.update('users', tenantIdStr, { identityVerificationStatus: newStatus });
+      }
+
+      // Update Application if linked
+      if (verification.applicationId) {
+        const appId = (verification.applicationId?._id || verification.applicationId)?.toString();
+        const app = memoryApplications.get(appId);
+        if (app && (app.status === 'VERIFICATION_PENDING' || app.status === 'VERIFICATION_REQUIRED')) {
+          app.status = newStatus === 'VERIFIED' ? 'UNDER_REVIEW' : 'VERIFICATION_REQUIRED';
+          memoryApplications.set(appId, app);
+          PersistentStore.update('applications', appId, { status: app.status });
+        }
+      }
+
+      // Notifications
+      if (tenantIdStr) {
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: newStatus === 'VERIFIED' ? 'Identity Verification Approved' : 'Identity Verification Update',
+          message: newStatus === 'VERIFIED'
+            ? 'Your identity verification has been reviewed and verified by the Nivas360 compliance team.'
+            : `Identity verification decision: ${newStatus}. ${rejectionReason ? 'Reason: ' + rejectionReason : ''}`,
+          type: 'SYSTEM',
+          link: verification.applicationId ? `/tenant/verification/${verification.applicationId}` : '/tenant/verification',
+        });
+      }
+
+      const ownerIdStr = (verification.ownerId?._id || verification.ownerId)?.toString();
+      if (ownerIdStr) {
+        await NotificationService.createNotification({
+          recipientId: ownerIdStr,
+          title: `Applicant Verification ${newStatus === 'VERIFIED' ? 'Verified' : 'Update'}`,
+          message: `Administrative verification status for applicant: ${newStatus}.`,
+          type: 'APPLICATION',
+          link: verification.applicationId ? `/owner/applications/${verification.applicationId}` : '/owner/applications',
+        });
+      }
+
       return verification;
     }
   }

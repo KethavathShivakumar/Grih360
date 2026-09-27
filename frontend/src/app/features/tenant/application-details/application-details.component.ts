@@ -196,6 +196,27 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </p>
           </div>
 
+          <!-- Submitted Profile Information -->
+          <div *ngIf="application.applicationData" class="pt-2 space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Submitted Profile Information</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+                <span class="text-slate-400 font-bold block">Employment Status</span>
+                <span class="text-slate-800 font-bold text-sm mt-0.5 block">{{ application.applicationData.employmentStatus || 'Employed' }}</span>
+              </div>
+              <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+                <span class="text-slate-400 font-bold block">Monthly Household Income</span>
+                <span class="text-slate-800 font-bold text-sm mt-0.5 block">
+                  {{ application.applicationData.monthlyIncome ? ('₹' + application.applicationData.monthlyIncome.toLocaleString('en-IN') + '/mo') : 'Verified' }}
+                </span>
+              </div>
+              <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+                <span class="text-slate-400 font-bold block">Occupants</span>
+                <span class="text-slate-800 font-bold text-sm mt-0.5 block">{{ application.applicationData.occupantsCount || 1 }} Person(s)</span>
+              </div>
+            </div>
+          </div>
+
           <!-- What Do I Need To Do Next Guidance Box -->
           <div class="pt-3 border-t border-slate-100">
             <div class="bg-indigo-50/70 border border-indigo-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">

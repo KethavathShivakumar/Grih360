@@ -105,6 +105,15 @@ export class ApplicationService {
         link: `/owner/applications/${application._id}`,
       });
 
+      // 5. Notify Applicant Tenant (Confirmation)
+      await NotificationService.createNotification({
+        recipientId: tenantId,
+        title: 'Application Submitted',
+        message: `Your application for ${property.title} was submitted successfully and is awaiting review.`,
+        type: 'APPLICATION',
+        link: `/tenant/applications/${application._id}`,
+      });
+
       return application;
     } else {
       const property = memoryProperties.get(input.propertyId) || PersistentStore.findById('properties', input.propertyId);
@@ -163,6 +172,14 @@ export class ApplicationService {
           link: `/owner/applications/${id}`,
         });
       }
+
+      await NotificationService.createNotification({
+        recipientId: tenantId,
+        title: 'Application Submitted',
+        message: `Your application for ${property?.title || 'Listing'} was submitted successfully and is awaiting review.`,
+        type: 'APPLICATION',
+        link: `/tenant/applications/${id}`,
+      });
 
       return appDoc;
     }
@@ -316,12 +333,50 @@ export class ApplicationService {
           link: `/tenant/applications/${appId}`,
         });
       } else if (newStatus === 'VERIFICATION_REQUIRED') {
+        const { RentalVerificationModel } = await import('../models/rental-verification.model');
+        const existingVerif = await RentalVerificationModel.findOne({ applicationId: application._id });
+        if (!existingVerif) {
+          await RentalVerificationModel.create({
+            applicationId: application._id,
+            propertyId: (property as any)?._id || application.propertyId,
+            ownerId: (application.ownerId || ownerIdStr),
+            tenantId: application.tenantId,
+            status: 'NOT_STARTED',
+            steps: [
+              {
+                stepId: 'ID_VERIFICATION',
+                name: 'Government Identity (Aadhaar / Voter ID / Passport)',
+                category: 'IDENTITY',
+                status: 'NOT_STARTED',
+                isExternalProvider: true,
+                providerNotice: 'Verification provider integration required',
+              },
+              {
+                stepId: 'INCOME_VERIFICATION',
+                name: 'Employment & Income Verification',
+                category: 'INCOME',
+                status: 'NOT_STARTED',
+                isExternalProvider: false,
+                providerNotice: 'Manual document assessment by verification team',
+              },
+              {
+                stepId: 'RENTAL_HISTORY',
+                name: 'Rental History & Reference Check',
+                category: 'RENTAL_HISTORY',
+                status: 'NOT_STARTED',
+                isExternalProvider: false,
+                providerNotice: 'Owner and previous tenancy cross-check',
+              },
+            ],
+            nextAction: 'Tenant required to submit identity verification',
+          });
+        }
         await NotificationService.createNotification({
           recipientId: tenantIdStr,
           title: 'Verification Required',
           message: `The owner has requested identity and background verification for ${propTitle}.`,
           type: 'APPLICATION',
-          link: `/tenant/applications/${appId}/verification`,
+          link: `/tenant/verification/${appId}`,
         });
       } else if (newStatus === 'APPROVED') {
         const rentalDoc = await RentalService.createOrUpdateRentalFromApplication(application);
@@ -358,6 +413,13 @@ export class ApplicationService {
             link: `/owner/applications`,
           });
         }
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Application Withdrawn',
+          message: `You have successfully withdrawn your application for ${propTitle}.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications`,
+        });
       }
 
       return application;
@@ -407,12 +469,52 @@ export class ApplicationService {
           link: `/tenant/applications/${appId}`,
         });
       } else if (newStatus === 'VERIFICATION_REQUIRED') {
+        const { memoryVerifications } = await import('./verification.service');
+        if (!memoryVerifications.has(applicationId)) {
+          memoryVerifications.set(applicationId, {
+            _id: 'verif_' + applicationId,
+            id: 'verif_' + applicationId,
+            applicationId,
+            tenantId: application.tenantId,
+            propertyId: application.propertyId,
+            ownerId: application.ownerId || ownerIdStr,
+            status: 'NOT_STARTED',
+            steps: [
+              {
+                stepId: 'ID_VERIFICATION',
+                name: 'Government Identity (Aadhaar / Voter ID / Passport)',
+                category: 'IDENTITY',
+                status: 'NOT_STARTED',
+                isExternalProvider: true,
+                providerNotice: 'Verification provider integration required',
+              },
+              {
+                stepId: 'INCOME_VERIFICATION',
+                name: 'Employment & Income Verification',
+                category: 'INCOME',
+                status: 'NOT_STARTED',
+                isExternalProvider: false,
+                providerNotice: 'Manual document assessment by verification team',
+              },
+              {
+                stepId: 'RENTAL_HISTORY',
+                name: 'Rental History & Reference Check',
+                category: 'RENTAL_HISTORY',
+                status: 'NOT_STARTED',
+                isExternalProvider: false,
+                providerNotice: 'Owner and previous tenancy cross-check',
+              },
+            ],
+            documents: [],
+            nextAction: 'Tenant required to submit identity verification',
+          });
+        }
         await NotificationService.createNotification({
           recipientId: tenantIdStr,
           title: 'Verification Required',
           message: `The owner has requested identity and background verification for ${propTitle}.`,
           type: 'APPLICATION',
-          link: `/tenant/applications/${appId}/verification`,
+          link: `/tenant/verification/${appId}`,
         });
       } else if (newStatus === 'APPROVED') {
         const rentalDoc = await RentalService.createOrUpdateRentalFromApplication(application);
@@ -446,6 +548,13 @@ export class ApplicationService {
           message: `The applicant has withdrawn their rental application for ${propTitle}.`,
           type: 'APPLICATION',
           link: `/owner/applications`,
+        });
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Application Withdrawn',
+          message: `You have successfully withdrawn your application for ${propTitle}.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications`,
         });
       }
 

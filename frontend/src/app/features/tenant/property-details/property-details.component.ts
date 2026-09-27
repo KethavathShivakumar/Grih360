@@ -231,27 +231,73 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </div>
 
           <form (ngSubmit)="submitApplication()" class="space-y-4">
-            <!-- Proposed Rent -->
-            <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-700">Proposed Monthly Rent (₹)</label>
-              <input
-                type="number"
-                [(ngModel)]="appProposedRent"
-                name="proposedRent"
-                required
-                class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 font-bold focus:ring-2 focus:ring-[#2D7A5E]"
-              />
-              <span class="text-[11px] text-slate-400">Listing Rent: {{ formattedRent }}</span>
+            <!-- Proposed Rent & Move in Date -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-700">Proposed Rent (₹/mo)</label>
+                <input
+                  type="number"
+                  [(ngModel)]="appProposedRent"
+                  name="proposedRent"
+                  required
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 font-bold focus:ring-2 focus:ring-[#2D7A5E]"
+                />
+                <span class="text-[10px] text-slate-400">Listing: {{ formattedRent }}</span>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-700">Move-in Date</label>
+                <input
+                  type="date"
+                  [(ngModel)]="appMoveInDate"
+                  name="moveInDate"
+                  required
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
+                />
+              </div>
             </div>
 
-            <!-- Move in Date -->
+            <!-- Employment Status & Monthly Income -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-700">Employment Status</label>
+                <select
+                  [(ngModel)]="appEmploymentStatus"
+                  name="employmentStatus"
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
+                >
+                  <option value="Salaried">Salaried (Corporate / IT / MNC)</option>
+                  <option value="Self-Employed">Self-Employed / Business</option>
+                  <option value="Government / PSU">Government / PSU</option>
+                  <option value="Freelancer / Consultant">Freelancer / Consultant</option>
+                  <option value="Student">Student</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-700">Monthly Income (₹)</label>
+                <input
+                  type="number"
+                  [(ngModel)]="appMonthlyIncome"
+                  name="monthlyIncome"
+                  required
+                  min="0"
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 font-bold focus:ring-2 focus:ring-[#2D7A5E]"
+                />
+              </div>
+            </div>
+
+            <!-- Occupants Count -->
             <div class="space-y-1">
-              <label class="text-xs font-bold text-slate-700">Intended Move-in Date</label>
+              <label class="text-xs font-bold text-slate-700">Number of Occupants</label>
               <input
-                type="date"
-                [(ngModel)]="appMoveInDate"
-                name="moveInDate"
+                type="number"
+                [(ngModel)]="appOccupantsCount"
+                name="occupantsCount"
                 required
+                min="1"
+                max="20"
                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
               />
             </div>
@@ -262,8 +308,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <textarea
                 [(ngModel)]="appMessage"
                 name="message"
-                rows="3"
-                placeholder="Introduce yourself, occupation, preferred lease duration..."
+                rows="2"
+                placeholder="Introduce yourself, preferred lease duration, background..."
                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
               ></textarea>
             </div>
@@ -310,6 +356,9 @@ export class PropertyDetailsComponent implements OnInit {
   showAppModal: boolean = false;
   appProposedRent: number = 0;
   appMoveInDate: string = '';
+  appEmploymentStatus: string = 'Salaried';
+  appMonthlyIncome: number = 0;
+  appOccupantsCount: number = 1;
   appMessage: string = '';
   isSubmittingApp: boolean = false;
   modalError: string = '';
@@ -344,6 +393,7 @@ export class PropertyDetailsComponent implements OnInit {
         if (res.success && res.data) {
           this.property = res.data;
           this.appProposedRent = this.property.rentAmount;
+          this.appMonthlyIncome = this.property.rentAmount * 3;
 
           const mainImg = this.property.images?.find((i) => i.isMain);
           this.selectedImageUrl = mainImg?.url || this.property.images?.[0]?.url || this.fallbackImageUrl;
@@ -403,6 +453,11 @@ export class PropertyDetailsComponent implements OnInit {
     const today = new Date();
     today.setDate(today.getDate() + 7);
     this.appMoveInDate = today.toISOString().split('T')[0];
+    this.appProposedRent = this.property?.rentAmount || 0;
+    this.appMonthlyIncome = (this.property?.rentAmount || 15000) * 3;
+    this.appEmploymentStatus = 'Salaried';
+    this.appOccupantsCount = 1;
+    this.appMessage = '';
     this.modalError = '';
     this.showAppModal = true;
   }
@@ -423,6 +478,10 @@ export class PropertyDetailsComponent implements OnInit {
         proposedRent: Number(this.appProposedRent),
         moveInDate: this.appMoveInDate,
         message: this.appMessage,
+        employmentStatus: this.appEmploymentStatus,
+        monthlyIncome: Number(this.appMonthlyIncome),
+        occupantsCount: Number(this.appOccupantsCount),
+        notes: this.appMessage,
       })
       .subscribe({
         next: (res) => {

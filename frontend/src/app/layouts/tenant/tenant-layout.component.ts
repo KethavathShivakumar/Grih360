@@ -54,6 +54,13 @@ import { Subscription } from 'rxjs';
                 Applications
               </a>
               <a
+                routerLink="/tenant/verification"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Verification
+              </a>
+              <a
                 routerLink="/tenant/services"
                 routerLinkActive="bg-[#0F2937] text-white"
                 class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
@@ -140,6 +147,14 @@ import { Subscription } from 'rxjs';
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
             📄 Rental Applications
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/verification"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            🛡️ Identity Verification
           </a>
           <a
             (click)="closeMobileMenu()"
