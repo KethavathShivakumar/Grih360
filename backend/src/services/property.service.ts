@@ -40,16 +40,21 @@ export interface PropertyQueryFilter {
   lat?: number | string;
   lng?: number | string;
   radiusKm?: number | string;
-  propertyType?: string;
-  bhk?: number;
-  minRent?: number;
-  maxRent?: number;
-  furnishing?: string;
-  availabilityStatus?: string;
-  amenities?: string[];
+  north?: number | string;
+  south?: number | string;
+  east?: number | string;
+  west?: number | string;
+  propertyType?: string | string[];
+  bhk?: number | string | number[];
+  minRent?: number | string;
+  maxRent?: number | string;
+  furnishing?: string | string[];
+  availabilityStatus?: string | string[];
+  availability?: string | string[];
+  amenities?: string | string[];
   sort?: string;
-  page?: number;
-  limit?: number;
+  page?: number | string;
+  limit?: number | string;
 }
 
 import { PersistentStore } from '../config/persistent-store';
@@ -143,11 +148,39 @@ export class PropertyService {
   }
 
   /**
-   * Search / List Properties with Real Geographic Matching
+   * Search / List Properties with Real Geographic Matching & Multidimensional Filters
    */
   static async searchProperties(query: PropertyQueryFilter) {
     const page = Math.max(1, Number(query.page) || 1);
     const limit = Math.min(50, Math.max(1, Number(query.limit) || 10));
+
+    // Multi-value list parsing helpers
+    const parseList = (val: any): string[] => {
+      if (!val) return [];
+      if (Array.isArray(val)) return val.map(String).map((s) => s.trim()).filter(Boolean);
+      return String(val)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+    };
+
+    const propTypes = parseList(query.propertyType);
+    const bhkList = parseList(query.bhk).map(Number).filter((n) => !isNaN(n));
+    const furnList = parseList(query.furnishing);
+    const availList = parseList(query.availabilityStatus || query.availability);
+    const amenitiesList = parseList(query.amenities);
+
+    // Compute coordinates & radius (support explicit center or viewport bounds)
+    let targetLat = query.lat !== undefined && !isNaN(Number(query.lat)) ? Number(query.lat) : undefined;
+    let targetLng = query.lng !== undefined && !isNaN(Number(query.lng)) ? Number(query.lng) : undefined;
+    let radiusKm = Number(query.radiusKm) || 35;
+
+    if ((targetLat === undefined || targetLng === undefined) && query.north && query.south && query.east && query.west) {
+      targetLat = (Number(query.north) + Number(query.south)) / 2;
+      targetLng = (Number(query.east) + Number(query.west)) / 2;
+      const dLat = Math.abs(Number(query.north) - Number(query.south)) * 111;
+      radiusKm = Math.min(100, Math.max(5, Math.round(dLat / 2)));
+    }
 
     if (PropertyService.isMongoConnected()) {
       const skip = (page - 1) * limit;
@@ -203,35 +236,28 @@ export class PropertyService {
       if (query.placeId) {
         mongoFilter['propertyLocation.placeId'] = query.placeId.trim();
       }
-      if (
-        query.lat !== undefined &&
-        query.lng !== undefined &&
-        !isNaN(Number(query.lat)) &&
-        !isNaN(Number(query.lng))
-      ) {
-        const latNum = Number(query.lat);
-        const lngNum = Number(query.lng);
-        if (latNum !== 0 && lngNum !== 0) {
-          const radiusKm = Math.min(150, Math.max(1, Number(query.radiusKm) || 35));
-          const radiusRadians = radiusKm / 6378.1;
-          mongoFilter['propertyLocation.geoPoint'] = {
-            $geoWithin: {
-              $centerSphere: [[lngNum, latNum], radiusRadians],
-            },
-          };
-        }
+      if (targetLat !== undefined && targetLng !== undefined && targetLat !== 0 && targetLng !== 0) {
+        const radiusRadians = Math.min(150, Math.max(1, radiusKm)) / 6378.1;
+        mongoFilter['propertyLocation.geoPoint'] = {
+          $geoWithin: {
+            $centerSphere: [[targetLng, targetLat], radiusRadians],
+          },
+        };
       }
-      if (query.propertyType) {
-        mongoFilter.propertyType = query.propertyType;
+      if (propTypes.length > 0) {
+        mongoFilter.propertyType = propTypes.length === 1 ? propTypes[0] : { $in: propTypes };
       }
-      if (query.bhk) {
-        mongoFilter.bhk = Number(query.bhk);
+      if (bhkList.length > 0) {
+        mongoFilter.bhk = bhkList.length === 1 ? bhkList[0] : { $in: bhkList };
       }
-      if (query.furnishing) {
-        mongoFilter.furnishing = query.furnishing;
+      if (furnList.length > 0) {
+        mongoFilter.furnishing = furnList.length === 1 ? furnList[0] : { $in: furnList };
       }
-      if (query.availabilityStatus) {
-        mongoFilter.availabilityStatus = query.availabilityStatus;
+      if (availList.length > 0) {
+        mongoFilter.availabilityStatus = availList.length === 1 ? availList[0] : { $in: availList };
+      }
+      if (amenitiesList.length > 0) {
+        mongoFilter.amenities = { $all: amenitiesList };
       }
       if (query.minRent !== undefined || query.maxRent !== undefined) {
         mongoFilter.rentAmount = {};
@@ -267,6 +293,7 @@ export class PropertyService {
       return { properties: formattedProperties, page, limit, total };
     } else {
       let list = Array.from(memoryProperties.values()).filter((p) => p.isListed !== false);
+
       if (query.search) {
         const s = query.search.toLowerCase();
         list = list.filter(
@@ -309,24 +336,16 @@ export class PropertyService {
       if (query.placeId) {
         list = list.filter((p) => p.propertyLocation?.placeId === query.placeId);
       }
-      if (
-        query.lat !== undefined &&
-        query.lng !== undefined &&
-        !isNaN(Number(query.lat)) &&
-        !isNaN(Number(query.lng))
-      ) {
-        const latNum = Number(query.lat);
-        const lngNum = Number(query.lng);
-        const radiusKm = Number(query.radiusKm) || 35;
+      if (targetLat !== undefined && targetLng !== undefined && targetLat !== 0 && targetLng !== 0) {
         list = list.filter((p) => {
           const pLat = p.propertyLocation?.coordinates?.lat;
           const pLng = p.propertyLocation?.coordinates?.lng;
           if (!pLat || !pLng) return true;
-          const dLat = ((pLat - latNum) * Math.PI) / 180;
-          const dLng = ((pLng - lngNum) * Math.PI) / 180;
+          const dLat = ((pLat - targetLat!) * Math.PI) / 180;
+          const dLng = ((pLng - targetLng!) * Math.PI) / 180;
           const a =
             Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos((latNum * Math.PI) / 180) *
+            Math.cos((targetLat! * Math.PI) / 180) *
               Math.cos((pLat * Math.PI) / 180) *
               Math.sin(dLng / 2) *
               Math.sin(dLng / 2);
@@ -334,14 +353,20 @@ export class PropertyService {
           return 6378.1 * c <= radiusKm;
         });
       }
-      if (query.bhk) {
-        list = list.filter((p) => p.bhk === Number(query.bhk));
+      if (propTypes.length > 0) {
+        list = list.filter((p) => propTypes.includes(p.propertyType));
       }
-      if (query.propertyType) {
-        list = list.filter((p) => p.propertyType === query.propertyType);
+      if (bhkList.length > 0) {
+        list = list.filter((p) => bhkList.includes(Number(p.bhk)));
       }
-      if (query.furnishing) {
-        list = list.filter((p) => p.furnishing === query.furnishing);
+      if (furnList.length > 0) {
+        list = list.filter((p) => furnList.includes(p.furnishing));
+      }
+      if (availList.length > 0) {
+        list = list.filter((p) => availList.includes(p.availabilityStatus));
+      }
+      if (amenitiesList.length > 0) {
+        list = list.filter((p) => amenitiesList.every((a) => p.amenities && p.amenities.includes(a)));
       }
       if (query.minRent !== undefined && !isNaN(Number(query.minRent))) {
         list = list.filter((p) => p.rentAmount >= Number(query.minRent));

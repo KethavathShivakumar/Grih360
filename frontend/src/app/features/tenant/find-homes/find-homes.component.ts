@@ -10,13 +10,18 @@ import {
   StructuredLocation,
   PlacePrediction,
   LocationCoordinates,
-  UserLocationState,
 } from '../../../core/services/location.service';
-import { DistrictInfo, StateInfo } from '../../../core/config/geography.config';
+import { DistrictInfo } from '../../../core/config/geography.config';
 import { Property, PropertyFilter } from '../../../shared/models/property.model';
 import { PropertyCardComponent } from '../../../shared/components/property-card/property-card.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { GoogleMapComponent } from '../../../shared/components/google-map/google-map.component';
+
+export interface AmenityOption {
+  id: string;
+  label: string;
+  icon: string;
+}
 
 @Component({
   selector: 'app-find-homes',
@@ -30,28 +35,28 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
   ],
   template: `
     <div class="space-y-5">
-      <!-- Hero Header & Search Bar -->
+      <!-- Hero Header & Geographic Search Hub -->
       <div class="relative bg-gradient-to-r from-[#0F2937] via-[#164E63] to-[#0F2937] rounded-3xl p-5 sm:p-7 text-white shadow-lg overflow-visible space-y-4">
         <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-[#FACC15]/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-2xl space-y-1 relative z-10">
           <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15">
-            <span>✨ Model Tenancy Act Verified Homes</span>
+            <span>✨ Real Backend Search Engine</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-            Rent your <span class="text-[#FACC15]">dream home</span> in Telangana & AP
+            Find verified homes across <span class="text-[#FACC15]">Telangana & AP</span>
           </h1>
           <p class="text-xs sm:text-sm text-slate-300">
-            Real geographic search across Hyderabad, Warangal, Mahabubnagar, Nalgonda, Karimnagar, Khammam, Nizamabad, Vijayawada, Guntur & Tirupati.
+            Real geographic & multidimensional database search across Hyderabad, Warangal, Mahabubnagar, Nalgonda, Karimnagar, Khammam, Nizamabad, Vijayawada, Guntur & Tirupati.
           </p>
         </div>
 
-        <!-- Search Controls Box -->
+        <!-- Top Search Bar Bar Pill -->
         <div class="bg-white rounded-2xl p-3 relative z-30 text-slate-800 shadow-xl border border-white/20">
           <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-center">
             
             <!-- 1. Google Places Autocomplete Input with Predictions Dropdown -->
-            <div class="md:col-span-4 px-3 py-1 relative border-b md:border-b-0 md:border-r border-slate-200">
+            <div class="md:col-span-5 px-3 py-1 relative border-b md:border-b-0 md:border-r border-slate-200">
               <div class="flex items-center justify-between">
                 <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Locality / Landmark</label>
                 <button
@@ -71,7 +76,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
                   [(ngModel)]="searchQuery"
                   (ngModelChange)="onLocalitySearchChange($event)"
                   (focus)="onLocalityFocus()"
-                  placeholder="Type locality, city, district..."
+                  placeholder="Gachibowli, Christian Pally, Benz Circle..."
                   class="w-full text-xs font-bold text-slate-900 bg-transparent focus:outline-none placeholder:text-slate-400"
                 />
               </div>
@@ -100,20 +105,21 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
               </div>
             </div>
 
-            <!-- 2. State & Canonical District Selection Flow -->
-            <div class="md:col-span-2 px-3 py-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200">
+            <!-- 2. State Selector -->
+            <div class="md:col-span-3 px-3 py-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200">
               <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">State</label>
               <select
                 [(ngModel)]="selectedState"
                 (change)="onStateChange()"
                 class="w-full text-xs font-bold text-slate-900 bg-transparent focus:outline-none cursor-pointer mt-0.5"
               >
-                <option value="">All States (TG & AP)</option>
+                <option value="">All States (Telangana & AP)</option>
                 <option value="Telangana">Telangana</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
               </select>
             </div>
 
+            <!-- 3. District Selector -->
             <div class="md:col-span-3 px-3 py-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200">
               <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">District / Hub</label>
               <select
@@ -130,23 +136,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
               </select>
             </div>
 
-            <!-- 3. BHK Selector -->
-            <div class="md:col-span-2 px-2 py-1 flex flex-col">
-              <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">BHK</label>
-              <div class="flex items-center gap-1 mt-0.5">
-                <button
-                  *ngFor="let bhk of [1, 2, 3, 4]"
-                  (click)="selectBhk(bhk)"
-                  type="button"
-                  [class]="selectedBhk === bhk ? 'bg-[#0F2937] text-white font-extrabold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
-                  class="px-2 py-1 text-[11px] rounded-md transition-colors cursor-pointer"
-                >
-                  {{ bhk }}B
-                </button>
-              </div>
-            </div>
-
-            <!-- 4. GPS & Action Buttons -->
+            <!-- 4. GPS & Search Action -->
             <div class="md:col-span-1 flex items-center justify-end gap-1 px-1">
               <button
                 (click)="useCurrentLocation()"
@@ -162,7 +152,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
                 (click)="onFilterChange()"
                 type="button"
                 class="p-2 sm:px-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-xs transition-transform hover:scale-105 cursor-pointer flex items-center gap-1"
-                title="Search"
+                title="Search Real Database"
               >
                 <span>→</span>
               </button>
@@ -172,7 +162,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
         </div>
       </div>
 
-      <!-- Filter Action Bar & Breadcrumbs -->
+      <!-- Action & View Controls Bar -->
       <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-[#E8E6DF] shadow-2xs">
         <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-700">
           <span>Showing <strong class="text-[#0F2937]">{{ totalProperties }}</strong> properties</span>
@@ -207,6 +197,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
             class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer focus:outline-none"
           >
             <option [value]="15">Radius: 15 km</option>
+            <option [value]="25">Radius: 25 km</option>
             <option [value]="35">Radius: 35 km</option>
             <option [value]="50">Radius: 50 km</option>
             <option [value]="100">Radius: 100 km</option>
@@ -245,11 +236,11 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
             </button>
           </div>
 
-          <!-- Filter Drawer Button -->
+          <!-- Mobile Filter Drawer Toggle Button -->
           <button
-            (click)="toggleFilters()"
+            (click)="toggleMobileFilters()"
             type="button"
-            class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1.5"
+            class="lg:hidden px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1.5"
           >
             <span>⚙️</span>
             <span>Filters</span>
@@ -258,40 +249,120 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
         </div>
       </div>
 
-      <!-- Expandable Refine Filter Drawer Panel -->
-      <div *ngIf="showFiltersDrawer" class="bg-white p-5 rounded-2xl border border-[#E8E6DF] shadow-xs space-y-4 animate-fade-in">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-          <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Refine Property Filters</h3>
-          <button (click)="resetFilters()" class="text-xs font-bold text-rose-600 hover:underline cursor-pointer">
-            Reset All Filters
-          </button>
-        </div>
+      <!-- MAIN 3-ZONE LAYOUT (Desktop: Left Filters | Center Results | Right Map) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT COLUMN: Desktop Persistent Filter Sidebar (Mobile: Drawer Modal) -->
+        <div
+          [class.hidden]="!showMobileFiltersDrawer"
+          class="lg:block lg:col-span-3 bg-white p-4 sm:p-5 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-5"
+        >
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider flex items-center gap-1.5">
+              <span>⚙️</span>
+              <span>Search Filters</span>
+            </h3>
+            <button
+              (click)="resetFilters()"
+              type="button"
+              class="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
+            >
+              Reset All
+            </button>
+          </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Rent Range Filter & Presets -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-800">Monthly Rent (₹)</label>
+            <div class="grid grid-cols-2 gap-2">
+              <input
+                type="number"
+                [(ngModel)]="minRent"
+                (change)="onFilterChange()"
+                placeholder="Min ₹"
+                class="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#2D7A5E]"
+              />
+              <input
+                type="number"
+                [(ngModel)]="maxRent"
+                (change)="onFilterChange()"
+                placeholder="Max ₹"
+                class="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#2D7A5E]"
+              />
+            </div>
+            <!-- Quick Presets -->
+            <div class="flex flex-wrap gap-1 pt-1">
+              <button
+                (click)="setRentPreset(null, 15000)"
+                type="button"
+                class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 cursor-pointer"
+              >
+                &lt; ₹15k
+              </button>
+              <button
+                (click)="setRentPreset(15000, 30000)"
+                type="button"
+                class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 cursor-pointer"
+              >
+                ₹15k - ₹30k
+              </button>
+              <button
+                (click)="setRentPreset(30000, 50000)"
+                type="button"
+                class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 cursor-pointer"
+              >
+                ₹30k - ₹50k
+              </button>
+              <button
+                (click)="setRentPreset(50000, null)"
+                type="button"
+                class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 cursor-pointer"
+              >
+                ₹50k+
+              </button>
+            </div>
+          </div>
+
+          <!-- BHK Filter -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-800">Bedrooms (BHK)</label>
+            <div class="grid grid-cols-4 gap-1.5">
+              <button
+                *ngFor="let bhk of [1, 2, 3, 4]"
+                (click)="toggleBhk(bhk)"
+                type="button"
+                [class]="selectedBhkList.has(bhk) ? 'bg-[#0F2937] text-white font-extrabold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
+                class="py-1.5 text-xs rounded-xl transition-colors cursor-pointer text-center"
+              >
+                {{ bhk }}{{ bhk === 4 ? '+' : '' }} BHK
+              </button>
+            </div>
+          </div>
+
           <!-- Property Type Filter -->
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-700">Property Type</label>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-800">Property Type</label>
             <select
               [(ngModel)]="selectedPropertyType"
               (change)="onFilterChange()"
-              class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800"
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#2D7A5E]"
             >
               <option value="">All Property Types</option>
-              <option value="APARTMENT">Apartment</option>
+              <option value="APARTMENT">Apartment / Flat</option>
               <option value="INDEPENDENT_HOUSE">Independent House</option>
-              <option value="VILLA">Villa</option>
+              <option value="VILLA">Gated Community Villa</option>
               <option value="PG_HOSTEL">PG / Hostel</option>
-              <option value="COMMERCIAL">Commercial</option>
+              <option value="COMMERCIAL">Commercial Space</option>
             </select>
           </div>
 
           <!-- Furnishing Filter -->
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-700">Furnishing</label>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-800">Furnishing</label>
             <select
               [(ngModel)]="selectedFurnishing"
               (change)="onFilterChange()"
-              class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-800"
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#2D7A5E]"
             >
               <option value="">Any Furnishing</option>
               <option value="FULLY_FURNISHED">Fully Furnished</option>
@@ -300,36 +371,64 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
             </select>
           </div>
 
-          <!-- Rent Range -->
-          <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-700">Monthly Rent (₹)</label>
-            <div class="grid grid-cols-2 gap-2">
-              <input
-                type="number"
-                [(ngModel)]="minRent"
-                (change)="onFilterChange()"
-                placeholder="Min ₹"
-                class="w-full px-2.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs"
-              />
-              <input
-                type="number"
-                [(ngModel)]="maxRent"
-                (change)="onFilterChange()"
-                placeholder="Max ₹"
-                class="w-full px-2.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs"
-              />
+          <!-- Availability Status Filter -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-800">Availability</label>
+            <select
+              [(ngModel)]="selectedAvailability"
+              (change)="onFilterChange()"
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#2D7A5E]"
+            >
+              <option value="">All Availability</option>
+              <option value="VACANT">Ready to Move (Vacant)</option>
+              <option value="RENTED">Rented</option>
+              <option value="UNDER_MAINTENANCE">Under Maintenance</option>
+            </select>
+          </div>
+
+          <!-- Amenities Filter (Checkboxes) -->
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <label class="text-xs font-bold text-slate-800 flex items-center justify-between">
+              <span>Amenities</span>
+              <span *ngIf="selectedAmenities.size > 0" class="text-[10px] text-[#2D7A5E] font-bold">
+                ({{ selectedAmenities.size }} selected)
+              </span>
+            </label>
+            <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+              <label
+                *ngFor="let am of availableAmenities"
+                class="flex items-center space-x-2 text-xs text-slate-700 cursor-pointer hover:text-slate-900"
+              >
+                <input
+                  type="checkbox"
+                  [checked]="selectedAmenities.has(am.id)"
+                  (change)="toggleAmenity(am.id)"
+                  class="rounded text-[#2D7A5E] focus:ring-[#2D7A5E] border-slate-300"
+                />
+                <span class="text-xs">{{ am.icon }}</span>
+                <span class="text-xs font-medium">{{ am.label }}</span>
+              </label>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- MAIN SPLIT VIEW: PROPERTIES ON LEFT | MAP ON RIGHT -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <!-- LEFT: Properties List -->
-        <div [class.hidden]="mobileView === 'map'" class="lg:block lg:col-span-7 space-y-4">
+          <!-- Close Drawer on Mobile -->
+          <button
+            *ngIf="showMobileFiltersDrawer"
+            (click)="showMobileFiltersDrawer = false"
+            type="button"
+            class="lg:hidden w-full py-2.5 bg-[#0F2937] text-white text-xs font-bold rounded-xl shadow-xs"
+          >
+            Apply Filters
+          </button>
+        </div>
+
+        <!-- CENTER/RIGHT RESULTS COLUMN: Property Cards List -->
+        <div
+          [class.hidden]="mobileView === 'map'"
+          class="lg:block lg:col-span-5 space-y-4"
+        >
           <!-- Loading State -->
-          <app-loading-state *ngIf="isLoading" message="Searching verified homes in Telangana & AP..."></app-loading-state>
+          <app-loading-state *ngIf="isLoading" message="Querying real backend property database..."></app-loading-state>
 
           <!-- Error State -->
           <div
@@ -346,7 +445,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
             </button>
           </div>
 
-          <!-- REAL LOCATION SEARCH EMPTY STATE (Nivas360 Phase 2 Requirement) -->
+          <!-- REAL LOCATION SEARCH EMPTY STATE (Phase 2 & 3 Requirement) -->
           <div
             *ngIf="!isLoading && !isError && properties.length === 0"
             class="bg-white p-8 rounded-3xl border border-[#E8E6DF] shadow-xs text-center space-y-5 animate-fade-in"
@@ -361,8 +460,8 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
               </h3>
               <p class="text-xs text-slate-500 leading-relaxed">
                 We are actively onboarding verified landlords in
-                <strong class="text-slate-800">{{ activeLocationDisplayName || 'this locality' }}</strong>.
-                Try expanding your search radius or exploring neighboring hubs across Telangana & AP.
+                <strong class="text-slate-800">{{ activeLocationDisplayName || 'this area' }}</strong>.
+                Try expanding your search radius, changing locality, or adjusting your filters.
               </p>
             </div>
 
@@ -406,8 +505,8 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
             </div>
           </div>
 
-          <!-- Property Cards Grid -->
-          <div *ngIf="!isLoading && !isError && properties.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Property Cards List -->
+          <div *ngIf="!isLoading && !isError && properties.length > 0" class="grid grid-cols-1 gap-4">
             <app-property-card
               *ngFor="let prop of properties"
               [property]="prop"
@@ -415,15 +514,15 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
               (cardSelect)="openPropertyDetails($event)"
               (toggleSave)="onToggleSave($event)"
               (mouseenter)="hoverProperty(prop)"
-              class="transition-all hover:scale-[1.01]"
+              class="transition-all hover:scale-[1.008]"
             ></app-property-card>
           </div>
         </div>
 
-        <!-- RIGHT: Interactive Google Map -->
+        <!-- RIGHT COLUMN: Interactive Synchronized Google Map -->
         <div
           [class.hidden]="mobileView === 'list'"
-          class="lg:block lg:col-span-5 lg:sticky lg:top-20 z-10 h-[500px] lg:h-[calc(100vh-120px)]"
+          class="lg:block lg:col-span-4 lg:sticky lg:top-20 z-10 h-[500px] lg:h-[calc(100vh-120px)]"
         >
           <app-google-map
             [properties]="properties"
@@ -432,6 +531,7 @@ import { GoogleMapComponent } from '../../../shared/components/google-map/google
             [viewport]="mapViewport"
             [centerCity]="activeLocationDisplayName || 'Hyderabad'"
             (propertyClick)="openPropertyDetails($event)"
+            (searchArea)="onMapSearchArea($event)"
           ></app-google-map>
         </div>
 
@@ -451,12 +551,26 @@ export class FindHomesComponent implements OnInit, OnDestroy {
   selectedState: string = '';
   selectedDistrict: string = '';
   selectedPropertyType: string = '';
-  selectedBhk: number | null = null;
+  selectedBhkList = new Set<number>();
   minRent: number | null = null;
   maxRent: number | null = null;
   selectedFurnishing: string = '';
+  selectedAvailability: string = '';
   selectedSort: string = 'newest';
   searchRadiusKm: number = 35;
+  selectedAmenities = new Set<string>();
+
+  // Canonical Amenities List
+  availableAmenities: AmenityOption[] = [
+    { id: 'POWER_BACKUP', label: '100% Power Backup', icon: '⚡' },
+    { id: 'LIFT', label: 'Elevator / Lift', icon: '🛗' },
+    { id: 'COVERED_PARKING', label: 'Covered Car Parking', icon: '🚗' },
+    { id: 'SECURITY', label: '24x7 Security & CCTV', icon: '🛡️' },
+    { id: 'GYM', label: 'Gymnasium & Fitness', icon: '💪' },
+    { id: 'SWIMMING_POOL', label: 'Swimming Pool', icon: '🏊' },
+    { id: 'GAS_PIPELINE', label: 'Piped Gas Connection', icon: '🔥' },
+    { id: 'WATER_SUPPLY_24X7', label: '24x7 Water Supply', icon: '💧' },
+  ];
 
   // Autocomplete & Structured Geocoding
   predictions: PlacePrediction[] = [];
@@ -471,7 +585,7 @@ export class FindHomesComponent implements OnInit, OnDestroy {
 
   // Mobile / UI state
   mobileView: 'list' | 'map' = 'list';
-  showFiltersDrawer: boolean = false;
+  showMobileFiltersDrawer: boolean = false;
   hoveredProperty: Property | null = null;
   isLocating: boolean = false;
 
@@ -506,7 +620,7 @@ export class FindHomesComponent implements OnInit, OnDestroy {
         })
     );
 
-    // Watch query params
+    // Watch query params & initiate backend search
     this.subscriptions.push(
       this.route.queryParams.subscribe((params) => {
         if (params['search']) this.searchQuery = params['search'];
@@ -514,12 +628,31 @@ export class FindHomesComponent implements OnInit, OnDestroy {
         if (params['district']) this.selectedDistrict = params['district'];
         if (params['city']) this.searchQuery = this.searchQuery || params['city'];
         if (params['propertyType']) this.selectedPropertyType = params['propertyType'];
-        if (params['bhk']) this.selectedBhk = Number(params['bhk']);
+
+        this.selectedBhkList.clear();
+        if (params['bhk']) {
+          String(params['bhk'])
+            .split(',')
+            .map(Number)
+            .filter((n) => !isNaN(n))
+            .forEach((n) => this.selectedBhkList.add(n));
+        }
+
         if (params['minRent']) this.minRent = Number(params['minRent']);
         if (params['maxRent']) this.maxRent = Number(params['maxRent']);
         if (params['furnishing']) this.selectedFurnishing = params['furnishing'];
+        if (params['availabilityStatus']) this.selectedAvailability = params['availabilityStatus'];
         if (params['sort']) this.selectedSort = params['sort'];
         if (params['radiusKm']) this.searchRadiusKm = Number(params['radiusKm']);
+
+        this.selectedAmenities.clear();
+        if (params['amenities']) {
+          String(params['amenities'])
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean)
+            .forEach((a) => this.selectedAmenities.add(a));
+        }
 
         if (params['lat'] && params['lng']) {
           this.mapCenterCoords = {
@@ -640,17 +773,46 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     this.onFilterChange();
   }
 
-  selectBhk(bhk: number): void {
-    this.selectedBhk = this.selectedBhk === bhk ? null : bhk;
+  toggleBhk(bhk: number): void {
+    if (this.selectedBhkList.has(bhk)) {
+      this.selectedBhkList.delete(bhk);
+    } else {
+      this.selectedBhkList.add(bhk);
+    }
     this.onFilterChange();
   }
 
-  toggleFilters(): void {
-    this.showFiltersDrawer = !this.showFiltersDrawer;
+  setRentPreset(min: number | null, max: number | null): void {
+    this.minRent = min;
+    this.maxRent = max;
+    this.onFilterChange();
+  }
+
+  toggleAmenity(amenityId: string): void {
+    if (this.selectedAmenities.has(amenityId)) {
+      this.selectedAmenities.delete(amenityId);
+    } else {
+      this.selectedAmenities.add(amenityId);
+    }
+    this.onFilterChange();
+  }
+
+  toggleMobileFilters(): void {
+    this.showMobileFiltersDrawer = !this.showMobileFiltersDrawer;
   }
 
   hoverProperty(prop: Property): void {
     this.hoveredProperty = prop;
+  }
+
+  /**
+   * "Search this area" Map action
+   */
+  onMapSearchArea(event: { lat: number; lng: number; radiusKm: number }): void {
+    this.mapCenterCoords = { lat: event.lat, lng: event.lng };
+    this.searchRadiusKm = event.radiusKm;
+    this.activeLocationDisplayName = `Map Search (${Math.round(event.lat * 100) / 100}, ${Math.round(event.lng * 100) / 100})`;
+    this.onFilterChange();
   }
 
   /**
@@ -694,7 +856,7 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     }
   }
 
-  // --- EMPTY STATE HELPER ACTIONS ---
+  // --- EMPTY STATE ACTIONS (Nivas360 Phase 2 & 3 Spec) ---
   expandSearchArea(): void {
     this.searchRadiusKm = Math.min(100, this.searchRadiusKm + 35);
     this.onFilterChange();
@@ -720,10 +882,12 @@ export class FindHomesComponent implements OnInit, OnDestroy {
       this.selectedState ||
       this.selectedDistrict ||
       this.selectedPropertyType ||
-      this.selectedBhk ||
+      this.selectedBhkList.size > 0 ||
       this.minRent ||
       this.maxRent ||
-      this.selectedFurnishing
+      this.selectedFurnishing ||
+      this.selectedAvailability ||
+      this.selectedAmenities.size > 0
     );
   }
 
@@ -734,10 +898,12 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     this.selectedLocation = null;
     this.activeLocationDisplayName = '';
     this.selectedPropertyType = '';
-    this.selectedBhk = null;
+    this.selectedBhkList.clear();
     this.minRent = null;
     this.maxRent = null;
     this.selectedFurnishing = '';
+    this.selectedAvailability = '';
+    this.selectedAmenities.clear();
     this.selectedSort = 'newest';
     this.searchRadiusKm = 35;
     this.mapCenterCoords = null;
@@ -746,18 +912,30 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     this.onFilterChange();
   }
 
+  /**
+   * Synchronize all filters into URL parameters and trigger backend search
+   */
   onFilterChange(): void {
     const queryParams: any = {};
     if (this.searchQuery) queryParams.search = this.searchQuery;
     if (this.selectedState) queryParams.state = this.selectedState;
     if (this.selectedDistrict) queryParams.district = this.selectedDistrict;
     if (this.selectedPropertyType) queryParams.propertyType = this.selectedPropertyType;
-    if (this.selectedBhk) queryParams.bhk = this.selectedBhk;
+
+    if (this.selectedBhkList.size > 0) {
+      queryParams.bhk = Array.from(this.selectedBhkList).join(',');
+    }
+
     if (this.minRent) queryParams.minRent = this.minRent;
     if (this.maxRent) queryParams.maxRent = this.maxRent;
     if (this.selectedFurnishing) queryParams.furnishing = this.selectedFurnishing;
+    if (this.selectedAvailability) queryParams.availabilityStatus = this.selectedAvailability;
     if (this.selectedSort !== 'newest') queryParams.sort = this.selectedSort;
     if (this.searchRadiusKm !== 35) queryParams.radiusKm = this.searchRadiusKm;
+
+    if (this.selectedAmenities.size > 0) {
+      queryParams.amenities = Array.from(this.selectedAmenities).join(',');
+    }
 
     if (this.mapCenterCoords) {
       queryParams.lat = this.mapCenterCoords.lat;
@@ -767,6 +945,10 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     this.router.navigate([], { relativeTo: this.route, queryParams });
   }
 
+  /**
+   * Query the real Backend API
+   * Note: NEVER filter on frontend - all parameters passed to backend
+   */
   loadProperties(): void {
     this.isLoading = true;
     this.isError = false;
@@ -775,11 +957,13 @@ export class FindHomesComponent implements OnInit, OnDestroy {
       search: this.searchQuery || undefined,
       state: this.selectedState || undefined,
       district: this.selectedDistrict || undefined,
-      propertyType: (this.selectedPropertyType as any) || undefined,
-      bhk: this.selectedBhk || undefined,
+      propertyType: this.selectedPropertyType || undefined,
+      bhk: this.selectedBhkList.size > 0 ? Array.from(this.selectedBhkList).join(',') : undefined,
       minRent: this.minRent || undefined,
       maxRent: this.maxRent || undefined,
-      furnishing: (this.selectedFurnishing as any) || undefined,
+      furnishing: this.selectedFurnishing || undefined,
+      availabilityStatus: this.selectedAvailability || undefined,
+      amenities: this.selectedAmenities.size > 0 ? Array.from(this.selectedAmenities).join(',') : undefined,
       sort: this.selectedSort,
       radiusKm: this.searchRadiusKm,
     };

@@ -24,6 +24,21 @@ declare const google: any;
       <!-- Map Container Element -->
       <div #mapContainer class="w-full h-full min-h-[350px]"></div>
 
+      <!-- Floating "Search this area" Button when Map is Moved (Phase 3 Requirement) -->
+      <div
+        *ngIf="showSearchThisArea"
+        class="absolute top-4 left-1/2 -translate-x-1/2 z-20 transition-all duration-300 transform animate-fade-in"
+      >
+        <button
+          (click)="onSearchThisAreaClick()"
+          type="button"
+          class="px-4 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-black rounded-full shadow-2xl border border-white/20 flex items-center gap-2 cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        >
+          <span>🔍</span>
+          <span>Search this area</span>
+        </button>
+      </div>
+
       <!-- Floating Controls: GPS My Location -->
       <div class="absolute top-3 right-3 z-10 flex flex-col gap-2">
         <button
@@ -111,12 +126,14 @@ export class GoogleMapComponent implements OnInit, OnChanges {
 
   @Output() propertyClick = new EventEmitter<Property>();
   @Output() markerHover = new EventEmitter<Property | null>();
+  @Output() searchArea = new EventEmitter<{ lat: number; lng: number; radiusKm: number }>();
 
   map: any = null;
   markers: any[] = [];
   userMarker: any = null;
   activeProperty: Property | null = null;
   isMapLoading: boolean = true;
+  showSearchThisArea: boolean = false;
 
   // Known Coordinates for Telangana & Andhra Pradesh Districts & Major Cities
   private cityCoords: Record<string, { lat: number; lng: number }> = {
@@ -175,19 +192,23 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     if (!this.map) return;
 
     if (changes['viewport'] && this.viewport) {
+      this.showSearchThisArea = false;
       const bounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(this.viewport.south, this.viewport.west),
         new google.maps.LatLng(this.viewport.north, this.viewport.east)
       );
       this.map.fitBounds(bounds);
     } else if (changes['centerCoords'] && this.centerCoords) {
+      this.showSearchThisArea = false;
       this.map.panTo(this.centerCoords);
       this.map.setZoom(13);
     } else if (changes['centerCity'] && changes['centerCity'].currentValue) {
+      this.showSearchThisArea = false;
       this.panToCity(this.centerCity);
     }
 
     if (changes['properties']) {
+      this.showSearchThisArea = false;
       this.updatePropertyMarkers();
     }
     if (changes['selectedProperty'] && this.selectedProperty) {
@@ -218,10 +239,35 @@ export class GoogleMapComponent implements OnInit, OnChanges {
         ],
       });
 
+      // Show "Search this area" button when user drags the map
+      this.map.addListener('dragend', () => {
+        this.ngZone.run(() => {
+          this.showSearchThisArea = true;
+        });
+      });
+
       this.ngZone.run(() => {
         this.isMapLoading = false;
         this.updatePropertyMarkers();
       });
+    });
+  }
+
+  public onSearchThisAreaClick(): void {
+    if (!this.map) return;
+    const center = this.map.getCenter();
+    const bounds = this.map.getBounds();
+    let radiusKm = 25;
+    if (bounds && typeof google !== 'undefined' && google.maps?.geometry?.spherical) {
+      const ne = bounds.getNorthEast();
+      const radiusMeters = google.maps.geometry.spherical.computeDistanceBetween(center, ne);
+      radiusKm = Math.min(100, Math.max(5, Math.round(radiusMeters / 1000)));
+    }
+    this.showSearchThisArea = false;
+    this.searchArea.emit({
+      lat: typeof center.lat === 'function' ? center.lat() : center.lat,
+      lng: typeof center.lng === 'function' ? center.lng() : center.lng,
+      radiusKm,
     });
   }
 
