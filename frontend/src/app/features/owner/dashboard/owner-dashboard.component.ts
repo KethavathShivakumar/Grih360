@@ -67,49 +67,61 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <app-loading-state *ngIf="isLoading" message="Calculating dashboard metrics..."></app-loading-state>
 
       <!-- Metrics Grid (Bento Style) -->
-      <div *ngIf="!isLoading && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div *ngIf="!isLoading && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <!-- Card 1: Total Properties -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Total Properties</span>
-            <span class="p-2.5 bg-slate-100 text-[#0F2937] rounded-2xl group-hover:scale-110 transition-transform">🏠</span>
+            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Properties</span>
+            <span class="p-2 bg-slate-100 text-[#0F2937] rounded-xl group-hover:scale-110 transition-transform text-sm">🏠</span>
           </div>
           <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ metrics.totalProperties }}</span>
-          <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-            View All Listings →
+          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            View All →
           </span>
         </div>
 
         <!-- Card 2: Vacant / Available -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Vacant / Available</span>
-            <span class="p-2.5 bg-emerald-50 text-emerald-700 rounded-2xl group-hover:scale-110 transition-transform">🔑</span>
+            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Vacant Homes</span>
+            <span class="p-2 bg-emerald-50 text-emerald-700 rounded-xl group-hover:scale-110 transition-transform text-sm">🔑</span>
           </div>
           <span class="text-3xl font-black text-emerald-800 mt-3 block">{{ metrics.availableProperties }}</span>
-          <span class="text-xs text-slate-400 font-semibold mt-2 block">Ready for immediate lease</span>
+          <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Available to lease</span>
         </div>
 
-        <!-- Card 3: Pending Applications -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <!-- Card 3: New Applications (Submitted) -->
+        <div (click)="navigateTo('/owner/applications')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-amber-50/40 to-white">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Pending Applicants</span>
-            <span class="p-2.5 bg-amber-50 text-amber-700 rounded-2xl group-hover:scale-110 transition-transform">📋</span>
+            <span class="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">New Applications</span>
+            <span class="p-2 bg-amber-100 text-amber-800 rounded-xl group-hover:scale-110 transition-transform text-sm">✨</span>
           </div>
-          <span class="text-3xl font-black text-amber-700 mt-3 block">{{ metrics.pendingApplications }}</span>
-          <span class="text-xs text-amber-600 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-            Review Applications →
+          <span class="text-3xl font-black text-amber-800 mt-3 block">{{ metrics.newApplications ?? 0 }}</span>
+          <span class="text-[11px] text-amber-700 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            Review Submitted →
           </span>
         </div>
 
-        <!-- Card 4: Upcoming Rent Sum -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <!-- Card 4: Pending Reviews -->
+        <div (click)="navigateTo('/owner/applications')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Rent Tracking</span>
-            <span class="p-2.5 bg-indigo-50 text-indigo-700 rounded-2xl group-hover:scale-110 transition-transform">💰</span>
+            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Pending Reviews</span>
+            <span class="p-2 bg-slate-100 text-slate-700 rounded-xl group-hover:scale-110 transition-transform text-sm">📋</span>
           </div>
-          <span class="text-2xl font-black text-[#0F2937] mt-3 block">{{ formatCurrency(metrics.upcomingRent) }}</span>
-          <span class="text-xs text-slate-400 font-semibold mt-2 block">Monthly expected rent</span>
+          <span class="text-3xl font-black text-slate-800 mt-3 block">{{ metrics.pendingApplications }}</span>
+          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            Track Pipeline →
+          </span>
+        </div>
+
+        <!-- Card 5: Upcoming Rent Sum -->
+        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Monthly Rent</span>
+            <span class="p-2 bg-indigo-50 text-indigo-700 rounded-xl group-hover:scale-110 transition-transform text-sm">💰</span>
+          </div>
+          <span class="text-xl font-black text-[#0F2937] mt-3 block">{{ formatCurrency(metrics.upcomingRent) }}</span>
+          <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Expected collection</span>
         </div>
       </div>
 

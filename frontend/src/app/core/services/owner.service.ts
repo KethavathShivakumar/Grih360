@@ -7,6 +7,7 @@ export interface OwnerDashboardMetrics {
   availableProperties: number;
   occupiedProperties: number;
   totalApplications: number;
+  newApplications?: number;
   pendingApplications: number;
   activeRentals: number;
   upcomingRent: number;

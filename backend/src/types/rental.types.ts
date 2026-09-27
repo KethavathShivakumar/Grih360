@@ -30,10 +30,21 @@ export interface IApplication {
   _id?: string;
   propertyId: string;
   tenantId: string;
+  ownerId?: string;
   status: ApplicationStatus;
+  submittedAt?: Date;
   moveInDate: Date;
   proposedRent: number;
   message?: string;
+  applicationData?: {
+    applicantName?: string;
+    applicantEmail?: string;
+    applicantPhone?: string;
+    employmentStatus?: string;
+    monthlyIncome?: number;
+    occupantsCount?: number;
+    notes?: string;
+  };
   verificationStatusAtSubmission: VerificationStatus;
   createdAt?: Date;
   updatedAt?: Date;

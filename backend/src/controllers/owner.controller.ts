@@ -22,9 +22,17 @@ export class OwnerController {
         const availableProperties = properties.filter((p: any) => p.availabilityStatus === 'VACANT').length;
         const occupiedProperties = properties.filter((p: any) => p.availabilityStatus === 'RENTED').length;
 
-        const applications = await ApplicationModel.find({ propertyId: { $in: propertyIds } }).lean();
+        const applications = await ApplicationModel.find({
+          $or: [
+            { ownerId },
+            { propertyId: { $in: propertyIds } }
+          ]
+        }).lean();
         const totalApplications = applications.length;
-        const pendingApplications = applications.filter((a: any) => a.status === 'PENDING').length;
+        const newApplications = applications.filter((a: any) => a.status === 'SUBMITTED').length;
+        const pendingApplications = applications.filter((a: any) =>
+          ['SUBMITTED', 'PENDING', 'UNDER_REVIEW', 'VERIFICATION_REQUIRED', 'VERIFICATION_PENDING', 'SHORTLISTED'].includes(a.status)
+        ).length;
 
         const rentals = await RentalModel.find({ ownerId }).lean();
         const activeRentals = rentals.filter((r: any) => r.status === 'ACTIVE').length;
@@ -43,6 +51,7 @@ export class OwnerController {
           availableProperties,
           occupiedProperties,
           totalApplications,
+          newApplications,
           pendingApplications,
           activeRentals,
           upcomingRent,
@@ -57,9 +66,12 @@ export class OwnerController {
         const availableProperties = properties.filter((p: any) => p.availabilityStatus === 'VACANT' || !p.availabilityStatus).length;
         const occupiedProperties = properties.filter((p: any) => p.availabilityStatus === 'RENTED').length;
 
-        const applications = PersistentStore.find('applications', (a: any) => propertyIds.includes(a.propertyId));
+        const applications = PersistentStore.find('applications', (a: any) => a.ownerId === ownerId || propertyIds.includes(a.propertyId));
         const totalApplications = applications.length;
-        const pendingApplications = applications.filter((a: any) => ['PENDING', 'SUBMITTED', 'UNDER_REVIEW'].includes(a.status)).length;
+        const newApplications = applications.filter((a: any) => a.status === 'SUBMITTED').length;
+        const pendingApplications = applications.filter((a: any) =>
+          ['SUBMITTED', 'PENDING', 'UNDER_REVIEW', 'VERIFICATION_REQUIRED', 'VERIFICATION_PENDING', 'SHORTLISTED'].includes(a.status)
+        ).length;
 
         const rentals = PersistentStore.find('rentals', (r: any) => r.ownerId === ownerId);
         const activeRentals = rentals.filter((r: any) => r.status === 'ACTIVE').length;
@@ -77,6 +89,7 @@ export class OwnerController {
           availableProperties,
           occupiedProperties,
           totalApplications,
+          newApplications,
           pendingApplications,
           activeRentals,
           upcomingRent,

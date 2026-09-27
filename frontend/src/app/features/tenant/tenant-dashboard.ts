@@ -185,7 +185,9 @@ export class TenantDashboardComponent implements OnInit {
     this.applicationService.getApplications().subscribe({
       next: (res: any) => {
         if (res.success && Array.isArray(res.data)) {
-          this.applicationCount = res.data.length;
+          this.applicationCount = res.data.filter((a: any) =>
+            !['REJECTED', 'WITHDRAWN'].includes(a.status)
+          ).length;
         }
       },
     });

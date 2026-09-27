@@ -429,7 +429,7 @@ export class PropertyDetailsComponent implements OnInit {
           this.isSubmittingApp = false;
           this.showAppModal = false;
           if (res.success && res.data) {
-            this.router.navigate(['/tenant/applications', res.data.id]);
+            this.router.navigate(['/tenant/applications', res.data.id || (res.data as any)._id]);
           } else {
             this.router.navigate(['/tenant/applications']);
           }

@@ -4,12 +4,16 @@ import { ApiService } from './api.service';
 
 export interface RentalApplication {
   id: string;
-  propertyId: string;
-  tenantId: string;
+  _id?: string;
+  propertyId: any;
+  tenantId: any;
+  ownerId?: string;
   status: 'DRAFT' | 'SUBMITTED' | 'PENDING' | 'UNDER_REVIEW' | 'VERIFICATION_REQUIRED' | 'VERIFICATION_PENDING' | 'SHORTLISTED' | 'APPROVED' | 'REJECTED' | 'WITHDRAWN';
   moveInDate: string;
   proposedRent: number;
   message?: string;
+  applicationData?: any;
+  submittedAt?: string;
   verificationStatusAtSubmission: string;
   createdAt?: string;
   updatedAt?: string;

@@ -52,6 +52,7 @@ import { AdminPropertiesComponent } from './features/admin/properties/admin-prop
 import { AdminApplicationsComponent } from './features/admin/applications/admin-applications.component';
 import { AdminRentalsComponent } from './features/admin/rentals/admin-rentals.component';
 import { AdminVerificationsComponent } from './features/admin/admin-verifications/admin-verifications.component';
+import { AdminVerificationDetailsComponent } from './features/admin/admin-verifications/admin-verification-details.component';
 import { AdminServicesComponent } from './features/admin/admin-services/admin-services.component';
 import { AdminProfessionalsComponent } from './features/admin/admin-professionals/admin-professionals.component';
 import { AdminNotificationsComponent } from './features/admin/notifications/admin-notifications.component';
@@ -84,6 +85,7 @@ export const routes: Routes = [
       { path: 'applications', component: TenantApplicationsComponent },
       { path: 'applications/:id', component: ApplicationDetailsComponent },
       { path: 'applications/:id/verification', component: TenantVerificationComponent },
+      { path: 'verification/:applicationId', component: TenantVerificationComponent },
       { path: 'verification', component: TenantVerificationComponent },
       { path: 'rental', component: TenantCurrentRentalComponent },
       { path: 'rentals', component: TenantCurrentRentalComponent },
@@ -117,6 +119,8 @@ export const routes: Routes = [
       { path: 'properties/:id/tenant', component: OwnerTenantDetailsComponent },
       { path: 'properties/:id/rental', component: OwnerRentalDetailsComponent },
       { path: 'properties/:id/rent', component: OwnerRentTrackingComponent },
+      { path: 'applications', component: OwnerApplicantsComponent },
+      { path: 'applications/:id', component: ApplicantDetailsComponent },
       { path: 'applicants', component: OwnerApplicantsComponent },
       { path: 'profile', component: OwnerProfileComponent },
       { path: 'notifications', component: OwnerNotificationsComponent },
@@ -159,7 +163,7 @@ export const routes: Routes = [
       { path: 'rentals/:id', component: AdminRentalsComponent },
       { path: 'verification', component: AdminVerificationsComponent },
       { path: 'verifications', component: AdminVerificationsComponent },
-      { path: 'verifications/:id', component: AdminVerificationsComponent },
+      { path: 'verifications/:id', component: AdminVerificationDetailsComponent },
 
       { path: 'services', component: AdminServicesComponent },
       { path: 'services/requests', component: AdminServicesComponent },

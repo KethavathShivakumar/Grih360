@@ -62,7 +62,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <div *ngIf="!isLoading && !isError && applications.length > 0" class="space-y-4">
         <div
           *ngFor="let app of applications"
-          (click)="viewApplicationDetails(app.id)"
+          (click)="viewApplicationDetails(app.id || app._id || '')"
           class="bento-card bg-white p-5 border border-[#E8E6DF] hover:border-[#2D7A5E] transition-all cursor-pointer flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
         >
           <div class="flex items-center space-x-4">
@@ -93,7 +93,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <span class="text-xs font-bold text-slate-700">{{ app.moveInDate | date: 'mediumDate' }}</span>
             </div>
             <button
-              (click)="viewApplicationDetails(app.id); $event.stopPropagation()"
+              (click)="viewApplicationDetails(app.id || app._id || ''); $event.stopPropagation()"
               type="button"
               class="px-3 py-1.5 bg-slate-100 hover:bg-[#2D7A5E] hover:text-white text-slate-700 text-xs font-bold rounded-md transition-colors"
             >

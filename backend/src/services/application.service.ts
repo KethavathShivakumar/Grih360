@@ -1,4 +1,4 @@
-import { ApplicationModel, PropertyModel } from '../models';
+import { ApplicationModel, PropertyModel, UserModel } from '../models';
 import { RentalService } from './rental.service';
 import { AgreementService } from './agreement.service';
 import { NotificationService } from './notification.service';
@@ -10,6 +10,10 @@ export interface SubmitApplicationInput {
   proposedRent: number;
   moveInDate: Date | string;
   message?: string;
+  occupantsCount?: number;
+  employmentStatus?: string;
+  monthlyIncome?: number;
+  notes?: string;
 }
 
 import { PersistentStore } from '../config/persistent-store';
@@ -28,7 +32,7 @@ const ALLOWED_TRANSITIONS: Record<string, string[]> = {
   SUBMITTED: ['UNDER_REVIEW', 'VERIFICATION_REQUIRED', 'VERIFICATION_PENDING', 'SHORTLISTED', 'APPROVED', 'REJECTED', 'WITHDRAWN'],
   PENDING: ['UNDER_REVIEW', 'VERIFICATION_REQUIRED', 'VERIFICATION_PENDING', 'SHORTLISTED', 'APPROVED', 'REJECTED', 'WITHDRAWN'],
   UNDER_REVIEW: ['VERIFICATION_REQUIRED', 'VERIFICATION_PENDING', 'SHORTLISTED', 'APPROVED', 'REJECTED', 'WITHDRAWN'],
-  VERIFICATION_REQUIRED: ['VERIFICATION_PENDING', 'WITHDRAWN'],
+  VERIFICATION_REQUIRED: ['VERIFICATION_PENDING', 'UNDER_REVIEW', 'SHORTLISTED', 'APPROVED', 'REJECTED', 'WITHDRAWN'],
   VERIFICATION_PENDING: ['UNDER_REVIEW', 'SHORTLISTED', 'APPROVED', 'REJECTED', 'WITHDRAWN'],
   SHORTLISTED: ['APPROVED', 'REJECTED', 'WITHDRAWN'],
   APPROVED: [], // Terminal state
@@ -64,28 +68,46 @@ export class ApplicationService {
         throw { statusCode: 409, code: 'APPLICATION_EXISTS', message: 'You already have an active application for this property' };
       }
 
+      // 3. Retrieve Tenant Profile Details for application data snapshot
+      const tenantUser = await UserModel.findById(tenantId).lean();
+      const applicantName = tenantUser?.name || 'Verified Tenant';
+      const applicantEmail = tenantUser?.email || '';
+      const applicantPhone = tenantUser?.phone || '';
+      const verificationStatus = (tenantUser as any)?.identityVerificationStatus || 'NOT_STARTED';
+
       const application = await ApplicationModel.create({
         propertyId: input.propertyId,
         tenantId,
+        ownerId: property.ownerId,
         status: 'SUBMITTED',
+        submittedAt: new Date(),
         moveInDate: new Date(input.moveInDate),
         proposedRent: Number(input.proposedRent),
         message: input.message ? input.message.trim() : undefined,
-        verificationStatusAtSubmission: 'NOT_STARTED',
+        applicationData: {
+          applicantName,
+          applicantEmail,
+          applicantPhone,
+          employmentStatus: input.employmentStatus || 'Employed',
+          monthlyIncome: input.monthlyIncome || Number(input.proposedRent) * 3,
+          occupantsCount: input.occupantsCount || 1,
+          notes: input.notes,
+        },
+        verificationStatusAtSubmission: verificationStatus,
       });
 
-      // Notify Property Owner
+      // 4. Notify Property Owner
       await NotificationService.createNotification({
         recipientId: property.ownerId.toString(),
         title: 'New Rental Application',
-        message: `A new application has been submitted for property: ${property.title}`,
+        message: `A new application has been submitted by ${applicantName} for property: ${property.title}`,
         type: 'APPLICATION',
-        link: `/owner/properties/${property._id}/applicants/${application._id}`,
+        link: `/owner/applications/${application._id}`,
       });
 
       return application;
     } else {
-      const property = memoryProperties.get(input.propertyId);
+      const property = memoryProperties.get(input.propertyId) || PersistentStore.findById('properties', input.propertyId);
       if (property && property.availabilityStatus && property.availabilityStatus !== 'VACANT') {
         throw { statusCode: 400, code: 'PROPERTY_UNAVAILABLE', message: 'This property is no longer available for rent' };
       }
@@ -98,17 +120,34 @@ export class ApplicationService {
         throw { statusCode: 409, code: 'APPLICATION_EXISTS', message: 'You already have an active application for this property' };
       }
 
+      const tenantUser = PersistentStore.findById('users', tenantId);
+      const applicantName = tenantUser?.name || 'Verified Tenant';
+      const applicantEmail = tenantUser?.email || '';
+      const applicantPhone = tenantUser?.phone || '';
+      const verificationStatus = tenantUser?.identityVerificationStatus || 'NOT_STARTED';
+
       const id = 'app_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
       const appDoc = {
         _id: id,
         id,
         propertyId: input.propertyId,
         tenantId,
+        ownerId: property?.ownerId || 'mem_owner',
         status: 'SUBMITTED',
+        submittedAt: new Date(),
         moveInDate: new Date(input.moveInDate),
         proposedRent: Number(input.proposedRent),
         message: input.message ? input.message.trim() : undefined,
-        verificationStatusAtSubmission: 'NOT_STARTED',
+        applicationData: {
+          applicantName,
+          applicantEmail,
+          applicantPhone,
+          employmentStatus: input.employmentStatus || 'Employed',
+          monthlyIncome: input.monthlyIncome || Number(input.proposedRent) * 3,
+          occupantsCount: input.occupantsCount || 1,
+          notes: input.notes,
+        },
+        verificationStatusAtSubmission: verificationStatus,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -119,8 +158,9 @@ export class ApplicationService {
         await NotificationService.createNotification({
           recipientId: property.ownerId || 'mem_owner',
           title: 'New Rental Application',
-          message: `A new application has been submitted for property: ${property.title || 'Listing'}`,
+          message: `A new application has been submitted by ${applicantName} for property: ${property.title || 'Listing'}`,
           type: 'APPLICATION',
+          link: `/owner/applications/${id}`,
         });
       }
 
@@ -140,7 +180,12 @@ export class ApplicationService {
       const ownerProperties = await PropertyModel.find({ ownerId: userId }).select('_id');
       const propertyIds = ownerProperties.map((p) => p._id);
 
-      return ApplicationModel.find({ propertyId: { $in: propertyIds } })
+      return ApplicationModel.find({
+        $or: [
+          { ownerId: userId },
+          { propertyId: { $in: propertyIds } }
+        ]
+      })
         .populate('tenantId', 'name email phone identityVerificationStatus')
         .populate('propertyId')
         .sort({ createdAt: -1 })
@@ -158,7 +203,7 @@ export class ApplicationService {
       if (role === 'OWNER') {
         const ownerProps = PersistentStore.find('properties', (p: any) => p.ownerId === userId);
         const ownerPropIds = ownerProps.map((p: any) => p._id || p.id);
-        const ownerApps = allApps.filter((a: any) => ownerPropIds.includes(a.propertyId));
+        const ownerApps = allApps.filter((a: any) => a.ownerId === userId || ownerPropIds.includes(a.propertyId));
         return ownerApps.map((a: any) => ({
           ...a,
           tenantId: PersistentStore.findById('users', a.tenantId) || { name: 'Verified Applicant', email: '', phone: '' },
@@ -190,7 +235,10 @@ export class ApplicationService {
       }
 
       const tenantIdStr = (application.tenantId as any)?._id?.toString() || (application.tenantId as any)?.toString();
-      const propertyOwnerIdStr = (application.propertyId as any)?.ownerId?._id?.toString() || (application.propertyId as any)?.ownerId?.toString();
+      const propertyOwnerIdStr = (application.propertyId as any)?.ownerId?._id?.toString() 
+        || (application.propertyId as any)?.ownerId?.toString()
+        || (application.ownerId as any)?._id?.toString()
+        || (application.ownerId as any)?.toString();
 
       if (role !== 'ADMIN' && tenantIdStr !== userId && propertyOwnerIdStr !== userId) {
         throw { statusCode: 403, code: 'FORBIDDEN', message: 'You do not have authorization to view this application' };
@@ -202,15 +250,18 @@ export class ApplicationService {
       if (!application) {
         throw { statusCode: 404, code: 'APPLICATION_NOT_FOUND', message: 'Application record not found' };
       }
-      const property = memoryProperties.get(application.propertyId);
-      const ownerId = property?.ownerId || 'mem_owner';
+      const property = memoryProperties.get(application.propertyId) || PersistentStore.findById('properties', application.propertyId);
+      const ownerId = application.ownerId || property?.ownerId || 'mem_owner';
 
       if (role !== 'ADMIN' && application.tenantId !== userId && ownerId !== userId) {
         throw { statusCode: 403, code: 'FORBIDDEN', message: 'You do not have authorization to view this application' };
       }
 
+      const tenant = PersistentStore.findById('users', application.tenantId) || { name: 'Verified Applicant', email: '', phone: '' };
+
       return {
         ...application,
+        tenantId: tenant,
         propertyId: property || { _id: application.propertyId, id: application.propertyId, ownerId },
       };
     }
@@ -225,7 +276,7 @@ export class ApplicationService {
 
       const property = application.propertyId as any;
       const tenantIdStr = application.tenantId.toString();
-      const ownerIdStr = property.ownerId.toString();
+      const ownerIdStr = (property?.ownerId || application.ownerId)?.toString();
 
       // Authorization check: Tenant can withdraw own app; Owner/Admin can transition other statuses
       if (newStatus === 'WITHDRAWN') {
@@ -252,7 +303,27 @@ export class ApplicationService {
       application.status = newStatus as any;
       await application.save();
 
-      if (newStatus === 'APPROVED') {
+      // Real Notifications based on state transitions
+      const propTitle = property?.title || 'Listing';
+      const appId = application._id.toString();
+
+      if (newStatus === 'UNDER_REVIEW') {
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Application Under Review',
+          message: `Your application for ${propTitle} is now under review by the property owner.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications/${appId}`,
+        });
+      } else if (newStatus === 'VERIFICATION_REQUIRED') {
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Verification Required',
+          message: `The owner has requested identity and background verification for ${propTitle}.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications/${appId}/verification`,
+        });
+      } else if (newStatus === 'APPROVED') {
         const rentalDoc = await RentalService.createOrUpdateRentalFromApplication(application);
         if (rentalDoc) {
           await AgreementService.createAgreement({
@@ -265,16 +336,28 @@ export class ApplicationService {
         await NotificationService.createNotification({
           recipientId: tenantIdStr,
           title: 'Application Approved!',
-          message: `Your application for ${property.title} has been approved. Please review the rental agreement.`,
+          message: `Congratulations! Your application for ${propTitle} has been approved. Please review your rental agreement.`,
           type: 'APPLICATION',
+          link: `/tenant/applications/${appId}`,
         });
       } else if (newStatus === 'REJECTED') {
         await NotificationService.createNotification({
           recipientId: tenantIdStr,
           title: 'Application Update',
-          message: `Your application for ${property.title} was not approved.`,
+          message: `Your application for ${propTitle} was not approved.`,
           type: 'APPLICATION',
+          link: `/tenant/applications/${appId}`,
         });
+      } else if (newStatus === 'WITHDRAWN') {
+        if (ownerIdStr) {
+          await NotificationService.createNotification({
+            recipientId: ownerIdStr,
+            title: 'Application Withdrawn',
+            message: `The applicant has withdrawn their rental application for ${propTitle}.`,
+            type: 'APPLICATION',
+            link: `/owner/applications`,
+          });
+        }
       }
 
       return application;
@@ -283,9 +366,9 @@ export class ApplicationService {
       if (!application) {
         throw { statusCode: 404, code: 'APPLICATION_NOT_FOUND', message: 'Application record not found' };
       }
-      const property = memoryProperties.get(application.propertyId);
-      const ownerIdStr = property?.ownerId || 'mem_owner';
-      const tenantIdStr = application.tenantId;
+      const property = memoryProperties.get(application.propertyId) || PersistentStore.findById('properties', application.propertyId);
+      const ownerIdStr = (application.ownerId || property?.ownerId || 'mem_owner').toString();
+      const tenantIdStr = application.tenantId.toString();
 
       if (newStatus === 'WITHDRAWN') {
         if (role !== 'ADMIN' && tenantIdStr !== userId) {
@@ -308,10 +391,30 @@ export class ApplicationService {
       }
 
       application.status = newStatus;
+      application.updatedAt = new Date();
       memoryApplications.set(applicationId, application);
-      PersistentStore.update('applications', applicationId, { status: newStatus });
+      PersistentStore.update('applications', applicationId, { status: newStatus, updatedAt: application.updatedAt });
 
-      if (newStatus === 'APPROVED') {
+      const propTitle = property?.title || 'Listing';
+      const appId = application._id || application.id;
+
+      if (newStatus === 'UNDER_REVIEW') {
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Application Under Review',
+          message: `Your application for ${propTitle} is now under review by the property owner.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications/${appId}`,
+        });
+      } else if (newStatus === 'VERIFICATION_REQUIRED') {
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Verification Required',
+          message: `The owner has requested identity and background verification for ${propTitle}.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications/${appId}/verification`,
+        });
+      } else if (newStatus === 'APPROVED') {
         const rentalDoc = await RentalService.createOrUpdateRentalFromApplication(application);
         if (rentalDoc) {
           await AgreementService.createAgreement({
@@ -324,8 +427,25 @@ export class ApplicationService {
         await NotificationService.createNotification({
           recipientId: tenantIdStr,
           title: 'Application Approved!',
-          message: 'Your application has been approved. Please review the rental agreement.',
+          message: `Congratulations! Your application for ${propTitle} has been approved. Please review your rental agreement.`,
           type: 'APPLICATION',
+          link: `/tenant/applications/${appId}`,
+        });
+      } else if (newStatus === 'REJECTED') {
+        await NotificationService.createNotification({
+          recipientId: tenantIdStr,
+          title: 'Application Update',
+          message: `Your application for ${propTitle} was not approved.`,
+          type: 'APPLICATION',
+          link: `/tenant/applications/${appId}`,
+        });
+      } else if (newStatus === 'WITHDRAWN') {
+        await NotificationService.createNotification({
+          recipientId: ownerIdStr,
+          title: 'Application Withdrawn',
+          message: `The applicant has withdrawn their rental application for ${propTitle}.`,
+          type: 'APPLICATION',
+          link: `/owner/applications`,
         });
       }
 
