@@ -1,4 +1,4 @@
-import { PropertyModel, SavedPropertyModel } from '../models';
+import { PropertyModel, SavedPropertyModel, UserModel } from '../models';
 import { MoneyUtil } from '../utils/money.util';
 import mongoose from 'mongoose';
 
@@ -1299,10 +1299,14 @@ export class PropertyService {
       },
     ];
 
-    const ownerUser = PersistentStore.findOne('users', (u: any) => u.role === 'OWNER');
-    const ownerId = ownerUser ? (ownerUser._id || ownerUser.id) : 'usr_owner_1790428482726';
-
+    let ownerId: any;
     if (PropertyService.isMongoConnected()) {
+      let mongoOwner = await UserModel.findOne({ role: 'OWNER' });
+      if (!mongoOwner) {
+        mongoOwner = await UserModel.findOne();
+      }
+      ownerId = mongoOwner ? mongoOwner._id : new mongoose.Types.ObjectId();
+
       for (const p of defaultProperties) {
         const geoPoint = {
           type: 'Point',
@@ -1325,6 +1329,8 @@ export class PropertyService {
       }
       console.log('[PropertyService] Default Telangana & AP properties seeded/updated in MongoDB.');
     } else {
+      const ownerUser = PersistentStore.findOne('users', (u: any) => u.role === 'OWNER');
+      ownerId = ownerUser ? (ownerUser._id || ownerUser.id) : 'usr_owner_1790428482726';
       for (const p of defaultProperties) {
         const geoPoint = {
           type: 'Point',
