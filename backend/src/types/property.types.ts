@@ -19,13 +19,21 @@ export type AvailabilityStatus =
 export interface LocationData {
   address: string;
   city: string;
+  district?: string;
   state: string;
+  country?: string;
   pincode: string;
   locality?: string;
+  sublocality?: string;
   landmark?: string;
+  placeId?: string;
   coordinates?: {
     lat: number;
     lng: number;
+  };
+  geoPoint?: {
+    type: 'Point';
+    coordinates: [number, number]; // [lng, lat]
   };
 }
 

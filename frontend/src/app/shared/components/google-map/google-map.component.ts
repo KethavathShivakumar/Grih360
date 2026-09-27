@@ -106,6 +106,8 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   @Input() properties: Property[] = [];
   @Input() selectedProperty: Property | null = null;
   @Input() centerCity: string = 'Hyderabad';
+  @Input() centerCoords: { lat: number; lng: number } | null = null;
+  @Input() viewport: { north: number; south: number; east: number; west: number } | null = null;
 
   @Output() propertyClick = new EventEmitter<Property>();
   @Output() markerHover = new EventEmitter<Property | null>();
@@ -116,16 +118,51 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   activeProperty: Property | null = null;
   isMapLoading: boolean = true;
 
-  // Known Coordinates for Telangana & Andhra Pradesh Cities
+  // Known Coordinates for Telangana & Andhra Pradesh Districts & Major Cities
   private cityCoords: Record<string, { lat: number; lng: number }> = {
     hyderabad: { lat: 17.385, lng: 78.4867 },
-    warangal: { lat: 17.9689, lng: 79.5941 },
-    hanamkonda: { lat: 18.0076, lng: 79.575 },
-    kazipet: { lat: 17.9818, lng: 79.5222 },
-    vijayawada: { lat: 16.5062, lng: 80.648 },
-    visakhapatnam: { lat: 17.6868, lng: 83.2185 },
     gachibowli: { lat: 17.4401, lng: 78.3489 },
     madhapur: { lat: 17.4474, lng: 78.3762 },
+    kondapur: { lat: 17.4622, lng: 78.3568 },
+    'banjara hills': { lat: 17.4156, lng: 78.4357 },
+    warangal: { lat: 17.9689, lng: 79.5941 },
+    hanamkonda: { lat: 18.0076, lng: 79.575 },
+    subedari: { lat: 17.9942, lng: 79.5638 },
+    nakkalagutta: { lat: 18.0076, lng: 79.575 },
+    kazipet: { lat: 17.9818, lng: 79.5222 },
+    'hunter road': { lat: 17.9622, lng: 79.5885 },
+    mahabubnagar: { lat: 16.7488, lng: 77.9942 },
+    'christian pally': { lat: 16.742, lng: 78.0012 },
+    'raichur road': { lat: 16.735, lng: 77.985 },
+    nalgonda: { lat: 17.0575, lng: 79.2684 },
+    'clock tower center': { lat: 17.054, lng: 79.267 },
+    ramagiri: { lat: 17.062, lng: 79.273 },
+    karimnagar: { lat: 18.4386, lng: 79.1288 },
+    'collectorate road': { lat: 18.441, lng: 79.132 },
+    mukarrampura: { lat: 18.435, lng: 79.124 },
+    khammam: { lat: 17.2473, lng: 80.1514 },
+    'wyra road': { lat: 17.251, lng: 80.155 },
+    'rotary nagar': { lat: 17.243, lng: 80.147 },
+    nizamabad: { lat: 18.6725, lng: 78.0941 },
+    khaleelwadi: { lat: 18.675, lng: 78.098 },
+    'subhash nagar': { lat: 18.669, lng: 78.091 },
+    vijayawada: { lat: 16.5062, lng: 80.648 },
+    'benz circle': { lat: 16.5012, lng: 80.6436 },
+    'mg road': { lat: 16.5085, lng: 80.651 },
+    guntur: { lat: 16.3067, lng: 80.4365 },
+    lakshmipuram: { lat: 16.312, lng: 80.441 },
+    brodipet: { lat: 16.303, lng: 80.435 },
+    visakhapatnam: { lat: 17.6868, lng: 83.2185 },
+    'beach road': { lat: 17.7164, lng: 83.3189 },
+    'mvp colony': { lat: 17.7412, lng: 83.3341 },
+    tirupati: { lat: 13.6288, lng: 79.4192 },
+    'air bypass road': { lat: 13.632, lng: 79.421 },
+    'mr palli': { lat: 13.621, lng: 79.412 },
+    kurnool: { lat: 15.8281, lng: 78.0373 },
+    nellore: { lat: 14.4426, lng: 79.9865 },
+    anantapur: { lat: 14.6819, lng: 77.6006 },
+    kakinada: { lat: 16.9891, lng: 82.2475 },
+    rajahmundry: { lat: 17.0005, lng: 81.804 },
   };
 
   constructor(private ngZone: NgZone) {}
@@ -135,14 +172,26 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['properties'] && this.map) {
+    if (!this.map) return;
+
+    if (changes['viewport'] && this.viewport) {
+      const bounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(this.viewport.south, this.viewport.west),
+        new google.maps.LatLng(this.viewport.north, this.viewport.east)
+      );
+      this.map.fitBounds(bounds);
+    } else if (changes['centerCoords'] && this.centerCoords) {
+      this.map.panTo(this.centerCoords);
+      this.map.setZoom(13);
+    } else if (changes['centerCity'] && changes['centerCity'].currentValue) {
+      this.panToCity(this.centerCity);
+    }
+
+    if (changes['properties']) {
       this.updatePropertyMarkers();
     }
     if (changes['selectedProperty'] && this.selectedProperty) {
       this.highlightProperty(this.selectedProperty);
-    }
-    if (changes['centerCity'] && changes['centerCity'].currentValue && this.map) {
-      this.panToCity(this.centerCity);
     }
   }
 

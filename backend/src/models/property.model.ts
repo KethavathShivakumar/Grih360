@@ -58,13 +58,21 @@ const PropertySchema = new Schema<IPropertyDocument>(
     propertyLocation: {
       address: { type: String, required: true },
       city: { type: String, required: true, index: true },
-      state: { type: String, required: true },
+      district: { type: String, index: true },
+      state: { type: String, required: true, index: true },
+      country: { type: String, default: 'India', index: true },
       pincode: { type: String, required: true },
-      locality: { type: String },
+      locality: { type: String, index: true },
+      sublocality: { type: String, index: true },
       landmark: { type: String },
+      placeId: { type: String, index: true },
       coordinates: {
         lat: { type: Number },
         lng: { type: Number },
+      },
+      geoPoint: {
+        type: { type: String, enum: ['Point'], default: 'Point' },
+        coordinates: { type: [Number], default: undefined }, // [lng, lat]
       },
     },
     images: [
@@ -102,5 +110,7 @@ const PropertySchema = new Schema<IPropertyDocument>(
 );
 
 PropertySchema.index({ 'propertyLocation.city': 1, propertyType: 1, rentAmount: 1 });
+PropertySchema.index({ 'propertyLocation.state': 1, 'propertyLocation.district': 1, 'propertyLocation.city': 1 });
+PropertySchema.index({ 'propertyLocation.geoPoint': '2dsphere' });
 
 export const PropertyModel = model<IPropertyDocument>('Property', PropertySchema);

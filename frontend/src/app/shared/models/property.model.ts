@@ -19,13 +19,21 @@ export type AvailabilityStatus =
 export interface PropertyLocation {
   address: string;
   city: string;
+  district?: string;
   state: string;
+  country?: string;
   pincode: string;
   locality?: string;
+  sublocality?: string;
   landmark?: string;
+  placeId?: string;
   coordinates?: {
     lat: number;
     lng: number;
+  };
+  geoPoint?: {
+    type: 'Point';
+    coordinates: [number, number];
   };
 }
 
@@ -59,15 +67,25 @@ export interface Property {
 }
 
 export interface PropertyFilter {
+  state?: string;
+  district?: string;
   city?: string;
   locality?: string;
+  sublocality?: string;
+  placeId?: string;
   searchLocation?: string;
+  search?: string;
+  lat?: number;
+  lng?: number;
+  radiusKm?: number;
   minRent?: number;
   maxRent?: number;
   bhk?: number;
   propertyType?: PropertyType;
   furnishing?: FurnishingType;
   sort?: string;
+  page?: number;
+  limit?: number;
   [key: string]: any;
 }
 

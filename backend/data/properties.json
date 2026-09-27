@@ -12,13 +12,23 @@
     "propertyLocation": {
       "address": "Tower 4, My Home Bhooja, Financial District",
       "locality": "Gachibowli",
+      "sublocality": "Financial District",
       "city": "Hyderabad",
+      "district": "Hyderabad",
       "state": "Telangana",
+      "country": "India",
       "pincode": "500032",
       "landmark": "Opposite Bio-Diversity Park",
       "coordinates": {
         "lat": 17.4401,
         "lng": 78.3489
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          78.3489,
+          17.4401
+        ]
       }
     },
     "amenities": [
@@ -44,13 +54,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_1",
-    "id": "prop_seed_1",
+    "_id": "prop_seed_gachibowli",
+    "id": "prop_seed_gachibowli",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹42,000/mo",
     "formattedDeposit": "₹84,000",
-    "createdAt": "2026-09-26T13:14:43.187Z",
-    "updatedAt": "2026-09-26T13:14:43.187Z"
+    "createdAt": "2026-09-27T05:29:28.897Z",
+    "updatedAt": "2026-09-27T05:29:28.897Z"
   },
   {
     "title": "2 BHK Luxury Furnished Flat near Cyber Towers",
@@ -65,13 +75,23 @@
     "propertyLocation": {
       "address": "Plot 18, Silicon Valley Enclave, Madhapur Road",
       "locality": "Hitec City",
+      "sublocality": "Madhapur",
       "city": "Hyderabad",
+      "district": "Rangareddy",
       "state": "Telangana",
+      "country": "India",
       "pincode": "500081",
       "landmark": "Near Cyber Towers Metro Station",
       "coordinates": {
         "lat": 17.4474,
         "lng": 78.3762
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          78.3762,
+          17.4474
+        ]
       }
     },
     "amenities": [
@@ -96,13 +116,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_2",
-    "id": "prop_seed_2",
+    "_id": "prop_seed_hitec_city",
+    "id": "prop_seed_hitec_city",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹32,000/mo",
     "formattedDeposit": "₹64,000",
-    "createdAt": "2026-09-26T13:14:43.188Z",
-    "updatedAt": "2026-09-26T13:14:43.188Z"
+    "createdAt": "2026-09-27T05:29:28.901Z",
+    "updatedAt": "2026-09-27T05:29:28.901Z"
   },
   {
     "title": "4 BHK Independent Luxury Villa in Banjara Hills Road No. 12",
@@ -117,13 +137,23 @@
     "propertyLocation": {
       "address": "Road No. 12, MLA Colony, Banjara Hills",
       "locality": "Banjara Hills",
+      "sublocality": "Road No. 12",
       "city": "Hyderabad",
+      "district": "Hyderabad",
       "state": "Telangana",
+      "country": "India",
       "pincode": "500034",
       "landmark": "Near KBR Park Gate",
       "coordinates": {
         "lat": 17.4156,
         "lng": 78.4357
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          78.4357,
+          17.4156
+        ]
       }
     },
     "amenities": [
@@ -148,13 +178,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_3",
-    "id": "prop_seed_3",
+    "_id": "prop_seed_banjara_hills",
+    "id": "prop_seed_banjara_hills",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹75,000/mo",
     "formattedDeposit": "₹2,00,000",
-    "createdAt": "2026-09-26T13:14:43.189Z",
-    "updatedAt": "2026-09-26T13:14:43.189Z"
+    "createdAt": "2026-09-27T05:29:28.903Z",
+    "updatedAt": "2026-09-27T05:29:28.903Z"
   },
   {
     "title": "3 BHK Semi-Furnished Flat near Botanical Garden",
@@ -169,13 +199,23 @@
     "propertyLocation": {
       "address": "Block C, Sri Ram Heights, Raghavendra Colony",
       "locality": "Kondapur",
+      "sublocality": "Raghavendra Colony",
       "city": "Hyderabad",
+      "district": "Rangareddy",
       "state": "Telangana",
+      "country": "India",
       "pincode": "500084",
       "landmark": "Opposite Botanical Garden Gate 2",
       "coordinates": {
         "lat": 17.4622,
         "lng": 78.3568
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          78.3568,
+          17.4622
+        ]
       }
     },
     "amenities": [
@@ -200,13 +240,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_4",
-    "id": "prop_seed_4",
+    "_id": "prop_seed_kondapur",
+    "id": "prop_seed_kondapur",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹34,000/mo",
     "formattedDeposit": "₹68,000",
-    "createdAt": "2026-09-26T13:14:43.190Z",
-    "updatedAt": "2026-09-26T13:14:43.190Z"
+    "createdAt": "2026-09-27T05:29:28.905Z",
+    "updatedAt": "2026-09-27T05:29:28.905Z"
   },
   {
     "title": "3 BHK Independent Builder Floor in Subedari, Hanamkonda",
@@ -221,13 +261,23 @@
     "propertyLocation": {
       "address": "House No. 2-5-184, Subedari Main Road",
       "locality": "Subedari",
+      "sublocality": "Hanamkonda",
       "city": "Warangal",
+      "district": "Warangal",
       "state": "Telangana",
+      "country": "India",
       "pincode": "506001",
       "landmark": "Near Kakatiya University Cross Road",
       "coordinates": {
         "lat": 17.9942,
         "lng": 79.5638
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.5638,
+          17.9942
+        ]
       }
     },
     "amenities": [
@@ -251,13 +301,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_5",
-    "id": "prop_seed_5",
+    "_id": "prop_seed_subedari",
+    "id": "prop_seed_subedari",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹16,500/mo",
     "formattedDeposit": "₹33,000",
-    "createdAt": "2026-09-26T13:14:43.192Z",
-    "updatedAt": "2026-09-26T13:14:43.192Z"
+    "createdAt": "2026-09-27T05:29:28.907Z",
+    "updatedAt": "2026-09-27T05:29:28.907Z"
   },
   {
     "title": "2 BHK Premium Apartment in Nakkalagutta",
@@ -272,13 +322,23 @@
     "propertyLocation": {
       "address": "Flat 204, Balaji Residency, Nakkalagutta",
       "locality": "Nakkalagutta",
+      "sublocality": "Hanamkonda",
       "city": "Warangal",
+      "district": "Warangal",
       "state": "Telangana",
+      "country": "India",
       "pincode": "506001",
       "landmark": "Near Asian Sridevi Mall",
       "coordinates": {
         "lat": 18.0076,
         "lng": 79.575
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.575,
+          18.0076
+        ]
       }
     },
     "amenities": [
@@ -297,13 +357,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_6",
-    "id": "prop_seed_6",
+    "_id": "prop_seed_nakkalagutta",
+    "id": "prop_seed_nakkalagutta",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹13,500/mo",
     "formattedDeposit": "₹27,000",
-    "createdAt": "2026-09-26T13:14:43.193Z",
-    "updatedAt": "2026-09-26T13:14:43.193Z"
+    "createdAt": "2026-09-27T05:29:28.909Z",
+    "updatedAt": "2026-09-27T05:29:28.909Z"
   },
   {
     "title": "2 BHK Independent House near Kazipet Railway Station",
@@ -318,13 +378,23 @@
     "propertyLocation": {
       "address": "Quarter Lane 4, Railway Officers Colony",
       "locality": "Kazipet",
+      "sublocality": "Railway Colony",
       "city": "Warangal",
+      "district": "Warangal",
       "state": "Telangana",
+      "country": "India",
       "pincode": "506003",
       "landmark": "500m from Kazipet Railway Junction",
       "coordinates": {
         "lat": 17.9818,
         "lng": 79.5222
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.5222,
+          17.9818
+        ]
       }
     },
     "amenities": [
@@ -342,13 +412,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_7",
-    "id": "prop_seed_7",
+    "_id": "prop_seed_kazipet",
+    "id": "prop_seed_kazipet",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹11,000/mo",
     "formattedDeposit": "₹22,000",
-    "createdAt": "2026-09-26T13:14:43.196Z",
-    "updatedAt": "2026-09-26T13:14:43.196Z"
+    "createdAt": "2026-09-27T05:29:28.910Z",
+    "updatedAt": "2026-09-27T05:29:28.910Z"
   },
   {
     "title": "3 BHK Gated Villa near NIT Warangal",
@@ -363,13 +433,23 @@
     "propertyLocation": {
       "address": "Villa 12, Kakatiya Enclave, Hunter Road",
       "locality": "Hunter Road",
+      "sublocality": "NIT Hub",
       "city": "Warangal",
+      "district": "Warangal",
       "state": "Telangana",
+      "country": "India",
       "pincode": "506002",
       "landmark": "Near NIT Warangal Campus",
       "coordinates": {
         "lat": 17.9622,
         "lng": 79.5885
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.5885,
+          17.9622
+        ]
       }
     },
     "amenities": [
@@ -388,13 +468,346 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_8",
-    "id": "prop_seed_8",
+    "_id": "prop_seed_hunter_road",
+    "id": "prop_seed_hunter_road",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹22,000/mo",
     "formattedDeposit": "₹50,000",
-    "createdAt": "2026-09-26T13:14:43.198Z",
-    "updatedAt": "2026-09-26T13:14:43.198Z"
+    "createdAt": "2026-09-27T05:29:28.912Z",
+    "updatedAt": "2026-09-27T05:29:28.912Z"
+  },
+  {
+    "title": "2 BHK Independent House in Christian Pally, Mahabubnagar",
+    "description": "Independent family home in quiet residential sector of Christian Pally. Walking distance to schools, markets, and district hospital. Dedicated two-wheeler and car parking with sweet municipal water.",
+    "propertyType": "INDEPENDENT_HOUSE",
+    "rentAmount": 11500,
+    "depositAmount": 23000,
+    "bhk": 2,
+    "bathrooms": 2,
+    "areaSqFt": 1150,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Plot 42, Teachers Colony, Christian Pally",
+      "locality": "Christian Pally",
+      "sublocality": "Teachers Colony",
+      "city": "Mahabubnagar",
+      "district": "Mahabubnagar",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "509001",
+      "landmark": "Near Christian Pally Church",
+      "coordinates": {
+        "lat": 16.742,
+        "lng": 78.0012
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          78.0012,
+          16.742
+        ]
+      }
+    },
+    "amenities": [
+      "CAR_PORTICO",
+      "MUNICIPAL_WATER",
+      "BOREWELL_WATER",
+      "TERRACE"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800",
+        "isMain": true,
+        "caption": "Front Elevation"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_christian_pally",
+    "id": "prop_seed_christian_pally",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹11,500/mo",
+    "formattedDeposit": "₹23,000",
+    "createdAt": "2026-09-27T05:29:28.914Z",
+    "updatedAt": "2026-09-27T05:29:28.914Z"
+  },
+  {
+    "title": "3 BHK Family Villa near Raichur Road, Mahabubnagar",
+    "description": "Modern 3 BHK independent duplex on Raichur Road. Features spacious hall, modular kitchen, open terrace, and secure compound wall.",
+    "propertyType": "VILLA",
+    "rentAmount": 16000,
+    "depositAmount": 32000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1750,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Raichur Road Highway Colony",
+      "locality": "Raichur Road",
+      "sublocality": "Yenugonda Bypass",
+      "city": "Mahabubnagar",
+      "district": "Mahabubnagar",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "509001",
+      "landmark": "Near Yenugonda Junction",
+      "coordinates": {
+        "lat": 16.735,
+        "lng": 77.985
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          77.985,
+          16.735
+        ]
+      }
+    },
+    "amenities": [
+      "GATED_COMMUNITY",
+      "POWER_BACKUP",
+      "PARKING",
+      "CCTV"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+        "isMain": true,
+        "caption": "Villa View"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_raichur_road",
+    "id": "prop_seed_raichur_road",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹16,000/mo",
+    "formattedDeposit": "₹32,000",
+    "createdAt": "2026-09-27T05:29:28.918Z",
+    "updatedAt": "2026-09-27T05:29:28.918Z"
+  },
+  {
+    "title": "2 BHK Residential Flat at Clock Tower Center, Nalgonda",
+    "description": "Central location flat right in the commercial and cultural hub of Nalgonda. Walkable to bus station, shopping complexes, and colleges. Lift and 24-hour Krishna water pipeline.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 10500,
+    "depositAmount": 21000,
+    "bhk": 2,
+    "bathrooms": 2,
+    "areaSqFt": 1000,
+    "furnishing": "UNFURNISHED",
+    "propertyLocation": {
+      "address": "Flat 102, Venkateshwara Residency, Clock Tower Road",
+      "locality": "Clock Tower Center",
+      "sublocality": "Main Market",
+      "city": "Nalgonda",
+      "district": "Nalgonda",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "508001",
+      "landmark": "Opposite Old Clock Tower",
+      "coordinates": {
+        "lat": 17.054,
+        "lng": 79.267
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.267,
+          17.054
+        ]
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "WATER_SUPPLY_24X7",
+      "SECURITY",
+      "TWO_WHEELER_PARKING"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+        "isMain": true,
+        "caption": "Apartment Hall"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_clock_tower_center",
+    "id": "prop_seed_clock_tower_center",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹10,500/mo",
+    "formattedDeposit": "₹21,000",
+    "createdAt": "2026-09-27T05:29:28.921Z",
+    "updatedAt": "2026-09-27T05:29:28.921Z"
+  },
+  {
+    "title": "3 BHK Modern Apartment near Collectorate Road, Karimnagar",
+    "description": "Prime Karimnagar location near District Collectorate and Mukarrampura. High-end granite flooring, modular kitchen, generator backup, and high-speed elevator.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 15500,
+    "depositAmount": 31000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1450,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Door No. 3-1-294, Sri Sai Enclave, Collectorate Road",
+      "locality": "Collectorate Road",
+      "sublocality": "Mukarrampura",
+      "city": "Karimnagar",
+      "district": "Karimnagar",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "505001",
+      "landmark": "Adjacent to Collectorate Complex",
+      "coordinates": {
+        "lat": 18.441,
+        "lng": 79.132
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.132,
+          18.441
+        ]
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "POWER_BACKUP",
+      "COVERED_PARKING",
+      "SECURITY",
+      "MUNICIPAL_WATER"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+        "isMain": true,
+        "caption": "Living Space"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_collectorate_road",
+    "id": "prop_seed_collectorate_road",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹15,500/mo",
+    "formattedDeposit": "₹31,000",
+    "createdAt": "2026-09-27T05:29:28.923Z",
+    "updatedAt": "2026-09-27T05:29:28.923Z"
+  },
+  {
+    "title": "3 BHK Spacious Flat on Wyra Road, Khammam",
+    "description": "Expansive 3 BHK apartment located directly on Wyra Road, Khammam. Close to prominent corporate hospitals, schools, and shopping avenues. Ample daylight, cross ventilation, and 24x7 water.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 14000,
+    "depositAmount": 28000,
+    "bhk": 3,
+    "bathrooms": 2,
+    "areaSqFt": 1350,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Flat 302, Green Meadows, Wyra Road",
+      "locality": "Wyra Road",
+      "sublocality": "Rotary Nagar Hub",
+      "city": "Khammam",
+      "district": "Khammam",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "507001",
+      "landmark": "Near Mamata Hospital Flyover",
+      "coordinates": {
+        "lat": 17.251,
+        "lng": 80.155
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          80.155,
+          17.251
+        ]
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "POWER_BACKUP",
+      "PARKING",
+      "SECURITY",
+      "BALCONY"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+        "isMain": true,
+        "caption": "Interior"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_wyra_road",
+    "id": "prop_seed_wyra_road",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹14,000/mo",
+    "formattedDeposit": "₹28,000",
+    "createdAt": "2026-09-27T05:29:28.925Z",
+    "updatedAt": "2026-09-27T05:29:28.925Z"
+  },
+  {
+    "title": "3 BHK Independent House in Khaleelwadi, Nizamabad",
+    "description": "High-demand residential neighborhood of Khaleelwadi, Nizamabad. Independent gated premises with private borewell, car parking porch, marble flooring, and puja room.",
+    "propertyType": "INDEPENDENT_HOUSE",
+    "rentAmount": 15000,
+    "depositAmount": 30000,
+    "bhk": 3,
+    "bathrooms": 2,
+    "areaSqFt": 1400,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Plot 71, Khaleelwadi Main Road",
+      "locality": "Khaleelwadi",
+      "sublocality": "Subhash Nagar Zone",
+      "city": "Nizamabad",
+      "district": "Nizamabad",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "503001",
+      "landmark": "Near Gandhi Chowk",
+      "coordinates": {
+        "lat": 18.675,
+        "lng": 78.098
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          78.098,
+          18.675
+        ]
+      }
+    },
+    "amenities": [
+      "CAR_PORTICO",
+      "BOREWELL_WATER",
+      "MUNICIPAL_WATER",
+      "TERRACE",
+      "CCTV"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+        "isMain": true,
+        "caption": "House View"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_khaleelwadi",
+    "id": "prop_seed_khaleelwadi",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹15,000/mo",
+    "formattedDeposit": "₹30,000",
+    "createdAt": "2026-09-27T05:29:28.927Z",
+    "updatedAt": "2026-09-27T05:29:28.927Z"
   },
   {
     "title": "3 BHK Sea Breeze & City View Apartment at Benz Circle",
@@ -409,13 +822,23 @@
     "propertyLocation": {
       "address": "Tower A, Krishna Heights, MG Road",
       "locality": "Benz Circle",
+      "sublocality": "MG Road",
       "city": "Vijayawada",
+      "district": "NTR",
       "state": "Andhra Pradesh",
+      "country": "India",
       "pincode": "520010",
       "landmark": "Near Benz Circle Flyover",
       "coordinates": {
         "lat": 16.5012,
         "lng": 80.6436
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          80.6436,
+          16.5012
+        ]
       }
     },
     "amenities": [
@@ -435,13 +858,69 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_9",
-    "id": "prop_seed_9",
+    "_id": "prop_seed_benz_circle",
+    "id": "prop_seed_benz_circle",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹28,000/mo",
     "formattedDeposit": "₹60,000",
-    "createdAt": "2026-09-26T13:14:43.199Z",
-    "updatedAt": "2026-09-26T13:14:43.199Z"
+    "createdAt": "2026-09-27T05:29:28.929Z",
+    "updatedAt": "2026-09-27T05:29:28.929Z"
+  },
+  {
+    "title": "3 BHK Luxury Flat in Lakshmipuram, Guntur",
+    "description": "Prestigious residential enclave of Lakshmipuram, Guntur. Premium wooden work in all bedrooms, false ceiling, piped gas, and reserved basement parking.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 21000,
+    "depositAmount": 42000,
+    "bhk": 3,
+    "bathrooms": 3,
+    "areaSqFt": 1600,
+    "furnishing": "SEMI_FURNISHED",
+    "propertyLocation": {
+      "address": "Flat 401, Amaravati Heights, 4th Line Lakshmipuram",
+      "locality": "Lakshmipuram",
+      "sublocality": "Brodipet Link",
+      "city": "Guntur",
+      "district": "Guntur",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "pincode": "522007",
+      "landmark": "Near Lakshmipuram Main Junction",
+      "coordinates": {
+        "lat": 16.312,
+        "lng": 80.441
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          80.441,
+          16.312
+        ]
+      }
+    },
+    "amenities": [
+      "LIFT",
+      "POWER_BACKUP",
+      "COVERED_PARKING",
+      "SECURITY",
+      "PIPED_GAS"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
+        "isMain": true,
+        "caption": "Interior"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_lakshmipuram",
+    "id": "prop_seed_lakshmipuram",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹21,000/mo",
+    "formattedDeposit": "₹42,000",
+    "createdAt": "2026-09-27T05:29:28.931Z",
+    "updatedAt": "2026-09-27T05:29:28.931Z"
   },
   {
     "title": "4 BHK Luxury Oceanfront Penthouse on RK Beach Road",
@@ -456,13 +935,23 @@
     "propertyLocation": {
       "address": "Penthouse 1401, Sea Pearl Towers, Beach Road",
       "locality": "Beach Road",
+      "sublocality": "RK Beach",
       "city": "Visakhapatnam",
+      "district": "Visakhapatnam",
       "state": "Andhra Pradesh",
+      "country": "India",
       "pincode": "530002",
       "landmark": "Opposite Submarine Museum",
       "coordinates": {
         "lat": 17.7164,
         "lng": 83.3189
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          83.3189,
+          17.7164
+        ]
       }
     },
     "amenities": [
@@ -482,13 +971,13 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_10",
-    "id": "prop_seed_10",
+    "_id": "prop_seed_beach_road",
+    "id": "prop_seed_beach_road",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹58,000/mo",
     "formattedDeposit": "₹1,50,000",
-    "createdAt": "2026-09-26T13:14:43.200Z",
-    "updatedAt": "2026-09-26T13:14:43.200Z"
+    "createdAt": "2026-09-27T05:29:28.933Z",
+    "updatedAt": "2026-09-27T05:29:28.933Z"
   },
   {
     "title": "3 BHK Family Apartment in MVP Colony Sector 4",
@@ -503,13 +992,23 @@
     "propertyLocation": {
       "address": "Flat 301, Sagarika Heights, Sector 4",
       "locality": "MVP Colony",
+      "sublocality": "Sector 4",
       "city": "Visakhapatnam",
+      "district": "Visakhapatnam",
       "state": "Andhra Pradesh",
+      "country": "India",
       "pincode": "530017",
       "landmark": "Near MVP Double Road Park",
       "coordinates": {
         "lat": 17.7412,
         "lng": 83.3341
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          83.3341,
+          17.7412
+        ]
       }
     },
     "amenities": [
@@ -528,56 +1027,123 @@
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "_id": "prop_seed_11",
-    "id": "prop_seed_11",
+    "_id": "prop_seed_mvp_colony",
+    "id": "prop_seed_mvp_colony",
     "ownerId": "usr_owner_1790428482726",
     "formattedRent": "₹24,000/mo",
     "formattedDeposit": "₹48,000",
-    "createdAt": "2026-09-26T13:14:43.201Z",
-    "updatedAt": "2026-09-26T13:14:43.201Z"
+    "createdAt": "2026-09-27T05:29:28.935Z",
+    "updatedAt": "2026-09-27T05:29:28.935Z"
   },
   {
-    "_id": "prop_1790430928588_j9k9uy",
-    "id": "prop_1790430928588_j9k9uy",
-    "ownerId": "usr_owner_1790428482726",
-    "title": "3 BHK Lakeview Luxury Villa in Madhapur",
-    "description": "Stunning villa with lake view, private garden, modular Italian kitchen, solar water heating, and 24/7 security.",
-    "propertyType": "VILLA",
-    "rentAmount": 65000,
-    "depositAmount": 130000,
-    "formattedRent": "₹65,000/mo",
-    "formattedDeposit": "₹1,30,000",
+    "title": "3 BHK High-Rise Apartment on AIR Bypass Road, Tirupati",
+    "description": "Modern 3 BHK flat with panoramic view of Tirumala Hills. Close to Alipiri, educational institutions, and railway station. 24x7 security, water treatment, and clubhouse.",
+    "propertyType": "APARTMENT",
+    "rentAmount": 18500,
+    "depositAmount": 37000,
     "bhk": 3,
     "bathrooms": 3,
-    "areaSqFt": 2600,
-    "furnishing": "FULLY_FURNISHED",
+    "areaSqFt": 1500,
+    "furnishing": "SEMI_FURNISHED",
     "propertyLocation": {
-      "address": "Villa 7, Durgam Cheruvu View, Madhapur",
-      "locality": "Madhapur",
-      "city": "Hyderabad",
-      "state": "Telangana",
-      "pincode": "500081",
-      "landmark": "Near Inorbit Mall",
+      "address": "Flat 602, Tirumala Vista, AIR Bypass Road",
+      "locality": "AIR Bypass Road",
+      "sublocality": "Korlagunta",
+      "city": "Tirupati",
+      "district": "Tirupati",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "pincode": "517501",
+      "landmark": "Near AIR Station Cross",
       "coordinates": {
-        "lat": 17.4385,
-        "lng": 78.3842
+        "lat": 13.632,
+        "lng": 79.421
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.421,
+          13.632
+        ]
       }
     },
     "amenities": [
+      "HILL_VIEW",
+      "LIFT",
       "POWER_BACKUP",
-      "SECURITY",
-      "PRIVATE_GARDEN",
-      "CAR_PARKING"
+      "PARKING",
+      "SECURITY"
     ],
     "images": [
       {
-        "url": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
-        "caption": "Front Elevation"
+        "url": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+        "isMain": true,
+        "caption": "Apartment"
       }
     ],
     "availabilityStatus": "VACANT",
     "isListed": true,
-    "createdAt": "2026-09-26T13:55:28.709Z",
-    "updatedAt": "2026-09-26T13:55:28.709Z"
+    "_id": "prop_seed_air_bypass_road",
+    "id": "prop_seed_air_bypass_road",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹18,500/mo",
+    "formattedDeposit": "₹37,000",
+    "createdAt": "2026-09-27T05:29:28.939Z",
+    "updatedAt": "2026-09-27T05:29:28.939Z"
+  },
+  {
+    "title": "2 BHK Independent House in MR Palli, Tirupati",
+    "description": "Independent ground-floor house in peaceful MR Palli neighborhood. Features car parking, sweet groundwater, separate pooja room, and vastu compliant design.",
+    "propertyType": "INDEPENDENT_HOUSE",
+    "rentAmount": 12000,
+    "depositAmount": 24000,
+    "bhk": 2,
+    "bathrooms": 2,
+    "areaSqFt": 1100,
+    "furnishing": "UNFURNISHED",
+    "propertyLocation": {
+      "address": "Door 19-8-112, Maruthi Nagar, MR Palli",
+      "locality": "MR Palli",
+      "sublocality": "Maruthi Nagar",
+      "city": "Tirupati",
+      "district": "Tirupati",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "pincode": "517502",
+      "landmark": "Near MR Palli Circle",
+      "coordinates": {
+        "lat": 13.621,
+        "lng": 79.412
+      },
+      "geoPoint": {
+        "type": "Point",
+        "coordinates": [
+          79.412,
+          13.621
+        ]
+      }
+    },
+    "amenities": [
+      "CAR_PORTICO",
+      "BOREWELL_WATER",
+      "MUNICIPAL_WATER",
+      "TERRACE"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800",
+        "isMain": true,
+        "caption": "House"
+      }
+    ],
+    "availabilityStatus": "VACANT",
+    "isListed": true,
+    "_id": "prop_seed_mr_palli",
+    "id": "prop_seed_mr_palli",
+    "ownerId": "usr_owner_1790428482726",
+    "formattedRent": "₹12,000/mo",
+    "formattedDeposit": "₹24,000",
+    "createdAt": "2026-09-27T05:29:28.941Z",
+    "updatedAt": "2026-09-27T05:29:28.941Z"
   }
 ]

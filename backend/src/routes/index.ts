@@ -12,6 +12,7 @@ import adminRoutes from './admin.routes';
 import verificationRoutes from './verification.routes';
 import agreementRoutes from './agreement.routes';
 import healthRoutes from './health.routes';
+import locationRoutes from './location.routes';
 
 const router = Router();
 
@@ -27,6 +28,7 @@ router.use('/owner', ownerRoutes);
 router.use('/admin', adminRoutes);
 router.use('/verifications', verificationRoutes);
 router.use('/agreements', agreementRoutes);
+router.use('/locations', locationRoutes);
 router.use('/health', healthRoutes);
 
 export default router;
