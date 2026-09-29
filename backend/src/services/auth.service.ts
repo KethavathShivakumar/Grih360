@@ -2,6 +2,7 @@ import { UserModel, TenantProfileModel, OwnerProfileModel, ProfessionalProfileMo
 import { PasswordUtil } from '../utils/password.util';
 import { JwtUtil } from '../utils/jwt.util';
 import { UserRole } from '../types/auth.types';
+import { OtpService } from './otp.service';
 import mongoose from 'mongoose';
 
 export interface RegisterInput {
@@ -278,7 +279,6 @@ export class AuthService {
       throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
     }
 
-    const { OtpService } = await import('./otp.service');
     return await OtpService.createAndSendOtp({
       email: user.email,
       purpose: 'LOGIN',
@@ -303,7 +303,6 @@ export class AuthService {
       throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
     }
 
-    const { OtpService } = await import('./otp.service');
     const verification = await OtpService.verifyOtp({
       email: user.email,
       otp,

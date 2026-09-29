@@ -1,8 +1,9 @@
-import { ApplicationModel, PropertyModel, UserModel } from '../models';
+import { ApplicationModel, PropertyModel, UserModel, RentalVerificationModel } from '../models';
 import { RentalService } from './rental.service';
 import { AgreementService } from './agreement.service';
 import { NotificationService } from './notification.service';
 import { memoryProperties } from './property.service';
+import { memoryVerifications } from './verification.service';
 import mongoose from 'mongoose';
 
 export interface SubmitApplicationInput {
@@ -333,7 +334,6 @@ export class ApplicationService {
           link: `/tenant/applications/${appId}`,
         });
       } else if (newStatus === 'VERIFICATION_REQUIRED') {
-        const { RentalVerificationModel } = await import('../models/rental-verification.model');
         const existingVerif = await RentalVerificationModel.findOne({ applicationId: application._id });
         if (!existingVerif) {
           await RentalVerificationModel.create({
@@ -476,7 +476,6 @@ export class ApplicationService {
           link: `/tenant/applications/${appId}`,
         });
       } else if (newStatus === 'VERIFICATION_REQUIRED') {
-        const { memoryVerifications } = await import('./verification.service');
         if (!memoryVerifications.has(applicationId)) {
           memoryVerifications.set(applicationId, {
             _id: 'verif_' + applicationId,
