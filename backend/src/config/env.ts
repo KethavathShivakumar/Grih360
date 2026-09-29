@@ -14,12 +14,12 @@ export const config = {
   backendUrl: process.env.BACKEND_URL || (process.env.NODE_ENV === 'production' ? 'https://nivas360.vercel.app' : 'http://localhost:5000'),
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyDSkelUvGii5waZT4Edk2n8wsAg7tlEI54',
   apiVersion: '/api/v1',
-  googleClientId: process.env.GOOGLE_CLIENT_ID || '',
-  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-  googleRedirectUri: process.env.GOOGLE_REDIRECT_URI || '',
-  gmailRefreshToken: process.env.GMAIL_REFRESH_TOKEN || '',
-  gmailSenderEmail: process.env.GMAIL_SENDER_EMAIL || 'grih360@gmail.com',
-  oauthSetupKey: process.env.OAUTH_SETUP_KEY || 'nivas360_secure_oauth_setup_key_2026',
+  googleClientId: (process.env.GOOGLE_CLIENT_ID || '').trim(),
+  googleClientSecret: (process.env.GOOGLE_CLIENT_SECRET || '').trim(),
+  googleRedirectUri: (process.env.GOOGLE_REDIRECT_URI || '').trim(),
+  gmailRefreshToken: (process.env.GMAIL_REFRESH_TOKEN || '').trim(),
+  gmailSenderEmail: (process.env.GMAIL_SENDER_EMAIL || 'grih360@gmail.com').trim(),
+  oauthSetupKey: (process.env.OAUTH_SETUP_KEY || 'nivas360_secure_oauth_setup_key_2026').trim(),
 };
 
 /**
