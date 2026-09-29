@@ -53,7 +53,7 @@ export class AuthService {
   }): Observable<any> {
     return this.apiService.post<any>('/auth/register', userData).pipe(
       tap((res) => {
-        if (res.success && res.data?.tokens?.accessToken) {
+        if (res.success && res.data?.tokens?.accessToken && !res.requiresEmailOtp) {
           this.storageService.setToken(res.data.tokens.accessToken);
           this.currentUserSubject.next(res.data.user);
           this.initializationSubject.next(true);

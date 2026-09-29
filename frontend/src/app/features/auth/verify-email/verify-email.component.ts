@@ -34,6 +34,24 @@ import { finalize, timeout } from 'rxjs';
       <!-- Centered Verification Card -->
       <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-auto">
         <div class="w-full max-w-md bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-[#E8E6DF] space-y-6">
+          
+          <!-- Step Progress Indicator -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[11px] font-extrabold uppercase tracking-wider">
+              <span class="text-emerald-700 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-[10px] font-black">✓</span>
+                Credentials Accepted
+              </span>
+              <span class="text-[#2D7A5E] flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-[#2D7A5E] text-white flex items-center justify-center text-[10px] font-black">2</span>
+                Email OTP Verification
+              </span>
+            </div>
+            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+              <div class="bg-[#2D7A5E] h-full w-full rounded-full transition-all duration-500"></div>
+            </div>
+          </div>
+
           <!-- Corporate Badge & Instruction Header -->
           <div class="text-center space-y-2">
             <div class="inline-flex items-center space-x-2 bg-emerald-50 text-[#2D7A5E] px-3.5 py-1.5 rounded-full text-xs font-bold border border-emerald-200">
@@ -45,9 +63,13 @@ import { finalize, timeout } from 'rxjs';
             <p class="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
               We've dispatched a single-use 6-digit security code to your registered email address:
             </p>
-            <div class="pt-1">
+            <div class="pt-1 flex flex-col items-center gap-1.5">
               <span class="inline-block px-3.5 py-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-extrabold text-[#0F2937] tracking-wide font-mono">
                 {{ maskedEmail }}
+              </span>
+              <span class="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
+                <span>{{ getRoleIcon() }}</span>
+                <span>Unlocking {{ getRoleDisplayName() }}</span>
               </span>
             </div>
           </div>
@@ -462,5 +484,21 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   onBackToLogin(): void {
     this.authService.clearActiveChallenge();
     this.router.navigate(['/auth/login'], { replaceUrl: true });
+  }
+
+  getRoleIcon(): string {
+    switch (this.selectedRole) {
+      case 'OWNER': return '🏛️';
+      case 'PROFESSIONAL': return '🛠️';
+      default: return '🏡';
+    }
+  }
+
+  getRoleDisplayName(): string {
+    switch (this.selectedRole) {
+      case 'OWNER': return 'Property Owner Workspace';
+      case 'PROFESSIONAL': return 'Service Professional Workspace';
+      default: return 'Tenant Portal';
+    }
   }
 }

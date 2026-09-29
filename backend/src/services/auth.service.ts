@@ -136,9 +136,21 @@ export class AuthService {
         email: newUser.email,
       });
 
+      // Initiate Email OTP Challenge for newly registered account
+      const challenge = await OtpService.createLoginChallenge({
+        _id: newUser._id,
+        id: (newUser._id as any).toString(),
+        email: newUser.email,
+        name: newUser.name,
+      });
+
       return {
         user: newUser.toJSON(),
         tokens,
+        requiresEmailOtp: true,
+        challengeId: challenge.challengeId,
+        maskedEmail: challenge.maskedEmail,
+        message: 'Account registered successfully. Verification code sent to your email.',
       };
     } else {
       // Resilient In-Memory Mode
@@ -175,8 +187,23 @@ export class AuthService {
         email: emailNormalized,
       });
 
+      // Initiate Email OTP Challenge for in-memory registration
+      const challenge = await OtpService.createLoginChallenge({
+        _id: id,
+        id,
+        email: emailNormalized,
+        name: input.name.trim(),
+      });
+
       const { passwordHash: _, ...safeUser } = userDoc;
-      return { user: safeUser, tokens };
+      return {
+        user: safeUser,
+        tokens,
+        requiresEmailOtp: true,
+        challengeId: challenge.challengeId,
+        maskedEmail: challenge.maskedEmail,
+        message: 'Account registered successfully. Verification code sent to your email.',
+      };
     }
   }
 

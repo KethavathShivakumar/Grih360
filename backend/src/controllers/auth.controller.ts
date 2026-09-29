@@ -12,7 +12,14 @@ export class AuthController {
     try {
       const { name, email, phone, password, role } = req.body;
       const result = await AuthService.registerUser({ name, email, phone, password, role });
-      ApiResponseUtil.success(res, 'User account registered successfully', result, 201);
+      res.status(201).json({
+        success: true,
+        message: result.message || 'User account registered successfully',
+        requiresEmailOtp: result.requiresEmailOtp,
+        challengeId: result.challengeId,
+        maskedEmail: result.maskedEmail,
+        data: result,
+      });
     } catch (err) {
       next(err);
     }
