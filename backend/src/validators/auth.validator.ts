@@ -41,10 +41,11 @@ export class AuthValidator {
   }
 
   static validateLogin(req: Request, res: Response, next: NextFunction): void {
-    const { identifier, password } = req.body;
+    const { identifier, email, password } = req.body;
+    const effective = email || identifier;
 
-    if (!identifier || typeof identifier !== 'string' || identifier.trim().length === 0) {
-      ApiResponseUtil.error(res, 'Registered email or phone number is required', 400, 'VALIDATION_ERROR');
+    if (!effective || typeof effective !== 'string' || effective.trim().length === 0) {
+      ApiResponseUtil.error(res, 'Registered email address or phone number is required', 400, 'VALIDATION_ERROR');
       return;
     }
 

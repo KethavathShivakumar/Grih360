@@ -19,15 +19,104 @@ export class AuthController {
   }
 
   /**
-   * Real User Login
+   * Step A: Password Verification & Challenge Generation
    * POST /api/v1/auth/login
    */
   static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { identifier, password } = req.body;
-      const result = await AuthService.loginUser({ identifier, password });
+      const { identifier, email, password, directToken } = req.body;
+      const effectiveIdentifier = (email || identifier || '').trim();
+
+      if (!effectiveIdentifier || !password) {
+        ApiResponseUtil.error(res, 'Email address and password are required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      // Check if caller requests direct token bypass (e.g., internal integration script header)
+      const allowDirectToken = directToken === true || req.headers['x-auth-step'] === 'direct';
+
+      const result = await AuthService.loginUser({
+        identifier: effectiveIdentifier,
+        password,
+        directToken: allowDirectToken,
+      });
+
+      // If Two-Step Challenge is returned
+      if (result.requiresEmailOtp) {
+        res.status(200).json({
+          success: true,
+          requiresEmailOtp: true,
+          challengeId: result.challengeId,
+          maskedEmail: result.maskedEmail,
+          message: result.message || 'Verification code sent to your registered email.',
+          data: {
+            requiresEmailOtp: true,
+            challengeId: result.challengeId,
+            maskedEmail: result.maskedEmail,
+          },
+        });
+        return;
+      }
+
+      // Direct login path (for backwards-compatibility / administrative scripts)
       ApiResponseUtil.success(res, 'Login successful', result, 200);
     } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * Step B: Code Validation Challenge
+   * POST /api/v1/auth/verify-login-otp
+   */
+  static async verifyLoginOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { challengeId, otp } = req.body;
+      if (!challengeId || typeof challengeId !== 'string' || !otp || typeof otp !== 'string') {
+        ApiResponseUtil.error(res, 'Both challengeId and 6-digit verification code are required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      const result = await AuthService.verifyLoginChallenge(challengeId.trim(), otp.trim());
+      ApiResponseUtil.success(res, 'Authentication successful via OTP verification', result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'VERIFICATION_ERROR',
+          message: err.message,
+          remainingAttempts: err.remainingAttempts,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Step C: Code Refresh Lifecycle
+   * POST /api/v1/auth/resend-login-otp
+   */
+  static async resendLoginOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { challengeId } = req.body;
+      if (!challengeId || typeof challengeId !== 'string') {
+        ApiResponseUtil.error(res, 'Challenge ID is required to resend verification code', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      const result = await AuthService.resendLoginChallenge(challengeId.trim());
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'RESEND_ERROR',
+          message: err.message,
+          remainingSeconds: err.remainingSeconds,
+        });
+        return;
+      }
       next(err);
     }
   }
@@ -83,7 +172,7 @@ export class AuthController {
   }
 
   /**
-   * Send Login Verification OTP via Gmail API OAuth2
+   * Legacy Direct OTP Request
    * POST /api/v1/auth/otp/send
    */
   static async sendOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -101,7 +190,7 @@ export class AuthController {
   }
 
   /**
-   * Verify Login OTP and issue JWT access tokens
+   * Legacy Direct OTP Verify
    * POST /api/v1/auth/otp/verify
    */
   static async verifyOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -118,4 +207,3 @@ export class AuthController {
     }
   }
 }
-

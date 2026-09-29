@@ -17,4 +17,5 @@ export * from './notification.model';
 export * from './audit.model';
 export * from './oauth-credential.model';
 export * from './otp.model';
+export * from './login-challenge.model';
 

@@ -273,6 +273,27 @@ export class LoginComponent implements OnInit {
       )
       .subscribe({
         next: (res: any) => {
+          const requiresOtp = res?.requiresEmailOtp || res?.data?.requiresEmailOtp;
+          const challengeId = res?.challengeId || res?.data?.challengeId;
+          const maskedEmail = res?.maskedEmail || res?.data?.maskedEmail;
+
+          if (requiresOtp && challengeId) {
+            this.authService.setActiveChallenge({
+              challengeId,
+              maskedEmail: maskedEmail || this.identifier,
+              selectedRole: this.selectedRole,
+            });
+
+            this.router.navigate(['/auth/verify-email'], {
+              state: {
+                challengeId,
+                maskedEmail: maskedEmail || this.identifier,
+                selectedRole: this.selectedRole,
+              },
+            });
+            return;
+          }
+
           const userRole = res?.data?.user?.role || this.selectedRole;
           if (userRole === 'OWNER') {
             this.router.navigate(['/owner/dashboard']);

@@ -16,6 +16,7 @@ export interface RegisterInput {
 export interface LoginInput {
   identifier: string; // Email or Phone
   password: string;
+  directToken?: boolean;
 }
 
 import { PersistentStore } from '../config/persistent-store';
@@ -180,7 +181,7 @@ export class AuthService {
   }
 
   /**
-   * Real User Login with Bcrypt Password Comparison
+   * Real User Login with Two-Step Authentication Challenge (Step A)
    */
   static async loginUser(input: LoginInput) {
     const identifierNormalized = input.identifier.trim().toLowerCase();
@@ -191,7 +192,7 @@ export class AuthService {
       }).select('+passwordHash');
 
       if (!user || !user.passwordHash) {
-        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email/phone or password' };
+        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
       if (!user.isActive) {
@@ -200,18 +201,35 @@ export class AuthService {
 
       const isPasswordValid = await PasswordUtil.comparePassword(input.password, user.passwordHash);
       if (!isPasswordValid) {
-        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email/phone or password' };
+        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
-      const tokens = JwtUtil.generateTokens({
-        userId: (user._id as any).toString(),
-        role: user.role,
+      // If directToken is requested by internal scripts or headless automation
+      if (input.directToken) {
+        const tokens = JwtUtil.generateTokens({
+          userId: (user._id as any).toString(),
+          role: user.role,
+          email: user.email,
+        });
+        return {
+          user: user.toJSON(),
+          tokens,
+        };
+      }
+
+      // Step A: Initiate Stateful Two-Step Authentication Flow
+      const challenge = await OtpService.createLoginChallenge({
+        _id: user._id,
+        id: (user._id as any).toString(),
         email: user.email,
+        name: user.name,
       });
 
       return {
-        user: user.toJSON(),
-        tokens,
+        requiresEmailOtp: true,
+        challengeId: challenge.challengeId,
+        maskedEmail: challenge.maskedEmail,
+        message: 'Verification code sent to your registered email.',
       };
     } else {
       // In-Memory Mode
@@ -224,23 +242,80 @@ export class AuthService {
       }
 
       if (!user) {
-        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email/phone or password' };
+        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
+      }
+
+      if (!user.isActive) {
+        throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
       }
 
       const isPasswordValid = await PasswordUtil.comparePassword(input.password, user.passwordHash);
       if (!isPasswordValid) {
-        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email/phone or password' };
+        throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
-      const tokens = JwtUtil.generateTokens({
-        userId: user.id,
-        role: user.role,
+      // If directToken is requested by internal scripts
+      if (input.directToken) {
+        const tokens = JwtUtil.generateTokens({
+          userId: user.id || user._id,
+          role: user.role,
+          email: user.email,
+        });
+        const { passwordHash: _, ...safeUser } = user;
+        return { user: safeUser, tokens };
+      }
+
+      // Step A: Initiate Stateful Two-Step Authentication Flow
+      const challenge = await OtpService.createLoginChallenge({
+        _id: user._id || user.id,
+        id: user.id || user._id,
         email: user.email,
+        name: user.name,
       });
 
-      const { passwordHash: _, ...safeUser } = user;
-      return { user: safeUser, tokens };
+      return {
+        requiresEmailOtp: true,
+        challengeId: challenge.challengeId,
+        maskedEmail: challenge.maskedEmail,
+        message: 'Verification code sent to your registered email.',
+      };
     }
+  }
+
+  /**
+   * Step B: Code Validation Challenge (POST /api/v1/auth/verify-login-otp)
+   */
+  static async verifyLoginChallenge(challengeId: string, otp: string) {
+    const result = await OtpService.verifyLoginChallengeOtp(challengeId, otp);
+    if (!result.valid || !result.user) {
+      throw {
+        statusCode: result.statusCode || 401,
+        code: 'VERIFICATION_FAILED',
+        message: result.message,
+        remainingAttempts: result.remainingAttempts,
+      };
+    }
+
+    const user = result.user;
+    const userId = (user._id || user.id).toString();
+    const tokens = JwtUtil.generateTokens({
+      userId,
+      role: user.role,
+      email: user.email,
+    });
+
+    const { passwordHash: _, ...safeUser } = user;
+    return {
+      user: safeUser,
+      tokens,
+    };
+  }
+
+  /**
+   * Step C: Code Refresh Lifecycle (POST /api/v1/auth/resend-login-otp)
+   */
+  static async resendLoginChallenge(challengeId: string) {
+    return await OtpService.resendLoginChallengeOtp(challengeId);
   }
 
   /**

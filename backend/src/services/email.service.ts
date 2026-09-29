@@ -13,7 +13,7 @@ export interface SendEmailOptions {
 export interface SendOtpEmailOptions {
   to: string;
   otp: string;
-  purpose: 'LOGIN' | 'PASSWORD_RESET' | 'VERIFICATION';
+  purpose: 'LOGIN' | 'PASSWORD_RESET' | 'VERIFICATION' | 'REGISTRATION';
   userName?: string;
 }
 

@@ -118,6 +118,52 @@ export class AuthService {
     );
   }
 
+  /** Active challenge state kept in memory (strictly never in localStorage or sessionStorage) */
+  private activeChallenge: {
+    challengeId: string;
+    maskedEmail: string;
+    selectedRole?: string;
+  } | null = null;
+
+  public setActiveChallenge(challenge: {
+    challengeId: string;
+    maskedEmail: string;
+    selectedRole?: string;
+  } | null): void {
+    this.activeChallenge = challenge;
+  }
+
+  public getActiveChallenge(): {
+    challengeId: string;
+    maskedEmail: string;
+    selectedRole?: string;
+  } | null {
+    return this.activeChallenge;
+  }
+
+  public clearActiveChallenge(): void {
+    this.activeChallenge = null;
+  }
+
+  /** Step B: Verify Login OTP and establish authenticated session */
+  public verifyLoginOtp(challengeId: string, otp: string): Observable<any> {
+    return this.apiService.post<any>('/auth/verify-login-otp', { challengeId, otp }).pipe(
+      tap((res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          this.storageService.setToken(res.data.tokens.accessToken);
+          this.currentUserSubject.next(res.data.user);
+          this.initializationSubject.next(true);
+          this.clearActiveChallenge();
+        }
+      })
+    );
+  }
+
+  /** Step C: Resend Login OTP enforcing 60s cooldown */
+  public resendLoginOtp(challengeId: string): Observable<any> {
+    return this.apiService.post<any>('/auth/resend-login-otp', { challengeId });
+  }
+
   /** Wait for the initialization (initial /auth/me fetch) to complete */
   public waitForInit(): Observable<boolean> {
     return this.isInitialized$.pipe(

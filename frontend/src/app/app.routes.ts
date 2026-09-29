@@ -63,12 +63,14 @@ import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
 import { AdminLoginComponent } from './features/admin/auth/admin-login.component';
+import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'role-selection', pathMatch: 'full' },
   { path: 'role-selection', component: RoleSelectionComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
+  { path: 'auth/verify-email', component: VerifyEmailComponent },
   { path: 'admin/login', component: AdminLoginComponent },
 
   // Tenant Workspace Routes
