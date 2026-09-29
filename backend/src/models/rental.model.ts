@@ -35,8 +35,8 @@ const RentalSchema = new Schema<IRentalDocument>(
     },
     status: {
       type: String,
-      enum: ['DRAFT', 'REVIEW', 'CONFIRMED', 'ACTIVE', 'TERMINATED', 'EXPIRED'],
-      default: 'DRAFT',
+      enum: ['DRAFT', 'PENDING_CONFIRMATION', 'REVIEW', 'CONFIRMED', 'ACTIVE', 'TERMINATED', 'EXPIRED'],
+      default: 'PENDING_CONFIRMATION',
       index: true,
     },
     startDate: {

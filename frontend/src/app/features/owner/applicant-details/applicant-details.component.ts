@@ -508,7 +508,7 @@ export class ApplicantDetailsComponent implements OnInit {
         this.isUpdating = false;
         if (newStatus === 'APPROVED') {
           const pId = this.application?.propertyId?._id || this.application?.propertyId?.id || this.propertyId;
-          this.router.navigate(['/owner/properties', pId, 'tenant']);
+          this.router.navigate(['/owner/properties', pId, 'rental']);
         } else {
           this.loadApplication();
         }

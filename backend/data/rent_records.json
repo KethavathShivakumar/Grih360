@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "mem_rentrec_1790691550709",
+    "id": "mem_rentrec_1790691550709",
+    "rentalId": "mem_rental_1790691550457",
+    "propertyId": "prop_1790691549581_2jvt0z",
+    "tenantId": "mem_usr_1790691550265_3jqpr",
+    "ownerId": "mem_usr_1790691549439_idwtw",
+    "amount": 33000,
+    "dueDate": "2026-10-13T14:19:10.280Z",
+    "status": "UPCOMING",
+    "notes": "Initial monthly rent cycle generated upon agreement confirmation",
+    "createdAt": "2026-09-29T14:19:10.710Z",
+    "updatedAt": "2026-09-29T14:19:10.710Z"
+  },
+  {
+    "_id": "mem_rentrec_1790691947919",
+    "id": "mem_rentrec_1790691947919",
+    "rentalId": "mem_rental_1790691947824",
+    "propertyId": "prop_1790691947345_d366us",
+    "tenantId": "mem_usr_1790691947717_1d0dj",
+    "ownerId": "mem_usr_1790691947262_g05zv",
+    "amount": 33000,
+    "dueDate": "2026-10-13T14:25:47.724Z",
+    "status": "UPCOMING",
+    "notes": "Initial monthly rent cycle generated upon agreement confirmation",
+    "createdAt": "2026-09-29T14:25:47.919Z",
+    "updatedAt": "2026-09-29T14:25:47.919Z"
+  }
+]

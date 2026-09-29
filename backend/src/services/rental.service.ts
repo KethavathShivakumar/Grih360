@@ -162,7 +162,7 @@ export class RentalService {
   }
 
   /**
-   * Automatically create or activate rental record when application is approved
+   * Automatically create or prepare rental record when application is approved
    */
   static async createOrUpdateRentalFromApplication(application: any) {
     const propertyId = application.propertyId?._id || application.propertyId;
@@ -180,10 +180,12 @@ export class RentalService {
       let rentalDoc;
 
       if (existingRental) {
-        existingRental.status = 'ACTIVE';
+        existingRental.status = 'PENDING_CONFIRMATION';
         existingRental.tenantId = tenantId;
         existingRental.monthlyRent = application.proposedRent || property.rentAmount;
         existingRental.depositPaid = property.depositAmount;
+        existingRental.startDate = startDate;
+        existingRental.endDate = endDate;
         await existingRental.save();
         rentalDoc = existingRental;
       } else {
@@ -192,7 +194,7 @@ export class RentalService {
           tenantId,
           ownerId: property.ownerId,
           applicationId: application._id || application.id,
-          status: 'ACTIVE',
+          status: 'PENDING_CONFIRMATION',
           startDate,
           endDate,
           monthlyRent: application.proposedRent || property.rentAmount,
@@ -202,33 +204,14 @@ export class RentalService {
         });
       }
 
-      // Mark property as RENTED
-      property.availabilityStatus = 'RENTED';
-      await property.save();
-
-      // Create initial rent record
-      const dueDate = new Date(startDate);
-      await RentRecordModel.create({
-        rentalId: rentalDoc._id,
-        tenantId,
-        ownerId: property.ownerId,
-        amount: rentalDoc.monthlyRent,
-        dueDate,
-        status: 'UPCOMING',
-        notes: 'Initial monthly rent cycle generated upon application approval',
-      });
-
       return rentalDoc;
     } else {
       const property = memoryProperties.get(propertyId);
       const ownerId = property?.ownerId || application.ownerId || 'mem_owner';
 
-      if (property) {
-        property.availabilityStatus = 'RENTED';
-        memoryProperties.set(propertyId, property);
-      }
-
       const rentalId = 'mem_rental_' + Date.now();
+      const startDate = new Date(application.moveInDate || Date.now());
+      const endDate = new Date(startDate.getTime() + 365 * 86400000);
       const rentalDoc = {
         _id: rentalId,
         id: rentalId,
@@ -236,9 +219,9 @@ export class RentalService {
         tenantId,
         ownerId,
         applicationId: application.id || application._id,
-        status: 'ACTIVE',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 365 * 86400000),
+        status: 'PENDING_CONFIRMATION',
+        startDate,
+        endDate,
         monthlyRent: application.proposedRent || property?.rentAmount || 25000,
         depositPaid: property?.depositAmount || 50000,
         rentStatus: 'UPCOMING',
@@ -246,20 +229,6 @@ export class RentalService {
       };
       memoryRentals.set(rentalId, rentalDoc);
       PersistentStore.insert('rentals', rentalDoc);
-
-      const recordId = 'mem_rentrec_' + Date.now();
-      memoryRentRecords.set(recordId, {
-        _id: recordId,
-        id: recordId,
-        rentalId,
-        propertyId,
-        tenantId,
-        ownerId,
-        amount: rentalDoc.monthlyRent,
-        dueDate: new Date(),
-        status: 'UPCOMING',
-        notes: 'Initial monthly rent cycle generated upon application approval',
-      });
 
       return rentalDoc;
     }

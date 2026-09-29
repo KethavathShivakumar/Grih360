@@ -89,6 +89,9 @@ export const routes: Routes = [
       { path: 'verification', component: TenantVerificationComponent },
       { path: 'rental', component: TenantCurrentRentalComponent },
       { path: 'rentals', component: TenantCurrentRentalComponent },
+      { path: 'agreement', component: TenantCurrentRentalComponent },
+      { path: 'agreements', component: TenantCurrentRentalComponent },
+      { path: 'agreements/:id', component: TenantCurrentRentalComponent },
 
       // Phase 7 Tenant Service Routes
       { path: 'services', component: TenantServicesComponent },

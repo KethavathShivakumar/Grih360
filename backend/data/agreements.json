@@ -24,5 +24,286 @@
     "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
     "createdAt": "2026-09-27T16:24:16.689Z",
     "updatedAt": "2026-09-27T16:24:16.689Z"
+  },
+  {
+    "_id": "mem_agree_1790526886596",
+    "id": "mem_agree_1790526886596",
+    "rentalId": "mem_rental_1790526886594",
+    "propertyId": "prop_1790526886108_v9r4xh",
+    "tenantId": "mem_usr_1790526886301_5dlb5",
+    "ownerId": "mem_usr_1790526886077_8irxh",
+    "agreementVersion": "v1.0",
+    "status": "PENDING_CONFIRMATION",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "createdAt": "2026-09-27T16:34:46.596Z",
+    "updatedAt": "2026-09-27T16:34:46.596Z"
+  },
+  {
+    "_id": "mem_agree_1790691457861",
+    "id": "mem_agree_1790691457861",
+    "rentalId": "mem_rental_1790691457856",
+    "propertyId": "prop_1790691456675_xhx5to",
+    "tenantId": "mem_usr_1790691457605_ppowe",
+    "ownerId": "mem_usr_1790691456491_2yvdy",
+    "rent": 33000,
+    "deposit": 70000,
+    "startDate": "2026-10-13T14:17:37.624Z",
+    "endDate": "2027-10-13T14:17:37.624Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "CONFIRMED",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": true,
+    "ownerConfirmed": true,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:17:37.861Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": true,
+        "confirmedAt": "2026-09-29T14:17:38.014Z",
+        "method": "PLATFORM_CONSENT",
+        "ipAddress": "127.0.0.1",
+        "notes": "Tenant verified lease terms and approved draft agreement"
+      },
+      "ownerConfirmation": {
+        "confirmed": true,
+        "confirmedAt": "2026-09-29T14:17:38.043Z",
+        "method": "PLATFORM_CONSENT",
+        "notes": "Owner confirmed lease and authorized rental activation"
+      }
+    },
+    "createdAt": "2026-09-29T14:17:37.861Z",
+    "updatedAt": "2026-09-29T14:17:38.043Z",
+    "confirmedAt": "2026-09-29T14:17:38.043Z"
+  },
+  {
+    "_id": "mem_agree_1790691459172",
+    "id": "mem_agree_1790691459172",
+    "rentalId": "mem_rental_1790691459167",
+    "propertyId": "prop_1790691459052_tzclci",
+    "tenantId": "mem_usr_1790691458965_b388p",
+    "ownerId": "mem_usr_1790691456491_2yvdy",
+    "rent": 22000,
+    "deposit": 44000,
+    "startDate": "2026-10-13T14:17:37.624Z",
+    "endDate": "2027-10-13T14:17:37.624Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "CANCELLED",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": false,
+    "ownerConfirmed": false,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:17:39.172Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": false
+      },
+      "ownerConfirmation": {
+        "confirmed": false
+      }
+    },
+    "createdAt": "2026-09-29T14:17:39.172Z",
+    "updatedAt": "2026-09-29T14:17:39.228Z",
+    "cancelledAt": "2026-09-29T14:17:39.227Z",
+    "cancellationReason": "Tenant relocated to another city"
+  },
+  {
+    "_id": "mem_agree_1790691550462",
+    "id": "mem_agree_1790691550462",
+    "rentalId": "mem_rental_1790691550457",
+    "propertyId": "prop_1790691549581_2jvt0z",
+    "tenantId": "mem_usr_1790691550265_3jqpr",
+    "ownerId": "mem_usr_1790691549439_idwtw",
+    "rent": 33000,
+    "deposit": 70000,
+    "startDate": "2026-10-13T14:19:10.280Z",
+    "endDate": "2027-10-13T14:19:10.280Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "CONFIRMED",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": true,
+    "ownerConfirmed": true,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:19:10.462Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": true,
+        "confirmedAt": "2026-09-29T14:19:10.661Z",
+        "method": "PLATFORM_CONSENT",
+        "ipAddress": "127.0.0.1",
+        "notes": "Tenant verified lease terms and approved draft agreement"
+      },
+      "ownerConfirmation": {
+        "confirmed": true,
+        "confirmedAt": "2026-09-29T14:19:10.695Z",
+        "method": "PLATFORM_CONSENT",
+        "notes": "Owner confirmed lease and authorized rental activation"
+      }
+    },
+    "createdAt": "2026-09-29T14:19:10.462Z",
+    "updatedAt": "2026-09-29T14:19:10.696Z",
+    "confirmedAt": "2026-09-29T14:19:10.695Z"
+  },
+  {
+    "_id": "mem_agree_1790691551473",
+    "id": "mem_agree_1790691551473",
+    "rentalId": "mem_rental_1790691551470",
+    "propertyId": "prop_1790691551410_ugcexn",
+    "tenantId": "mem_usr_1790691551368_d0wv0",
+    "ownerId": "mem_usr_1790691549439_idwtw",
+    "rent": 22000,
+    "deposit": 44000,
+    "startDate": "2026-10-13T14:19:10.280Z",
+    "endDate": "2027-10-13T14:19:10.280Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "CANCELLED",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": false,
+    "ownerConfirmed": false,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:19:11.473Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": false
+      },
+      "ownerConfirmation": {
+        "confirmed": false
+      }
+    },
+    "createdAt": "2026-09-29T14:19:11.473Z",
+    "updatedAt": "2026-09-29T14:19:11.518Z",
+    "cancelledAt": "2026-09-29T14:19:11.518Z",
+    "cancellationReason": "Tenant relocated to another city"
+  },
+  {
+    "_id": "mem_agree_1790691581587",
+    "id": "mem_agree_1790691581587",
+    "rentalId": "mem_rental_1790691581584",
+    "propertyId": "prop_1790691580178_uu5k4w",
+    "tenantId": "mem_usr_1790691580757_6ddd3",
+    "ownerId": "mem_usr_1790691580063_szbpl",
+    "rent": 34000,
+    "deposit": 70000,
+    "startDate": "2026-10-13T14:19:40.775Z",
+    "endDate": "2027-10-13T14:19:40.775Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "PENDING_CONFIRMATION",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": false,
+    "ownerConfirmed": false,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:19:41.587Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": false
+      },
+      "ownerConfirmation": {
+        "confirmed": false
+      }
+    },
+    "createdAt": "2026-09-29T14:19:41.587Z",
+    "updatedAt": "2026-09-29T14:19:41.587Z"
+  },
+  {
+    "_id": "mem_agree_1790691947827",
+    "id": "mem_agree_1790691947827",
+    "rentalId": "mem_rental_1790691947824",
+    "propertyId": "prop_1790691947345_d366us",
+    "tenantId": "mem_usr_1790691947717_1d0dj",
+    "ownerId": "mem_usr_1790691947262_g05zv",
+    "rent": 33000,
+    "deposit": 70000,
+    "startDate": "2026-10-13T14:25:47.724Z",
+    "endDate": "2027-10-13T14:25:47.724Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "CONFIRMED",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": true,
+    "ownerConfirmed": true,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:25:47.827Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": true,
+        "confirmedAt": "2026-09-29T14:25:47.902Z",
+        "method": "PLATFORM_CONSENT",
+        "ipAddress": "127.0.0.1",
+        "notes": "Tenant verified lease terms and approved draft agreement"
+      },
+      "ownerConfirmation": {
+        "confirmed": true,
+        "confirmedAt": "2026-09-29T14:25:47.911Z",
+        "method": "PLATFORM_CONSENT",
+        "notes": "Owner confirmed lease and authorized rental activation"
+      }
+    },
+    "createdAt": "2026-09-29T14:25:47.827Z",
+    "updatedAt": "2026-09-29T14:25:47.911Z",
+    "confirmedAt": "2026-09-29T14:25:47.911Z"
+  },
+  {
+    "_id": "mem_agree_1790691948299",
+    "id": "mem_agree_1790691948299",
+    "rentalId": "mem_rental_1790691948298",
+    "propertyId": "prop_1790691948270_f3qczl",
+    "tenantId": "mem_usr_1790691948255_4l5tm",
+    "ownerId": "mem_usr_1790691947262_g05zv",
+    "rent": 22000,
+    "deposit": 44000,
+    "startDate": "2026-10-13T14:25:47.724Z",
+    "endDate": "2027-10-13T14:25:47.724Z",
+    "termMonths": 11,
+    "agreementVersion": "v1.0",
+    "status": "CANCELLED",
+    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "tenantConfirmed": false,
+    "ownerConfirmed": false,
+    "agreementMetadata": {
+      "eSignNotice": "Digital signature integration required",
+      "eSignProvider": "UNAVAILABLE",
+      "isDigitallySigned": false,
+      "legalNotice": "Standard platform lease draft. Digital signature integration required for legal execution.",
+      "generatedAt": "2026-09-29T14:25:48.300Z",
+      "version": "v1.0",
+      "tenantConfirmation": {
+        "confirmed": false
+      },
+      "ownerConfirmation": {
+        "confirmed": false
+      }
+    },
+    "createdAt": "2026-09-29T14:25:48.300Z",
+    "updatedAt": "2026-09-29T14:25:48.322Z",
+    "cancelledAt": "2026-09-29T14:25:48.322Z",
+    "cancellationReason": "Tenant relocated to another city"
   }
 ]

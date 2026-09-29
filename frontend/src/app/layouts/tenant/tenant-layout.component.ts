@@ -67,6 +67,13 @@ import { Subscription } from 'rxjs';
               >
                 Services
               </a>
+              <a
+                routerLink="/tenant/rental"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all flex items-center gap-1"
+              >
+                <span>🏠 My Rental</span>
+              </a>
             </nav>
           </div>
 
@@ -223,6 +230,14 @@ import { Subscription } from 'rxjs';
         >
           <span class="text-lg">📄</span>
           <span>Apps</span>
+        </a>
+        <a
+          routerLink="/tenant/rental"
+          routerLinkActive="text-[#0F2937] font-black"
+          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+        >
+          <span class="text-lg">🔑</span>
+          <span>Rental</span>
         </a>
         <a
           routerLink="/tenant/profile"

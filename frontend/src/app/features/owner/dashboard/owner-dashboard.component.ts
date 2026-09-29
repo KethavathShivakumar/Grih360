@@ -67,7 +67,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <app-loading-state *ngIf="isLoading" message="Calculating dashboard metrics..."></app-loading-state>
 
       <!-- Metrics Grid (Bento Style) -->
-      <div *ngIf="!isLoading && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div *ngIf="!isLoading && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         <!-- Card 1: Total Properties -->
         <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
@@ -90,7 +90,19 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Available to lease</span>
         </div>
 
-        <!-- Card 3: New Applications (Submitted) -->
+        <!-- Card 3: Active Rentals / Tenancies -->
+        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-emerald-50/30 to-white">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider">Active Rentals</span>
+            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl group-hover:scale-110 transition-transform text-sm">📜</span>
+          </div>
+          <span class="text-3xl font-black text-emerald-900 mt-3 block">{{ metrics.activeRentals ?? 0 }}</span>
+          <span class="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            Active Leases →
+          </span>
+        </div>
+
+        <!-- Card 4: New Applications (Submitted) -->
         <div (click)="navigateTo('/owner/applications')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-amber-50/40 to-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">New Applications</span>
@@ -102,7 +114,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           </span>
         </div>
 
-        <!-- Card 4: Pending Reviews -->
+        <!-- Card 5: Pending Reviews -->
         <div (click)="navigateTo('/owner/applications')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Pending Reviews</span>
@@ -114,7 +126,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           </span>
         </div>
 
-        <!-- Card 5: Upcoming Rent Sum -->
+        <!-- Card 6: Monthly Rent -->
         <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Monthly Rent</span>

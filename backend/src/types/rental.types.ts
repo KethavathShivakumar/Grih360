@@ -14,6 +14,7 @@ export type ApplicationStatus =
 
 export type RentalStatus = 
   | 'DRAFT'
+  | 'PENDING_CONFIRMATION'
   | 'REVIEW'
   | 'CONFIRMED'
   | 'ACTIVE'

@@ -381,11 +381,18 @@ export class ApplicationService {
       } else if (newStatus === 'APPROVED') {
         const rentalDoc = await RentalService.createOrUpdateRentalFromApplication(application);
         if (rentalDoc) {
+          const startDate = rentalDoc.startDate || new Date(application.moveInDate || Date.now());
+          const endDate = rentalDoc.endDate || new Date(new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1));
           await AgreementService.createAgreement({
             rentalId: (rentalDoc._id || rentalDoc.id).toString(),
             propertyId: property._id.toString(),
             tenantId: tenantIdStr,
             ownerId: ownerIdStr,
+            rent: rentalDoc.monthlyRent || application.proposedRent || property.rentAmount,
+            deposit: rentalDoc.depositPaid || property.depositAmount,
+            startDate,
+            endDate,
+            termMonths: 11,
           });
         }
         await NotificationService.createNotification({
@@ -393,7 +400,7 @@ export class ApplicationService {
           title: 'Application Approved!',
           message: `Congratulations! Your application for ${propTitle} has been approved. Please review your rental agreement.`,
           type: 'APPLICATION',
-          link: `/tenant/applications/${appId}`,
+          link: `/tenant/rental`,
         });
       } else if (newStatus === 'REJECTED') {
         await NotificationService.createNotification({
@@ -519,11 +526,18 @@ export class ApplicationService {
       } else if (newStatus === 'APPROVED') {
         const rentalDoc = await RentalService.createOrUpdateRentalFromApplication(application);
         if (rentalDoc) {
+          const startDate = rentalDoc.startDate || new Date(application.moveInDate || Date.now());
+          const endDate = rentalDoc.endDate || new Date(new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1));
           await AgreementService.createAgreement({
             rentalId: (rentalDoc._id || rentalDoc.id).toString(),
             propertyId: application.propertyId,
             tenantId: tenantIdStr,
             ownerId: ownerIdStr,
+            rent: rentalDoc.monthlyRent || application.proposedRent || 25000,
+            deposit: rentalDoc.depositPaid || 50000,
+            startDate,
+            endDate,
+            termMonths: 11,
           });
         }
         await NotificationService.createNotification({
@@ -531,7 +545,7 @@ export class ApplicationService {
           title: 'Application Approved!',
           message: `Congratulations! Your application for ${propTitle} has been approved. Please review your rental agreement.`,
           type: 'APPLICATION',
-          link: `/tenant/applications/${appId}`,
+          link: `/tenant/rental`,
         });
       } else if (newStatus === 'REJECTED') {
         await NotificationService.createNotification({

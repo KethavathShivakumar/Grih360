@@ -526,5 +526,911 @@
     "nextAction": "Verification rejected. Tenant must address concerns and resubmit.",
     "reviewedAt": "2026-09-27T16:23:26.499Z",
     "rejectionReason": "Document scan is unreadable and name does not match applicant profile."
+  },
+  {
+    "_id": "verif_app_1790526927031_jax2jl",
+    "id": "verif_app_1790526927031_jax2jl",
+    "applicationId": "app_1790526927031_jax2jl",
+    "tenantId": "mem_usr_1790526927020_wbuci",
+    "propertyId": "prop_1790526926800_5zjwad",
+    "ownerId": "mem_usr_1790526926768_kexqt",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.138Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.138Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.138Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790526927074_f8bi6y",
+        "documentType": "AADHAAR",
+        "documentNumber": "1234-5678-9012",
+        "maskedNumber": "**********9012",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-27T16:35:27.074Z",
+        "notes": "Aadhaar identity card copy uploaded"
+      },
+      {
+        "documentId": "doc_1790526927074_m0kttt",
+        "documentType": "SALARY_SLIP",
+        "documentNumber": "PAYSLIP-SEP-2026",
+        "maskedNumber": "************2026",
+        "fileUrl": "/mock/documents/salary_slip.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-27T16:35:27.074Z",
+        "notes": "Corporate payslip"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-27T16:35:27.074Z",
+    "submittedInfo": {
+      "fullName": "Phase5 Verification Applicant",
+      "phone": "+919876543302",
+      "email": "phase5-tenant-1790526926523@nivas360.com",
+      "employerName": "Global Tech Services",
+      "designation": "Senior Lead Architect",
+      "monthlyIncome": 95000,
+      "currentAddress": "Hyderabad, Telangana",
+      "previousLandlordContact": "+919800112233",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-27T16:35:27.138Z",
+    "adminNotes": "All identity and income credentials verified by compliance team"
+  },
+  {
+    "_id": "verif_app_1790526927031_jax2jl",
+    "id": "verif_app_1790526927031_jax2jl",
+    "applicationId": "app_1790526927031_jax2jl",
+    "tenantId": "mem_usr_1790526927020_wbuci",
+    "propertyId": "prop_1790526926800_5zjwad",
+    "ownerId": "mem_usr_1790526926768_kexqt",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.138Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.138Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.138Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790526927074_f8bi6y",
+        "documentType": "AADHAAR",
+        "documentNumber": "1234-5678-9012",
+        "maskedNumber": "**********9012",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-27T16:35:27.074Z",
+        "notes": "Aadhaar identity card copy uploaded"
+      },
+      {
+        "documentId": "doc_1790526927074_m0kttt",
+        "documentType": "SALARY_SLIP",
+        "documentNumber": "PAYSLIP-SEP-2026",
+        "maskedNumber": "************2026",
+        "fileUrl": "/mock/documents/salary_slip.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-27T16:35:27.074Z",
+        "notes": "Corporate payslip"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-27T16:35:27.074Z",
+    "submittedInfo": {
+      "fullName": "Phase5 Verification Applicant",
+      "phone": "+919876543302",
+      "email": "phase5-tenant-1790526926523@nivas360.com",
+      "employerName": "Global Tech Services",
+      "designation": "Senior Lead Architect",
+      "monthlyIncome": 95000,
+      "currentAddress": "Hyderabad, Telangana",
+      "previousLandlordContact": "+919800112233",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-27T16:35:27.138Z",
+    "adminNotes": "All identity and income credentials verified by compliance team"
+  },
+  {
+    "_id": "verif_app_1790526927163_2gnwn3",
+    "id": "verif_app_1790526927163_2gnwn3",
+    "applicationId": "app_1790526927163_2gnwn3",
+    "tenantId": "mem_usr_1790526927020_wbuci",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "REJECTED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.172Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790526927171_viwnyb",
+        "documentType": "AADHAAR",
+        "documentNumber": "0000-0000-0000",
+        "maskedNumber": "**********0000",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-27T16:35:27.172Z",
+        "notes": "Unreadable test scan"
+      }
+    ],
+    "status": "REJECTED",
+    "submittedAt": "2026-09-27T16:35:27.172Z",
+    "nextAction": "Verification rejected. Tenant must address concerns and resubmit.",
+    "reviewedAt": "2026-09-27T16:35:27.182Z",
+    "rejectionReason": "Document scan is unreadable and name does not match applicant profile."
+  },
+  {
+    "_id": "verif_app_1790526927163_2gnwn3",
+    "id": "verif_app_1790526927163_2gnwn3",
+    "applicationId": "app_1790526927163_2gnwn3",
+    "tenantId": "mem_usr_1790526927020_wbuci",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "REJECTED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-27T16:35:27.172Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790526927171_viwnyb",
+        "documentType": "AADHAAR",
+        "documentNumber": "0000-0000-0000",
+        "maskedNumber": "**********0000",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-27T16:35:27.172Z",
+        "notes": "Unreadable test scan"
+      }
+    ],
+    "status": "REJECTED",
+    "submittedAt": "2026-09-27T16:35:27.172Z",
+    "nextAction": "Verification rejected. Tenant must address concerns and resubmit.",
+    "reviewedAt": "2026-09-27T16:35:27.182Z",
+    "rejectionReason": "Document scan is unreadable and name does not match applicant profile."
+  },
+  {
+    "_id": "verif_app_1790691457643_lzd4re",
+    "id": "verif_app_1790691457643_lzd4re",
+    "applicationId": "app_1790691457643_lzd4re",
+    "propertyId": "prop_1790691456675_xhx5to",
+    "ownerId": "mem_usr_1790691456491_2yvdy",
+    "tenantId": "mem_usr_1790691457605_ppowe",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:17:37.804Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:17:37.804Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:17:37.804Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691457748_phrv3v",
+        "documentType": "AADHAAR",
+        "documentNumber": "9988-7766-5544",
+        "maskedNumber": "**********5544",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:17:37.749Z",
+        "notes": "Aadhaar front and back scan"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:17:37.750Z",
+    "submittedInfo": {
+      "fullName": "Phase6 Verified Tenant",
+      "currentAddress": "Hitech City, Hyderabad",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:17:37.804Z",
+    "adminNotes": "Identity confirmed by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691457643_lzd4re",
+    "id": "verif_app_1790691457643_lzd4re",
+    "applicationId": "app_1790691457643_lzd4re",
+    "propertyId": "prop_1790691456675_xhx5to",
+    "ownerId": "mem_usr_1790691456491_2yvdy",
+    "tenantId": "mem_usr_1790691457605_ppowe",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:17:37.804Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:17:37.804Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:17:37.804Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691457748_phrv3v",
+        "documentType": "AADHAAR",
+        "documentNumber": "9988-7766-5544",
+        "maskedNumber": "**********5544",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:17:37.749Z",
+        "notes": "Aadhaar front and back scan"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:17:37.750Z",
+    "submittedInfo": {
+      "fullName": "Phase6 Verified Tenant",
+      "currentAddress": "Hitech City, Hyderabad",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:17:37.804Z",
+    "adminNotes": "Identity confirmed by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691550298_s58xw5",
+    "id": "verif_app_1790691550298_s58xw5",
+    "applicationId": "app_1790691550298_s58xw5",
+    "propertyId": "prop_1790691549581_2jvt0z",
+    "ownerId": "mem_usr_1790691549439_idwtw",
+    "tenantId": "mem_usr_1790691550265_3jqpr",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:19:10.420Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:19:10.420Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:19:10.420Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691550375_v14fjo",
+        "documentType": "AADHAAR",
+        "documentNumber": "9988-7766-5544",
+        "maskedNumber": "**********5544",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:19:10.376Z",
+        "notes": "Aadhaar front and back scan"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:19:10.377Z",
+    "submittedInfo": {
+      "fullName": "Phase6 Verified Tenant",
+      "currentAddress": "Hitech City, Hyderabad",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:19:10.419Z",
+    "adminNotes": "Identity confirmed by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691550298_s58xw5",
+    "id": "verif_app_1790691550298_s58xw5",
+    "applicationId": "app_1790691550298_s58xw5",
+    "propertyId": "prop_1790691549581_2jvt0z",
+    "ownerId": "mem_usr_1790691549439_idwtw",
+    "tenantId": "mem_usr_1790691550265_3jqpr",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:19:10.420Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:19:10.420Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:19:10.420Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691550375_v14fjo",
+        "documentType": "AADHAAR",
+        "documentNumber": "9988-7766-5544",
+        "maskedNumber": "**********5544",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:19:10.376Z",
+        "notes": "Aadhaar front and back scan"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:19:10.377Z",
+    "submittedInfo": {
+      "fullName": "Phase6 Verified Tenant",
+      "currentAddress": "Hitech City, Hyderabad",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:19:10.419Z",
+    "adminNotes": "Identity confirmed by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691608701_qdlg76",
+    "id": "verif_app_1790691608701_qdlg76",
+    "applicationId": "app_1790691608701_qdlg76",
+    "tenantId": "mem_usr_1790691608652_9nw1d",
+    "propertyId": "prop_1790691608062_b2zm28",
+    "ownerId": "mem_usr_1790691607956_8mxz6",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:08.996Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:08.996Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:08.996Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691608828_zhq8a2",
+        "documentType": "AADHAAR",
+        "documentNumber": "1234-5678-9012",
+        "maskedNumber": "**********9012",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:20:08.829Z",
+        "notes": "Aadhaar identity card copy uploaded"
+      },
+      {
+        "documentId": "doc_1790691608829_atuhou",
+        "documentType": "SALARY_SLIP",
+        "documentNumber": "PAYSLIP-SEP-2026",
+        "maskedNumber": "************2026",
+        "fileUrl": "/mock/documents/salary_slip.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:20:08.829Z",
+        "notes": "Corporate payslip"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:20:08.829Z",
+    "submittedInfo": {
+      "fullName": "Phase5 Verification Applicant",
+      "phone": "+919876543302",
+      "email": "phase5-tenant-1790691607294@nivas360.com",
+      "employerName": "Global Tech Services",
+      "designation": "Senior Lead Architect",
+      "monthlyIncome": 95000,
+      "currentAddress": "Hyderabad, Telangana",
+      "previousLandlordContact": "+919800112233",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:20:08.996Z",
+    "adminNotes": "All identity and income credentials verified by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691608701_qdlg76",
+    "id": "verif_app_1790691608701_qdlg76",
+    "applicationId": "app_1790691608701_qdlg76",
+    "tenantId": "mem_usr_1790691608652_9nw1d",
+    "propertyId": "prop_1790691608062_b2zm28",
+    "ownerId": "mem_usr_1790691607956_8mxz6",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:08.996Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:08.996Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:08.996Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691608828_zhq8a2",
+        "documentType": "AADHAAR",
+        "documentNumber": "1234-5678-9012",
+        "maskedNumber": "**********9012",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:20:08.829Z",
+        "notes": "Aadhaar identity card copy uploaded"
+      },
+      {
+        "documentId": "doc_1790691608829_atuhou",
+        "documentType": "SALARY_SLIP",
+        "documentNumber": "PAYSLIP-SEP-2026",
+        "maskedNumber": "************2026",
+        "fileUrl": "/mock/documents/salary_slip.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:20:08.829Z",
+        "notes": "Corporate payslip"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:20:08.829Z",
+    "submittedInfo": {
+      "fullName": "Phase5 Verification Applicant",
+      "phone": "+919876543302",
+      "email": "phase5-tenant-1790691607294@nivas360.com",
+      "employerName": "Global Tech Services",
+      "designation": "Senior Lead Architect",
+      "monthlyIncome": 95000,
+      "currentAddress": "Hyderabad, Telangana",
+      "previousLandlordContact": "+919800112233",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:20:08.996Z",
+    "adminNotes": "All identity and income credentials verified by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691609074_tmn24l",
+    "id": "verif_app_1790691609074_tmn24l",
+    "applicationId": "app_1790691609074_tmn24l",
+    "tenantId": "mem_usr_1790691608652_9nw1d",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "REJECTED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:09.103Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691609102_beo2p0",
+        "documentType": "AADHAAR",
+        "documentNumber": "0000-0000-0000",
+        "maskedNumber": "**********0000",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:20:09.103Z",
+        "notes": "Unreadable test scan"
+      }
+    ],
+    "status": "REJECTED",
+    "submittedAt": "2026-09-29T14:20:09.103Z",
+    "nextAction": "Verification rejected. Tenant must address concerns and resubmit.",
+    "reviewedAt": "2026-09-29T14:20:09.143Z",
+    "rejectionReason": "Document scan is unreadable and name does not match applicant profile."
+  },
+  {
+    "_id": "verif_app_1790691609074_tmn24l",
+    "id": "verif_app_1790691609074_tmn24l",
+    "applicationId": "app_1790691609074_tmn24l",
+    "tenantId": "mem_usr_1790691608652_9nw1d",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "REJECTED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:20:09.103Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "REJECTED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691609102_beo2p0",
+        "documentType": "AADHAAR",
+        "documentNumber": "0000-0000-0000",
+        "maskedNumber": "**********0000",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:20:09.103Z",
+        "notes": "Unreadable test scan"
+      }
+    ],
+    "status": "REJECTED",
+    "submittedAt": "2026-09-29T14:20:09.103Z",
+    "nextAction": "Verification rejected. Tenant must address concerns and resubmit.",
+    "reviewedAt": "2026-09-29T14:20:09.143Z",
+    "rejectionReason": "Document scan is unreadable and name does not match applicant profile."
+  },
+  {
+    "_id": "verif_app_1790691947733_okqq5s",
+    "id": "verif_app_1790691947733_okqq5s",
+    "applicationId": "app_1790691947733_okqq5s",
+    "propertyId": "prop_1790691947345_d366us",
+    "ownerId": "mem_usr_1790691947262_g05zv",
+    "tenantId": "mem_usr_1790691947717_1d0dj",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:25:47.798Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:25:47.798Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:25:47.798Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691947777_oehgs2",
+        "documentType": "AADHAAR",
+        "documentNumber": "9988-7766-5544",
+        "maskedNumber": "**********5544",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:25:47.777Z",
+        "notes": "Aadhaar front and back scan"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:25:47.777Z",
+    "submittedInfo": {
+      "fullName": "Phase6 Verified Tenant",
+      "currentAddress": "Hitech City, Hyderabad",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:25:47.798Z",
+    "adminNotes": "Identity confirmed by compliance team"
+  },
+  {
+    "_id": "verif_app_1790691947733_okqq5s",
+    "id": "verif_app_1790691947733_okqq5s",
+    "applicationId": "app_1790691947733_okqq5s",
+    "propertyId": "prop_1790691947345_d366us",
+    "ownerId": "mem_usr_1790691947262_g05zv",
+    "tenantId": "mem_usr_1790691947717_1d0dj",
+    "status": "VERIFIED",
+    "steps": [
+      {
+        "stepId": "ID_VERIFICATION",
+        "name": "Government Identity (Aadhaar / Voter ID / Passport)",
+        "category": "IDENTITY",
+        "status": "VERIFIED",
+        "isExternalProvider": true,
+        "providerNotice": "Verification provider integration required. Document submitted for manual administrative review.",
+        "data": null,
+        "completedAt": "2026-09-29T14:25:47.798Z"
+      },
+      {
+        "stepId": "INCOME_VERIFICATION",
+        "name": "Employment & Income Verification",
+        "category": "INCOME",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Manual document assessment by verification team",
+        "data": null,
+        "completedAt": "2026-09-29T14:25:47.798Z"
+      },
+      {
+        "stepId": "RENTAL_HISTORY",
+        "name": "Rental History & Reference Check",
+        "category": "RENTAL_HISTORY",
+        "status": "VERIFIED",
+        "isExternalProvider": false,
+        "providerNotice": "Owner and previous tenancy cross-check",
+        "data": null,
+        "completedAt": "2026-09-29T14:25:47.798Z"
+      }
+    ],
+    "documents": [
+      {
+        "documentId": "doc_1790691947777_oehgs2",
+        "documentType": "AADHAAR",
+        "documentNumber": "9988-7766-5544",
+        "maskedNumber": "**********5544",
+        "fileUrl": "/mock/documents/aadhaar.pdf",
+        "status": "PENDING",
+        "uploadedAt": "2026-09-29T14:25:47.777Z",
+        "notes": "Aadhaar front and back scan"
+      }
+    ],
+    "nextAction": "Verification approved. Ready for tenancy lease agreement processing.",
+    "submittedAt": "2026-09-29T14:25:47.777Z",
+    "submittedInfo": {
+      "fullName": "Phase6 Verified Tenant",
+      "currentAddress": "Hitech City, Hyderabad",
+      "declarationAccepted": true
+    },
+    "notes": "Documents submitted for verification review",
+    "reviewedAt": "2026-09-29T14:25:47.798Z",
+    "adminNotes": "Identity confirmed by compliance team"
   }
 ]
