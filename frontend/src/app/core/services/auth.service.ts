@@ -74,6 +74,22 @@ export class AuthService {
     );
   }
 
+  /**
+   * Admin-only login — bypasses Two-Step OTP using directToken flag.
+   * Only accepts accounts with role === 'ADMIN'.
+   */
+  public adminLogin(identifier: string, password: string): Observable<any> {
+    return this.apiService.post<any>('/auth/login', { identifier, password, directToken: true }).pipe(
+      tap((res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          this.storageService.setToken(res.data.tokens.accessToken);
+          this.currentUserSubject.next(res.data.user);
+          this.initializationSubject.next(true);
+        }
+      })
+    );
+  }
+
   public logout(): void {
     this.apiService.post('/auth/logout', {}).subscribe();
     this.storageService.clearSession();

@@ -140,7 +140,7 @@ export class AdminLoginComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.authService.login(this.identifier.trim(), this.password).subscribe({
+    this.authService.adminLogin(this.identifier.trim(), this.password).subscribe({
       next: (res) => {
         const user = res.data?.user;
         if (!user || user.role !== 'ADMIN') {
