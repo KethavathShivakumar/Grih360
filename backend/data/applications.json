@@ -647,5 +647,50 @@
     "verificationStatusAtSubmission": "NOT_STARTED",
     "createdAt": "2026-09-29T14:25:48.282Z",
     "updatedAt": "2026-09-29T14:25:48.296Z"
+  },
+  {
+    "_id": "app_1790696105411_g0d0dx",
+    "id": "app_1790696105411_g0d0dx",
+    "propertyId": "prop_1790696105150_qe7slc",
+    "tenantId": "mem_usr_1790696105399_3g7hm",
+    "ownerId": "mem_usr_1790696105104_4zt7y",
+    "status": "APPROVED",
+    "submittedAt": "2026-09-29T15:35:05.411Z",
+    "moveInDate": "2026-10-13T15:35:05.404Z",
+    "proposedRent": 33000,
+    "applicationData": {
+      "applicantName": "Phase6 Verified Tenant",
+      "applicantEmail": "phase6-tenant-1790696104876@nivas360.com",
+      "applicantPhone": "+919703292587",
+      "employmentStatus": "Salaried Professional",
+      "monthlyIncome": 140000,
+      "occupantsCount": 3,
+      "notes": "Quiet family looking for long-term tenancy."
+    },
+    "verificationStatusAtSubmission": "NOT_STARTED",
+    "createdAt": "2026-09-29T15:35:05.411Z",
+    "updatedAt": "2026-09-29T15:35:05.480Z"
+  },
+  {
+    "_id": "app_1790696105886_4vcgsh",
+    "id": "app_1790696105886_4vcgsh",
+    "propertyId": "prop_1790696105877_l527v4",
+    "tenantId": "mem_usr_1790696105863_v4cbe",
+    "ownerId": "mem_usr_1790696105104_4zt7y",
+    "status": "APPROVED",
+    "submittedAt": "2026-09-29T15:35:05.886Z",
+    "moveInDate": "2026-10-13T15:35:05.404Z",
+    "proposedRent": 22000,
+    "applicationData": {
+      "applicantName": "Phase6 Unrelated User",
+      "applicantEmail": "phase6-unrelated-1790696104876@nivas360.com",
+      "applicantPhone": "+918839128816",
+      "employmentStatus": "Employed",
+      "monthlyIncome": 66000,
+      "occupantsCount": 1
+    },
+    "verificationStatusAtSubmission": "NOT_STARTED",
+    "createdAt": "2026-09-29T15:35:05.886Z",
+    "updatedAt": "2026-09-29T15:35:05.896Z"
   }
 ]

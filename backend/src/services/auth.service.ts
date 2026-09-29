@@ -243,6 +243,96 @@ export class AuthService {
   }
 
   /**
+   * Finds a user by email or phone across MongoDB and memory store
+   */
+  static async findUserByIdentifier(identifier: string) {
+    const normalized = identifier.trim().toLowerCase();
+    if (AuthService.isMongoConnected()) {
+      return await UserModel.findOne({
+        $or: [{ email: normalized }, { phone: normalized }],
+      });
+    } else {
+      for (const u of memoryUsers.values()) {
+        if (u.email === normalized || u.phone === normalized) {
+          return u;
+        }
+      }
+      return null;
+    }
+  }
+
+  /**
+   * Initiates sending a secure 6-digit login OTP via Gmail API OAuth2
+   */
+  static async requestLoginOtp(identifier: string) {
+    if (!identifier || typeof identifier !== 'string') {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email or phone identifier is required' };
+    }
+
+    const user = await AuthService.findUserByIdentifier(identifier);
+    if (!user) {
+      throw { statusCode: 404, code: 'USER_NOT_FOUND', message: 'No registered account found with this email or phone' };
+    }
+
+    if (!user.isActive) {
+      throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
+    }
+
+    const { OtpService } = await import('./otp.service');
+    return await OtpService.createAndSendOtp({
+      email: user.email,
+      purpose: 'LOGIN',
+      userName: user.name,
+    });
+  }
+
+  /**
+   * Verifies login OTP and returns authenticated JWT tokens
+   */
+  static async loginWithOtp(identifier: string, otp: string) {
+    if (!identifier || !otp) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Identifier and OTP code are required' };
+    }
+
+    const user = await AuthService.findUserByIdentifier(identifier);
+    if (!user) {
+      throw { statusCode: 404, code: 'USER_NOT_FOUND', message: 'No registered account found with this email or phone' };
+    }
+
+    if (!user.isActive) {
+      throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
+    }
+
+    const { OtpService } = await import('./otp.service');
+    const verification = await OtpService.verifyOtp({
+      email: user.email,
+      otp,
+      purpose: 'LOGIN',
+    });
+
+    if (!verification.valid) {
+      throw { statusCode: 401, code: 'INVALID_OTP', message: verification.message };
+    }
+
+    const userId = user._id ? (user._id as any).toString() : user.id;
+    const tokens = JwtUtil.generateTokens({
+      userId,
+      role: user.role,
+      email: user.email,
+    });
+
+    const safeUser = typeof user.toJSON === 'function' ? user.toJSON() : (() => {
+      const { passwordHash: _, ...rest } = user;
+      return rest;
+    })();
+
+    return {
+      user: safeUser,
+      tokens,
+    };
+  }
+
+  /**
    * Fetch authenticated user details
    */
   static async getAuthenticatedUser(userId: string) {
@@ -262,3 +352,4 @@ export class AuthService {
     }
   }
 }
+

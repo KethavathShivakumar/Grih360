@@ -15,4 +15,6 @@ export * from './review.model';
 export * from './saved-property.model';
 export * from './notification.model';
 export * from './audit.model';
+export * from './oauth-credential.model';
+export * from './otp.model';
 

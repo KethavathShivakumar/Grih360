@@ -11,8 +11,30 @@ export const config = {
   jwtAccessSecret: process.env.JWT_ACCESS_SECRET || 'default_dev_access_secret',
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'default_dev_refresh_secret',
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:4200',
+  backendUrl: process.env.BACKEND_URL || (process.env.NODE_ENV === 'production' ? 'https://nivas360.vercel.app' : 'http://localhost:5000'),
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyDSkelUvGii5waZT4Edk2n8wsAg7tlEI54',
   apiVersion: '/api/v1',
+  googleClientId: process.env.GOOGLE_CLIENT_ID || '',
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+  googleRedirectUri: process.env.GOOGLE_REDIRECT_URI || '',
+  gmailRefreshToken: process.env.GMAIL_REFRESH_TOKEN || '',
+  gmailSenderEmail: process.env.GMAIL_SENDER_EMAIL || 'grih360@gmail.com',
+  oauthSetupKey: process.env.OAUTH_SETUP_KEY || 'nivas360_secure_oauth_setup_key_2026',
+};
+
+/**
+ * Returns the effective Google OAuth2 redirect URI.
+ * Priority:
+ * 1. Explicit GOOGLE_REDIRECT_URI environment variable
+ * 2. Constructed from BACKEND_URL + /api/v1/auth/google/callback
+ * 3. Default fallback based on NODE_ENV (https://nivas360.vercel.app or http://localhost:5000)
+ */
+export const getEffectiveGoogleRedirectUri = (): string => {
+  if (config.googleRedirectUri) {
+    return config.googleRedirectUri;
+  }
+  const base = (config.backendUrl || 'https://nivas360.vercel.app').replace(/\/+$/, '');
+  return `${base}${config.apiVersion}/auth/google/callback`;
 };
 
 // Environment validation

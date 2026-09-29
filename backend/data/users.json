@@ -596,5 +596,57 @@
     "identityVerificationStatus": "NOT_STARTED",
     "createdAt": "2026-09-29T14:25:48.255Z",
     "updatedAt": "2026-09-29T14:25:48.255Z"
+  },
+  {
+    "_id": "mem_usr_1790696068090_9gjve",
+    "id": "mem_usr_1790696068090_9gjve",
+    "name": "OTP Verified User",
+    "email": "otp-test-1790696064187@nivas360.com",
+    "phone": "+917968125874",
+    "passwordHash": "$2a$10$Tefpv/1DmUUwKKfBnle2c.rxrjHpv79IJ4VXkKFEwqZnIRnD5wOkC",
+    "role": "TENANT",
+    "isActive": true,
+    "identityVerificationStatus": "NOT_STARTED",
+    "createdAt": "2026-09-29T15:34:28.090Z",
+    "updatedAt": "2026-09-29T15:34:28.090Z"
+  },
+  {
+    "_id": "mem_usr_1790696105104_4zt7y",
+    "id": "mem_usr_1790696105104_4zt7y",
+    "name": "Phase6 Property Owner",
+    "email": "phase6-owner-1790696104876@nivas360.com",
+    "phone": "+918817324586",
+    "passwordHash": "$2a$10$rbWd0xFn7Nbh/EdM15YNNO/.oXRJSHBRAecaTaSFgG8JyFYyCpfQK",
+    "role": "OWNER",
+    "isActive": true,
+    "identityVerificationStatus": "NOT_STARTED",
+    "createdAt": "2026-09-29T15:35:05.104Z",
+    "updatedAt": "2026-09-29T15:35:05.104Z"
+  },
+  {
+    "_id": "mem_usr_1790696105399_3g7hm",
+    "id": "mem_usr_1790696105399_3g7hm",
+    "name": "Phase6 Verified Tenant",
+    "email": "phase6-tenant-1790696104876@nivas360.com",
+    "phone": "+919703292587",
+    "passwordHash": "$2a$10$cLfUAoG0V/VKlyn31EdYBuYf1B1FYya.CgRq71Nj3wPatlxx3QMAK",
+    "role": "TENANT",
+    "isActive": true,
+    "identityVerificationStatus": "VERIFIED",
+    "createdAt": "2026-09-29T15:35:05.399Z",
+    "updatedAt": "2026-09-29T15:35:05.465Z"
+  },
+  {
+    "_id": "mem_usr_1790696105863_v4cbe",
+    "id": "mem_usr_1790696105863_v4cbe",
+    "name": "Phase6 Unrelated User",
+    "email": "phase6-unrelated-1790696104876@nivas360.com",
+    "phone": "+918839128816",
+    "passwordHash": "$2a$10$yVsXnASwgyMXWur16/M54eerwzLpU58Iqv0n9x9yJe9rdoNWJlcTC",
+    "role": "TENANT",
+    "isActive": true,
+    "identityVerificationStatus": "NOT_STARTED",
+    "createdAt": "2026-09-29T15:35:05.863Z",
+    "updatedAt": "2026-09-29T15:35:05.863Z"
   }
 ]

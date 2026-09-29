@@ -168,5 +168,39 @@
     "agreementVersion": "v1.0",
     "createdAt": "2026-09-29T14:25:48.298Z",
     "updatedAt": "2026-09-29T14:25:48.298Z"
+  },
+  {
+    "_id": "mem_rental_1790696105482",
+    "id": "mem_rental_1790696105482",
+    "propertyId": "prop_1790696105150_qe7slc",
+    "tenantId": "mem_usr_1790696105399_3g7hm",
+    "ownerId": "mem_usr_1790696105104_4zt7y",
+    "applicationId": "app_1790696105411_g0d0dx",
+    "status": "ACTIVE",
+    "startDate": "2026-10-13T15:35:05.404Z",
+    "endDate": "2027-10-13T15:35:05.404Z",
+    "monthlyRent": 33000,
+    "depositPaid": 70000,
+    "rentStatus": "UPCOMING",
+    "agreementVersion": "v1.0",
+    "createdAt": "2026-09-29T15:35:05.482Z",
+    "updatedAt": "2026-09-29T15:35:05.608Z"
+  },
+  {
+    "_id": "mem_rental_1790696105898",
+    "id": "mem_rental_1790696105898",
+    "propertyId": "prop_1790696105877_l527v4",
+    "tenantId": "mem_usr_1790696105863_v4cbe",
+    "ownerId": "mem_usr_1790696105104_4zt7y",
+    "applicationId": "app_1790696105886_4vcgsh",
+    "status": "PENDING_CONFIRMATION",
+    "startDate": "2026-10-13T15:35:05.404Z",
+    "endDate": "2027-10-13T15:35:05.404Z",
+    "monthlyRent": 22000,
+    "depositPaid": 44000,
+    "rentStatus": "UPCOMING",
+    "agreementVersion": "v1.0",
+    "createdAt": "2026-09-29T15:35:05.898Z",
+    "updatedAt": "2026-09-29T15:35:05.898Z"
   }
 ]

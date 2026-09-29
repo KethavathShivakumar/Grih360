@@ -26,5 +26,19 @@
     "notes": "Initial monthly rent cycle generated upon agreement confirmation",
     "createdAt": "2026-09-29T14:25:47.919Z",
     "updatedAt": "2026-09-29T14:25:47.919Z"
+  },
+  {
+    "_id": "mem_rentrec_1790696105612",
+    "id": "mem_rentrec_1790696105612",
+    "rentalId": "mem_rental_1790696105482",
+    "propertyId": "prop_1790696105150_qe7slc",
+    "tenantId": "mem_usr_1790696105399_3g7hm",
+    "ownerId": "mem_usr_1790696105104_4zt7y",
+    "amount": 33000,
+    "dueDate": "2026-10-13T15:35:05.404Z",
+    "status": "UPCOMING",
+    "notes": "Initial monthly rent cycle generated upon agreement confirmation",
+    "createdAt": "2026-09-29T15:35:05.613Z",
+    "updatedAt": "2026-09-29T15:35:05.613Z"
   }
 ]

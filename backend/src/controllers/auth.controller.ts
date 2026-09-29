@@ -81,4 +81,41 @@ export class AuthController {
       ApiResponseUtil.error(res, 'Invalid or expired refresh token', 401, 'INVALID_REFRESH_TOKEN');
     }
   }
+
+  /**
+   * Send Login Verification OTP via Gmail API OAuth2
+   * POST /api/v1/auth/otp/send
+   */
+  static async sendOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { identifier } = req.body;
+      if (!identifier || typeof identifier !== 'string') {
+        ApiResponseUtil.error(res, 'Registered email address or mobile number is required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+      const result = await AuthService.requestLoginOtp(identifier);
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * Verify Login OTP and issue JWT access tokens
+   * POST /api/v1/auth/otp/verify
+   */
+  static async verifyOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { identifier, otp } = req.body;
+      if (!identifier || !otp) {
+        ApiResponseUtil.error(res, 'Both identifier and 6-digit OTP code are required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+      const result = await AuthService.loginWithOtp(identifier, otp);
+      ApiResponseUtil.success(res, 'Authentication successful via OTP verification', result, 200);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
+

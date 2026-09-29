@@ -100,6 +100,24 @@ export class AuthService {
     return !!this.storageService.getToken();
   }
 
+  /** Send OTP to registered email or mobile number */
+  public sendOtp(identifier: string): Observable<any> {
+    return this.apiService.post<any>('/auth/otp/send', { identifier });
+  }
+
+  /** Verify OTP and log in */
+  public verifyOtp(identifier: string, otp: string): Observable<any> {
+    return this.apiService.post<any>('/auth/otp/verify', { identifier, otp }).pipe(
+      tap((res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          this.storageService.setToken(res.data.tokens.accessToken);
+          this.currentUserSubject.next(res.data.user);
+          this.initializationSubject.next(true);
+        }
+      })
+    );
+  }
+
   /** Wait for the initialization (initial /auth/me fetch) to complete */
   public waitForInit(): Observable<boolean> {
     return this.isInitialized$.pipe(
