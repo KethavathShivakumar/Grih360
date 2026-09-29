@@ -68,6 +68,9 @@ import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.
 export const routes: Routes = [
   { path: '', redirectTo: 'role-selection', pathMatch: 'full' },
   { path: 'role-selection', component: RoleSelectionComponent },
+  { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: 'register', redirectTo: 'auth/register', pathMatch: 'full' },
+  { path: 'verify-email', redirectTo: 'auth/verify-email', pathMatch: 'full' },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
   { path: 'auth/verify-email', component: VerifyEmailComponent },
