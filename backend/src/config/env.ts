@@ -14,27 +14,16 @@ export const config = {
   backendUrl: process.env.BACKEND_URL || (process.env.NODE_ENV === 'production' ? 'https://nivas360.vercel.app' : 'http://localhost:5000'),
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyDSkelUvGii5waZT4Edk2n8wsAg7tlEI54',
   apiVersion: '/api/v1',
-  googleClientId: (process.env.GOOGLE_CLIENT_ID || '').trim(),
-  googleClientSecret: (process.env.GOOGLE_CLIENT_SECRET || '').trim(),
-  googleRedirectUri: (process.env.GOOGLE_REDIRECT_URI || '').trim(),
-  gmailRefreshToken: (process.env.GMAIL_REFRESH_TOKEN || '').trim(),
-  gmailSenderEmail: (process.env.GMAIL_SENDER_EMAIL || 'grih360@gmail.com').trim(),
-  oauthSetupKey: (process.env.OAUTH_SETUP_KEY || 'nivas360_secure_oauth_setup_key_2026').trim(),
-};
 
-/**
- * Returns the effective Google OAuth2 redirect URI.
- * Priority:
- * 1. Explicit GOOGLE_REDIRECT_URI environment variable
- * 2. Constructed from BACKEND_URL + /api/v1/auth/google/callback
- * 3. Default fallback based on NODE_ENV (https://nivas360.vercel.app or http://localhost:5000)
- */
-export const getEffectiveGoogleRedirectUri = (): string => {
-  if (config.googleRedirectUri) {
-    return config.googleRedirectUri;
-  }
-  const base = (config.backendUrl || 'https://nivas360.vercel.app').replace(/\/+$/, '');
-  return `${base}${config.apiVersion}/auth/google/callback`;
+  // Gmail SMTP Delivery Configuration
+  smtpHost: (process.env.SMTP_HOST || 'smtp.gmail.com').trim(),
+  smtpPort: parseInt(process.env.SMTP_PORT || '587', 10),
+  smtpSecure: process.env.SMTP_SECURE === 'true',
+  smtpUser: (process.env.SMTP_USER || 'grih360@gmail.com').trim(),
+  smtpPass: (process.env.SMTP_PASS || '').trim(),
+  emailFrom: (process.env.EMAIL_FROM || 'Nivas360 <grih360@gmail.com>').trim(),
+  emailOtpExpiryMinutes: parseInt(process.env.EMAIL_OTP_EXPIRY_MINUTES || '5', 10),
+  emailOtpLength: parseInt(process.env.EMAIL_OTP_LENGTH || '6', 10),
 };
 
 // Environment validation

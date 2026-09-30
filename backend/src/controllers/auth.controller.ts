@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '../services/auth.service';
+import { EmailService } from '../services/email.service';
 import { ApiResponseUtil } from '../utils/api-response.util';
 import { AuthenticatedRequest } from '../middleware/auth.middleware';
 
@@ -213,4 +214,41 @@ export class AuthController {
       next(err);
     }
   }
+
+  /**
+   * Verifies Gmail SMTP connection
+   * GET /api/v1/auth/smtp/verify
+   */
+  static async verifySmtp(req: Request, res: Response): Promise<void> {
+    try {
+      const result = await EmailService.verifyConnection();
+      if (result.success) {
+        ApiResponseUtil.success(res, result.message, result, 200);
+      } else {
+        ApiResponseUtil.error(res, result.message, 503, 'SMTP_CONNECTION_ERROR', result);
+      }
+    } catch (err: any) {
+      ApiResponseUtil.error(res, err.message || 'SMTP verification failed', 500);
+    }
+  }
+
+  /**
+   * Sends a test email via Gmail SMTP
+   * POST /api/v1/auth/smtp/test-email
+   */
+  static async sendTestSmtpEmail(req: Request, res: Response): Promise<void> {
+    try {
+      const { to } = req.body;
+      if (!to || typeof to !== 'string' || !to.includes('@')) {
+        ApiResponseUtil.error(res, 'Valid recipient email "to" is required in request body', 400);
+        return;
+      }
+
+      const result = await EmailService.sendTestEmail(to.trim().toLowerCase());
+      ApiResponseUtil.success(res, 'Test email delivered successfully via Gmail SMTP', result, 200);
+    } catch (err: any) {
+      ApiResponseUtil.error(res, err.message || 'Failed to dispatch test email', 500);
+    }
+  }
 }
+

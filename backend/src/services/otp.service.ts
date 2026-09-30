@@ -29,7 +29,9 @@ export interface LoginChallengeResult {
 }
 
 export class OtpService {
-  public static readonly OTP_EXPIRY_MS = 5 * 60 * 1000; // Strict 5-minute lifespan
+  public static get OTP_EXPIRY_MS(): number {
+    return (config.emailOtpExpiryMinutes || 5) * 60 * 1000;
+  }
   public static readonly CHALLENGE_EXPIRY_MS = 10 * 60 * 1000; // 10-minute maximum context window
   public static readonly RESEND_COOLDOWN_MS = 60 * 1000; // 60-second restriction window
   public static readonly MAX_ATTEMPTS = 5;
@@ -55,10 +57,16 @@ export class OtpService {
   }
 
   /**
-   * Generates a cryptographically secure 6-digit numeric OTP code
+   * Generates a cryptographically secure numeric OTP code (default 6 digits)
    */
   public static generateCode(): string {
-    return crypto.randomInt(100000, 1000000).toString();
+    const len = config.emailOtpLength || 6;
+    if (len === 6) {
+      return crypto.randomInt(100000, 1000000).toString();
+    }
+    const min = Math.pow(10, len - 1);
+    const max = Math.pow(10, len);
+    return crypto.randomInt(min, max).toString();
   }
 
   /**
@@ -200,16 +208,31 @@ export class OtpService {
       });
     }
 
-    // 4. Dispatch raw OTP into Identity Token / Notification Infrastructure
+    // 4. Dispatch raw OTP via Gmail SMTP
     try {
       await EmailService.sendOtpEmail({
         to: normalizedEmail,
         otp: rawOtp,
         purpose: 'LOGIN',
         userName: user.name,
+        expiryMinutes: config.emailOtpExpiryMinutes || 5,
       });
     } catch (err: any) {
-      console.warn('[OtpService] Email notification dispatch notice:', err?.message || err);
+      console.error('[OtpService] Failed to send login OTP via Gmail SMTP to recipient:', normalizedEmail, 'Error:', err?.message || err);
+      // Invalidate the un-sent challenge so no un-delivered OTP is left open
+      if (mongoose.connection.readyState === 1) {
+        await LoginChallengeModel.updateOne({ challengeId }, { isCompleted: true });
+        await OtpModel.updateOne({ identifier: normalizedEmail, isUsed: false }, { isUsed: true });
+      } else {
+        const { PersistentStore } = require('../config/persistent-store');
+        PersistentStore.update('login_challenges', challengeId, { isCompleted: true });
+      }
+      const deliveryError: any = new Error(
+        'Unable to deliver verification email. Please verify SMTP settings or try again later.'
+      );
+      deliveryError.statusCode = 503;
+      deliveryError.code = 'EMAIL_DELIVERY_FAILED';
+      throw deliveryError;
     }
 
     return {
@@ -577,21 +600,29 @@ export class OtpService {
       });
     }
 
-    // 5. Dispatch new raw OTP to identity token notification delivery engine
+    // 5. Dispatch new raw OTP via Gmail SMTP
     try {
       await EmailService.sendOtpEmail({
         to: normalizedEmail,
         otp: rawOtp,
         purpose: 'LOGIN',
+        expiryMinutes: config.emailOtpExpiryMinutes || 5,
       });
     } catch (err: any) {
-      console.warn('[OtpService] Resend email dispatch notice:', err?.message || err);
+      console.error('[OtpService] Failed to resend login OTP via Gmail SMTP to recipient:', normalizedEmail, 'Error:', err?.message || err);
+      const deliveryError: any = new Error(
+        'Unable to deliver verification email. Please verify SMTP settings or try again later.'
+      );
+      deliveryError.statusCode = 503;
+      deliveryError.code = 'EMAIL_DELIVERY_FAILED';
+      throw deliveryError;
     }
 
+    const expirySecs = (config.emailOtpExpiryMinutes || 5) * 60;
     return {
       success: true,
       message: 'New verification code sent to your registered email.',
-      expiresInSeconds: 300,
+      expiresInSeconds: expirySecs,
       cooldownSeconds: 60,
     };
   }
@@ -674,23 +705,31 @@ export class OtpService {
       });
     }
 
-    // 4. Delivery via Gmail API OAuth2
+    // 4. Delivery via Gmail SMTP
     try {
       await EmailService.sendOtpEmail({
         to: normalizedEmail,
         otp: rawOtp,
         purpose: params.purpose,
         userName: params.userName,
+        expiryMinutes: config.emailOtpExpiryMinutes || 5,
       });
     } catch (err: any) {
-      console.warn('[OtpService] Email delivery notice:', err?.message || err);
+      console.error('[OtpService] Failed to dispatch OTP via Gmail SMTP to recipient:', normalizedEmail, 'Error:', err?.message || err);
+      const deliveryError: any = new Error(
+        'Unable to deliver verification email. Please verify SMTP settings or try again later.'
+      );
+      deliveryError.statusCode = 503;
+      deliveryError.code = 'EMAIL_DELIVERY_FAILED';
+      throw deliveryError;
     }
 
+    const expirySecs = (config.emailOtpExpiryMinutes || 5) * 60;
     return {
       success: true,
       message: 'Verification code sent to your registered email address.',
       emailMasked: this.maskEmail(normalizedEmail),
-      expiresInSeconds: 300,
+      expiresInSeconds: expirySecs,
     };
   }
 
