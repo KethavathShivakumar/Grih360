@@ -220,7 +220,13 @@ export class ProfessionalService {
    */
   static async recalculateRating(userId: string) {
     if (this.isMongoConnected()) {
-      const reviews = await ReviewModel.find({ targetType: 'PROFESSIONAL', targetId: userId });
+      const reviews = await ReviewModel.find({
+        $or: [
+          { targetType: 'PROFESSIONAL', targetId: userId },
+          { revieweeId: userId },
+          { reviewee: userId },
+        ],
+      });
       const count = reviews.length;
       let avg = 0;
       if (count > 0) {
@@ -231,7 +237,10 @@ export class ProfessionalService {
       await ProfessionalProfileModel.findOneAndUpdate({ userId }, { rating: avg, reviewCount: count });
     } else {
       const reviews: any[] = Array.from(memoryReviews.values()).filter(
-        (r: any) => r.targetType === 'PROFESSIONAL' && (r.targetId === userId || r.targetId?._id === userId)
+        (r: any) =>
+          (r.targetType === 'PROFESSIONAL' && (r.targetId === userId || r.targetId?._id === userId)) ||
+          r.revieweeId === userId ||
+          r.reviewee === userId
       );
       const count = reviews.length;
       let avg = 0;
@@ -253,12 +262,22 @@ export class ProfessionalService {
    */
   static async getReviewsForProfessional(userId: string) {
     if (this.isMongoConnected()) {
-      return ReviewModel.find({ targetType: 'PROFESSIONAL', targetId: userId })
+      return ReviewModel.find({
+        $or: [
+          { targetType: 'PROFESSIONAL', targetId: userId },
+          { revieweeId: userId },
+          { reviewee: userId },
+        ],
+      })
         .sort({ createdAt: -1 })
-        .populate('reviewerId', 'name profileImage');
+        .populate('reviewerId', 'name email profileImage')
+        .populate('reviewer', 'name email profileImage');
     } else {
       return Array.from(memoryReviews.values()).filter(
-        (r: any) => r.targetType === 'PROFESSIONAL' && (r.targetId === userId || r.targetId?._id === userId)
+        (r: any) =>
+          (r.targetType === 'PROFESSIONAL' && (r.targetId === userId || r.targetId?._id === userId)) ||
+          r.revieweeId === userId ||
+          r.reviewee === userId
       );
     }
   }

@@ -175,6 +175,19 @@ export class ServiceController {
   }
 
   /**
+   * GET /api/v1/services/requests/:id/reviews
+   */
+  static async getServiceReviews(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const requestId = req.params.id as string;
+      const reviews = await ServiceRequestService.getReviewsForServiceRequest(requestId);
+      ApiResponseUtil.success(res, 'Service request reviews retrieved successfully', reviews);
+    } catch (error: any) {
+      ApiResponseUtil.error(res, error.message || 'Failed to fetch reviews for service request', 500);
+    }
+  }
+
+  /**
    * POST /api/v1/services/requests/:id/review
    */
   static async submitServiceReview(req: AuthenticatedRequest, res: Response): Promise<void> {
@@ -204,4 +217,5 @@ export class ServiceController {
     }
   }
 }
+
 

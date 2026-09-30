@@ -29,7 +29,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <span class="text-[#0F2937]">Client Reviews</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Customer Reviews & Ratings</h1>
-          <p class="text-xs text-slate-500">Verified feedback and star ratings submitted by tenants after completed jobs.</p>
+          <p class="text-xs text-slate-500">Verified feedback and star ratings submitted by customers after completed jobs.</p>
         </div>
         <div class="flex items-center space-x-3">
           <a
@@ -52,18 +52,30 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <!-- Overall Score -->
             <div class="text-center md:text-left space-y-1">
               <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Aggregate Rating</span>
-              <div class="flex items-baseline justify-center md:justify-start gap-2">
-                <span class="text-4xl sm:text-5xl font-black text-[#0F2937]">
-                  {{ profile?.rating ? profile?.rating : '5.0' }}
+              
+              <div *ngIf="reviews.length > 0" class="space-y-1">
+                <div class="flex items-baseline justify-center md:justify-start gap-2">
+                  <span class="text-4xl sm:text-5xl font-black text-[#0F2937]">
+                    {{ aggregateRating.toFixed(1) }}
+                  </span>
+                  <span class="text-xs font-bold text-slate-400">/ 5.0</span>
+                </div>
+                <div class="flex items-center justify-center md:justify-start text-amber-500 text-lg tracking-wider">
+                  {{ starStars }}
+                </div>
+                <p class="text-xs text-slate-500 font-medium">
+                  Calculated from {{ reviews.length }} verified completed job {{ reviews.length === 1 ? 'review' : 'reviews' }}
+                </p>
+              </div>
+
+              <!-- ZERO REVIEWS RULE: Show "No reviews yet", NOT fake 5.0/4.9 -->
+              <div *ngIf="reviews.length === 0" class="space-y-1.5 py-2">
+                <span class="text-2xl font-black text-slate-400 block">No reviews yet</span>
+                <span class="inline-block text-[11px] font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
+                  Ratings appear after completed jobs
                 </span>
-                <span class="text-xs font-bold text-slate-400">/ 5.0</span>
+                <p class="text-xs text-slate-400">0 verified reviews recorded</p>
               </div>
-              <div class="flex items-center justify-center md:justify-start text-amber-400 text-lg">
-                ⭐⭐⭐⭐⭐
-              </div>
-              <p class="text-xs text-slate-500 font-medium">
-                Based on {{ reviews.length }} verified completed service reviews
-              </p>
             </div>
 
             <!-- Breakdown Bars -->
@@ -94,7 +106,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 
         <!-- Reviews Feed -->
         <div *ngIf="reviews.length > 0" class="space-y-4">
-          <h2 class="text-base font-black text-[#0F2937]">Recent Customer Reviews</h2>
+          <h2 class="text-base font-black text-[#0F2937]">Recent Customer Reviews ({{ reviews.length }})</h2>
 
           <div
             *ngFor="let rev of reviews"
@@ -103,14 +115,14 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-[#0F2937] text-white flex items-center justify-center font-black text-sm">
-                  {{ (rev.reviewerId?.name || 'T')[0] }}
+                  {{ (rev.reviewerId?.name || rev.reviewer?.name || 'C')[0] }}
                 </div>
                 <div>
                   <h3 class="text-sm font-bold text-[#0F2937]">
-                    {{ rev.reviewerId?.name || 'Tenant Resident' }}
+                    {{ rev.reviewerId?.name || rev.reviewer?.name || 'Verified Customer' }}
                   </h3>
                   <div class="flex items-center space-x-2 text-[10px] text-slate-400 font-semibold">
-                    <span>Verified Home Tenant</span>
+                    <span>{{ (rev.reviewerId?.role || rev.reviewer?.role) === 'OWNER' ? 'Verified Property Owner' : 'Verified Home Tenant' }}</span>
                     <span>&bull;</span>
                     <span>{{ rev.createdAt | date: 'mediumDate' }}</span>
                   </div>
@@ -145,6 +157,17 @@ export class ProReviewsComponent implements OnInit {
     this.loadReviews();
   }
 
+  get aggregateRating(): number {
+    if (!this.reviews || this.reviews.length === 0) return 0;
+    const sum = this.reviews.reduce((acc, r) => acc + Number(r.rating || 0), 0);
+    return Math.round((sum / this.reviews.length) * 10) / 10;
+  }
+
+  get starStars(): string {
+    const r = Math.round(this.aggregateRating);
+    return '★'.repeat(r) + '☆'.repeat(5 - r);
+  }
+
   public loadReviews(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -158,7 +181,6 @@ export class ProReviewsComponent implements OnInit {
             this.isLoading = false;
           },
           error: () => {
-            // Fallback: try by profile.userId
             const uid = this.profile?.userId?._id || this.profile?.userId;
             if (uid) {
               this.proService.getReviews(uid).subscribe({

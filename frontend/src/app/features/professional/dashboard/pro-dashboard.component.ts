@@ -66,8 +66,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
           <div class="bg-white p-5 rounded-2xl border border-[#E8E6DF] shadow-sm space-y-2 col-span-2 lg:col-span-1">
             <span class="text-xs text-[#64748B] font-medium">Rating & Reviews</span>
-            <div class="text-2xl font-black text-[#2D7A5E]">⭐ {{ dashboardData.stats.rating || 'New' }}</div>
-            <span class="text-[11px] text-[#64748B] block">({{ dashboardData.stats.reviewCount }} real customer reviews)</span>
+            <div *ngIf="dashboardData.stats.reviewCount > 0" class="space-y-1">
+              <div class="text-2xl font-black text-[#2D7A5E]">⭐ {{ dashboardData.stats.rating.toFixed(1) }}</div>
+              <span class="text-[11px] text-[#64748B] block">({{ dashboardData.stats.reviewCount }} verified customer {{ dashboardData.stats.reviewCount === 1 ? 'review' : 'reviews' }})</span>
+            </div>
+            <div *ngIf="dashboardData.stats.reviewCount === 0" class="space-y-1">
+              <div class="text-base font-black text-slate-400">No reviews yet</div>
+              <span class="text-[11px] text-slate-400 block">0 completed job reviews</span>
+            </div>
           </div>
         </div>
 

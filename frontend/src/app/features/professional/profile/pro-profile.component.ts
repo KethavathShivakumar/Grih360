@@ -137,11 +137,17 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Rating</span>
-            <div class="flex items-center space-x-1.5 mt-2">
-              <span class="text-2xl font-black text-[#2D7A5E]">⭐ {{ profile?.rating || '5.0' }}</span>
-              <span class="text-xs text-slate-400">/ 5.0</span>
+            <div *ngIf="profile && profile.reviewCount > 0" class="mt-2 space-y-1">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-2xl font-black text-[#2D7A5E]">⭐ {{ profile.rating.toFixed(1) }}</span>
+                <span class="text-xs text-slate-400">/ 5.0</span>
+              </div>
+              <span class="text-xs text-slate-500 font-medium block">Based on {{ profile.reviewCount }} verified {{ profile.reviewCount === 1 ? 'review' : 'reviews' }}</span>
             </div>
-            <span class="text-xs text-slate-500 font-medium mt-1 block">Based on {{ profile?.reviewCount || 14 }} reviews</span>
+            <div *ngIf="!profile || profile.reviewCount === 0" class="mt-2 space-y-1">
+              <span class="text-lg font-black text-slate-400 block">No reviews yet</span>
+              <span class="text-xs text-slate-400 font-medium block">0 completed job reviews</span>
+            </div>
           </div>
 
           <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">

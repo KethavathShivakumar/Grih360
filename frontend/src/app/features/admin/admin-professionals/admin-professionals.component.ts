@@ -70,7 +70,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   </span>
                 </td>
                 <td class="p-3 font-medium">{{ (pro.serviceAreas || []).join(', ') || 'All Localities' }}</td>
-                <td class="p-3 font-bold text-[#2D7A5E]">⭐ {{ pro.rating || 'New' }} ({{ pro.reviewCount || 0 }})</td>
+                <td class="p-3 font-bold text-[#2D7A5E]">
+                  <span *ngIf="pro.reviewCount > 0">⭐ {{ pro.rating.toFixed(1) }} ({{ pro.reviewCount }})</span>
+                  <span *ngIf="!pro.reviewCount || pro.reviewCount === 0" class="text-xs text-slate-400 font-semibold">No reviews yet</span>
+                </td>
                 <td class="p-3">
                   <span [class]="getVerificationClass(pro.verificationStatus)">
                     {{ pro.verificationStatus }}

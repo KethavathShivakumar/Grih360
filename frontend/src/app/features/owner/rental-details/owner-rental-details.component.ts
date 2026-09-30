@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RentalService, RentalAgreement as RentalRecord } from '../../../core/services/rental.service';
 import { AgreementService, RentalAgreement } from '../../../core/services/agreement.service';
 import { MoneyService } from '../../../core/services/money.service';
 import { ServiceRequestService } from '../../../core/services/service-request.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
@@ -15,6 +17,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     StatusBadgeComponent,
     EmptyStateComponent,
     ErrorStateComponent,
@@ -290,6 +293,81 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <div *ngIf="req.completion" class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-800">
                 <strong>✓ Completed:</strong> {{ req.completion.notes || 'Service verified and completed.' }}
               </div>
+
+              <!-- Completed Job Reviews Section -->
+              <div *ngIf="req.status === 'COMPLETED'" class="mt-3 pt-3 border-t border-slate-200/80 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-bold text-slate-700">Verified Service Reviews</span>
+                  <button
+                    *ngIf="!hasOwnerReviewed(req._id || req.id) && activeReviewRequestId !== (req._id || req.id)"
+                    (click)="activeReviewRequestId = (req._id || req.id)"
+                    type="button"
+                    class="text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                  >
+                    ★ Leave Owner Review
+                  </button>
+                  <span *ngIf="hasOwnerReviewed(req._id || req.id)" class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
+                    ✓ Owner Review Recorded
+                  </span>
+                </div>
+
+                <!-- Existing Verified Reviews List -->
+                <div *ngIf="(reqReviews[req._id || req.id] || []).length > 0" class="space-y-2">
+                  <div
+                    *ngFor="let rev of reqReviews[req._id || req.id]"
+                    class="p-2.5 bg-white rounded-xl border border-slate-200 text-xs space-y-1 shadow-2xs"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center space-x-2">
+                        <span class="font-bold text-slate-900">{{ rev.reviewerId?.name || rev.reviewer?.name || 'Verified Customer' }}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded font-bold" [class]="(rev.reviewerId?.role || rev.reviewer?.role) === 'OWNER' ? 'bg-indigo-50 text-indigo-700' : 'bg-emerald-50 text-emerald-800'">
+                          {{ (rev.reviewerId?.role || rev.reviewer?.role) === 'OWNER' ? 'Owner Review' : 'Tenant Review' }}
+                        </span>
+                      </div>
+                      <span class="text-amber-500 font-bold text-xs">{{ '★'.repeat(rev.rating) }}{{ '☆'.repeat(5 - rev.rating) }}</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 font-medium italic">"{{ rev.comment }}"</p>
+                    <span class="text-[9px] text-slate-400 block">{{ rev.createdAt | date: 'mediumDate' }}</span>
+                  </div>
+                </div>
+
+                <div *ngIf="!(reqReviews[req._id || req.id]?.length) && activeReviewRequestId !== (req._id || req.id)" class="text-[11px] text-slate-400 italic">
+                  No reviews yet for this completed service.
+                </div>
+
+                <!-- Owner Review Form -->
+                <div *ngIf="activeReviewRequestId === (req._id || req.id)" class="p-3 bg-white rounded-xl border border-emerald-300 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-900">Owner Feedback for Completed Job</span>
+                    <button (click)="activeReviewRequestId = null" type="button" class="text-xs text-slate-400 hover:text-slate-600 cursor-pointer">✕</button>
+                  </div>
+                  <div *ngIf="ownerReviewError" class="p-2 bg-rose-50 text-rose-700 text-xs font-bold rounded-lg">
+                    {{ ownerReviewError }}
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                      <label class="text-[10px] font-bold text-slate-600 block mb-0.5">Rating (1 to 5 Stars)</label>
+                      <select [(ngModel)]="ownerRating" class="w-full p-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-900">
+                        <option [value]="5">⭐⭐⭐⭐⭐ 5 - Excellent</option>
+                        <option [value]="4">⭐⭐⭐⭐ 4 - Very Good</option>
+                        <option [value]="3">⭐⭐⭐ 3 - Satisfactory</option>
+                        <option [value]="2">⭐⭐ 2 - Poor</option>
+                        <option [value]="1">⭐ 1 - Very Poor</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="text-[10px] font-bold text-slate-600 block mb-0.5">Comments</label>
+                      <input [(ngModel)]="ownerComment" placeholder="Quality of repair, punctuality..." class="w-full p-1.5 border border-slate-200 rounded-lg text-xs" />
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-end gap-2 pt-1">
+                    <button (click)="activeReviewRequestId = null" type="button" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg">Cancel</button>
+                    <button (click)="submitOwnerReview(req._id || req.id)" [disabled]="isSubmittingOwnerReview" type="button" class="px-3 py-1 bg-[#2D7A5E] hover:bg-[#23614a] text-white text-xs font-bold rounded-lg disabled:opacity-50">
+                      {{ isSubmittingOwnerReview ? 'Submitting...' : 'Submit Review' }}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -306,6 +384,13 @@ export class OwnerRentalDetailsComponent implements OnInit {
   maintenanceRequests: any[] = [];
   isLoadingMaintenance: boolean = false;
 
+  reqReviews: { [reqId: string]: any[] } = {};
+  activeReviewRequestId: string | null = null;
+  ownerRating: number = 5;
+  ownerComment: string = '';
+  isSubmittingOwnerReview: boolean = false;
+  ownerReviewError: string = '';
+
   isLoading: boolean = true;
   isError: boolean = false;
   isActioning: boolean = false;
@@ -317,7 +402,8 @@ export class OwnerRentalDetailsComponent implements OnInit {
     private rentalService: RentalService,
     private agreementService: AgreementService,
     private moneyService: MoneyService,
-    private serviceReqService: ServiceRequestService
+    private serviceReqService: ServiceRequestService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -339,10 +425,66 @@ export class OwnerRentalDetailsComponent implements OnInit {
       next: (res) => {
         this.maintenanceRequests = res.data || [];
         this.isLoadingMaintenance = false;
+        for (const req of this.maintenanceRequests) {
+          const reqId = req._id || req.id;
+          if (req.status === 'COMPLETED' && reqId) {
+            this.loadReviewsForRequest(reqId);
+          }
+        }
       },
       error: () => {
         this.maintenanceRequests = [];
         this.isLoadingMaintenance = false;
+      },
+    });
+  }
+
+  loadReviewsForRequest(reqId: string): void {
+    this.serviceReqService.getServiceReviews(reqId).subscribe({
+      next: (res) => {
+        this.reqReviews[reqId] = res.data || [];
+      },
+      error: () => {
+        this.reqReviews[reqId] = [];
+      },
+    });
+  }
+
+  hasOwnerReviewed(reqId: string): boolean {
+    const reviews = this.reqReviews[reqId] || [];
+    const user = this.authService.getCurrentUser();
+    const uid = user?.id || (user as any)?._id;
+    if (!uid) return false;
+    return reviews.some((r) => {
+      const revId =
+        r.reviewerId?._id ||
+        r.reviewerId?.id ||
+        r.reviewerId ||
+        r.reviewer?._id ||
+        r.reviewer?.id ||
+        r.reviewer;
+      return revId === uid;
+    });
+  }
+
+  submitOwnerReview(reqId: string): void {
+    if (!this.ownerComment || this.ownerComment.trim() === '') {
+      this.ownerReviewError = 'Please provide a review comment for the completed job.';
+      return;
+    }
+    this.ownerReviewError = '';
+    this.isSubmittingOwnerReview = true;
+    this.serviceReqService.submitReview(reqId, Number(this.ownerRating), this.ownerComment.trim()).subscribe({
+      next: () => {
+        this.isSubmittingOwnerReview = false;
+        this.activeReviewRequestId = null;
+        this.ownerComment = '';
+        this.ownerRating = 5;
+        this.loadReviewsForRequest(reqId);
+      },
+      error: (err) => {
+        this.isSubmittingOwnerReview = false;
+        this.ownerReviewError = err.error?.message || 'Failed to submit review.';
       },
     });
   }

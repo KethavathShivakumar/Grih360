@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { ServiceRequestService, ServiceRequestItem } from '../../../core/services/service-request.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { CustomerCareComponent } from '../../../shared/components/customer-care/customer-care.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
@@ -49,8 +50,6 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
           <app-customer-care></app-customer-care>
         </div>
-
-        
 
         <!-- Service Timeline Bento Card -->
         <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm space-y-4">
@@ -139,7 +138,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             </div>
           </div>
 
-          <!-- Professional Summary Sidebar & Review Form -->
+          <!-- Professional Summary Sidebar & Review Section -->
           <div class="space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm space-y-4">
               <h2 class="text-base font-bold text-[#0F2937]">Assigned Professional</h2>
@@ -162,7 +161,12 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 <div class="p-3 bg-[#FAF9F5] rounded-xl border border-[#E8E6DF] space-y-1">
                   <div class="flex items-center justify-between">
                     <span class="text-[#64748B]">Rating:</span>
-                    <span class="font-bold text-[#2D7A5E]">⭐ {{ proProfile?.rating || 'New' }} ({{ proProfile?.reviewCount || 0 }} reviews)</span>
+                    <span *ngIf="proProfile && proProfile.reviewCount > 0" class="font-bold text-[#2D7A5E]">
+                      ⭐ {{ proProfile.rating.toFixed(1) }} ({{ proProfile.reviewCount }} verified {{ proProfile.reviewCount === 1 ? 'review' : 'reviews' }})
+                    </span>
+                    <span *ngIf="!proProfile || proProfile.reviewCount === 0" class="font-semibold text-slate-400">
+                      No reviews yet
+                    </span>
                   </div>
                   <div class="flex items-center justify-between">
                     <span class="text-[#64748B]">Experience:</span>
@@ -172,15 +176,38 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
             </div>
 
-            <!-- Review Submission Form -->
-            <div *ngIf="request.status === 'COMPLETED'" class="bg-white p-6 rounded-2xl border border-[#D1EADF] shadow-sm space-y-4">
+            <!-- Existing Submitted Review Card -->
+            <div *ngIf="myReview" class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 text-[11px] font-bold rounded-lg border border-emerald-200">
+                  ✓ Your Verified Review
+                </span>
+                <div class="flex items-center space-x-1 text-sm text-amber-500 font-bold">
+                  <span>{{ '★'.repeat(myReview.rating) }}{{ '☆'.repeat(5 - myReview.rating) }}</span>
+                  <span class="text-xs font-black text-slate-800 ml-1">({{ myReview.rating }}.0)</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-700 font-medium bg-[#FAF9F5] p-3 rounded-xl border border-slate-200 leading-relaxed">
+                "{{ myReview.comment }}"
+              </p>
+              <div class="flex items-center justify-between text-[10px] text-slate-400 font-medium">
+                <span>Submitted on {{ myReview.createdAt | date: 'mediumDate' }}</span>
+                <span class="text-emerald-700 font-bold">Verified Database Record</span>
+              </div>
+            </div>
+
+            <!-- Review Submission Form (Only when COMPLETED and not yet reviewed) -->
+            <div *ngIf="request.status === 'COMPLETED' && !myReview" class="bg-white p-6 rounded-2xl border border-[#D1EADF] shadow-sm space-y-4">
               <div class="flex items-center space-x-2">
                 <span class="text-lg">⭐</span>
                 <h2 class="text-base font-bold text-[#0F2937]">Leave Service Review</h2>
               </div>
+              <p class="text-xs text-slate-500">
+                Share your real feedback for the completed service. Only verified customers can submit reviews.
+              </p>
 
               <div *ngIf="reviewSuccess" class="p-3 bg-[#EBF5F0] text-[#2D7A5E] text-xs font-bold rounded-xl">
-                Thank you! Your 5-star review was recorded and updated the professional's rating.
+                Thank you! Your verified review was recorded and updated the specialist's aggregate rating.
               </div>
 
               <div *ngIf="!reviewSuccess" class="space-y-3">
@@ -205,9 +232,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 </div>
 
                 <button (click)="submitReview()" [disabled]="isSubmittingReview" class="w-full py-2.5 bg-[#2D7A5E] hover:bg-[#206f54] text-white text-xs font-bold rounded-xl shadow-sm transition disabled:opacity-50">
-                  {{ isSubmittingReview ? 'Submitting...' : 'Submit Review' }}
+                  {{ isSubmittingReview ? 'Submitting...' : 'Submit Verified Review' }}
                 </button>
               </div>
+            </div>
+
+            <!-- Informational Note for In-Progress / Pending Requests -->
+            <div *ngIf="request.status !== 'COMPLETED' && !myReview" class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl text-xs text-slate-500 font-medium">
+              ℹ️ Customer reviews can only be submitted after the service request is marked <strong>COMPLETED</strong>.
             </div>
           </div>
         </div>
@@ -232,10 +264,14 @@ export class TenantServiceDetailsComponent implements OnInit {
   public reviewError: string = '';
   public reviewSuccess: boolean = false;
 
+  public existingReviews: any[] = [];
+  public myReview: any = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private serviceReqService: ServiceRequestService
+    private serviceReqService: ServiceRequestService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -256,11 +292,47 @@ export class TenantServiceDetailsComponent implements OnInit {
         this.request = res.data?.request;
         this.proProfile = res.data?.professionalProfile;
         this.isLoading = false;
+
+        // Fetch verified reviews for this service request
+        this.loadReviews();
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Failed to load service request details';
         this.isLoading = false;
       },
+    });
+  }
+
+  public loadReviews(): void {
+    if (!this.requestId) return;
+    this.serviceReqService.getServiceReviews(this.requestId).subscribe({
+      next: (rRes) => {
+        this.existingReviews = rRes.data || [];
+        this.checkMyReview();
+      },
+      error: () => {
+        this.existingReviews = [];
+      },
+    });
+  }
+
+  private checkMyReview(): void {
+    const user = this.authService.getCurrentUser();
+    const currentUserId = user?.id || (user as any)?._id;
+    if (!currentUserId || !this.existingReviews.length) {
+      this.myReview = null;
+      return;
+    }
+
+    this.myReview = this.existingReviews.find((r) => {
+      const revId =
+        r.reviewerId?._id ||
+        r.reviewerId?.id ||
+        r.reviewerId ||
+        r.reviewer?._id ||
+        r.reviewer?.id ||
+        r.reviewer;
+      return revId === currentUserId;
     });
   }
 

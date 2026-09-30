@@ -135,10 +135,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           </span>
         </div>
 
-        <!-- Card 5: Pending Reviews -->
+        <!-- Card 5: Applications Under Review (Applicant Decision Dossiers) -->
         <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Pending Reviews</span>
+            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Applicant Reviews</span>
             <span class="p-2 bg-slate-100 text-slate-700 rounded-xl group-hover:scale-110 transition-transform text-sm">📋</span>
           </div>
           <span class="text-3xl font-black text-slate-800 mt-3 block">{{ metrics.pendingApplications }}</span>

@@ -99,7 +99,9 @@ export interface RoomInspection {
           <div class="flex items-center gap-3">
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-center">
               <span class="text-[10px] font-black uppercase text-slate-400 block">Overall Condition</span>
-              <span class="text-base font-black text-emerald-700 block">4.8 / 5.0 ★</span>
+              <span class="text-base font-black text-emerald-700 block">
+                {{ overallConditionRating > 0 ? (overallConditionRating.toFixed(1) + ' / 5.0 ★') : 'No rating yet' }}
+              </span>
             </div>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-center">
               <span class="text-[10px] font-black uppercase text-slate-400 block">Rooms Logged</span>
@@ -353,6 +355,12 @@ export class TenantPropertyConditionComponent implements OnInit {
   get propertyLocation(): string {
     const loc = (this.rental as any)?.propertyId?.propertyLocation;
     return loc ? `${loc.locality || loc.address || ''}, ${loc.city || ''}` : 'Telangana / Andhra Pradesh';
+  }
+
+  get overallConditionRating(): number {
+    if (!this.rooms || this.rooms.length === 0) return 0;
+    const sum = this.rooms.reduce((acc, r) => acc + (Number(r.rating) || 0), 0);
+    return Math.round((sum / this.rooms.length) * 10) / 10;
   }
 
   addPhotoToRoom(): void {

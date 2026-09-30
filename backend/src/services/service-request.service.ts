@@ -477,8 +477,22 @@ export class ServiceRequestService {
 
   /**
    * Submit review for a COMPLETED service request.
+  /**
+   * Submit review for a COMPLETED service request.
+   * Supports:
+   * - Tenant -> Professional
+   * - Owner/Tenant -> completed service
    */
   static async submitServiceReview(requestId: string, reviewerId: string, rating: number, comment: string) {
+    const numRating = Number(rating);
+    if (isNaN(numRating) || numRating < 1 || numRating > 5 || !Number.isInteger(numRating)) {
+      throw new Error('Rating must be an integer between 1 and 5');
+    }
+
+    if (!comment || typeof comment !== 'string' || comment.trim().length === 0) {
+      throw new Error('Review comment is required');
+    }
+
     let request: any = null;
     if (this.isMongoConnected()) {
       request = await ServiceRequestModel.findById(requestId);
@@ -495,8 +509,28 @@ export class ServiceRequestService {
     const requesterAny = request.requesterId as any;
     const requesterIdStr = requesterAny?._id ? requesterAny._id.toString() : (requesterAny?.id || requesterAny.toString());
 
-    if (requesterIdStr !== reviewerId) {
-      throw new Error('Only the customer who requested the service can leave a review');
+    // Check if reviewer is the requester (Tenant / Customer) or the Property Owner
+    let isAuthorized = (requesterIdStr === reviewerId);
+    if (!isAuthorized && request.propertyId) {
+      const propIdStr = (request.propertyId as any)?._id ? (request.propertyId as any)._id.toString() : (request.propertyId as any)?.id || request.propertyId.toString();
+      let prop: any = null;
+      if (this.isMongoConnected()) {
+        prop = await PropertyModel.findById(propIdStr);
+      } else {
+        const { memoryProperties } = require('./property.service');
+        prop = memoryProperties?.get(propIdStr);
+      }
+      if (prop) {
+        const ownerAny = prop.ownerId as any;
+        const ownerIdStr = ownerAny?._id ? ownerAny._id.toString() : (ownerAny?.id || ownerAny.toString());
+        if (ownerIdStr === reviewerId) {
+          isAuthorized = true;
+        }
+      }
+    }
+
+    if (!isAuthorized) {
+      throw new Error('Only the customer who requested the service or the property owner can leave a review');
     }
 
     const proAny = request.professionalId as any;
@@ -507,23 +541,34 @@ export class ServiceRequestService {
     }
 
     if (this.isMongoConnected()) {
-      const existingReview = await ReviewModel.findOne({ serviceRequestId: requestId });
-      if (existingReview) throw new Error('You have already submitted a review for this completed service');
+      const existingReview = await ReviewModel.findOne({
+        serviceRequestId: new Types.ObjectId(requestId),
+        reviewerId: new Types.ObjectId(reviewerId),
+      });
+      if (existingReview) {
+        throw new Error('You have already submitted a review for this completed service');
+      }
 
       const review = await ReviewModel.create({
         reviewerId: new Types.ObjectId(reviewerId),
+        reviewer: new Types.ObjectId(reviewerId),
+        revieweeId: new Types.ObjectId(proUserId),
+        reviewee: new Types.ObjectId(proUserId),
         targetType: 'PROFESSIONAL',
         targetId: new Types.ObjectId(proUserId),
         serviceRequestId: new Types.ObjectId(requestId),
-        rating,
-        comment,
+        serviceRequest: new Types.ObjectId(requestId),
+        rating: numRating,
+        comment: comment.trim(),
       });
 
       await ProfessionalService.recalculateRating(proUserId);
       return review;
     } else {
       for (const r of memoryReviews.values()) {
-        if (r.serviceRequestId === requestId) {
+        const sId = r.serviceRequestId?._id || r.serviceRequestId?.id || r.serviceRequestId;
+        const revId = r.reviewerId?._id || r.reviewerId?.id || r.reviewerId;
+        if (sId === requestId && revId === reviewerId) {
           throw new Error('You have already submitted a review for this completed service');
         }
       }
@@ -533,17 +578,41 @@ export class ServiceRequestService {
         _id: revId,
         id: revId,
         reviewerId,
+        reviewer: reviewerId,
+        revieweeId: proUserId,
+        reviewee: proUserId,
         targetType: 'PROFESSIONAL',
         targetId: proUserId,
         serviceRequestId: requestId,
-        rating: Number(rating),
-        comment,
+        serviceRequest: requestId,
+        rating: numRating,
+        comment: comment.trim(),
         createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       memoryReviews.set(revId, reviewObj);
       await ProfessionalService.recalculateRating(proUserId);
       return reviewObj;
+    }
+  }
+
+  /**
+   * Get all reviews submitted for a specific service request.
+   */
+  static async getReviewsForServiceRequest(requestId: string) {
+    if (this.isMongoConnected()) {
+      return ReviewModel.find({ serviceRequestId: requestId })
+        .sort({ createdAt: -1 })
+        .populate('reviewerId', 'name email role profileImage')
+        .populate('reviewer', 'name email role profileImage')
+        .populate('revieweeId', 'name email role')
+        .populate('reviewee', 'name email role');
+    } else {
+      return Array.from(memoryReviews.values()).filter((r: any) => {
+        const sId = r.serviceRequestId?._id || r.serviceRequestId?.id || r.serviceRequestId;
+        return sId === requestId;
+      });
     }
   }
 

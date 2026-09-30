@@ -132,6 +132,10 @@ export class ServiceRequestService {
     });
   }
 
+  public getServiceReviews(id: string): Observable<{ success: boolean; data: any[] }> {
+    return this.apiService.get<{ success: boolean; data: any[] }>(`/services/requests/${id}/reviews`);
+  }
+
   public submitReview(id: string, rating: number, comment: string): Observable<{ success: boolean; data: any }> {
     return this.apiService.post<{ success: boolean; data: any }>(`/services/requests/${id}/review`, {
       rating,
@@ -139,3 +143,4 @@ export class ServiceRequestService {
     });
   }
 }
+

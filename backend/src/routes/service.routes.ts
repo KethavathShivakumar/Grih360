@@ -15,6 +15,7 @@ router.get('/requests/:id', authenticateToken, ServiceController.getRequestById)
 router.patch('/requests/:id/status', authenticateToken, ServiceController.updateRequestStatus);
 router.post('/requests/:id/cancel', authenticateToken, ServiceController.cancelServiceRequest);
 router.post('/requests/:id/images', authenticateToken, ServiceController.uploadServiceImages);
+router.get('/requests/:id/reviews', authenticateToken, ServiceController.getServiceReviews);
 router.post('/requests/:id/review', authenticateToken, ServiceController.submitServiceReview);
 
 export default router;
