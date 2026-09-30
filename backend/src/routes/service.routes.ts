@@ -9,6 +9,7 @@ router.get('/categories', ServiceController.getCategories);
 
 // Authenticated service request routes
 router.get('/requests', authenticateToken, ServiceController.getUserRequests);
+router.get('/properties/:propertyId', authenticateToken, ServiceController.getPropertyServiceRequests);
 router.post('/requests', authenticateToken, ServiceController.createServiceRequest);
 router.get('/requests/:id', authenticateToken, ServiceController.getRequestById);
 router.patch('/requests/:id/status', authenticateToken, ServiceController.updateRequestStatus);

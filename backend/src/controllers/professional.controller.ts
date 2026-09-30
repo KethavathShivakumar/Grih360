@@ -98,14 +98,29 @@ export class ProfessionalController {
   }
 
   /**
+   * GET /api/v1/professionals/me/reviews
+   */
+  static async getMyReviews(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      if (!req.user) {
+        ApiResponseUtil.error(res, 'Unauthorized', 401);
+        return;
+      }
+
+      const reviews = await ProfessionalService.getReviewsForProfessional(req.user.userId);
+      ApiResponseUtil.success(res, 'Professional reviews retrieved successfully', reviews);
+    } catch (error: any) {
+      ApiResponseUtil.error(res, error.message || 'Failed to fetch reviews', 500);
+    }
+  }
+
+  /**
    * GET /api/v1/professionals/:id/reviews
    */
   static async getProfessionalReviews(req: Request, res: Response): Promise<void> {
     try {
-      const proUserId = req.params.id;
-      const reviews = await ReviewModel.find({ targetType: 'PROFESSIONAL', targetId: proUserId })
-        .sort({ createdAt: -1 })
-        .populate('reviewerId', 'name profileImage');
+      const proUserId = req.params.id as string;
+      const reviews = await ProfessionalService.getReviewsForProfessional(proUserId);
       ApiResponseUtil.success(res, 'Professional reviews retrieved successfully', reviews);
     } catch (error: any) {
       ApiResponseUtil.error(res, error.message || 'Failed to fetch professional reviews', 500);

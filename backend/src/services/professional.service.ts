@@ -249,6 +249,21 @@ export class ProfessionalService {
   }
 
   /**
+   * Get all reviews for a professional.
+   */
+  static async getReviewsForProfessional(userId: string) {
+    if (this.isMongoConnected()) {
+      return ReviewModel.find({ targetType: 'PROFESSIONAL', targetId: userId })
+        .sort({ createdAt: -1 })
+        .populate('reviewerId', 'name profileImage');
+    } else {
+      return Array.from(memoryReviews.values()).filter(
+        (r: any) => r.targetType === 'PROFESSIONAL' && (r.targetId === userId || r.targetId?._id === userId)
+      );
+    }
+  }
+
+  /**
    * Admin: get all professional profiles.
    */
   static async adminGetAllProfessionals() {

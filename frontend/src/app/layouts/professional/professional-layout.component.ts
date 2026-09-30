@@ -26,28 +26,71 @@ import { Subscription } from 'rxjs';
             </span>
 
             <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-2 text-xs font-bold text-slate-600">
+            <nav class="hidden md:flex items-center space-x-1 text-xs font-bold text-slate-600">
               <a
                 routerLink="/professional/dashboard"
                 routerLinkActive="bg-[#0F2937] text-white"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
               >
                 Dashboard
               </a>
               <a
                 routerLink="/professional/requests"
                 routerLinkActive="bg-[#0F2937] text-white"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
               >
-                Service Requests
+                Requests
               </a>
               <a
-                routerLink="/professional/profile"
-                routerLinkActive="bg-[#0F2937] text-white"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+                routerLink="/professional/active-job"
+                routerLinkActive="bg-[#2D7A5E] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all flex items-center gap-1"
               >
-                Profile & Settings
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active Job</span>
+              </a>
+              <a
+                routerLink="/professional/history"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                History
+              </a>
+              <a
+                routerLink="/professional/services"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Services
+              </a>
+              <a
+                routerLink="/professional/availability"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Availability
+              </a>
+              <a
+                routerLink="/professional/service-area"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Coverage
+              </a>
+              <a
+                routerLink="/professional/reviews"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Reviews
+              </a>
+              <a
+                routerLink="/professional/notifications"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Alerts
               </a>
             </nav>
           </div>
@@ -115,6 +158,62 @@ import { Subscription } from 'rxjs';
           </a>
           <a
             (click)="closeMobileMenu()"
+            routerLink="/professional/active-job"
+            routerLinkActive="bg-[#2D7A5E] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            ⚡ Active Job
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/professional/history"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            📜 Job History
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/professional/services"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            🔧 Offered Services
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/professional/availability"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            ⏰ Availability & Duty
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/professional/service-area"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            📍 Coverage Area
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/professional/reviews"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            ⭐ Customer Reviews
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/professional/notifications"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            🔔 Notifications
+          </a>
+          <a
+            (click)="closeMobileMenu()"
             routerLink="/professional/profile"
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
@@ -147,7 +246,7 @@ import { Subscription } from 'rxjs';
           class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
         >
           <span class="text-lg">📊</span>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
         <a
           routerLink="/professional/requests"
@@ -156,6 +255,22 @@ import { Subscription } from 'rxjs';
         >
           <span class="text-lg">🛠️</span>
           <span>Requests</span>
+        </a>
+        <a
+          routerLink="/professional/active-job"
+          routerLinkActive="text-[#2D7A5E] font-black"
+          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+        >
+          <span class="text-lg">⚡</span>
+          <span>Active</span>
+        </a>
+        <a
+          routerLink="/professional/history"
+          routerLinkActive="text-[#0F2937] font-black"
+          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+        >
+          <span class="text-lg">📜</span>
+          <span>History</span>
         </a>
         <a
           routerLink="/professional/profile"

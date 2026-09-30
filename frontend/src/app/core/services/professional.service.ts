@@ -78,6 +78,10 @@ export class ProfessionalService {
     return this.apiService.get<{ success: boolean; data: any[] }>(url);
   }
 
+  public getMyReviews(): Observable<{ success: boolean; data: any[] }> {
+    return this.apiService.get<{ success: boolean; data: any[] }>('/professionals/me/reviews');
+  }
+
   public getReviews(proUserId: string): Observable<{ success: boolean; data: any[] }> {
     return this.apiService.get<{ success: boolean; data: any[] }>(`/professionals/${proUserId}/reviews`);
   }

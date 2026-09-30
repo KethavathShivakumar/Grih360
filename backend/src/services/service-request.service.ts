@@ -204,6 +204,7 @@ export class ServiceRequestService {
 
   /**
    * Get single service request by ID with server-side authorization check.
+   * Authorized: ADMIN, requester (TENANT), assigned PROFESSIONAL, or property OWNER.
    */
   static async getRequestById(requestId: string, userId: string, userRole: string) {
     let request: any = null;
@@ -211,7 +212,7 @@ export class ServiceRequestService {
     if (this.isMongoConnected()) {
       request = await ServiceRequestModel.findById(requestId)
         .populate('requesterId', 'name email phone profileImage')
-        .populate('propertyId', 'title propertyLocation rentAmount')
+        .populate('propertyId', 'title propertyLocation rentAmount ownerId')
         .populate('professionalId', 'name email phone profileImage');
     } else {
       request = memoryServiceRequests.get(requestId);
@@ -225,7 +226,32 @@ export class ServiceRequestService {
     const proAny = request.professionalId as any;
     const proIdStr = proAny ? (proAny._id ? proAny._id.toString() : (proAny.id || proAny.toString())) : null;
 
-    if (userRole !== 'ADMIN' && userId !== requesterIdStr && userId !== proIdStr) {
+    let isOwner = false;
+    if (request.propertyId) {
+      const propAny = request.propertyId as any;
+      const propOwnerIdStr = propAny?.ownerId?._id
+        ? propAny.ownerId._id.toString()
+        : (propAny?.ownerId?.toString() || '');
+      if (propOwnerIdStr && propOwnerIdStr === userId) {
+        isOwner = true;
+      } else {
+        const propId = propAny._id ? propAny._id.toString() : (propAny.id || propAny.toString());
+        if (this.isMongoConnected()) {
+          const prop = await PropertyModel.findById(propId);
+          if (prop && prop.ownerId && prop.ownerId.toString() === userId) {
+            isOwner = true;
+          }
+        } else {
+          const { memoryProperties } = require('./property.service');
+          const prop = memoryProperties?.get(propId);
+          if (prop && (prop.ownerId === userId || prop.ownerId?._id === userId)) {
+            isOwner = true;
+          }
+        }
+      }
+    }
+
+    if (userRole !== 'ADMIN' && userId !== requesterIdStr && userId !== proIdStr && !isOwner) {
       throw new Error('Unauthorized access to service request');
     }
 
@@ -239,12 +265,22 @@ export class ServiceRequestService {
 
   /**
    * Get user's service requests.
+   * TENANT: Requests submitted by tenant.
+   * PROFESSIONAL: Requests assigned to professional.
+   * OWNER: Requests submitted for properties owned by this owner.
    */
   static async getUserRequests(userId: string, userRole: string, status?: string) {
     if (this.isMongoConnected()) {
       const query: any = {};
-      if (userRole === 'TENANT') query.requesterId = userId;
-      else if (userRole === 'PROFESSIONAL') query.professionalId = userId;
+      if (userRole === 'TENANT') {
+        query.requesterId = userId;
+      } else if (userRole === 'PROFESSIONAL') {
+        query.professionalId = userId;
+      } else if (userRole === 'OWNER') {
+        const ownedProps = await PropertyModel.find({ ownerId: userId }).select('_id');
+        const propIds = ownedProps.map((p) => p._id);
+        query.propertyId = { $in: propIds };
+      }
       if (status) query.status = status;
 
       return ServiceRequestModel.find(query)
@@ -258,10 +294,34 @@ export class ServiceRequestService {
         const proStr = r.professionalId?._id || r.professionalId?.id || r.professionalId;
         if (userRole === 'TENANT') return reqStr === userId;
         if (userRole === 'PROFESSIONAL') return proStr === userId;
+        if (userRole === 'OWNER') {
+          const { memoryProperties } = require('./property.service');
+          const propId = r.propertyId?._id || r.propertyId?.id || r.propertyId;
+          const prop = memoryProperties?.get(propId);
+          return prop && (prop.ownerId === userId || prop.ownerId?._id === userId);
+        }
         return true;
       });
       if (status) return list.filter((r) => r.status === status);
       return list;
+    }
+  }
+
+  /**
+   * Get all service requests for a specific property (for Owner or Tenant).
+   */
+  static async getPropertyRequests(propertyId: string, userId: string, userRole: string) {
+    if (this.isMongoConnected()) {
+      return ServiceRequestModel.find({ propertyId })
+        .sort({ createdAt: -1 })
+        .populate('requesterId', 'name email phone')
+        .populate('propertyId', 'title propertyLocation')
+        .populate('professionalId', 'name email phone');
+    } else {
+      return Array.from(memoryServiceRequests.values()).filter((r: any) => {
+        const pId = r.propertyId?._id || r.propertyId?.id || r.propertyId;
+        return pId === propertyId;
+      });
     }
   }
 
@@ -273,7 +333,8 @@ export class ServiceRequestService {
     actorId: string,
     actorRole: string,
     targetStatus: ServiceRequestStatus,
-    notes?: string
+    notes?: string,
+    actualCost?: number
   ) {
     let request: any = null;
     if (this.isMongoConnected()) {
@@ -323,6 +384,9 @@ export class ServiceRequestService {
 
     if (targetStatus === 'COMPLETED') {
       request.completion = { completedAt: new Date(), notes: notes || 'Service completed' };
+      if (actualCost !== undefined && !isNaN(Number(actualCost))) {
+        request.estimatedCost = Number(actualCost);
+      }
     } else if (targetStatus === 'REJECTED') {
       request.professionalId = undefined;
       request.status = 'MATCHING';

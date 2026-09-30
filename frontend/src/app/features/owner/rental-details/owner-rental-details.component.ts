@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RentalService, RentalAgreement as RentalRecord } from '../../../core/services/rental.service';
 import { AgreementService, RentalAgreement } from '../../../core/services/agreement.service';
 import { MoneyService } from '../../../core/services/money.service';
+import { ServiceRequestService } from '../../../core/services/service-request.service';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
@@ -241,6 +242,58 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           </div>
         </div>
 
+        <!-- Phase 10: Property Maintenance & Service Requests Log -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Property Upkeep</span>
+              <h3 class="text-base font-black text-[#0F2937]">Maintenance & Home Services Log</h3>
+            </div>
+            <span class="text-xs text-slate-500 font-semibold">
+              {{ maintenanceRequests.length }} requests recorded
+            </span>
+          </div>
+
+          <div *ngIf="isLoadingMaintenance" class="py-6 text-center text-xs text-slate-400">
+            Loading property maintenance records...
+          </div>
+
+          <div *ngIf="!isLoadingMaintenance && maintenanceRequests.length === 0" class="py-6 text-center text-xs text-slate-500 bg-[#FAF9F5] rounded-2xl border border-dashed border-[#E8E6DF]">
+            No maintenance or service requests have been reported by the tenant for this rental.
+          </div>
+
+          <div *ngIf="!isLoadingMaintenance && maintenanceRequests.length > 0" class="space-y-3">
+            <div
+              *ngFor="let req of maintenanceRequests"
+              class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2"
+            >
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center space-x-2.5">
+                  <span class="px-2.5 py-0.5 bg-white border border-[#E8E6DF] text-[#0F2937] text-[10px] font-extrabold rounded-md uppercase">
+                    {{ req.categoryCode }}
+                  </span>
+                  <app-status-badge [status]="req.status"></app-status-badge>
+                  <span class="text-xs text-slate-400">Scheduled: {{ req.scheduledDate | date: 'mediumDate' }}</span>
+                </div>
+                <span *ngIf="req.estimatedCost" class="text-xs font-black text-[#2D7A5E]">
+                  ₹{{ req.estimatedCost }}
+                </span>
+              </div>
+
+              <p class="text-xs font-semibold text-slate-800">{{ req.description }}</p>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-500 pt-1 gap-1">
+                <span>📍 {{ req.serviceLocation?.address }}, {{ req.serviceLocation?.city }}</span>
+                <span *ngIf="req.professionalId?.name">👤 Assigned Pro: <strong>{{ req.professionalId.name }}</strong></span>
+              </div>
+
+              <div *ngIf="req.completion" class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-800">
+                <strong>✓ Completed:</strong> {{ req.completion.notes || 'Service verified and completed.' }}
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   `,
@@ -249,6 +302,9 @@ export class OwnerRentalDetailsComponent implements OnInit {
   propertyId: string = '';
   rental: RentalRecord | null = null;
   agreement: RentalAgreement | null = null;
+
+  maintenanceRequests: any[] = [];
+  isLoadingMaintenance: boolean = false;
 
   isLoading: boolean = true;
   isError: boolean = false;
@@ -260,18 +316,35 @@ export class OwnerRentalDetailsComponent implements OnInit {
     private router: Router,
     private rentalService: RentalService,
     private agreementService: AgreementService,
-    private moneyService: MoneyService
+    private moneyService: MoneyService,
+    private serviceReqService: ServiceRequestService
   ) {}
 
   ngOnInit(): void {
     this.propertyId = this.route.snapshot.paramMap.get('id') || '';
     if (this.propertyId) {
       this.loadRental();
+      this.loadMaintenanceRequests();
     } else {
       this.isError = true;
       this.errorMessage = 'Invalid property ID.';
       this.isLoading = false;
     }
+  }
+
+  loadMaintenanceRequests(): void {
+    if (!this.propertyId) return;
+    this.isLoadingMaintenance = true;
+    this.serviceReqService.getPropertyRequests(this.propertyId).subscribe({
+      next: (res) => {
+        this.maintenanceRequests = res.data || [];
+        this.isLoadingMaintenance = false;
+      },
+      error: () => {
+        this.maintenanceRequests = [];
+        this.isLoadingMaintenance = false;
+      },
+    });
   }
 
   loadRental(): void {

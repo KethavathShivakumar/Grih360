@@ -52,6 +52,12 @@ import { TenantServiceDetailsComponent } from './features/tenant/tenant-services
 import { ProDashboardComponent } from './features/professional/dashboard/pro-dashboard.component';
 import { ProRequestsComponent } from './features/professional/requests/pro-requests.component';
 import { ProRequestDetailsComponent } from './features/professional/requests/pro-request-details.component';
+import { ProActiveJobComponent } from './features/professional/active-job/pro-active-job.component';
+import { ProHistoryComponent } from './features/professional/history/pro-history.component';
+import { ProServicesComponent } from './features/professional/services/pro-services.component';
+import { ProAvailabilityComponent } from './features/professional/availability/pro-availability.component';
+import { ProServiceAreaComponent } from './features/professional/service-area/pro-service-area.component';
+import { ProReviewsComponent } from './features/professional/reviews/pro-reviews.component';
 import { ProProfileComponent } from './features/professional/profile/pro-profile.component';
 import { ProNotificationsComponent } from './features/professional/notifications/pro-notifications.component';
 
@@ -175,10 +181,14 @@ export const routes: Routes = [
       { path: 'dashboard', component: ProDashboardComponent },
       { path: 'requests', component: ProRequestsComponent },
       { path: 'requests/:id', component: ProRequestDetailsComponent },
-      { path: 'services', component: ProRequestsComponent },
-      { path: 'availability', component: ProProfileComponent },
+      { path: 'active-job', component: ProActiveJobComponent },
+      { path: 'active', component: ProActiveJobComponent },
+      { path: 'history', component: ProHistoryComponent },
+      { path: 'services', component: ProServicesComponent },
+      { path: 'availability', component: ProAvailabilityComponent },
+      { path: 'service-area', component: ProServiceAreaComponent },
+      { path: 'reviews', component: ProReviewsComponent },
       { path: 'profile', component: ProProfileComponent },
-      { path: 'reviews', component: ProProfileComponent },
       { path: 'notifications', component: ProNotificationsComponent },
     ],
   },

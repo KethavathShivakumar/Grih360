@@ -103,14 +103,20 @@ export class ServiceRequestService {
     return this.apiService.get<{ success: boolean; data: { request: ServiceRequestItem; professionalProfile?: any } }>(`/services/requests/${id}`);
   }
 
+  public getPropertyRequests(propertyId: string): Observable<{ success: boolean; data: ServiceRequestItem[] }> {
+    return this.apiService.get<{ success: boolean; data: ServiceRequestItem[] }>(`/services/properties/${propertyId}`);
+  }
+
   public updateRequestStatus(
     id: string,
     status: ServiceRequestStatus,
-    notes?: string
+    notes?: string,
+    actualCost?: number
   ): Observable<{ success: boolean; data: ServiceRequestItem }> {
     return this.apiService.patch<{ success: boolean; data: ServiceRequestItem }>(`/services/requests/${id}/status`, {
       status,
       notes,
+      actualCost,
     });
   }
 

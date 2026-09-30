@@ -29,7 +29,7 @@ export class ProfessionalMatchingService {
       }
 
       return ProfessionalProfileModel.find(query)
-        .sort({ rating: -1, experienceYears: -1 })
+        .sort({ updatedAt: -1, rating: -1, experienceYears: -1 })
         .populate('userId', 'name email phone profileImage');
     } else {
       const allPros = Array.from(memoryProfessionalProfiles.values());
@@ -40,6 +40,7 @@ export class ProfessionalMatchingService {
           Array.isArray(p.categories) &&
           p.categories.includes(categoryCode)
       );
+      eligible.sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
       return eligible;
     }
   }

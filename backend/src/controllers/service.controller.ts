@@ -80,7 +80,7 @@ export class ServiceController {
         return;
       }
 
-      const { status, notes } = req.body;
+      const { status, notes, actualCost } = req.body;
       if (!status) {
         ApiResponseUtil.error(res, 'Target status is required', 400);
         return;
@@ -92,12 +92,31 @@ export class ServiceController {
         req.user.userId,
         req.user.role,
         status,
-        notes
+        notes,
+        actualCost !== undefined ? Number(actualCost) : undefined
       );
       ApiResponseUtil.success(res, `Service request status updated to ${status}`, request);
     } catch (error: any) {
       const statusCode = error.message?.includes('Invalid status transition') ? 400 : error.message?.includes('Only the assigned') ? 403 : 400;
       ApiResponseUtil.error(res, error.message || 'Failed to update service request status', statusCode);
+    }
+  }
+
+  /**
+   * GET /api/v1/services/properties/:propertyId
+   */
+  static async getPropertyServiceRequests(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      if (!req.user) {
+        ApiResponseUtil.error(res, 'Unauthorized', 401);
+        return;
+      }
+
+      const propertyId = req.params.propertyId as string;
+      const requests = await ServiceRequestService.getPropertyRequests(propertyId, req.user.userId, req.user.role);
+      ApiResponseUtil.success(res, 'Property maintenance requests retrieved successfully', requests);
+    } catch (error: any) {
+      ApiResponseUtil.error(res, error.message || 'Failed to fetch property maintenance requests', 500);
     }
   }
 
