@@ -161,9 +161,36 @@ export class OwnerTenantDetailsComponent implements OnInit {
 
     this.rentalService.getTenantByPropertyId(this.propertyId).subscribe({
       next: (res: any) => {
+        if (res.success && res.data) {
+          this.isLoading = false;
+          this.tenantData = res.data;
+        } else {
+          this.loadTenantViaRental();
+        }
+      },
+      error: () => {
+        this.loadTenantViaRental();
+      },
+    });
+  }
+
+  private loadTenantViaRental(): void {
+    this.rentalService.getRentalById(this.propertyId).subscribe({
+      next: (res: any) => {
         this.isLoading = false;
         if (res.success && res.data) {
-          this.tenantData = res.data;
+          const r = res.data;
+          this.tenantData = {
+            rentalId: r.id || r._id,
+            status: r.status,
+            startDate: r.startDate,
+            endDate: r.endDate,
+            monthlyRent: r.monthlyRent,
+            depositPaid: r.depositPaid,
+            agreementVersion: r.agreementVersion,
+            tenant: r.tenantId,
+            property: r.propertyId,
+          };
         } else {
           this.tenantData = null;
         }
@@ -172,7 +199,7 @@ export class OwnerTenantDetailsComponent implements OnInit {
         this.isLoading = false;
         this.isError = true;
         this.errorMessage = err?.error?.message || 'Tenant details could not be retrieved.';
-      },
+      }
     });
   }
 
@@ -202,14 +229,29 @@ export class OwnerTenantDetailsComponent implements OnInit {
   }
 
   goToApplicants(): void {
-    this.router.navigate(['/owner/properties', this.propertyId, 'applicants']);
+    const pId = this.tenantData?.property?._id || this.tenantData?.property?.id || this.propertyId;
+    if (pId) {
+      this.router.navigate(['/owner/properties', pId, 'applicants']);
+    } else {
+      this.router.navigate(['/owner/applicants']);
+    }
   }
 
   goToRentTracking(): void {
-    this.router.navigate(['/owner/properties', this.propertyId, 'rent']);
+    const pId = this.tenantData?.property?._id || this.tenantData?.property?.id || this.propertyId;
+    if (pId) {
+      this.router.navigate(['/owner/properties', pId, 'rent']);
+    } else {
+      this.router.navigate(['/owner/rent-tracking']);
+    }
   }
 
   goBack(): void {
-    this.router.navigate(['/owner/properties', this.propertyId]);
+    const pId = this.tenantData?.property?._id || this.tenantData?.property?.id || this.propertyId;
+    if (pId) {
+      this.router.navigate(['/owner/properties', pId]);
+    } else {
+      this.router.navigate(['/owner/properties']);
+    }
   }
 }

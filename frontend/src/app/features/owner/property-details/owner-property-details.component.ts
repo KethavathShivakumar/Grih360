@@ -74,28 +74,43 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/edit')"
               type="button"
-              class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold transition-colors"
+              class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
               ✏️ Edit Property
             </button>
             <button
+              (click)="navigateTo('/owner/properties/' + propertyId + '/images')"
+              type="button"
+              class="px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
+            >
+              <span>🖼️</span>
+              <span>Manage Photos ({{ property.images?.length || 0 }})</span>
+            </button>
+            <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/applicants')"
               type="button"
-              class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-bold transition-colors"
+              class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
               📋 Applicants
             </button>
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/tenant')"
               type="button"
-              class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-lg text-xs font-bold transition-colors"
+              class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
               👤 Tenant Details
             </button>
             <button
+              (click)="navigateTo('/owner/properties/' + propertyId + '/rental')"
+              type="button"
+              class="px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+            >
+              📜 Lease Agreement
+            </button>
+            <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/rent')"
               type="button"
-              class="px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold transition-colors"
+              class="px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
               💰 Rent Records
             </button>
@@ -103,8 +118,19 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Image Gallery -->
-        <div class="bento-card bg-white p-4 border border-[#E8E6DF] space-y-4">
-          <div class="relative w-full h-80 md:h-[400px] bg-slate-100 rounded-xl overflow-hidden">
+        <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
+          <div class="flex items-center justify-between pb-2">
+            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Property Photo Gallery</h2>
+            <button
+              (click)="navigateTo('/owner/properties/' + propertyId + '/images')"
+              type="button"
+              class="text-xs font-bold text-[#2D7A5E] hover:underline cursor-pointer flex items-center gap-1"
+            >
+              <span>🖼️ Edit / Upload Photos →</span>
+            </button>
+          </div>
+
+          <div class="relative w-full h-80 md:h-[400px] bg-slate-100 rounded-2xl overflow-hidden shadow-2xs">
             <img
               [src]="selectedImageUrl || fallbackImageUrl"
               [alt]="property.title"

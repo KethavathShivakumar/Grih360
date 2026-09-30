@@ -28,6 +28,9 @@ import { OwnerRentalDetailsComponent } from './features/owner/rental-details/own
 import { OwnerRentTrackingComponent } from './features/owner/rent-tracking/owner-rent-tracking.component';
 import { OwnerProfileComponent } from './features/owner/profile/owner-profile.component';
 import { OwnerNotificationsComponent } from './features/owner/notifications/owner-notifications.component';
+import { OwnerPropertyImagesComponent } from './features/owner/property-images/owner-property-images.component';
+import { OwnerRentalsComponent } from './features/owner/rentals/owner-rentals.component';
+import { OwnerSettingsComponent } from './features/owner/settings/owner-settings.component';
 import { ProfessionalWorkspaceComponent } from './features/professional/professional-workspace.component';
 
 import { TenantVerificationComponent } from './features/tenant/tenant-verification/tenant-verification.component';
@@ -122,15 +125,22 @@ export const routes: Routes = [
       { path: 'properties/new', component: AddPropertyComponent },
       { path: 'properties/:id', component: OwnerPropertyDetailsComponent },
       { path: 'properties/:id/edit', component: EditPropertyComponent },
+      { path: 'properties/:id/images', component: OwnerPropertyImagesComponent },
       { path: 'properties/:id/applicants', component: OwnerApplicantsComponent },
       { path: 'properties/:id/applicants/:applicationId', component: ApplicantDetailsComponent },
       { path: 'properties/:id/tenant', component: OwnerTenantDetailsComponent },
       { path: 'properties/:id/rental', component: OwnerRentalDetailsComponent },
       { path: 'properties/:id/rent', component: OwnerRentTrackingComponent },
+      { path: 'rentals', component: OwnerRentalsComponent },
+      { path: 'rentals/:id', component: OwnerRentalDetailsComponent },
+      { path: 'rent-tracking', component: OwnerRentTrackingComponent },
       { path: 'applications', component: OwnerApplicantsComponent },
       { path: 'applications/:id', component: ApplicantDetailsComponent },
       { path: 'applicants', component: OwnerApplicantsComponent },
+      { path: 'applicants/:id', component: ApplicantDetailsComponent },
+      { path: 'tenants/:id', component: OwnerTenantDetailsComponent },
       { path: 'profile', component: OwnerProfileComponent },
+      { path: 'settings', component: OwnerSettingsComponent },
       { path: 'notifications', component: OwnerNotificationsComponent },
     ],
   },

@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 import app from '../app';
 import { connectDatabase } from '../config/database';
 import mongoose from 'mongoose';

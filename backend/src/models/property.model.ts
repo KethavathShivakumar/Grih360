@@ -71,8 +71,8 @@ const PropertySchema = new Schema<IPropertyDocument>(
         lng: { type: Number },
       },
       geoPoint: {
-        type: { type: String, enum: ['Point'], default: 'Point' },
-        coordinates: { type: [Number], default: undefined }, // [lng, lat]
+        type: { type: String, enum: ['Point'] },
+        coordinates: { type: [Number] }, // [lng, lat]
       },
     },
     images: [
@@ -111,6 +111,6 @@ const PropertySchema = new Schema<IPropertyDocument>(
 
 PropertySchema.index({ 'propertyLocation.city': 1, propertyType: 1, rentAmount: 1 });
 PropertySchema.index({ 'propertyLocation.state': 1, 'propertyLocation.district': 1, 'propertyLocation.city': 1 });
-PropertySchema.index({ 'propertyLocation.geoPoint': '2dsphere' });
+PropertySchema.index({ 'propertyLocation.geoPoint': '2dsphere' }, { sparse: true });
 
 export const PropertyModel = model<IPropertyDocument>('Property', PropertySchema);

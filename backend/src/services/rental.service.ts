@@ -75,6 +75,47 @@ export class RentalService {
   }
 
   /**
+   * Get rental record by rental ID with user access validation
+   */
+  static async getRentalById(rentalId: string, userId: string, role: string) {
+    if (RentalService.isMongoConnected()) {
+      let rental = null;
+      if (mongoose.Types.ObjectId.isValid(rentalId)) {
+        rental = await RentalModel.findById(rentalId)
+          .populate('propertyId')
+          .populate('tenantId', 'name email phone identityVerificationStatus profileImage')
+          .lean();
+      }
+      if (!rental) {
+        rental = await RentalModel.findOne({ propertyId: rentalId })
+          .populate('propertyId')
+          .populate('tenantId', 'name email phone identityVerificationStatus profileImage')
+          .lean();
+      }
+      if (!rental) {
+        throw { statusCode: 404, code: 'RENTAL_NOT_FOUND', message: 'Rental record not found' };
+      }
+      const tId = ((rental.tenantId as any)?._id || (rental.tenantId as any)?.id || rental.tenantId)?.toString();
+      const oId = ((rental.ownerId as any)?._id || (rental.ownerId as any)?.id || rental.ownerId)?.toString();
+      if (role !== 'ADMIN' && oId !== userId.toString() && tId !== userId.toString()) {
+        throw { statusCode: 403, code: 'FORBIDDEN', message: 'Access denied' };
+      }
+      return rental;
+    } else {
+      let rental = memoryRentals.get(rentalId) || Array.from(memoryRentals.values()).find((r) => r.id === rentalId || r._id === rentalId || r.propertyId === rentalId);
+      if (!rental) {
+        throw { statusCode: 404, code: 'RENTAL_NOT_FOUND', message: 'Rental record not found' };
+      }
+      const tId = ((rental.tenantId as any)?._id || (rental.tenantId as any)?.id || rental.tenantId)?.toString();
+      const oId = ((rental.ownerId as any)?._id || (rental.ownerId as any)?.id || rental.ownerId)?.toString();
+      if (role !== 'ADMIN' && oId !== userId.toString() && tId !== userId.toString()) {
+        throw { statusCode: 403, code: 'FORBIDDEN', message: 'Access denied' };
+      }
+      return rental;
+    }
+  }
+
+  /**
    * Get tenant details for specific property (Owner authorization enforced)
    * Privacy Rule: Only returns appropriate contact & status fields. NO sensitive identity docs!
    */

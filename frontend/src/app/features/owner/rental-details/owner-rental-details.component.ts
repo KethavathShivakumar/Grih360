@@ -281,34 +281,53 @@ export class OwnerRentalDetailsComponent implements OnInit {
     this.rentalService.getRentalByPropertyId(this.propertyId).subscribe({
       next: (res: any) => {
         if (res.success && res.data) {
-          this.rental = res.data;
-          const rId = this.rental?.id || (this.rental as any)?._id;
-          if (rId) {
-            this.agreementService.getAgreementByRentalId(rId).subscribe({
-              next: (agreeRes) => {
-                this.isLoading = false;
-                if (agreeRes.success && agreeRes.data) {
-                  this.agreement = agreeRes.data;
-                }
-              },
-              error: () => {
-                this.isLoading = false;
-              },
-            });
-          } else {
-            this.isLoading = false;
-          }
+          this.handleRentalData(res.data);
+        } else {
+          this.loadRentalByDirectId();
+        }
+      },
+      error: () => {
+        this.loadRentalByDirectId();
+      },
+    });
+  }
+
+  private loadRentalByDirectId(): void {
+    this.rentalService.getRentalById(this.propertyId).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        if (res.success && res.data) {
+          this.handleRentalData(res.data);
         } else {
           this.rental = null;
-          this.isLoading = false;
         }
       },
       error: (err: any) => {
         this.isLoading = false;
         this.isError = true;
         this.errorMessage = err?.error?.message || 'Failed to load rental agreement details.';
-      },
+      }
     });
+  }
+
+  private handleRentalData(data: any): void {
+    this.rental = data;
+    const rId = this.rental?.id || (this.rental as any)?._id;
+    if (rId) {
+      this.agreementService.getAgreementByRentalId(rId).subscribe({
+        next: (agreeRes) => {
+          this.isLoading = false;
+          if (agreeRes.success && agreeRes.data) {
+            this.agreement = agreeRes.data;
+          }
+        },
+        error: () => {
+          this.isLoading = false;
+        },
+      });
+    } else {
+      this.isLoading = false;
+    }
   }
 
   get isRentalActive(): boolean {
@@ -415,10 +434,20 @@ export class OwnerRentalDetailsComponent implements OnInit {
   }
 
   navigateToRent(): void {
-    this.router.navigate(['/owner/properties', this.propertyId, 'rent']);
+    const pId = (this.rental as any)?.propertyId?._id || (this.rental as any)?.propertyId?.id || this.rental?.propertyId || this.propertyId;
+    if (pId) {
+      this.router.navigate(['/owner/properties', pId, 'rent']);
+    } else {
+      this.router.navigate(['/owner/rent-tracking']);
+    }
   }
 
   goBack(): void {
-    this.router.navigate(['/owner/properties', this.propertyId]);
+    const pId = (this.rental as any)?.propertyId?._id || (this.rental as any)?.propertyId?.id || this.rental?.propertyId;
+    if (pId) {
+      this.router.navigate(['/owner/properties', pId]);
+    } else {
+      this.router.navigate(['/owner/rentals']);
+    }
   }
 }

@@ -110,44 +110,58 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <button
                 (click)="viewPropertyDetails(prop.id)"
                 type="button"
-                class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md transition-colors"
+                class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg transition-colors cursor-pointer"
               >
                 View Listing
               </button>
               <button
                 (click)="editProperty(prop.id)"
                 type="button"
-                class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md transition-colors"
+                class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg transition-colors cursor-pointer"
               >
-                Edit
+                ✏️ Edit
+              </button>
+              <button
+                (click)="manageImages(prop.id)"
+                type="button"
+                class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 rounded-lg transition-colors cursor-pointer"
+              >
+                🖼️ Photos ({{ prop.images?.length || 0 }})
               </button>
               <button
                 (click)="viewApplicants(prop.id)"
                 type="button"
-                class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-md transition-colors"
+                class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
               >
-                Applicants
+                📋 Applicants
               </button>
               <button
                 (click)="viewTenant(prop.id)"
                 type="button"
-                class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-md transition-colors"
+                class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-lg transition-colors cursor-pointer"
               >
-                Tenant Details
+                👤 Tenant
+              </button>
+              <button
+                (click)="viewRental(prop.id)"
+                type="button"
+                class="px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 rounded-lg transition-colors cursor-pointer"
+              >
+                📜 Lease
               </button>
               <button
                 (click)="viewRentTracking(prop.id)"
                 type="button"
-                class="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-md transition-colors"
+                class="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg transition-colors cursor-pointer"
               >
-                Rent Records
+                💰 Rent Records
               </button>
             </div>
 
             <button
               (click)="confirmDelete(prop)"
               type="button"
-              class="px-3 py-1.5 text-rose-600 hover:bg-rose-50 rounded-md transition-colors"
+              class="px-3 py-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
             >
               Delete
             </button>
@@ -207,6 +221,14 @@ export class OwnerPropertiesComponent implements OnInit {
 
   editProperty(id: string): void {
     this.router.navigate(['/owner/properties', id, 'edit']);
+  }
+
+  manageImages(id: string): void {
+    this.router.navigate(['/owner/properties', id, 'images']);
+  }
+
+  viewRental(id: string): void {
+    this.router.navigate(['/owner/properties', id, 'rental']);
   }
 
   viewApplicants(id: string): void {

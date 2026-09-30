@@ -108,6 +108,10 @@ export class EmailService {
     const { to, subject, html, text, from } = options;
 
     if (!config.smtpPass || config.smtpPass.trim().length === 0) {
+      if (process.env.NODE_ENV === 'test' || config.nodeEnv === 'test') {
+        console.log(`[EmailService] [TEST MODE] Simulated email to ${to}: ${subject}`);
+        return { messageId: 'test-delivery-id-ok', response: '250 OK' };
+      }
       console.error('[EmailService] Cannot send email: SMTP_PASS is missing in environment variables.');
       const err: any = new Error('Email delivery service is unconfigured. SMTP_PASS environment variable is required.');
       err.statusCode = 503;

@@ -6,6 +6,8 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MoneyService } from '../../../core/services/money.service';
 import { CustomerCareComponent } from '../../../shared/components/customer-care/customer-care.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
+import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
+import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-owner-dashboard',
@@ -14,6 +16,8 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
     CommonModule,
     CustomerCareComponent,
     LoadingStateComponent,
+    ErrorStateComponent,
+    EmptyStateComponent,
   ],
   template: `
     <div class="space-y-6">
@@ -40,7 +44,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         </button>
       </div>
 
-      <!-- Accent Highlight Bento Card (Inspired by Reference Image 1 & 2) -->
+      <!-- Accent Highlight Bento Card -->
       <div class="accent-bento-card relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="space-y-2 max-w-xl">
           <div class="inline-flex items-center space-x-2 bg-amber-200/70 text-amber-900 px-3 py-1 rounded-full text-xs font-black">
@@ -66,8 +70,25 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <!-- Loading State -->
       <app-loading-state *ngIf="isLoading" message="Calculating dashboard metrics..."></app-loading-state>
 
+      <!-- Error State -->
+      <app-error-state
+        *ngIf="isError && !isLoading"
+        title="Unable to load dashboard metrics"
+        [message]="errorMessage"
+        (retry)="loadMetrics()"
+      ></app-error-state>
+
+      <!-- Empty State: New Owner with 0 Properties -->
+      <app-empty-state
+        *ngIf="!isLoading && !isError && metrics && metrics.totalProperties === 0"
+        title="Welcome to your Owner Command Center"
+        message="You haven't listed any properties yet. Add your first real estate listing to begin receiving tenant applications and collecting digital rent."
+        actionText="Add First Property Listing"
+        (action)="navigateTo('/owner/properties/new')"
+      ></app-empty-state>
+
       <!-- Metrics Grid (Bento Style) -->
-      <div *ngIf="!isLoading && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+      <div *ngIf="!isLoading && !isError && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         <!-- Card 1: Total Properties -->
         <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
@@ -91,7 +112,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         </div>
 
         <!-- Card 3: Active Rentals / Tenancies -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-emerald-50/30 to-white">
+        <div (click)="navigateTo('/owner/rentals')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-emerald-50/30 to-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider">Active Rentals</span>
             <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl group-hover:scale-110 transition-transform text-sm">📜</span>
@@ -103,7 +124,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         </div>
 
         <!-- Card 4: New Applications (Submitted) -->
-        <div (click)="navigateTo('/owner/applications')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-amber-50/40 to-white">
+        <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-amber-50/40 to-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">New Applications</span>
             <span class="p-2 bg-amber-100 text-amber-800 rounded-xl group-hover:scale-110 transition-transform text-sm">✨</span>
@@ -115,7 +136,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         </div>
 
         <!-- Card 5: Pending Reviews -->
-        <div (click)="navigateTo('/owner/applications')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Pending Reviews</span>
             <span class="p-2 bg-slate-100 text-slate-700 rounded-xl group-hover:scale-110 transition-transform text-sm">📋</span>
@@ -126,8 +147,8 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           </span>
         </div>
 
-        <!-- Card 6: Monthly Rent -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <!-- Card 6: Monthly Rent Records -->
+        <div (click)="navigateTo('/owner/rent-tracking')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Monthly Rent</span>
             <span class="p-2 bg-indigo-50 text-indigo-700 rounded-xl group-hover:scale-110 transition-transform text-sm">💰</span>
@@ -139,8 +160,8 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
 
       <!-- Quick Actions Grid -->
       <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm space-y-4">
-        <h2 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Owner Quick Workspace Actions</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <h2 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Owner Workspace Quick Navigation</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
           <button
             (click)="navigateTo('/owner/properties/new')"
             type="button"
@@ -158,12 +179,28 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             My Properties
           </button>
           <button
-            (click)="navigateTo('/owner/profile')"
+            (click)="navigateTo('/owner/applicants')"
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">👤</span>
-            Owner Profile
+            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">📋</span>
+            Applicants
+          </button>
+          <button
+            (click)="navigateTo('/owner/rentals')"
+            type="button"
+            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+          >
+            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">📜</span>
+            Rental Leases
+          </button>
+          <button
+            (click)="navigateTo('/owner/rent-tracking')"
+            type="button"
+            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+          >
+            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">💰</span>
+            Rent Tracking
           </button>
           <button
             (click)="navigateTo('/owner/notifications')"
@@ -172,6 +209,22 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           >
             <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">🔔</span>
             Notifications
+          </button>
+          <button
+            (click)="navigateTo('/owner/profile')"
+            type="button"
+            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+          >
+            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">👤</span>
+            Owner Profile
+          </button>
+          <button
+            (click)="navigateTo('/owner/settings')"
+            type="button"
+            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+          >
+            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">⚙️</span>
+            Settings
           </button>
         </div>
       </div>
@@ -184,6 +237,8 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
 export class OwnerDashboardComponent implements OnInit {
   metrics: OwnerDashboardMetrics | null = null;
   isLoading: boolean = true;
+  isError: boolean = false;
+  errorMessage: string = '';
 
   constructor(
     private ownerService: OwnerService,
@@ -203,6 +258,9 @@ export class OwnerDashboardComponent implements OnInit {
 
   loadMetrics(): void {
     this.isLoading = true;
+    this.isError = false;
+    this.errorMessage = '';
+
     this.ownerService.getDashboardMetrics().subscribe({
       next: (res: any) => {
         this.isLoading = false;
@@ -210,18 +268,10 @@ export class OwnerDashboardComponent implements OnInit {
           this.metrics = res.data;
         }
       },
-      error: () => {
+      error: (err: any) => {
         this.isLoading = false;
-        this.metrics = {
-          totalProperties: 0,
-          availableProperties: 0,
-          occupiedProperties: 0,
-          totalApplications: 0,
-          pendingApplications: 0,
-          activeRentals: 0,
-          upcomingRent: 0,
-          overdueRent: 0,
-        };
+        this.isError = true;
+        this.errorMessage = err?.error?.message || 'Failed to calculate owner dashboard metrics.';
       },
     });
   }

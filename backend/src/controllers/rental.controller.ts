@@ -34,6 +34,23 @@ export class RentalController {
     }
   }
 
+  static async getRentalById(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      if (!req.user || !req.user.userId) {
+        ApiResponseUtil.error(res, 'Authentication required', 401, 'UNAUTHORIZED');
+        return;
+      }
+      const rental = await RentalService.getRentalById(
+        req.params.id as string,
+        req.user.userId,
+        req.user.role
+      );
+      ApiResponseUtil.success(res, 'Rental details retrieved', rental);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async getTenantDetailsForProperty(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       if (!req.user || !req.user.userId) {

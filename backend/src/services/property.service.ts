@@ -95,6 +95,9 @@ export class PropertyService {
       coordinates: lat !== undefined && lng !== undefined ? { lat, lng } : undefined,
       geoPoint: lat !== undefined && lng !== undefined ? { type: 'Point', coordinates: [lng, lat] } : undefined,
     };
+    if (!normalizedLoc.geoPoint) {
+      delete (normalizedLoc as any).geoPoint;
+    }
 
     if (PropertyService.isMongoConnected()) {
       const property = await PropertyModel.create({

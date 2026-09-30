@@ -114,7 +114,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           </div>
 
           <!-- Active Rentals -->
-          <div routerLink="/owner/properties" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
+          <div routerLink="/owner/rentals" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Active Leases</span>
               <span class="text-xl group-hover:scale-110 transition-transform">🔑</span>
