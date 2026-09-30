@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { NotificationService } from '../../core/services/notification.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +15,7 @@ import { Subscription } from 'rxjs';
       <header class="bg-white border-b border-[#E8E6DF] px-4 sm:px-6 py-3 sticky top-0 z-50 shadow-xs">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
           <!-- Left: Logo & Desktop Navigation -->
-          <div class="flex items-center space-x-8">
+          <div class="flex items-center space-x-6 lg:space-x-8">
             <a routerLink="/tenant/dashboard" class="flex items-center space-x-2 group">
               <div class="w-8 h-8 rounded-lg bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-sm group-hover:scale-105 transition-transform">
                 N
@@ -23,7 +24,7 @@ import { Subscription } from 'rxjs';
             </a>
 
             <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-xs font-bold text-slate-600">
+            <nav class="hidden xl:flex items-center space-x-1 lg:space-x-1.5 text-xs font-bold text-slate-600">
               <a
                 routerLink="/tenant/dashboard"
                 routerLinkActive="bg-[#0F2937] text-white"
@@ -44,7 +45,7 @@ import { Subscription } from 'rxjs';
                 routerLinkActive="bg-[#0F2937] text-white"
                 class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
               >
-                Saved Homes
+                Saved
               </a>
               <a
                 routerLink="/tenant/applications"
@@ -61,25 +62,111 @@ import { Subscription } from 'rxjs';
                 Verification
               </a>
               <a
-                routerLink="/tenant/services"
-                routerLinkActive="bg-[#0F2937] text-white"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
-              >
-                Services
-              </a>
-              <a
                 routerLink="/tenant/rental"
                 routerLinkActive="bg-[#0F2937] text-white"
                 class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all flex items-center gap-1"
               >
                 <span>🏠 My Rental</span>
               </a>
+              <a
+                routerLink="/tenant/rent"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Rent Tracking
+              </a>
+              <a
+                routerLink="/tenant/documents"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Documents
+              </a>
+              <a
+                routerLink="/tenant/services"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
+              >
+                Services
+              </a>
+            </nav>
+
+            <!-- Medium Screens Compact Nav -->
+            <nav class="hidden md:flex xl:hidden items-center space-x-1 text-xs font-bold text-slate-600">
+              <a
+                routerLink="/tenant/dashboard"
+                routerLinkActive="bg-[#0F2937] text-white"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
+              >
+                Dashboard
+              </a>
+              <a
+                routerLink="/tenant/homes"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
+              >
+                Find
+              </a>
+              <a
+                routerLink="/tenant/applications"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
+              >
+                Apps
+              </a>
+              <a
+                routerLink="/tenant/rental"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
+              >
+                Rental
+              </a>
+              <a
+                routerLink="/tenant/rent"
+                routerLinkActive="bg-[#0F2937] text-white"
+                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
+              >
+                Rent
+              </a>
             </nav>
           </div>
 
-          <!-- Right: User Profile & Actions -->
-          <div class="flex items-center space-x-3">
-            <!-- User Profile Button (Desktop & Mobile) -->
+          <!-- Right: Notifications, Settings, Profile & Actions -->
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <!-- Notifications Bell -->
+            <a
+              routerLink="/tenant/notifications"
+              routerLinkActive="text-[#2D7A5E] bg-emerald-50"
+              class="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              title="Notifications"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <!-- Unread Badge -->
+              <span
+                *ngIf="unreadCount > 0"
+                class="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-500 text-white rounded-full text-[9px] font-black flex items-center justify-center animate-pulse"
+              >
+                {{ unreadCount > 9 ? '9+' : unreadCount }}
+              </span>
+            </a>
+
+            <!-- Settings Button -->
+            <a
+              routerLink="/tenant/settings"
+              routerLinkActive="text-[#0F2937] bg-slate-100"
+              class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              title="Settings"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </a>
+
+            <!-- User Profile Button -->
             <a
               routerLink="/tenant/profile"
               class="flex items-center space-x-2.5 p-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-slate-100 border border-slate-200/80 transition-all cursor-pointer group"
@@ -109,7 +196,7 @@ import { Subscription } from 'rxjs';
             <button
               (click)="toggleMobileMenu()"
               type="button"
-              class="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
+              class="xl:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,7 +208,7 @@ import { Subscription } from 'rxjs';
         </div>
 
         <!-- Mobile Drawer Menu -->
-        <div *ngIf="mobileMenuOpen" class="md:hidden pt-3 pb-2 border-t border-slate-100 mt-2 space-y-1">
+        <div *ngIf="mobileMenuOpen" class="xl:hidden pt-3 pb-2 border-t border-slate-100 mt-2 space-y-1">
           <a
             (click)="closeMobileMenu()"
             routerLink="/tenant/dashboard"
@@ -138,6 +225,14 @@ import { Subscription } from 'rxjs';
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
             🔍 Find Homes
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/search"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            ⚡ Search Results
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -165,11 +260,67 @@ import { Subscription } from 'rxjs';
           </a>
           <a
             (click)="closeMobileMenu()"
+            routerLink="/tenant/rental"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            🔑 My Rental & Lease
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/rent"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            💰 Rent Tracking
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/documents"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            📁 Tenancy Documents
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/handover"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            📋 Handover Checklist
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/condition"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            📸 Property Condition
+          </a>
+          <a
+            (click)="closeMobileMenu()"
             routerLink="/tenant/services"
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
             🛠️ Home Services
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/notifications"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            🔔 Notifications ({{ unreadCount }})
+          </a>
+          <a
+            (click)="closeMobileMenu()"
+            routerLink="/tenant/settings"
+            routerLinkActive="bg-[#0F2937] text-white"
+            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
+          >
+            ⚙️ Settings
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -183,7 +334,7 @@ import { Subscription } from 'rxjs';
             <button
               (click)="onLogout()"
               type="button"
-              class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50"
+              class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50 cursor-pointer"
             >
               🚪 Sign Out
             </button>
@@ -191,12 +342,12 @@ import { Subscription } from 'rxjs';
         </div>
       </header>
 
-      <!-- Main Content Area (extra bottom padding on mobile for bottom navigation bar) -->
+      <!-- Main Content Area -->
       <main class="flex-grow p-4 sm:p-6 pb-20 md:pb-6 max-w-7xl mx-auto w-full">
         <router-outlet></router-outlet>
       </main>
 
-      <!-- Mobile Bottom Navigation Bar (Requirement #7) -->
+      <!-- Mobile Bottom Navigation Bar -->
       <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[#E8E6DF] py-2 px-3 z-40 flex items-center justify-around shadow-lg">
         <a
           routerLink="/tenant/dashboard"
@@ -254,16 +405,27 @@ import { Subscription } from 'rxjs';
 export class TenantLayoutComponent implements OnInit, OnDestroy {
   user: any = null;
   mobileMenuOpen: boolean = false;
+  unreadCount: number = 0;
   private sub?: Subscription;
 
   constructor(
     private authService: AuthService,
+    private notificationService: NotificationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.sub = this.authService.currentUser$.subscribe((u) => {
       this.user = u;
+    });
+
+    this.notificationService.getNotifications().subscribe({
+      next: (res: any) => {
+        if (res.success && Array.isArray(res.data)) {
+          this.unreadCount = res.data.filter((n: any) => !n.isRead).length;
+        }
+      },
+      error: () => {},
     });
   }
 

@@ -53,5 +53,9 @@ export class RentalService {
   public terminateRental(rentalId: string, reason?: string): Observable<{ success: boolean; data: RentalAgreement }> {
     return this.apiService.post<{ success: boolean; data: RentalAgreement }>(`/rentals/${rentalId}/terminate`, { reason });
   }
+
+  public payRent(rentalId: string, paymentData: { paymentMethod?: string; transactionRef?: string; amount?: number; notes?: string }): Observable<{ success: boolean; data: any }> {
+    return this.apiService.post<{ success: boolean; data: any }>(`/rentals/${rentalId}/pay`, paymentData);
+  }
 }
 

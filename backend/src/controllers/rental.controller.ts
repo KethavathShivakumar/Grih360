@@ -119,4 +119,25 @@ export class RentalController {
       next(err);
     }
   }
+
+  static async payRent(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      if (!req.user || !req.user.userId) {
+        ApiResponseUtil.error(res, 'Authentication required', 401, 'UNAUTHORIZED');
+        return;
+      }
+      const rentalIdOrPropertyId = (req.params.id || req.params.propertyId) as string;
+      const { paymentMethod, transactionRef, amount, notes } = req.body;
+      const result = await RentalService.payRent(
+        rentalIdOrPropertyId,
+        req.user.userId,
+        req.user.role,
+        { paymentMethod, transactionRef, amount, notes }
+      );
+      ApiResponseUtil.success(res, 'Rent payment processed successfully', result);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
+

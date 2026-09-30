@@ -180,13 +180,15 @@ export class RentalService {
   /**
    * Get rent tracking records for a property
    */
-  static async getRentRecordsByPropertyId(propertyId: string, ownerId: string, role: string) {
+  static async getRentRecordsByPropertyId(propertyId: string, userId: string, role: string) {
     if (RentalService.isMongoConnected()) {
       const rental = await RentalModel.findOne({ propertyId }).lean();
       if (!rental) {
         return [];
       }
-      if (role !== 'ADMIN' && rental.ownerId.toString() !== ownerId) {
+      const oId = (rental.ownerId as any)?._id?.toString() || rental.ownerId?.toString();
+      const tId = (rental.tenantId as any)?._id?.toString() || rental.tenantId?.toString();
+      if (role !== 'ADMIN' && oId !== userId.toString() && tId !== userId.toString()) {
         throw { statusCode: 403, code: 'FORBIDDEN', message: 'Access denied' };
       }
       return RentRecordModel.find({ rentalId: rental._id }).sort({ dueDate: -1 }).lean();
@@ -195,10 +197,116 @@ export class RentalService {
       if (!rental) {
         return [];
       }
-      if (role !== 'ADMIN' && rental.ownerId !== ownerId) {
+      const oId = (rental.ownerId as any)?._id?.toString() || rental.ownerId?.toString();
+      const tId = (rental.tenantId as any)?._id?.toString() || rental.tenantId?.toString();
+      if (role !== 'ADMIN' && oId !== userId.toString() && tId !== userId.toString()) {
         throw { statusCode: 403, code: 'FORBIDDEN', message: 'Access denied' };
       }
       return Array.from(memoryRentRecords.values()).filter((r) => r.propertyId === propertyId || r.rentalId === rental.id || r.rentalId === rental._id);
+    }
+  }
+
+  /**
+   * Pay Rent for a rental (Tenant or Admin)
+   */
+  static async payRent(rentalIdOrPropertyId: string, userId: string, role: string, paymentData: any) {
+    const { NotificationService } = require('./notification.service');
+
+    if (RentalService.isMongoConnected()) {
+      let rental = await RentalModel.findById(rentalIdOrPropertyId);
+      if (!rental) {
+        rental = await RentalModel.findOne({ propertyId: rentalIdOrPropertyId });
+      }
+      if (!rental) {
+        throw { statusCode: 404, code: 'RENTAL_NOT_FOUND', message: 'Rental record not found' };
+      }
+
+      const tenantIdStr = (rental.tenantId as any)?._id?.toString() || rental.tenantId.toString();
+      if (role !== 'ADMIN' && tenantIdStr !== userId.toString()) {
+        throw { statusCode: 403, code: 'FORBIDDEN', message: 'Only the tenant of this property can make rent payments' };
+      }
+
+      rental.rentStatus = 'PAID';
+      await rental.save();
+
+      const amount = paymentData.amount || rental.monthlyRent;
+      const paymentMethod = paymentData.paymentMethod || 'UPI';
+      const txnRef = paymentData.transactionRef || `NIVAS-TXN-${Date.now()}`;
+      const notes = paymentData.notes || `Rent paid via ${paymentMethod}. Transaction Ref: ${txnRef}`;
+
+      const rentRecord = await RentRecordModel.create({
+        rentalId: rental._id,
+        tenantId: rental.tenantId,
+        ownerId: rental.ownerId,
+        amount,
+        dueDate: new Date(),
+        paidDate: new Date(),
+        status: 'PAID',
+        notes,
+      });
+
+      await NotificationService.createNotification({
+        recipientId: rental.ownerId.toString(),
+        title: 'Rent Payment Received',
+        message: `Tenant paid monthly rent of ₹${amount.toLocaleString('en-IN')} via ${paymentMethod} (${txnRef}).`,
+        type: 'RENTAL',
+      });
+
+      return {
+        rental,
+        rentRecord,
+      };
+    } else {
+      let rental = memoryRentals.get(rentalIdOrPropertyId);
+      if (!rental) {
+        rental = Array.from(memoryRentals.values()).find((r) => r.propertyId === rentalIdOrPropertyId);
+      }
+      if (!rental) {
+        throw { statusCode: 404, code: 'RENTAL_NOT_FOUND', message: 'Rental record not found' };
+      }
+
+      const tenantIdStr = (rental.tenantId as any)?._id?.toString() || rental.tenantId?.toString();
+      if (role !== 'ADMIN' && tenantIdStr !== userId.toString()) {
+        throw { statusCode: 403, code: 'FORBIDDEN', message: 'Only the tenant of this property can make rent payments' };
+      }
+
+      rental.rentStatus = 'PAID';
+      memoryRentals.set(rental.id || rental._id, rental);
+      PersistentStore.update('rentals', rental.id || rental._id, { rentStatus: 'PAID' });
+
+      const amount = paymentData.amount || rental.monthlyRent;
+      const paymentMethod = paymentData.paymentMethod || 'UPI';
+      const txnRef = paymentData.transactionRef || `NIVAS-TXN-${Date.now()}`;
+      const notes = paymentData.notes || `Rent paid via ${paymentMethod}. Transaction Ref: ${txnRef}`;
+
+      const recId = 'rec_' + Date.now();
+      const rentRecord = {
+        _id: recId,
+        id: recId,
+        rentalId: rental.id || rental._id,
+        propertyId: rental.propertyId,
+        tenantId: rental.tenantId,
+        ownerId: rental.ownerId,
+        amount,
+        dueDate: new Date(),
+        paidDate: new Date(),
+        status: 'PAID',
+        notes,
+      };
+      memoryRentRecords.set(recId, rentRecord);
+      PersistentStore.insert('rent_records', rentRecord);
+
+      await NotificationService.createNotification({
+        recipientId: rental.ownerId,
+        title: 'Rent Payment Received',
+        message: `Tenant paid monthly rent of ₹${amount.toLocaleString('en-IN')} via ${paymentMethod} (${txnRef}).`,
+        type: 'RENTAL',
+      });
+
+      return {
+        rental,
+        rentRecord,
+      };
     }
   }
 

@@ -34,7 +34,14 @@ import { OwnerSettingsComponent } from './features/owner/settings/owner-settings
 import { ProfessionalWorkspaceComponent } from './features/professional/professional-workspace.component';
 
 import { TenantVerificationComponent } from './features/tenant/tenant-verification/tenant-verification.component';
+import { TenantVerificationDetailsComponent } from './features/tenant/verification-details/tenant-verification-details.component';
 import { TenantCurrentRentalComponent } from './features/tenant/tenant-rental/tenant-current-rental.component';
+import { TenantSearchResultsComponent } from './features/tenant/search-results/search-results.component';
+import { TenantRentTrackingComponent } from './features/tenant/rent-tracking/tenant-rent-tracking.component';
+import { TenantDocumentsComponent } from './features/tenant/documents/tenant-documents.component';
+import { TenantHandoverChecklistComponent } from './features/tenant/handover/tenant-handover-checklist.component';
+import { TenantPropertyConditionComponent } from './features/tenant/property-condition/tenant-property-condition.component';
+import { TenantSettingsComponent } from './features/tenant/settings/tenant-settings.component';
 
 // Phase 7 Home Services & Professional Network Imports
 import { TenantServicesComponent } from './features/tenant/tenant-services/tenant-services.component';
@@ -88,28 +95,41 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: TenantDashboardComponent },
       { path: 'homes', component: FindHomesComponent },
+      { path: 'homes/search', component: TenantSearchResultsComponent },
       { path: 'homes/:id', component: PropertyDetailsComponent },
+      { path: 'search', component: TenantSearchResultsComponent },
+      { path: 'properties/:id', component: PropertyDetailsComponent },
       { path: 'saved', component: SavedHomesComponent },
       { path: 'applications', component: TenantApplicationsComponent },
       { path: 'applications/:id', component: ApplicationDetailsComponent },
       { path: 'applications/:id/verification', component: TenantVerificationComponent },
-      { path: 'verification/:applicationId', component: TenantVerificationComponent },
       { path: 'verification', component: TenantVerificationComponent },
+      { path: 'verification/:id', component: TenantVerificationDetailsComponent },
       { path: 'rental', component: TenantCurrentRentalComponent },
       { path: 'rentals', component: TenantCurrentRentalComponent },
       { path: 'agreement', component: TenantCurrentRentalComponent },
       { path: 'agreements', component: TenantCurrentRentalComponent },
       { path: 'agreements/:id', component: TenantCurrentRentalComponent },
+      { path: 'rent', component: TenantRentTrackingComponent },
+      { path: 'rent-tracking', component: TenantRentTrackingComponent },
+      { path: 'documents', component: TenantDocumentsComponent },
+      { path: 'handover', component: TenantHandoverChecklistComponent },
+      { path: 'checklist', component: TenantHandoverChecklistComponent },
+      { path: 'condition', component: TenantPropertyConditionComponent },
+      { path: 'property-condition', component: TenantPropertyConditionComponent },
 
       // Phase 7 Tenant Service Routes
       { path: 'services', component: TenantServicesComponent },
+      { path: 'services/categories', component: TenantServicesComponent },
       { path: 'services/request', component: CreateServiceRequestComponent },
       { path: 'services/requests', component: TenantServiceRequestsComponent },
       { path: 'services/requests/:id', component: TenantServiceDetailsComponent },
+      { path: 'services/history', component: TenantServiceRequestsComponent },
       { path: 'services/:category', component: ServiceCategoryDetailsComponent },
 
       { path: 'profile', component: TenantProfileComponent },
       { path: 'notifications', component: TenantNotificationsComponent },
+      { path: 'settings', component: TenantSettingsComponent },
     ],
   },
 
