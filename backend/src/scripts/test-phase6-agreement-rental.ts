@@ -166,7 +166,7 @@ async function runPhase6Tests() {
         documents: [
           {
             documentType: 'AADHAAR',
-            documentNumber: '9988-7766-5544',
+            documentNumber: 'XXXX-XXXX-5544',
             notes: 'Aadhaar front and back scan',
           },
         ],

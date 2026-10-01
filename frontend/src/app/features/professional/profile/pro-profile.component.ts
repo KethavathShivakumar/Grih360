@@ -164,8 +164,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Verification</span>
-            <span class="text-lg font-black text-[#2D7A5E] mt-2 block">ID Verified</span>
-            <span class="text-xs text-slate-500 font-medium mt-1 block">Aadhaar & Trade License</span>
+            <span class="text-lg font-black text-[#2D7A5E] mt-2 block">{{ profile?.verificationStatus === 'VERIFIED' ? 'ID Verified' : 'Pending Verification' }}</span>
+            <span class="text-xs text-slate-500 font-medium mt-1 block">Government ID & Trade License</span>
           </div>
         </div>
 

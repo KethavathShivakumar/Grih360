@@ -354,7 +354,7 @@ export class TenantDocumentsComponent implements OnInit {
                 type: 'Verified Dossier',
                 size: '980 KB',
                 status: 'VALID',
-                description: 'Aadhaar / National ID validation certificate and Telangana MTA compliance record.',
+                description: 'Government ID verification certificate and Telangana MTA compliance record.',
               });
             }
             this.documents = docs;

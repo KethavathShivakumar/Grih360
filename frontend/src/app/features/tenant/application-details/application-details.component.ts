@@ -333,7 +333,7 @@ export class ApplicationDetailsComponent implements OnInit {
 
   get verificationStateText(): string {
     const v = this.application?.tenantId?.identityVerificationStatus || this.application?.verificationStatusAtSubmission || 'NOT_STARTED';
-    if (v === 'VERIFIED') return 'Aadhaar Verified';
+    if (v === 'VERIFIED') return 'Identity Verified';
     if (v === 'PENDING' || v === 'UNDER_REVIEW') return 'Verification In Progress';
     if (v === 'EXPIRED') return 'Expired';
     return 'Pending Submission';

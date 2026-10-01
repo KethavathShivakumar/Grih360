@@ -239,13 +239,13 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div class="space-y-1">
                 <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-slate-900">1. Government Identity (Aadhaar / Voter ID / Passport)</span>
-                  <span class="px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-extrabold rounded-md">
-                    Verification provider integration required
+                  <span class="text-sm font-bold text-slate-900">1. Government Photo ID (Passport / Voter ID / Driving License)</span>
+                  <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-extrabold rounded-md">
+                    Manual review active
                   </span>
                 </div>
                 <p class="text-xs text-slate-500">
-                  Direct automated DigiLocker/UIDAI API integration pending. Manual document upload and compliance officer review currently active.
+                  Direct government registry sync coming soon. Manual document upload and compliance officer review currently active.
                 </p>
               </div>
               <div class="shrink-0">
@@ -395,24 +395,24 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                     name="documentType"
                     class="w-full border border-slate-300 rounded-xl p-2.5 text-xs font-medium focus:ring-2 focus:ring-indigo-500 bg-white"
                   >
-                    <option value="AADHAAR">Aadhaar Card (12 Digits)</option>
                     <option value="PASSPORT">Passport</option>
                     <option value="VOTER_ID">Voter ID Card</option>
                     <option value="DRIVING_LICENSE">Driving License</option>
                     <option value="PAN">PAN Card</option>
+                    <option value="AADHAAR">Government ID (Masked)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1.5">Document Number (Masked)</label>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1.5">Document Number (Last 4 Digits or ID)</label>
                   <input
                     type="text"
                     [(ngModel)]="documentNumber"
                     name="documentNumber"
-                    placeholder="e.g. 1234-5678-9012"
+                    placeholder="e.g. Last 4 digits or ID number"
                     class="w-full border border-slate-300 rounded-xl p-2.5 text-xs font-medium focus:ring-2 focus:ring-indigo-500"
                   />
-                  <span class="text-[10px] text-slate-400 mt-1 block">Only the last 4 digits are retained in compliance logs.</span>
+                  <span class="text-[10px] text-slate-400 mt-1 block">Only masked reference is stored. Never enter full Aadhaar numbers.</span>
                 </div>
               </div>
 
@@ -570,7 +570,7 @@ export class TenantVerificationComponent implements OnInit {
   public errorMsg: string = '';
 
   // Form Fields
-  public documentType: string = 'AADHAAR';
+  public documentType: string = 'PASSPORT';
   public documentNumber: string = '';
   public declarationAccepted: boolean = false;
   public formData: VerificationSubmittedInfo = {

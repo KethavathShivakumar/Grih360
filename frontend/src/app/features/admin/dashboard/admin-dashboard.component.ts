@@ -107,7 +107,7 @@ import { StitchDesignRequest } from '../../../shared/models/stitch-request.model
               </div>
               <h3 class="text-lg font-black text-[#0F2937] mb-1">Identity Verifications</h3>
               <p class="text-xs text-slate-500 mb-4">
-                Review tenant Aadhaar and owner title deed background verifications safely without exposing raw files.
+                Review tenant ID and owner title deed background verifications safely without exposing raw files.
               </p>
             </div>
             <a

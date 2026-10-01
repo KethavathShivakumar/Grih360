@@ -73,8 +73,17 @@ import { ApplicationService } from '../../../core/services/application.service';
             <div class="space-y-1">
               <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                 <h2 class="text-xl sm:text-2xl font-black text-slate-900">{{ userName }}</h2>
-                <span class="inline-flex items-center text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wide">
+                <span
+                  *ngIf="verificationState === 'verified'"
+                  class="inline-flex items-center text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wide"
+                >
                   Verified Tenant
+                </span>
+                <span
+                  *ngIf="verificationState !== 'verified'"
+                  class="inline-flex items-center text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 uppercase tracking-wide"
+                >
+                  Tenant
                 </span>
               </div>
               <p class="text-xs text-slate-500">{{ user?.email }} • +91 {{ user?.phone || 'Not set' }}</p>
@@ -135,29 +144,81 @@ import { ApplicationService } from '../../../core/services/application.service';
           </div>
         </div>
 
-        <!-- Documents & Civic Identity Verification Section -->
+        <!-- Identity & Document Verification Section -->
         <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
               <span>🛡️</span>
-              <span>Civic Documents & Verification</span>
+              <span>Identity & Document Verification</span>
             </h3>
-            <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-              Identity Verified
+            <span [ngClass]="verificationBadgeClass" class="text-xs font-extrabold px-2.5 py-1 rounded-full border">
+              {{ verificationStateLabel }}
             </span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
-              <span class="text-[10px] uppercase font-bold text-slate-400 block">Aadhaar Digital Verification</span>
-              <span class="font-bold text-slate-800 text-sm">•••• •••• 4892</span>
-              <p class="text-[11px] text-emerald-700 font-semibold pt-1">✓ UIDAI Biometric e-KYC Completed</p>
+            <!-- Government ID Status Card -->
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col justify-between gap-3">
+              <div class="space-y-1">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Government Photo ID</span>
+                <span class="font-bold text-slate-800 text-sm block">
+                  <ng-container [ngSwitch]="verificationState">
+                    <span *ngSwitchCase="'verified'" class="text-emerald-700">✓ ID Verified</span>
+                    <span *ngSwitchCase="'pending_review'" class="text-amber-700">⏳ ID Document Under Review</span>
+                    <span *ngSwitchCase="'rejected'" class="text-rose-700">⚠️ ID Document Rejected</span>
+                    <span *ngSwitchDefault class="text-slate-600">ID Document: Not Submitted</span>
+                  </ng-container>
+                </span>
+                <p class="text-[11px] text-slate-500 pt-0.5">
+                  <ng-container [ngSwitch]="verificationState">
+                    <span *ngSwitchCase="'verified'">Verified for digital tenancy agreements.</span>
+                    <span *ngSwitchCase="'pending_review'">Document received and pending administrative compliance check.</span>
+                    <span *ngSwitchCase="'rejected'">Your submission was rejected. Please re-upload a valid government ID.</span>
+                    <span *ngSwitchDefault>Passport, Voter ID, or Driving License.</span>
+                  </ng-container>
+                </p>
+              </div>
+              <div *ngIf="verificationState === 'not_submitted' || verificationState === 'rejected'">
+                <a
+                  routerLink="/tenant/verification"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0F2937] hover:bg-[#164E63] text-white text-[11px] font-bold rounded-xl transition-colors shadow-2xs cursor-pointer"
+                >
+                  <span>📄</span>
+                  <span>Upload Document</span>
+                </a>
+              </div>
             </div>
 
-            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
-              <span class="text-[10px] uppercase font-bold text-slate-400 block">Employment / Income Proof</span>
-              <span class="font-bold text-slate-800 text-sm">Verified Salary Slip (Q4 2025)</span>
-              <p class="text-[11px] text-emerald-700 font-semibold pt-1">✓ Screened by Owner Escrow Desk</p>
+            <!-- Employment / Income Proof Status Card -->
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col justify-between gap-3">
+              <div class="space-y-1">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Employment & Income Proof</span>
+                <span class="font-bold text-slate-800 text-sm block">
+                  <ng-container [ngSwitch]="verificationState">
+                    <span *ngSwitchCase="'verified'" class="text-emerald-700">✓ Income Proof Verified</span>
+                    <span *ngSwitchCase="'pending_review'" class="text-amber-700">⏳ Income Proof Under Review</span>
+                    <span *ngSwitchCase="'rejected'" class="text-rose-700">⚠️ Income Proof Rejected</span>
+                    <span *ngSwitchDefault class="text-slate-600">Income Proof: Not Submitted</span>
+                  </ng-container>
+                </span>
+                <p class="text-[11px] text-slate-500 pt-0.5">
+                  <ng-container [ngSwitch]="verificationState">
+                    <span *ngSwitchCase="'verified'">Salary slip / employment status verified.</span>
+                    <span *ngSwitchCase="'pending_review'">Salary slip or bank statement under review.</span>
+                    <span *ngSwitchCase="'rejected'">Document was rejected. Please re-upload a valid salary slip.</span>
+                    <span *ngSwitchDefault>Upload salary slip or offer letter to verify rent eligibility.</span>
+                  </ng-container>
+                </p>
+              </div>
+              <div *ngIf="verificationState === 'not_submitted' || verificationState === 'rejected'">
+                <a
+                  routerLink="/tenant/verification"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0F2937] hover:bg-[#164E63] text-white text-[11px] font-bold rounded-xl transition-colors shadow-2xs cursor-pointer"
+                >
+                  <span>📄</span>
+                  <span>Upload Document</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -364,6 +425,40 @@ export class TenantProfileComponent implements OnInit {
 
   get userInitial(): string {
     return this.userName.charAt(0).toUpperCase() || 'T';
+  }
+
+  get verificationState(): 'not_submitted' | 'pending_review' | 'verified' | 'rejected' {
+    const rawStatus = (this.user?.identityVerificationStatus || '').toUpperCase();
+    if (rawStatus === 'VERIFIED') return 'verified';
+    if (rawStatus === 'PENDING' || rawStatus === 'UNDER_REVIEW') return 'pending_review';
+    if (rawStatus === 'REJECTED') return 'rejected';
+    return 'not_submitted';
+  }
+
+  get verificationStateLabel(): string {
+    switch (this.verificationState) {
+      case 'verified':
+        return 'Verified';
+      case 'pending_review':
+        return 'Pending Review';
+      case 'rejected':
+        return 'Rejected';
+      default:
+        return 'Not Submitted';
+    }
+  }
+
+  get verificationBadgeClass(): string {
+    switch (this.verificationState) {
+      case 'verified':
+        return 'text-emerald-700 bg-emerald-50 border-emerald-200';
+      case 'pending_review':
+        return 'text-amber-700 bg-amber-50 border-amber-200';
+      case 'rejected':
+        return 'text-rose-700 bg-rose-50 border-rose-200';
+      default:
+        return 'text-slate-600 bg-slate-100 border-slate-200';
+    }
   }
 
   private populateEditFields(): void {

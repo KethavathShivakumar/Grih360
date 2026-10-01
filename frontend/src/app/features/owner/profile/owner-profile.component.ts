@@ -72,8 +72,17 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
             <div class="space-y-1">
               <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                 <h2 class="text-xl sm:text-2xl font-black text-slate-900">{{ userName }}</h2>
-                <span class="inline-flex items-center text-[10px] font-extrabold text-[#E26D46] bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 uppercase tracking-wide">
-                  Verified Property Owner
+                <span
+                  *ngIf="verificationState === 'verified'"
+                  class="inline-flex items-center text-[10px] font-extrabold text-[#E26D46] bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 uppercase tracking-wide"
+                >
+                  Verified Owner
+                </span>
+                <span
+                  *ngIf="verificationState !== 'verified'"
+                  class="inline-flex items-center text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 uppercase tracking-wide"
+                >
+                  Property Owner
                 </span>
               </div>
               <p class="text-xs text-slate-500">{{ user?.email }} • +91 {{ user?.phone || '9876543210' }}</p>
@@ -139,24 +148,42 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
               <span>🛡️</span>
-              <span>Landlord Civic Compliance & Title Deeds</span>
+              <span>Landlord Verification & Ownership Documents</span>
             </h3>
-            <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-              Verified Title Deed
+            <span [ngClass]="verificationBadgeClass" class="text-xs font-extrabold px-2.5 py-1 rounded-full border">
+              {{ verificationStateLabel }}
             </span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
-              <span class="text-[10px] uppercase font-bold text-slate-400 block">Dharani / Meeseva Land Title Sync</span>
-              <span class="font-bold text-slate-800 text-sm">Passbook # TG-WL-884210</span>
-              <p class="text-[11px] text-emerald-700 font-semibold pt-1">✓ Property ownership authenticated</p>
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Property Title Deed Verification</span>
+              <span class="font-bold text-slate-800 text-sm block">
+                <ng-container [ngSwitch]="verificationState">
+                  <span *ngSwitchCase="'verified'" class="text-emerald-700">✓ Title Deed Verified</span>
+                  <span *ngSwitchCase="'pending_review'" class="text-amber-700">⏳ Title Deed Under Review</span>
+                  <span *ngSwitchCase="'rejected'" class="text-rose-700">⚠️ Title Deed Rejected</span>
+                  <span *ngSwitchDefault class="text-slate-600">Verification Coming Soon</span>
+                </ng-container>
+              </span>
+              <p class="text-[11px] text-slate-500 pt-0.5">
+                Government registry sync and title deed verification pipeline is coming soon.
+              </p>
             </div>
 
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
-              <span class="text-[10px] uppercase font-bold text-slate-400 block">Model Tenancy Act Biometric Escrow</span>
-              <span class="font-bold text-slate-800 text-sm">Escrow Bank Acct Verified</span>
-              <p class="text-[11px] text-emerald-700 font-semibold pt-1">✓ Direct digital rent collection ready</p>
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Rent Settlement Account</span>
+              <span class="font-bold text-slate-800 text-sm block">
+                <ng-container [ngSwitch]="verificationState">
+                  <span *ngSwitchCase="'verified'" class="text-emerald-700">✓ Bank Account Verified</span>
+                  <span *ngSwitchCase="'pending_review'" class="text-amber-700">⏳ Bank Details Pending</span>
+                  <span *ngSwitchCase="'rejected'" class="text-rose-700">⚠️ Bank Details Rejected</span>
+                  <span *ngSwitchDefault class="text-slate-600">Bank Account: Not Submitted</span>
+                </ng-container>
+              </span>
+              <p class="text-[11px] text-slate-500 pt-0.5">
+                Direct digital rent collection account configuration.
+              </p>
             </div>
           </div>
         </div>
@@ -348,6 +375,40 @@ export class OwnerProfileComponent implements OnInit {
 
   get ownerInitial(): string {
     return this.userName.charAt(0).toUpperCase() || 'O';
+  }
+
+  get verificationState(): 'not_submitted' | 'pending_review' | 'verified' | 'rejected' {
+    const rawStatus = (this.user?.identityVerificationStatus || '').toUpperCase();
+    if (rawStatus === 'VERIFIED') return 'verified';
+    if (rawStatus === 'PENDING' || rawStatus === 'UNDER_REVIEW') return 'pending_review';
+    if (rawStatus === 'REJECTED') return 'rejected';
+    return 'not_submitted';
+  }
+
+  get verificationStateLabel(): string {
+    switch (this.verificationState) {
+      case 'verified':
+        return 'Verified';
+      case 'pending_review':
+        return 'Pending Review';
+      case 'rejected':
+        return 'Rejected';
+      default:
+        return 'Not Submitted';
+    }
+  }
+
+  get verificationBadgeClass(): string {
+    switch (this.verificationState) {
+      case 'verified':
+        return 'text-emerald-700 bg-emerald-50 border-emerald-200';
+      case 'pending_review':
+        return 'text-amber-700 bg-amber-50 border-amber-200';
+      case 'rejected':
+        return 'text-rose-700 bg-rose-50 border-rose-200';
+      default:
+        return 'text-slate-600 bg-slate-100 border-slate-200';
+    }
   }
 
   private populateEditFields(): void {

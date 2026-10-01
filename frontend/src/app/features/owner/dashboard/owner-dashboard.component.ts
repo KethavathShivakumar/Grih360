@@ -30,7 +30,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Welcome, {{ ownerName }} 👋</h1>
           <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
-            Manage your property portfolio, screen Aadhaar-verified tenant applications, and monitor automated rent collections.
+            Manage your property portfolio, screen tenant applications, and monitor automated rent collections.
           </p>
         </div>
 

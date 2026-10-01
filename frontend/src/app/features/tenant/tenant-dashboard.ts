@@ -83,7 +83,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state/error-s
             </div>
             <h2 class="text-base sm:text-lg font-black text-[#0F2937]">Zero Brokerage & Model Tenancy Act Compliance</h2>
             <p class="text-xs text-amber-900/80 font-medium leading-relaxed">
-              All properties are listed direct from owners with verified title deeds, standardized biometric agreements, and online rent receipts.
+              All properties are listed direct from owners with verified title deeds, standardized digital rental agreements, and online rent receipts.
             </p>
           </div>
           <div class="flex items-center gap-3 shrink-0 w-full sm:w-auto justify-center sm:justify-end">

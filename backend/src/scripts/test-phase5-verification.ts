@@ -179,7 +179,7 @@ async function runPhase5Tests() {
         documents: [
           {
             documentType: 'AADHAAR',
-            documentNumber: '1234-5678-9012',
+            documentNumber: 'XXXX-XXXX-9012',
             notes: 'Aadhaar identity card copy uploaded',
           },
           {
@@ -349,7 +349,7 @@ async function runPhase5Tests() {
         documents: [
           {
             documentType: 'AADHAAR',
-            documentNumber: '0000-0000-0000',
+            documentNumber: 'XXXX-XXXX-0000',
             notes: 'Unreadable test scan',
           },
         ],

@@ -717,7 +717,7 @@ export class PropertyService {
     const defaultProperties = [
       {
         title: '3 BHK Gated Community Apartment in Gachibowli',
-        description: 'Spacious 3 BHK apartment in prime Financial District, Gachibowli. Featuring modular kitchen, 100% power backup, EV charging, 2 covered car parks, and biometric gate security under Model Tenancy Act.',
+        description: 'Spacious 3 BHK apartment in prime Financial District, Gachibowli. Featuring modular kitchen, 100% power backup, EV charging, 2 covered car parks, and electronic gate security under Model Tenancy Act.',
         propertyType: 'APARTMENT',
         rentAmount: 42000,
         depositAmount: 84000,
