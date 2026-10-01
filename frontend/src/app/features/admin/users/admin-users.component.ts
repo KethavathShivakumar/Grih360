@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AdminService } from '../../../core/services/admin.service';
 import { StitchDesignRequest } from '../../../shared/models/stitch-request.model';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
@@ -9,7 +10,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoadingStateComponent, ErrorStateComponent],
+  imports: [CommonModule, FormsModule, RouterModule, LoadingStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       
@@ -127,6 +128,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   {{ u.createdAt | date: 'shortDate' }}
                 </td>
                 <td class="px-4 py-3 text-right space-x-2">
+                  <a
+                    [routerLink]="['/admin/users', u._id || u.id]"
+                    class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded text-[10px] font-bold transition-colors"
+                  >
+                    View Details →
+                  </a>
                   <button
                     (click)="toggleStatus(u)"
                     [ngClass]="u.isActive ? 'hover:bg-rose-100 text-rose-700' : 'hover:bg-emerald-100 text-emerald-700'"

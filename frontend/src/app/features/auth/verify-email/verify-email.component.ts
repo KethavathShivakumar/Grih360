@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -91,7 +91,7 @@ import { finalize, timeout } from 'rxjs';
             <span>{{ successMessage }}</span>
           </div>
 
-          <!-- 6-Digit OTP Form -->
+          <!-- 6-Digit OTP Form with Single Native Input & 6 Rendered Visual Boxes -->
           <form (ngSubmit)="onVerifySubmit()" class="space-y-6">
             <div class="space-y-2">
               <div class="flex items-center justify-between">
@@ -103,26 +103,46 @@ import { finalize, timeout } from 'rxjs';
                 </span>
               </div>
 
-              <!-- 6 Discrete Input Boxes with Auto-Advance & Paste Support -->
-              <div class="flex items-center justify-between gap-2 sm:gap-2.5" (paste)="onPaste($event)">
+              <!-- Single Native Input Overlay + 6 Visual Boxes -->
+              <div class="relative w-full cursor-text" (click)="focusInput()">
+                <!-- Single hidden transparent native input capturing all keyboard, paste, and mobile numeric input -->
                 <input
-                  *ngFor="let digit of digits; let i = index"
                   #otpInput
                   type="text"
                   inputmode="numeric"
                   pattern="[0-9]*"
                   autocomplete="one-time-code"
-                  maxlength="1"
-                  [value]="digit"
-                  (input)="onDigitInput($event, i)"
-                  (keydown)="onKeyDown($event, i)"
-                  class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-black rounded-2xl border transition-all cursor-text focus:outline-none"
-                  [ngClass]="{
-                    'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/20 bg-emerald-50/30 text-[#0F2937]': digit,
-                    'border-slate-300 bg-slate-50 text-slate-900 focus:border-[#2D7A5E] focus:bg-white': !digit,
-                    'border-rose-300 bg-rose-50/30': errorMessage && !digit
-                  }"
+                  maxlength="6"
+                  [value]="otpCode"
+                  (input)="onOtpInput($event)"
+                  (keydown)="onOtpKeyDown($event)"
+                  (paste)="onOtpPaste($event)"
+                  (focus)="isInputFocused = true"
+                  (blur)="isInputFocused = false"
+                  class="absolute inset-0 w-full h-full opacity-0 z-20 cursor-text pointer-events-auto select-none"
+                  aria-label="6-Digit Security Code"
                 />
+
+                <!-- 6 Rendered Visual Boxes -->
+                <div class="flex items-center justify-between gap-2 sm:gap-2.5 pointer-events-none relative z-10">
+                  <div
+                    *ngFor="let slot of [0, 1, 2, 3, 4, 5]"
+                    class="w-12 h-14 sm:w-14 sm:h-16 flex items-center justify-center text-center text-2xl font-black rounded-2xl border transition-all bg-white"
+                    [ngClass]="{
+                      'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/20 bg-emerald-50/30 text-[#0F2937] shadow-xs': getSlotDigit(slot),
+                      'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/40 bg-white text-[#0F2937] shadow-xs': isSlotActive(slot),
+                      'border-slate-300 bg-slate-50 text-slate-900': !getSlotDigit(slot) && !isSlotActive(slot),
+                      'border-rose-300 bg-rose-50/30': errorMessage && !getSlotDigit(slot)
+                    }"
+                  >
+                    <span *ngIf="getSlotDigit(slot)">{{ getSlotDigit(slot) }}</span>
+                    <!-- Blinking Caret Indicator for Active Slot -->
+                    <span
+                      *ngIf="isSlotActive(slot) && !getSlotDigit(slot)"
+                      class="inline-block w-0.5 h-6 bg-[#2D7A5E] animate-pulse"
+                    ></span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -185,14 +205,16 @@ import { finalize, timeout } from 'rxjs';
     }
   `],
 })
-export class VerifyEmailComponent implements OnInit, OnDestroy {
-  @ViewChildren('otpInput') otpInputs!: QueryList<ElementRef<HTMLInputElement>>;
+export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('otpInput') otpInputElement?: ElementRef<HTMLInputElement>;
 
   challengeId: string = '';
   maskedEmail: string = '';
   selectedRole: string = 'TENANT';
 
-  digits: string[] = ['', '', '', '', '', ''];
+  otpCode: string = '';
+  isInputFocused: boolean = false;
+
   isLoading: boolean = false;
   isResending: boolean = false;
   isLockedOut: boolean = false;
@@ -214,7 +236,6 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // 1. Resolve challenge state from Router navigation extras or AuthService in-memory state
     const navigation = this.router.getCurrentNavigation();
     const navState = navigation?.extras?.state || (history.state as any);
     const activeChallenge = this.authService.getActiveChallenge();
@@ -223,20 +244,19 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
     this.maskedEmail = navState?.maskedEmail || activeChallenge?.maskedEmail || '';
     this.selectedRole = navState?.selectedRole || activeChallenge?.selectedRole || 'TENANT';
 
-    // 2. Intercept direct navigations without valid state references
     if (!this.challengeId) {
       this.router.navigate(['/auth/login'], { replaceUrl: true });
       return;
     }
 
-    // 3. Start Timers
     this.startResendCooldown(60);
     this.startExpiryTimer(300);
+  }
 
-    // 4. Auto-focus first input box
+  ngAfterViewInit(): void {
     setTimeout(() => {
-      this.focusInput(0);
-    }, 150);
+      this.focusInput();
+    }, 200);
   }
 
   ngOnDestroy(): void {
@@ -288,84 +308,80 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
   }
 
   get isCodeComplete(): boolean {
-    return this.digits.every((d) => d.length === 1 && /^[0-9]$/.test(d));
+    return this.otpCode.length === 6 && /^\d{6}$/.test(this.otpCode);
   }
 
   get code(): string {
-    return this.digits.join('');
+    return this.otpCode;
   }
 
-  private focusInput(index: number): void {
-    if (this.otpInputs && this.otpInputs.length > index && index >= 0) {
-      const el = this.otpInputs.toArray()[index]?.nativeElement;
-      if (el) {
-        el.focus();
-        el.select();
-      }
+  getSlotDigit(slot: number): string {
+    return this.otpCode[slot] || '';
+  }
+
+  isSlotActive(slot: number): boolean {
+    if (!this.isInputFocused) return false;
+    const activeIndex = Math.min(this.otpCode.length, 5);
+    return slot === activeIndex;
+  }
+
+  focusInput(slot?: number): void {
+    if (this.otpInputElement?.nativeElement) {
+      this.otpInputElement.nativeElement.focus();
     }
   }
 
-  onDigitInput(event: Event, index: number): void {
+  onOtpInput(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const value = input.value;
+    const rawValue = input.value || '';
+    const cleaned = rawValue.replace(/\D/g, '').slice(0, 6);
+
+    this.otpCode = cleaned;
     this.errorMessage = '';
 
-    // Handle single digit
-    if (value && /^[0-9]$/.test(value)) {
-      this.digits[index] = value;
-      if (index < 5) {
-        this.focusInput(index + 1);
-      } else {
-        // Last digit entered — if all complete, can auto-trigger
-        if (this.isCodeComplete) {
-          this.onVerifySubmit();
-        }
-      }
-    } else if (value.length > 1) {
-      // Input exceeded 1 char (e.g. mobile paste/autofill)
-      const numeric = value.replace(/\D/g, '');
-      if (numeric) {
-        this.digits[index] = numeric[0];
-        if (index < 5) this.focusInput(index + 1);
-      } else {
-        this.digits[index] = '';
-      }
-    } else {
-      this.digits[index] = '';
+    // Only update DOM input.value if it differs from cleaned (e.g. non-digits or overflow entered)
+    // Avoids mutating DOM input.value on normal keystrokes which prevents character duplication
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+    }
+
+    if (this.isCodeComplete && !this.isLoading) {
+      this.onVerifySubmit();
     }
   }
 
-  onKeyDown(event: KeyboardEvent, index: number): void {
-    if (event.key === 'Backspace') {
-      if (!this.digits[index] && index > 0) {
-        this.digits[index - 1] = '';
-        this.focusInput(index - 1);
-      } else {
-        this.digits[index] = '';
-      }
-    } else if (event.key === 'ArrowLeft' && index > 0) {
-      this.focusInput(index - 1);
-    } else if (event.key === 'ArrowRight' && index < 5) {
-      this.focusInput(index + 1);
+  onOtpKeyDown(event: KeyboardEvent): void {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'];
+    if (allowedKeys.includes(event.key) || event.ctrlKey || event.metaKey) {
+      return;
+    }
+    // Block non-digit keys
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault();
     }
   }
 
-  onPaste(event: ClipboardEvent): void {
+  onOtpPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    const pasteData = event.clipboardData?.getData('text') || '';
-    const numericData = pasteData.replace(/\D/g, '').slice(0, 6);
-
-    if (numericData.length > 0) {
-      for (let i = 0; i < 6; i++) {
-        this.digits[i] = numericData[i] || '';
-      }
-      const focusIndex = Math.min(numericData.length, 5);
-      this.focusInput(focusIndex);
-
-      if (this.isCodeComplete) {
-        this.onVerifySubmit();
-      }
+    const pastedText = event.clipboardData?.getData('text') || '';
+    const cleaned = pastedText.replace(/\D/g, '').slice(0, 6);
+    this.otpCode = cleaned;
+    if (this.otpInputElement?.nativeElement) {
+      this.otpInputElement.nativeElement.value = cleaned;
     }
+    this.errorMessage = '';
+
+    if (this.isCodeComplete && !this.isLoading) {
+      this.onVerifySubmit();
+    }
+  }
+
+  clearOtpInputs(): void {
+    this.otpCode = '';
+    if (this.otpInputElement?.nativeElement) {
+      this.otpInputElement.nativeElement.value = '';
+    }
+    this.focusInput();
   }
 
   onVerifySubmit(): void {
@@ -433,9 +449,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
           }
 
           this.errorMessage = msg;
-          // Clear inputs on failed attempt and focus first
-          this.digits = ['', '', '', '', '', ''];
-          setTimeout(() => this.focusInput(0), 100);
+          this.clearOtpInputs();
         },
       });
   }
@@ -460,12 +474,11 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.successMessage = 'New verification code has been dispatched to your email.';
-          this.digits = ['', '', '', '', '', ''];
+          this.clearOtpInputs();
           this.remainingAttempts = null;
           this.startResendCooldown(res?.data?.cooldownSeconds || 60);
           this.startExpiryTimer(res?.data?.expiresInSeconds || 300);
           setTimeout(() => {
-            this.focusInput(0);
             this.successMessage = '';
           }, 3000);
         },

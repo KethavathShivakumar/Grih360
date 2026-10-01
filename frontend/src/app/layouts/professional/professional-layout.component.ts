@@ -262,7 +262,7 @@ import { Subscription } from 'rxjs';
           class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
         >
           <span class="text-lg">⚡</span>
-          <span>Active</span>
+          <span>Jobs</span>
         </a>
         <a
           routerLink="/professional/history"

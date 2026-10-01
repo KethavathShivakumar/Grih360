@@ -262,13 +262,23 @@ export interface AmenityOption {
               <span>⚙️</span>
               <span>Search Filters</span>
             </h3>
-            <button
-              (click)="resetFilters()"
-              type="button"
-              class="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
-            >
-              Reset All
-            </button>
+            <div class="flex items-center space-x-2">
+              <button
+                (click)="resetFilters()"
+                type="button"
+                class="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
+              >
+                Reset All
+              </button>
+              <button
+                (click)="showMobileFiltersDrawer = false"
+                type="button"
+                class="lg:hidden p-1 text-slate-400 hover:text-slate-700 text-xs font-bold rounded-full"
+                title="Close Filters"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           <!-- Rent Range Filter & Presets -->

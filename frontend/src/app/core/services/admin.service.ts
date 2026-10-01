@@ -111,4 +111,13 @@ export class AdminService {
   getAuditLogs(params?: any): Observable<any> {
     return this.api.get('/admin/audit', params);
   }
+
+  getSettings(): Observable<any> {
+    return this.api.get('/admin/settings');
+  }
+
+  updateSettings(settings: any): Observable<any> {
+    return this.api.patch('/admin/settings', settings);
+  }
 }
+

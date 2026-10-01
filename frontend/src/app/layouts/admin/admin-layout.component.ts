@@ -127,6 +127,13 @@ import { Subscription } from 'rxjs';
           >
             ⚡ System Health
           </a>
+          <a
+            routerLink="/admin/settings"
+            routerLinkActive="bg-white text-[#0F2937] shadow-xs font-bold"
+            class="px-3 py-1.5 rounded-md hover:bg-white/60 transition-all whitespace-nowrap"
+          >
+            ⚙️ Settings
+          </a>
         </nav>
       </header>
 

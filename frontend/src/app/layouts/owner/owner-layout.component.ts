@@ -287,8 +287,8 @@ import { Subscription } from 'rxjs';
           [routerLinkActiveOptions]="{ exact: true }"
           class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
         >
-          <span class="text-lg">📊</span>
-          <span>Dashboard</span>
+          <span class="text-lg">🏠</span>
+          <span>Home</span>
         </a>
         <a
           routerLink="/owner/properties"
@@ -300,12 +300,12 @@ import { Subscription } from 'rxjs';
           <span>Properties</span>
         </a>
         <a
-          routerLink="/owner/properties/new"
-          routerLinkActive="text-[#2D7A5E] font-black"
+          routerLink="/owner/applicants"
+          routerLinkActive="text-[#0F2937] font-black"
           class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
         >
-          <span class="text-lg">➕</span>
-          <span>Add</span>
+          <span class="text-lg">📋</span>
+          <span>Applications</span>
         </a>
         <a
           routerLink="/owner/rentals"

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AdminService } from '../../../core/services/admin.service';
 import { StitchDesignRequest } from '../../../shared/models/stitch-request.model';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
@@ -9,7 +10,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 @Component({
   selector: 'app-admin-properties',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoadingStateComponent, ErrorStateComponent],
+  imports: [CommonModule, FormsModule, RouterModule, LoadingStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       
@@ -86,6 +87,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="flex flex-col justify-between items-end gap-3 min-w-[160px]">
             <span class="text-[11px] text-slate-400">Created: {{ p.createdAt | date: 'mediumDate' }}</span>
             <div class="flex flex-wrap gap-2">
+              <a
+                [routerLink]="['/admin/properties', p._id || p.id]"
+                class="px-3 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-xs font-bold transition-colors"
+              >
+                Inspect →
+              </a>
               <button
                 *ngIf="p.availabilityStatus !== 'FLAGGED'"
                 (click)="updateStatus(p, 'FLAGGED')"

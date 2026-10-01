@@ -19,7 +19,7 @@ import { ApplicationService } from '../../../core/services/application.service';
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Tenant Account & Profile</h1>
           <p class="text-xs text-slate-500">Manage your profile details, photo, security settings, and verified tenancy documents.</p>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
           <button
             (click)="activeTab = 'overview'"
             type="button"

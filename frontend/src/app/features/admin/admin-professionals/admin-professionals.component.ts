@@ -105,6 +105,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   >
                     {{ pro.isActive !== false ? 'Deactivate' : 'Activate' }}
                   </button>
+                  <a
+                    [routerLink]="['/admin/professionals', pro._id || pro.id]"
+                    class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 font-bold rounded text-[10px] transition"
+                  >
+                    Inspect →
+                  </a>
                 </td>
               </tr>
             </tbody>

@@ -28,14 +28,14 @@ export interface SelectedLocationData {
   imports: [CommonModule],
   template: `
     <div class="space-y-3">
-      <div class="flex items-center justify-between text-xs">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
         <span class="font-bold text-slate-700 flex items-center gap-1">
-          <span>🗺️</span> Click map or drag pin to select exact property coordinates:
+          <span>🗺️</span> Click map or drag pin to select exact coordinates:
         </span>
         <button
           (click)="useCurrentLocation()"
           type="button"
-          class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] font-bold rounded-lg border border-emerald-200 transition-colors flex items-center gap-1.5 cursor-pointer"
+          class="self-start sm:self-auto px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] font-bold rounded-lg border border-emerald-200 transition-colors flex items-center gap-1.5 cursor-pointer"
         >
           <span>📍</span>
           <span>Use Current Location</span>

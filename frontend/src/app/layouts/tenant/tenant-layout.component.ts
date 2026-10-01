@@ -375,14 +375,6 @@ import { Subscription } from 'rxjs';
           <span>Saved</span>
         </a>
         <a
-          routerLink="/tenant/applications"
-          routerLinkActive="text-[#0F2937] font-black"
-          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
-        >
-          <span class="text-lg">📄</span>
-          <span>Apps</span>
-        </a>
-        <a
           routerLink="/tenant/rental"
           routerLinkActive="text-[#0F2937] font-black"
           class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"

@@ -56,4 +56,9 @@ router.post('/notifications/broadcast', AdminController.broadcastNotification);
 // Audit Logging
 router.get('/audit', AdminController.getAuditLogs);
 
+// Platform Settings
+router.get('/settings', AdminController.getSettings);
+router.patch('/settings', AdminController.updateSettings);
+
 export default router;
+

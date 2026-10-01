@@ -33,7 +33,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Professional Profile & Services</h1>
           <p class="text-xs text-slate-500">Manage business details, categories served, service radius, and customer reviews.</p>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
           <button
             (click)="activeTab = 'overview'"
             type="button"

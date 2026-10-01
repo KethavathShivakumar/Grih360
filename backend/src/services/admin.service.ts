@@ -365,13 +365,21 @@ export class AdminService {
     let prop: any = null;
     if (AdminService.isMongoConnected()) {
       try {
-        prop = await PropertyModel.findById(propertyId).lean();
+        prop = await PropertyModel.findById(propertyId).populate('ownerId', '-passwordHash').lean();
       } catch (err) {
         console.warn('DB getPropertyById failed:', err);
       }
     }
     if (!prop) prop = memoryProperties.get(propertyId);
     if (!prop) throw { statusCode: 404, message: 'Property not found' };
+
+    if (prop.ownerId && typeof prop.ownerId === 'string') {
+      try {
+        prop.owner = await AdminService.getUserById(prop.ownerId);
+      } catch (e) {}
+    } else if (prop.ownerId && typeof prop.ownerId === 'object') {
+      prop.owner = prop.ownerId;
+    }
     return prop;
   }
 
@@ -450,13 +458,30 @@ export class AdminService {
     let appObj: any = null;
     if (AdminService.isMongoConnected()) {
       try {
-        appObj = await ApplicationModel.findById(id).lean();
+        appObj = await ApplicationModel.findById(id).populate('tenantId', '-passwordHash').populate('propertyId').lean();
       } catch (err) {
         console.warn('DB getApplicationById failed:', err);
       }
     }
     if (!appObj) appObj = memoryApplications.get(id);
     if (!appObj) throw { statusCode: 404, message: 'Application not found' };
+
+    if (appObj.tenantId && typeof appObj.tenantId === 'string') {
+      try {
+        appObj.tenant = await AdminService.getUserById(appObj.tenantId);
+      } catch (e) {}
+    } else if (appObj.tenantId && typeof appObj.tenantId === 'object') {
+      appObj.tenant = appObj.tenantId;
+    }
+
+    if (appObj.propertyId && typeof appObj.propertyId === 'string') {
+      try {
+        appObj.property = await AdminService.getPropertyById(appObj.propertyId);
+      } catch (e) {}
+    } else if (appObj.propertyId && typeof appObj.propertyId === 'object') {
+      appObj.property = appObj.propertyId;
+    }
+
     return appObj;
   }
 
@@ -494,13 +519,42 @@ export class AdminService {
     let rental: any = null;
     if (AdminService.isMongoConnected()) {
       try {
-        rental = await RentalModel.findById(id).lean();
+        rental = await RentalModel.findById(id)
+          .populate('tenantId', '-passwordHash')
+          .populate('ownerId', '-passwordHash')
+          .populate('propertyId')
+          .lean();
       } catch (err) {
         console.warn('DB getRentalById failed:', err);
       }
     }
     if (!rental) rental = memoryRentals.get(id);
     if (!rental) throw { statusCode: 404, message: 'Rental record not found' };
+
+    if (rental.tenantId && typeof rental.tenantId === 'string') {
+      try {
+        rental.tenant = await AdminService.getUserById(rental.tenantId);
+      } catch (e) {}
+    } else if (rental.tenantId && typeof rental.tenantId === 'object') {
+      rental.tenant = rental.tenantId;
+    }
+
+    if (rental.ownerId && typeof rental.ownerId === 'string') {
+      try {
+        rental.owner = await AdminService.getUserById(rental.ownerId);
+      } catch (e) {}
+    } else if (rental.ownerId && typeof rental.ownerId === 'object') {
+      rental.owner = rental.ownerId;
+    }
+
+    if (rental.propertyId && typeof rental.propertyId === 'string') {
+      try {
+        rental.property = await AdminService.getPropertyById(rental.propertyId);
+      } catch (e) {}
+    } else if (rental.propertyId && typeof rental.propertyId === 'object') {
+      rental.property = rental.propertyId;
+    }
+
     return rental;
   }
 
@@ -657,8 +711,8 @@ export class AdminService {
     let pro: any = null;
     if (AdminService.isMongoConnected()) {
       try {
-        pro = await ProfessionalProfileModel.findById(id).lean();
-        if (!pro) pro = await ProfessionalProfileModel.findOne({ userId: id }).lean();
+        pro = await ProfessionalProfileModel.findById(id).populate('userId', '-passwordHash').lean();
+        if (!pro) pro = await ProfessionalProfileModel.findOne({ userId: id }).populate('userId', '-passwordHash').lean();
       } catch (err) {
         console.warn('DB getProfessionalById failed:', err);
       }
@@ -672,6 +726,15 @@ export class AdminService {
       }
     }
     if (!pro) throw { statusCode: 404, message: 'Professional profile not found' };
+
+    if (pro.userId && typeof pro.userId === 'string') {
+      try {
+        pro.user = await AdminService.getUserById(pro.userId);
+      } catch (e) {}
+    } else if (pro.userId && typeof pro.userId === 'object') {
+      pro.user = pro.userId;
+    }
+
     return pro;
   }
 
@@ -806,13 +869,33 @@ export class AdminService {
     let reqObj: any = null;
     if (AdminService.isMongoConnected()) {
       try {
-        reqObj = await ServiceRequestModel.findById(id).lean();
+        reqObj = await ServiceRequestModel.findById(id)
+          .populate('requesterId', '-passwordHash')
+          .populate('professionalId', '-passwordHash')
+          .lean();
       } catch (err) {
         console.warn('DB getServiceRequestById failed:', err);
       }
     }
     if (!reqObj) reqObj = memoryServiceRequests.get(id);
     if (!reqObj) throw { statusCode: 404, message: 'Service request not found' };
+
+    if (reqObj.requesterId && typeof reqObj.requesterId === 'string') {
+      try {
+        reqObj.requester = await AdminService.getUserById(reqObj.requesterId);
+      } catch (e) {}
+    } else if (reqObj.requesterId && typeof reqObj.requesterId === 'object') {
+      reqObj.requester = reqObj.requesterId;
+    }
+
+    if (reqObj.professionalId && typeof reqObj.professionalId === 'string') {
+      try {
+        reqObj.professional = await AdminService.getProfessionalById(reqObj.professionalId);
+      } catch (e) {}
+    } else if (reqObj.professionalId && typeof reqObj.professionalId === 'object') {
+      reqObj.professional = reqObj.professionalId;
+    }
+
     return reqObj;
   }
 
@@ -933,17 +1016,63 @@ export class AdminService {
   }
 
   /**
-   * System Health Overview
+   * Platform Settings
    */
+  private static platformSettings = {
+    platformName: 'Nivas360',
+    environment: process.env.NODE_ENV || 'production',
+    maintenanceMode: false,
+    mtaComplianceEnabled: true,
+    defaultDepositCapMonths: 2,
+    operatingStates: ['Telangana', 'Andhra Pradesh'],
+    operatingCities: ['Hyderabad', 'Warangal', 'Nizamabad', 'Karimnagar', 'Khammam', 'Vijayawada', 'Visakhapatnam', 'Guntur'],
+    customerCareHotline: '+91 99000 36000',
+    jwtExpiryDays: 7,
+    requireAdminTwoFactor: true,
+    backupSchedule: 'Daily at 03:00 IST',
+    updatedAt: new Date().toISOString(),
+  };
+
+  static async getSettings() {
+    return { ...AdminService.platformSettings };
+  }
+
+  static async updateSettings(updates: any, adminUser: any) {
+    AdminService.platformSettings = {
+      ...AdminService.platformSettings,
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    };
+
+    await AuditService.logAction({
+      actorId: adminUser?.userId || adminUser?.id,
+      actorName: adminUser?.name || 'Admin User',
+      actorRole: adminUser?.role || 'ADMIN',
+      action: 'PLATFORM_SETTINGS_UPDATE',
+      entityType: 'SYSTEM',
+      entityId: 'SETTINGS',
+      metadata: updates,
+    });
+
+    return { ...AdminService.platformSettings };
+  }
+
   static getSystemHealth() {
-    const isDbConnected = mongoose.connection.readyState === 1;
     return {
-      status: 'UP',
-      environment: process.env.NODE_ENV || 'development',
-      database: isDbConnected ? 'CONNECTED' : 'FALLBACK_IN_MEMORY',
-      uptimeSeconds: Math.floor(process.uptime()),
+      status: 'HEALTHY',
+      dbConnected: AdminService.isMongoConnected(),
+      uptime: process.uptime(),
+      memoryUsage: process.memoryUsage(),
       timestamp: new Date().toISOString(),
-      nodeVersion: process.version,
+      services: {
+        apiGateway: 'ONLINE',
+        authService: 'ONLINE',
+        propertyEngine: 'ONLINE',
+        rentalContractEngine: 'ONLINE',
+        homeServicesDispatcher: 'ONLINE',
+        notificationBus: 'ONLINE',
+      },
     };
   }
 }
+

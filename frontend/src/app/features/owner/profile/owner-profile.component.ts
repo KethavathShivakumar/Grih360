@@ -18,7 +18,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Property Owner Profile</h1>
           <p class="text-xs text-slate-500">Manage your landlord credentials, business contact info, and portfolio security settings.</p>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
           <button
             (click)="activeTab = 'overview'"
             type="button"

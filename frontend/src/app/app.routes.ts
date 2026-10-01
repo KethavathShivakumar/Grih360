@@ -64,16 +64,23 @@ import { ProNotificationsComponent } from './features/professional/notifications
 // Phase 8 Admin Console & Platform Operations Imports
 import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashboard.component';
 import { AdminUsersComponent } from './features/admin/users/admin-users.component';
+import { AdminUserDetailsComponent } from './features/admin/users/admin-user-details.component';
 import { AdminPropertiesComponent } from './features/admin/properties/admin-properties.component';
+import { AdminPropertyDetailsComponent } from './features/admin/properties/admin-property-details.component';
 import { AdminApplicationsComponent } from './features/admin/applications/admin-applications.component';
+import { AdminApplicationDetailsComponent } from './features/admin/applications/admin-application-details.component';
 import { AdminRentalsComponent } from './features/admin/rentals/admin-rentals.component';
+import { AdminRentalDetailsComponent } from './features/admin/rentals/admin-rental-details.component';
 import { AdminVerificationsComponent } from './features/admin/admin-verifications/admin-verifications.component';
 import { AdminVerificationDetailsComponent } from './features/admin/admin-verifications/admin-verification-details.component';
 import { AdminServicesComponent } from './features/admin/admin-services/admin-services.component';
+import { AdminServiceRequestDetailsComponent } from './features/admin/admin-services/admin-service-request-details.component';
 import { AdminProfessionalsComponent } from './features/admin/admin-professionals/admin-professionals.component';
+import { AdminProfessionalDetailsComponent } from './features/admin/admin-professionals/admin-professional-details.component';
 import { AdminNotificationsComponent } from './features/admin/notifications/admin-notifications.component';
 import { AdminAuditComponent } from './features/admin/audit/admin-audit.component';
 import { AdminSystemComponent } from './features/admin/system/admin-system.component';
+import { AdminSettingsComponent } from './features/admin/settings/admin-settings.component';
 
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
@@ -193,7 +200,7 @@ export const routes: Routes = [
     ],
   },
 
-  // Phase 8 Admin Workspace Routes
+  // Phase 8+12 Admin Workspace Routes (fully wired detail components)
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -201,27 +208,34 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
+
       { path: 'users', component: AdminUsersComponent },
-      { path: 'users/:id', component: AdminUsersComponent },
+      { path: 'users/:id', component: AdminUserDetailsComponent },
+
       { path: 'properties', component: AdminPropertiesComponent },
-      { path: 'properties/:id', component: AdminPropertiesComponent },
+      { path: 'properties/:id', component: AdminPropertyDetailsComponent },
+
       { path: 'applications', component: AdminApplicationsComponent },
-      { path: 'applications/:id', component: AdminApplicationsComponent },
+      { path: 'applications/:id', component: AdminApplicationDetailsComponent },
+
       { path: 'rentals', component: AdminRentalsComponent },
-      { path: 'rentals/:id', component: AdminRentalsComponent },
+      { path: 'rentals/:id', component: AdminRentalDetailsComponent },
+
       { path: 'verification', component: AdminVerificationsComponent },
       { path: 'verifications', component: AdminVerificationsComponent },
       { path: 'verifications/:id', component: AdminVerificationDetailsComponent },
 
       { path: 'services', component: AdminServicesComponent },
       { path: 'services/requests', component: AdminServicesComponent },
-      { path: 'services/requests/:id', component: AdminServicesComponent },
+      { path: 'services/requests/:id', component: AdminServiceRequestDetailsComponent },
+
       { path: 'professionals', component: AdminProfessionalsComponent },
-      { path: 'professionals/:id', component: AdminProfessionalsComponent },
+      { path: 'professionals/:id', component: AdminProfessionalDetailsComponent },
 
       { path: 'notifications', component: AdminNotificationsComponent },
       { path: 'audit', component: AdminAuditComponent },
       { path: 'system', component: AdminSystemComponent },
+      { path: 'settings', component: AdminSettingsComponent },
     ],
   },
 

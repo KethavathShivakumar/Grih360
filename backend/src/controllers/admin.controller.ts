@@ -325,4 +325,23 @@ export class AdminController {
       ApiResponseUtil.error(res, err.message || 'Failed to fetch system health', err.statusCode || 500);
     }
   }
+
+  static async getSettings(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const settings = await AdminService.getSettings();
+      ApiResponseUtil.success(res, 'Platform settings retrieved', settings);
+    } catch (err: any) {
+      ApiResponseUtil.error(res, err.message || 'Failed to fetch settings', err.statusCode || 500);
+    }
+  }
+
+  static async updateSettings(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const updated = await AdminService.updateSettings(req.body, req.user);
+      ApiResponseUtil.success(res, 'Platform settings updated successfully', updated);
+    } catch (err: any) {
+      ApiResponseUtil.error(res, err.message || 'Failed to update settings', err.statusCode || 500);
+    }
+  }
 }
+

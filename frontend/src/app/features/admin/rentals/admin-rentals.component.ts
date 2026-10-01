@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AdminService } from '../../../core/services/admin.service';
 import { StitchDesignRequest } from '../../../shared/models/stitch-request.model';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
@@ -9,7 +10,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 @Component({
   selector: 'app-admin-rentals',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoadingStateComponent, ErrorStateComponent],
+  imports: [CommonModule, FormsModule, RouterModule, LoadingStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       
@@ -54,6 +55,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 <th class="px-4 py-3">Lease Dates</th>
                 <th class="px-4 py-3">Rent Tracking</th>
                 <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 font-medium text-slate-800">
@@ -88,6 +90,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   >
                     {{ r.status }}
                   </span>
+                </td>
+                <td class="px-4 py-3 text-right">
+                  <a
+                    [routerLink]="['/admin/rentals', r._id || r.id]"
+                    class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[10px] font-bold transition-colors"
+                  >
+                    Inspect →
+                  </a>
                 </td>
               </tr>
             </tbody>

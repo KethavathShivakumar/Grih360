@@ -57,6 +57,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 <th class="p-3">Assigned Pro</th>
                 <th class="p-3">Status</th>
                 <th class="p-3">Scheduled Date</th>
+                <th class="p-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-[#E8E6DF]">
@@ -67,6 +68,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 <td class="p-3 font-semibold">{{ req.professionalId?.name || 'Unassigned / Matching' }}</td>
                 <td class="p-3"><app-status-badge [status]="req.status"></app-status-badge></td>
                 <td class="p-3">{{ req.scheduledDate | date: 'shortDate' }}</td>
+                <td class="p-3 text-right">
+                  <a
+                    [routerLink]="['/admin/services/requests', req._id || req.id]"
+                    class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[10px] font-bold transition"
+                  >
+                    Inspect →
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
