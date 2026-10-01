@@ -4,7 +4,7 @@ import { config } from '../config/env';
 export interface SendEmailOptions {
   to: string;
   subject: string;
-  html: string;
+  html?: string;
   text?: string;
   from?: string;
 }
@@ -121,7 +121,7 @@ export class EmailService {
 
     const transporter = this.getTransporter();
     const sender = from || config.emailFrom || `"Nivas360" <${config.smtpUser || 'grih360@gmail.com'}>`;
-    const plainText = text || html.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim();
+    const plainText = text || (html ? html.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim() : '');
 
     try {
       const info = await transporter.sendMail({
@@ -160,114 +160,25 @@ export class EmailService {
    * - Sender: Nivas360 <grih360@gmail.com>
    */
   public static async sendOtpEmail(options: SendOtpEmailOptions): Promise<{ messageId: string }> {
-    const { to, otp, purpose = 'LOGIN', userName, expiryMinutes = config.emailOtpExpiryMinutes || 5 } = options;
+    const { to, otp, userName } = options;
 
-    let subject = 'Your Nivas360 Login Verification Code';
-    let purposeTitle = 'Login Verification Code';
-    let actionDescription = 'sign in to your Nivas360 account';
+    const displayName = userName && userName.trim().length > 0 ? userName.trim() : 'there';
+    const subject = 'Nivas360/Grih360 Verification Code';
 
-    if (purpose === 'PASSWORD_RESET') {
-      subject = 'Your Nivas360 Password Reset Verification Code';
-      purposeTitle = 'Password Reset Code';
-      actionDescription = 'reset your Nivas360 account password';
-    } else if (purpose === 'REGISTRATION') {
-      subject = 'Your Nivas360 Registration Verification Code';
-      purposeTitle = 'Account Activation Code';
-      actionDescription = 'activate and verify your new Nivas360 account';
-    } else if (purpose === 'VERIFICATION') {
-      subject = 'Your Nivas360 Identity Verification Code';
-      purposeTitle = 'Identity Verification Code';
-      actionDescription = 'complete your tenancy identity verification';
-    }
+    const plainTextContent = `Hi ${displayName},
 
-    const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${subject}</title>
-  <style>
-    body { margin: 0; padding: 0; background-color: #FAF9F5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-    .wrapper { width: 100%; max-width: 600px; margin: 0 auto; padding: 32px 16px; box-sizing: border-box; }
-    .card { background-color: #ffffff; border-radius: 24px; border: 1px solid #E8E6DF; padding: 40px; box-shadow: 0 4px 20px rgba(15, 41, 55, 0.05); }
-    .header { text-align: center; margin-bottom: 28px; }
-    .badge { display: inline-block; background-color: #ECFDF5; color: #047857; font-size: 11px; font-weight: 800; padding: 6px 16px; border-radius: 9999px; border: 1px solid #A7F3D0; text-transform: uppercase; letter-spacing: 0.05em; }
-    .logo { font-size: 28px; font-weight: 900; color: #0F2937; margin: 16px 0 4px 0; letter-spacing: -0.5px; }
-    .logo span { color: #2D7A5E; }
-    .title { font-size: 22px; font-weight: 800; color: #0F2937; margin: 0 0 12px 0; text-align: center; }
-    .greeting { font-size: 15px; color: #475569; line-height: 1.6; margin-bottom: 24px; text-align: center; }
-    .otp-container { background-color: #0F2937; border-radius: 18px; padding: 26px 20px; text-align: center; margin: 28px 0; }
-    .otp-code { font-family: 'Courier New', Courier, monospace; font-size: 40px; font-weight: 900; color: #FACC15; letter-spacing: 12px; margin: 0; padding-left: 12px; }
-    .otp-expiry { font-size: 12px; color: #94A3B8; margin-top: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    .security-notice { background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 14px 16px; border-radius: 8px; margin: 24px 0; }
-    .security-notice p { margin: 0; font-size: 12px; color: #92400E; font-weight: 600; line-height: 1.5; }
-    .unsolicited-notice { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 8px; margin: 16px 0; font-size: 12px; color: #64748B; line-height: 1.5; }
-    .footer { text-align: center; margin-top: 32px; font-size: 11px; color: #94A3B8; line-height: 1.6; border-top: 1px solid #F1F5F9; padding-top: 24px; }
-    .footer strong { color: #64748B; }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <div class="card">
-      <div class="header">
-        <span class="badge">🔒 Secure Identity Verification</span>
-        <div class="logo">Nivas<span>360</span></div>
-      </div>
+Your Nivas360/Grih360 verification code is: ${otp}
 
-      <h1 class="title">${purposeTitle}</h1>
-      <p class="greeting">
-        Hello${userName ? ' ' + userName : ''},<br>
-        Please use the 6-digit one-time verification code below to ${actionDescription}.
-      </p>
+This code is valid for 10 minutes.
 
-      <div class="otp-container">
-        <div class="otp-code">${otp}</div>
-        <div class="otp-expiry">⏱️ Valid for ${expiryMinutes} minutes only</div>
-      </div>
+If you did not request the code, You can ignore this email.
 
-      <div class="security-notice">
-        <p>⚠️ <strong>Security Warning:</strong> Never share this code with anyone. Nivas360 employees, support staff, or property owners will NEVER ask you for your verification PIN.</p>
-      </div>
-
-      <div class="unsolicited-notice">
-        If you did not request this verification code, please ignore this email or contact Nivas360 support immediately to secure your account.
-      </div>
-
-      <div class="footer">
-        <strong>Nivas360 Technologies Pvt Ltd</strong><br>
-        Unified Residential Rental Ecosystem • Telangana Model Tenancy Act Compliant<br>
-        Dispatched securely via Nivas360 SMTP Delivery System
-      </div>
-    </div>
-  </div>
-</body>
-</html>
-    `;
-
-    const plainTextContent = `
-Nivas360 — ${purposeTitle}
-
-Hello${userName ? ' ' + userName : ''},
-
-Your verification code is: ${otp}
-
-This code is valid for ${expiryMinutes} minutes only.
-
-SECURITY WARNING:
-Never share this verification code with anyone. Nivas360 representatives or property owners will NEVER ask you for your code.
-
-If you did not request this verification code, please ignore this email or contact support immediately.
-
----
-Nivas360 Technologies Pvt Ltd
-Unified Residential Rental Ecosystem
-    `.trim();
+-Nivas admin
+Nivas360`;
 
     return this.sendEmail({
       to,
       subject,
-      html: htmlContent,
       text: plainTextContent,
     });
   }

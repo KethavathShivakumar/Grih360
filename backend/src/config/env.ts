@@ -22,7 +22,7 @@ export const config = {
   smtpUser: (process.env.SMTP_USER || 'grih360@gmail.com').trim(),
   smtpPass: (process.env.SMTP_PASS || '').trim(),
   emailFrom: (process.env.EMAIL_FROM || 'Nivas360 <grih360@gmail.com>').trim(),
-  emailOtpExpiryMinutes: parseInt(process.env.EMAIL_OTP_EXPIRY_MINUTES || '5', 10),
+  emailOtpExpiryMinutes: parseInt(process.env.EMAIL_OTP_EXPIRY_MINUTES || '10', 10),
   emailOtpLength: parseInt(process.env.EMAIL_OTP_LENGTH || '6', 10),
 };
 

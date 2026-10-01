@@ -226,8 +226,8 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
   resendCooldown: number = 60;
   private cooldownInterval: any = null;
 
-  // 5-minute (300 seconds) Code Expiry Counter
-  expirySeconds: number = 300;
+  // 10-minute (600 seconds) Code Expiry Counter
+  expirySeconds: number = 600;
   private expiryInterval: any = null;
 
   constructor(
@@ -250,7 +250,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.startResendCooldown(60);
-    this.startExpiryTimer(300);
+    this.startExpiryTimer(600);
   }
 
   ngAfterViewInit(): void {
@@ -304,7 +304,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
   formatExpiryTime(): string {
     const minutes = Math.floor(this.expirySeconds / 60);
     const seconds = this.expirySeconds % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 
   get isCodeComplete(): boolean {
@@ -385,7 +385,10 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onVerifySubmit(): void {
-    if (!this.isCodeComplete || this.isLoading || this.isLockedOut) {
+    if (!this.isCodeComplete || this.isLoading || this.isLockedOut || this.expirySeconds <= 0) {
+      if (this.expirySeconds <= 0) {
+        this.errorMessage = 'Verification code has expired. Please request a new code.';
+      }
       return;
     }
 
@@ -459,9 +462,11 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    this.isResending = true;
+    // IMMEDIATELY clear inputs, state, errors, and reset focus at start of resend action
+    this.clearOtpInputs();
     this.errorMessage = '';
     this.successMessage = '';
+    this.isResending = true;
 
     this.authService
       .resendLoginOtp(this.challengeId)
@@ -473,14 +478,13 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
       )
       .subscribe({
         next: (res: any) => {
-          this.successMessage = 'New verification code has been dispatched to your email.';
-          this.clearOtpInputs();
+          this.successMessage = 'A new verification code has been sent to your email.';
           this.remainingAttempts = null;
           this.startResendCooldown(res?.data?.cooldownSeconds || 60);
-          this.startExpiryTimer(res?.data?.expiresInSeconds || 300);
+          this.startExpiryTimer(res?.data?.expiresInSeconds || 600);
           setTimeout(() => {
             this.successMessage = '';
-          }, 3000);
+          }, 4000);
         },
         error: (err: any) => {
           if (err.status === 429) {

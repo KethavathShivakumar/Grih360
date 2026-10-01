@@ -30,7 +30,7 @@ export interface LoginChallengeResult {
 
 export class OtpService {
   public static get OTP_EXPIRY_MS(): number {
-    return (config.emailOtpExpiryMinutes || 5) * 60 * 1000;
+    return (config.emailOtpExpiryMinutes || 10) * 60 * 1000;
   }
   public static readonly CHALLENGE_EXPIRY_MS = 10 * 60 * 1000; // 10-minute maximum context window
   public static readonly RESEND_COOLDOWN_MS = 60 * 1000; // 60-second restriction window
@@ -215,7 +215,7 @@ export class OtpService {
         otp: rawOtp,
         purpose: 'LOGIN',
         userName: user.name,
-        expiryMinutes: config.emailOtpExpiryMinutes || 5,
+        expiryMinutes: config.emailOtpExpiryMinutes || 10,
       });
     } catch (err: any) {
       console.error('[OtpService] Failed to send login OTP via Gmail SMTP to recipient:', normalizedEmail, 'Error:', err?.message || err);
@@ -606,7 +606,7 @@ export class OtpService {
         to: normalizedEmail,
         otp: rawOtp,
         purpose: 'LOGIN',
-        expiryMinutes: config.emailOtpExpiryMinutes || 5,
+        expiryMinutes: config.emailOtpExpiryMinutes || 10,
       });
     } catch (err: any) {
       console.error('[OtpService] Failed to resend login OTP via Gmail SMTP to recipient:', normalizedEmail, 'Error:', err?.message || err);
@@ -618,7 +618,7 @@ export class OtpService {
       throw deliveryError;
     }
 
-    const expirySecs = (config.emailOtpExpiryMinutes || 5) * 60;
+    const expirySecs = (config.emailOtpExpiryMinutes || 10) * 60;
     return {
       success: true,
       message: 'New verification code sent to your registered email.',
@@ -712,7 +712,7 @@ export class OtpService {
         otp: rawOtp,
         purpose: params.purpose,
         userName: params.userName,
-        expiryMinutes: config.emailOtpExpiryMinutes || 5,
+        expiryMinutes: config.emailOtpExpiryMinutes || 10,
       });
     } catch (err: any) {
       console.error('[OtpService] Failed to dispatch OTP via Gmail SMTP to recipient:', normalizedEmail, 'Error:', err?.message || err);
@@ -724,7 +724,7 @@ export class OtpService {
       throw deliveryError;
     }
 
-    const expirySecs = (config.emailOtpExpiryMinutes || 5) * 60;
+    const expirySecs = (config.emailOtpExpiryMinutes || 10) * 60;
     return {
       success: true,
       message: 'Verification code sent to your registered email address.',
