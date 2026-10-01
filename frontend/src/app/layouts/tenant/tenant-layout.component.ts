@@ -66,7 +66,7 @@ import { Subscription } from 'rxjs';
                 routerLinkActive="bg-[#0F2937] text-white"
                 class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all flex items-center gap-1"
               >
-                <span>🏠 My Rental</span>
+                <span>My Rental</span>
               </a>
               <a
                 routerLink="/tenant/rent"
@@ -216,7 +216,7 @@ import { Subscription } from 'rxjs';
             [routerLinkActiveOptions]="{ exact: true }"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            🏠 Dashboard
+            Dashboard
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -224,7 +224,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            🔍 Find Homes
+            Find Homes
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -232,7 +232,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            ⚡ Search Results
+            Search Results
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -240,7 +240,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            ❤️ Saved Homes
+            Saved Homes
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -248,7 +248,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            📄 Rental Applications
+            Rental Applications
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -256,7 +256,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            🛡️ Identity Verification
+            Identity Verification
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -264,7 +264,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            🔑 My Rental & Lease
+            My Rental & Lease
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -272,7 +272,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            💰 Rent Tracking
+            Rent Tracking
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -280,7 +280,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            📁 Tenancy Documents
+            Tenancy Documents
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -288,7 +288,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            📋 Handover Checklist
+            Handover Checklist
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -296,7 +296,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            📸 Property Condition
+            Property Condition
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -304,7 +304,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            🛠️ Home Services
+            Home Services
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -312,7 +312,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            🔔 Notifications ({{ unreadCount }})
+            Notifications ({{ unreadCount }})
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -320,7 +320,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            ⚙️ Settings
+            Settings
           </a>
           <a
             (click)="closeMobileMenu()"
@@ -328,7 +328,7 @@ import { Subscription } from 'rxjs';
             routerLinkActive="bg-[#0F2937] text-white"
             class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
           >
-            👤 My Profile
+            My Profile
           </a>
           <div class="pt-2 border-t border-slate-100">
             <button
@@ -336,59 +336,83 @@ import { Subscription } from 'rxjs';
               type="button"
               class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50 cursor-pointer"
             >
-              🚪 Sign Out
+              Sign Out
             </button>
           </div>
         </div>
       </header>
 
       <!-- Main Content Area -->
-      <main class="flex-grow p-4 sm:p-6 pb-20 md:pb-6 max-w-7xl mx-auto w-full">
+      <main class="flex-grow p-4 sm:p-6 pb-24 md:pb-6 max-w-7xl mx-auto w-full">
         <router-outlet></router-outlet>
       </main>
 
-      <!-- Mobile Bottom Navigation Bar -->
-      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[#E8E6DF] py-2 px-3 z-40 flex items-center justify-around shadow-lg">
+      <!-- Mobile Bottom Navigation Bar (Minimal Monochrome Lucide SVG Style) -->
+      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200/90 py-2 px-1 z-40 grid grid-cols-5 items-center justify-items-center shadow-lg pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+        <!-- Home -->
         <a
           routerLink="/tenant/dashboard"
-          routerLinkActive="text-[#0F2937] font-black"
+          routerLinkActive="text-[#2D7A5E] font-bold"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
         >
-          <span class="text-lg">🏠</span>
-          <span>Home</span>
+          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="text-[11px] font-medium tracking-tight mt-0.5">Home</span>
         </a>
+
+        <!-- Find -->
         <a
           routerLink="/tenant/homes"
-          routerLinkActive="text-[#0F2937] font-black"
-          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+          routerLinkActive="text-[#2D7A5E] font-bold"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
         >
-          <span class="text-lg">🔍</span>
-          <span>Find</span>
+          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.3-4.3"/>
+          </svg>
+          <span class="text-[11px] font-medium tracking-tight mt-0.5">Find</span>
         </a>
+
+        <!-- Saved -->
         <a
           routerLink="/tenant/saved"
-          routerLinkActive="text-[#0F2937] font-black"
-          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+          routerLinkActive="text-[#2D7A5E] font-bold"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
         >
-          <span class="text-lg">❤️</span>
-          <span>Saved</span>
+          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+          </svg>
+          <span class="text-[11px] font-medium tracking-tight mt-0.5">Saved</span>
         </a>
+
+        <!-- Rental -->
         <a
           routerLink="/tenant/rental"
-          routerLinkActive="text-[#0F2937] font-black"
-          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+          routerLinkActive="text-[#2D7A5E] font-bold"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
         >
-          <span class="text-lg">🔑</span>
-          <span>Rental</span>
+          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="7.5" cy="15.5" r="5.5"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 2-9.6 9.6"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="m15.5 7.5 3 3"/>
+          </svg>
+          <span class="text-[11px] font-medium tracking-tight mt-0.5">Rental</span>
         </a>
+
+        <!-- Profile -->
         <a
           routerLink="/tenant/profile"
-          routerLinkActive="text-[#0F2937] font-black"
-          class="flex flex-col items-center text-slate-400 text-[10px] font-semibold transition-colors"
+          routerLinkActive="text-[#2D7A5E] font-bold"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
         >
-          <span class="text-lg">👤</span>
-          <span>Profile</span>
+          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="text-[11px] font-medium tracking-tight mt-0.5">Profile</span>
         </a>
       </nav>
     </div>

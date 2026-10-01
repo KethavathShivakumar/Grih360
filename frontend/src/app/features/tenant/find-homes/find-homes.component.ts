@@ -41,7 +41,8 @@ export interface AmenityOption {
 
         <div class="max-w-2xl space-y-1 relative z-10">
           <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15">
-            <span>✨ Real Backend Search Engine</span>
+            <svg class="w-3.5 h-3.5 text-[#FACC15]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.3-4.3"/></svg>
+            <span>Real Backend Search Engine</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
             Find verified homes across <span class="text-[#FACC15]">Telangana & AP</span>
@@ -69,7 +70,7 @@ export interface AmenityOption {
                 </button>
               </div>
               <div class="flex items-center space-x-2 mt-0.5">
-                <span class="text-sm">📍</span>
+                <svg class="w-4 h-4 text-[#2D7A5E] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
                 <input
                   #localityInput
                   type="text"
@@ -96,7 +97,7 @@ export interface AmenityOption {
                   type="button"
                   class="w-full text-left px-3 py-2 hover:bg-slate-50 transition-colors flex items-start space-x-2.5 border-b border-slate-50 last:border-0 cursor-pointer"
                 >
-                  <span class="text-xs mt-0.5 text-slate-400">🔍</span>
+                  <svg class="w-3.5 h-3.5 mt-0.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.3-4.3"/></svg>
                   <div class="flex-1 min-w-0">
                     <p class="text-xs font-bold text-slate-900 truncate">{{ pred.mainText }}</p>
                     <p class="text-[11px] text-slate-500 truncate">{{ pred.secondaryText }}</p>
@@ -145,7 +146,7 @@ export interface AmenityOption {
                 class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
                 title="Search Homes Near My GPS Location"
               >
-                <span *ngIf="!isLocating">📍</span>
+                <svg *ngIf="!isLocating" class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
                 <span *ngIf="isLocating" class="inline-block animate-spin">⏳</span>
               </button>
               <button
@@ -222,7 +223,7 @@ export interface AmenityOption {
               [class]="mobileView === 'list' ? 'bg-[#0F2937] text-white font-extrabold shadow-2xs' : 'text-slate-600'"
               class="px-2.5 py-1 text-[11px] rounded-lg transition-all cursor-pointer flex items-center gap-1"
             >
-              <span>📋</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
               <span>List</span>
             </button>
             <button
@@ -231,7 +232,7 @@ export interface AmenityOption {
               [class]="mobileView === 'map' ? 'bg-[#0F2937] text-white font-extrabold shadow-2xs' : 'text-slate-600'"
               class="px-2.5 py-1 text-[11px] rounded-lg transition-all cursor-pointer flex items-center gap-1"
             >
-              <span>🗺️</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
               <span>Map</span>
             </button>
           </div>
@@ -242,7 +243,7 @@ export interface AmenityOption {
             type="button"
             class="lg:hidden px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1.5"
           >
-            <span>⚙️</span>
+            <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
             <span>Filters</span>
             <span *ngIf="isFilterActive()" class="w-2 h-2 rounded-full bg-[#2D7A5E]"></span>
           </button>
@@ -252,34 +253,35 @@ export interface AmenityOption {
       <!-- MAIN 3-ZONE LAYOUT (Desktop: Left Filters | Center Results | Right Map) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- LEFT COLUMN: Desktop Persistent Filter Sidebar (Mobile: Drawer Modal) -->
+        <!-- LEFT COLUMN: Desktop Persistent Filter Sidebar (Mobile: Bottom Sheet Drawer Modal) -->
         <div
           [class.hidden]="!showMobileFiltersDrawer"
-          class="lg:block lg:col-span-3 bg-white p-4 sm:p-5 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-5"
+          class="fixed inset-0 z-50 lg:relative lg:z-0 lg:block lg:col-span-3 bg-black/50 lg:bg-transparent p-0 lg:p-0 flex flex-col justify-end lg:justify-start"
         >
-          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider flex items-center gap-1.5">
-              <span>⚙️</span>
-              <span>Search Filters</span>
-            </h3>
-            <div class="flex items-center space-x-2">
-              <button
-                (click)="resetFilters()"
-                type="button"
-                class="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
-              >
-                Reset All
-              </button>
-              <button
-                (click)="showMobileFiltersDrawer = false"
-                type="button"
-                class="lg:hidden p-1 text-slate-400 hover:text-slate-700 text-xs font-bold rounded-full"
-                title="Close Filters"
-              >
-                ✕
-              </button>
+          <div class="bg-white p-5 sm:p-6 rounded-t-3xl lg:rounded-3xl border-t lg:border border-[#E8E6DF] shadow-2xl lg:shadow-xs space-y-5 max-h-[85vh] lg:max-h-none overflow-y-auto w-full">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#2D7A5E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                <span>Search Filters</span>
+              </h3>
+              <div class="flex items-center space-x-2">
+                <button
+                  (click)="resetFilters()"
+                  type="button"
+                  class="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
+                >
+                  Reset All
+                </button>
+                <button
+                  (click)="showMobileFiltersDrawer = false"
+                  type="button"
+                  class="lg:hidden p-1 text-slate-400 hover:text-slate-700 text-xs font-bold rounded-full"
+                  title="Close Filters"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
-          </div>
 
           <!-- Rent Range Filter & Presets -->
           <div class="space-y-2">
@@ -426,11 +428,12 @@ export interface AmenityOption {
             *ngIf="showMobileFiltersDrawer"
             (click)="showMobileFiltersDrawer = false"
             type="button"
-            class="lg:hidden w-full py-2.5 bg-[#0F2937] text-white text-xs font-bold rounded-xl shadow-xs"
+            class="lg:hidden w-full py-2.5 bg-[#0F2937] text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer"
           >
             Apply Filters
           </button>
         </div>
+      </div>
 
         <!-- CENTER/RIGHT RESULTS COLUMN: Property Cards List -->
         <div
