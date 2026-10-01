@@ -23,28 +23,46 @@ const isAllowedOrigin = (origin: string | undefined): boolean => {
   if (config.frontendUrl && origin === config.frontendUrl) return true;
   if (origin === 'https://nivas360.vercel.app') return true;
   if (/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.vercel\.app$/i.test(origin)) return true;
-  if (origin === 'http://localhost:4200' || origin === 'http://127.0.0.1:4200') return true;
-  if (origin === 'http://localhost:3000' || origin === 'http://127.0.0.1:3000') return true;
+  // Capacitor Android & iOS native WebView origins
+  if (
+    origin === 'https://localhost' ||
+    origin === 'http://localhost' ||
+    origin === 'capacitor://localhost' ||
+    origin === 'ionic://localhost'
+  ) {
+    return true;
+  }
+  // Local development
+  if (
+    origin === 'http://localhost:4200' ||
+    origin === 'http://127.0.0.1:4200' ||
+    origin === 'http://localhost:3000' ||
+    origin === 'http://127.0.0.1:3000' ||
+    /^http:\/\/localhost:[0-9]+$/.test(origin) ||
+    /^http:\/\/127\.0\.0\.1:[0-9]+$/.test(origin)
+  ) {
+    return true;
+  }
   return false;
 };
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (isAllowedOrigin(origin) || process.env.NODE_ENV !== 'production') {
-        callback(null, true);
-      } else {
-        callback(null, false);
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-    optionsSuccessStatus: 200,
-  })
-);
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    if (isAllowedOrigin(origin) || process.env.NODE_ENV !== 'production') {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  exposedHeaders: ['Authorization'],
+  optionsSuccessStatus: 200,
+};
 
-app.options('*', cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // 4. Rate Limiting
 app.use(apiRateLimiter);

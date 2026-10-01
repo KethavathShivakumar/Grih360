@@ -401,7 +401,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
     this.authService
       .verifyLoginOtp(this.challengeId, enteredCode)
       .pipe(
-        timeout(25000),
+        timeout(45000),
         finalize(() => {
           this.isLoading = false;
         })
@@ -471,7 +471,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
     this.authService
       .resendLoginOtp(this.challengeId)
       .pipe(
-        timeout(25000),
+        timeout(45000),
         finalize(() => {
           this.isResending = false;
         })

@@ -15,6 +15,7 @@ export const helmetSecurityHeaders = helmet({
     },
   },
   crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
 });
 
 // 2. General API Rate Limiter

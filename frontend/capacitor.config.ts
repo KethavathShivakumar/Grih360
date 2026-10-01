@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'dist/frontend/browser',
   server: {
     androidScheme: 'https',
-    cleartext: true,
+    cleartext: false,
   },
   plugins: {
     SplashScreen: {

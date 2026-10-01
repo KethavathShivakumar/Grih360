@@ -361,7 +361,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.identifier, this.password)
       .pipe(
-        timeout(25000),
+        timeout(45000),
         finalize(() => {
           this.isLoading = false;
         })

@@ -391,7 +391,7 @@ export class RegisterComponent implements OnInit {
         role: this.selectedRole,
       })
       .pipe(
-        timeout(25000),
+        timeout(45000),
         finalize(() => {
           this.isLoading = false;
         })

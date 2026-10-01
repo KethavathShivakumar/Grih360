@@ -38,3 +38,14 @@ Thumbs.db
 !.vscode/tasks.json
 .idea/
 *.sublime-workspace
+
+# Android Keystore & Secret properties
+*.jks
+*.keystore
+keystore.properties
+**/keystore.properties
+local.properties
+**/local.properties
+android/app/release/
+**/release/
+
