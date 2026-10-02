@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, RouterOutlet, RouterModule],
   template: `
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col font-sans text-slate-800">
-      <!-- Top Header Bar -->
-      <header class="bg-white border-b border-[#E8E6DF] px-4 sm:px-6 py-3 sticky top-0 z-50 shadow-xs mobile-top-bar">
+      <!-- Slim Top Bar Header -->
+      <header class="bg-white border-b border-[#E8E6DF] px-4 sm:px-6 py-2.5 sm:py-3 sticky top-0 z-50 shadow-xs mobile-top-bar">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
           <!-- Left: Brand Logo & Desktop Nav -->
           <div class="flex items-center space-x-6">
@@ -114,7 +114,7 @@ import { Subscription } from 'rxjs';
             <a
               routerLink="/owner/notifications"
               routerLinkActive="text-[#2D7A5E] bg-emerald-50"
-              class="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              class="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
               title="Notifications"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,17 +122,17 @@ import { Subscription } from 'rxjs';
               </svg>
               <span
                 *ngIf="unreadCount > 0"
-                class="absolute top-1 right-1 w-4 h-4 bg-rose-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse"
+                class="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse"
               >
                 {{ unreadCount > 9 ? '9+' : unreadCount }}
               </span>
             </a>
 
-            <!-- Settings Button -->
+            <!-- Settings Button (Desktop) -->
             <a
               routerLink="/owner/settings"
               routerLinkActive="text-[#0F2937] bg-slate-100"
-              class="hidden sm:inline-flex p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              class="hidden sm:inline-flex p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer min-h-[44px]"
               title="Workspace Settings"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,11 +141,11 @@ import { Subscription } from 'rxjs';
               </svg>
             </a>
 
-            <!-- Owner Profile Link -->
+            <!-- Owner Profile Avatar Link -->
             <a
               routerLink="/owner/profile"
               routerLinkActive="ring-2 ring-[#2D7A5E]"
-              class="flex items-center space-x-2.5 p-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-slate-100 border border-slate-200/80 transition-all cursor-pointer group"
+              class="flex items-center space-x-2 p-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-slate-100 border border-slate-200/80 transition-all cursor-pointer group min-h-[44px]"
               title="View Owner Profile"
             >
               <div class="w-8 h-8 rounded-full bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-bold text-xs shadow-xs overflow-hidden shrink-0">
@@ -158,135 +158,32 @@ import { Subscription } from 'rxjs';
               </div>
             </a>
 
-            <!-- Logout Button -->
+            <!-- Logout Button (Desktop) -->
             <button
               (click)="onLogout()"
               type="button"
-              class="hidden sm:inline-flex items-center px-3 py-1.5 border border-slate-200 text-xs font-bold text-slate-600 hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+              class="hidden sm:inline-flex items-center px-3 py-1.5 border border-slate-200 text-xs font-bold text-slate-600 hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer min-h-[44px]"
               title="Sign Out"
             >
               Logout
-            </button>
-
-            <!-- Mobile Hamburger Toggle -->
-            <button
-              (click)="toggleMobileMenu()"
-              type="button"
-              class="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
-              aria-label="Toggle navigation menu"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path *ngIf="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                <path *ngIf="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Mobile Drawer Menu -->
-        <div *ngIf="mobileMenuOpen" class="md:hidden pt-3 pb-2 border-t border-slate-100 mt-2 space-y-1">
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/dashboard"
-            routerLinkActive="bg-[#0F2937] text-white"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            📊 Dashboard
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/properties"
-            routerLinkActive="bg-[#0F2937] text-white"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            🏢 My Properties
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/properties/new"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            ➕ Add New Property
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/applicants"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            📋 Tenant Applicants
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/rentals"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            📜 Rental Leases
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/rent-tracking"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            💰 Rent Tracking
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/notifications"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center justify-between"
-          >
-            <span>🔔 Notifications</span>
-            <span *ngIf="unreadCount > 0" class="px-1.5 py-0.5 bg-rose-500 text-white text-[10px] font-black rounded-full">
-              {{ unreadCount }}
-            </span>
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/profile"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            👤 Owner Profile
-          </a>
-          <a
-            (click)="closeMobileMenu()"
-            routerLink="/owner/settings"
-            routerLinkActive="bg-[#0F2937] text-white"
-            class="block px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100"
-          >
-            ⚙️ Settings
-          </a>
-          <div class="pt-2 border-t border-slate-100">
-            <button
-              (click)="onLogout()"
-              type="button"
-              class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50 cursor-pointer"
-            >
-              🚪 Sign Out
             </button>
           </div>
         </div>
       </header>
 
-      <!-- Main Content (with padding for mobile bottom bar) -->
+      <!-- Main Content -->
       <main class="flex-grow p-4 sm:p-6 pb-24 md:pb-6 max-w-7xl mx-auto w-full">
         <router-outlet></router-outlet>
       </main>
 
-      <!-- Mobile Bottom Navigation Bar (Owner Role - Minimal Monochrome Lucide SVG) -->
+      <!-- Mobile Bottom Navigation Bar (Owner Role: Home, Properties, Applicants, Rentals, Profile) -->
       <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200/90 py-2 px-1 z-40 grid grid-cols-5 items-center justify-items-center shadow-lg pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
         <!-- Home -->
         <a
           routerLink="/owner/dashboard"
           routerLinkActive="text-[#2D7A5E] font-bold"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
         >
           <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -300,7 +197,7 @@ import { Subscription } from 'rxjs';
           routerLink="/owner/properties"
           routerLinkActive="text-[#2D7A5E] font-bold"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
         >
           <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
@@ -315,7 +212,7 @@ import { Subscription } from 'rxjs';
         <a
           routerLink="/owner/applicants"
           routerLinkActive="text-[#2D7A5E] font-bold"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
         >
           <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -330,7 +227,7 @@ import { Subscription } from 'rxjs';
         <a
           routerLink="/owner/rentals"
           routerLinkActive="text-[#2D7A5E] font-bold"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
         >
           <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
@@ -343,7 +240,7 @@ import { Subscription } from 'rxjs';
         <a
           routerLink="/owner/profile"
           routerLinkActive="text-[#2D7A5E] font-bold"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group"
+          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
         >
           <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
@@ -358,7 +255,6 @@ import { Subscription } from 'rxjs';
 export class OwnerLayoutComponent implements OnInit, OnDestroy {
   user: any = null;
   unreadCount: number = 0;
-  mobileMenuOpen: boolean = false;
   private subs: Subscription = new Subscription();
 
   constructor(
@@ -395,17 +291,8 @@ export class OwnerLayoutComponent implements OnInit, OnDestroy {
     return this.userName.charAt(0).toUpperCase() || 'O';
   }
 
-  toggleMobileMenu(): void {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
-  }
-
-  closeMobileMenu(): void {
-    this.mobileMenuOpen = false;
-  }
-
   onLogout(): void {
     if (confirm('Are you sure you want to sign out of Nivas360?')) {
-      this.closeMobileMenu();
       this.authService.logout();
       this.router.navigate(['/auth/login']);
     }
