@@ -11,7 +11,7 @@ import { UserRole } from '../../../shared/models/user.model';
   template: `
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col justify-between font-sans text-slate-800 p-4">
       <!-- Header -->
-      <header class="w-full flex items-center justify-between py-2 border-b border-[#E8E6DF]">
+      <header class="w-full flex items-center justify-between py-2 border-b border-[#E8E6DF] mobile-top-bar">
         <a routerLink="/" class="flex items-center space-x-2">
           <div class="w-8 h-8 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-xs">
             N

@@ -10,7 +10,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
   template: `
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col justify-between p-4 font-sans text-slate-800">
       <!-- Slim Top Bar Header -->
-      <header class="w-full flex items-center justify-between py-3 border-b border-[#E8E6DF]">
+      <header class="w-full flex items-center justify-between py-3 border-b border-[#E8E6DF] mobile-top-bar">
         <div class="flex items-center space-x-2 shrink-0">
           <div class="w-8 h-8 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-xs">
             N

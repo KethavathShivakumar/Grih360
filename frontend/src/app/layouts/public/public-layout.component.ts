@@ -8,7 +8,7 @@ import { RouterOutlet, RouterModule } from '@angular/router';
   imports: [CommonModule, RouterOutlet, RouterModule],
   template: `
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col justify-between font-sans text-slate-800">
-      <header class="bg-white/95 backdrop-blur-md border-b border-[#E8E6DF] sticky top-0 z-50 px-3.5 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between min-h-[56px] sm:min-h-[64px]">
+      <header class="bg-white/95 backdrop-blur-md border-b border-[#E8E6DF] sticky top-0 z-50 px-3.5 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between min-h-[56px] sm:min-h-[64px] mobile-top-bar">
         <a routerLink="/" class="flex items-center space-x-2 sm:space-x-2.5 shrink-0">
           <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-bold text-base sm:text-lg shadow-xs">
             N

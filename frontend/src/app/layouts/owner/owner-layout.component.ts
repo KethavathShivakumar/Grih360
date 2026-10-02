@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   template: `
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col font-sans text-slate-800">
       <!-- Top Header Bar -->
-      <header class="bg-white border-b border-[#E8E6DF] px-4 sm:px-6 py-3 sticky top-0 z-50 shadow-xs">
+      <header class="bg-white border-b border-[#E8E6DF] px-4 sm:px-6 py-3 sticky top-0 z-50 shadow-xs mobile-top-bar">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
           <!-- Left: Brand Logo & Desktop Nav -->
           <div class="flex items-center space-x-6">
