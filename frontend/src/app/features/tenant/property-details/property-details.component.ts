@@ -203,11 +203,39 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <button
                 (click)="openApplicationModal()"
                 type="button"
-                class="w-full py-3 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-sm font-bold shadow-sm transition-colors text-center"
+                class="w-full py-3 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-sm font-bold shadow-sm transition-colors text-center cursor-pointer"
               >
                 Apply to Rent This Home
               </button>
             </div>
+          </div>
+        </div>
+
+        <!-- Mobile Sticky Bottom Bar (Only on viewports < 768px) -->
+        <div class="md:hidden fixed bottom-14 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200/90 p-3 z-30 flex items-center justify-between shadow-xl pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+          <div class="flex flex-col">
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Rent / Month</span>
+            <span class="text-base font-extrabold text-[#0F2937]">{{ formattedRent }}</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button
+              (click)="toggleSaveProperty()"
+              type="button"
+              [class]="isSaved ? 'bg-rose-50 border-rose-300 text-rose-700' : 'bg-slate-50 border-slate-200 text-slate-700'"
+              class="p-2.5 border rounded-xl min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+              title="Save Home"
+            >
+              <svg class="w-5 h-5" [attr.fill]="isSaved ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </button>
+            <button
+              (click)="openApplicationModal()"
+              type="button"
+              class="px-5 py-2.5 bg-[#2D7A5E] active:bg-[#23614a] text-white font-extrabold text-xs rounded-xl shadow-md cursor-pointer min-h-[44px]"
+            >
+              Apply Now →
+            </button>
           </div>
         </div>
       </div>
