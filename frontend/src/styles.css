@@ -199,9 +199,57 @@ body {
   max-width: 100% !important;
 }
 
-/* Mobile dropdown containment */
-.safe-dropdown {
-  max-width: calc(100vw - 2rem);
-  word-break: break-word;
+
+/* Mobile-Only Performance & UX Adjustments (< 768px) */
+@media (max-width: 767.98px) {
+  /* Prevent iOS / Android auto-zoom on input focus */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Disable mobile tap highlights */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent accidental text selection on interactive controls (buttons and nav links only) */
+  button,
+  a,
+  nav,
+  .action-btn,
+  .nav-link,
+  .btn-touch {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow normal text selection on inputs and content */
+  input,
+  textarea,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  label {
+    -webkit-user-select: text;
+    user-select: text;
+  }
 }
+
 

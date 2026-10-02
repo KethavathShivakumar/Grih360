@@ -124,10 +124,10 @@ import { finalize, timeout } from 'rxjs';
                 />
 
                 <!-- 6 Rendered Visual Boxes -->
-                <div class="flex items-center justify-between gap-2 sm:gap-2.5 pointer-events-none relative z-10">
+                <div class="flex items-center justify-between gap-1.5 sm:gap-2.5 pointer-events-none relative z-10">
                   <div
                     *ngFor="let slot of [0, 1, 2, 3, 4, 5]"
-                    class="w-12 h-14 sm:w-14 sm:h-16 flex items-center justify-center text-center text-2xl font-black rounded-2xl border transition-all bg-white"
+                    class="w-10 h-12 sm:w-14 sm:h-16 flex items-center justify-center text-center text-xl sm:text-2xl font-black rounded-xl sm:rounded-2xl border transition-all bg-white"
                     [ngClass]="{
                       'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/20 bg-emerald-50/30 text-[#0F2937] shadow-xs': getSlotDigit(slot),
                       'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/40 bg-white text-[#0F2937] shadow-xs': isSlotActive(slot),
@@ -139,7 +139,7 @@ import { finalize, timeout } from 'rxjs';
                     <!-- Blinking Caret Indicator for Active Slot -->
                     <span
                       *ngIf="isSlotActive(slot) && !getSlotDigit(slot)"
-                      class="inline-block w-0.5 h-6 bg-[#2D7A5E] animate-pulse"
+                      class="inline-block w-0.5 h-5 sm:h-6 bg-[#2D7A5E] animate-pulse"
                     ></span>
                   </div>
                 </div>
