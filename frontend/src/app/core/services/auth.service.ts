@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, catchError, of, filter, take } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, of, filter, take, switchMap } from 'rxjs';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
 import { User, UserRole } from '../../shared/models/user.model';
@@ -15,33 +15,101 @@ export class AuthService {
   private initializationSubject = new BehaviorSubject<boolean>(false);
   public isInitialized$: Observable<boolean> = this.initializationSubject.asObservable();
 
+  private isRefreshing = false;
+
   constructor(
     private apiService: ApiService,
     private storageService: StorageService
   ) {
+    this.initSession();
+  }
+
+  private async initSession(): Promise<void> {
+    await this.storageService.initNativeStorage();
     const token = this.storageService.getToken();
     if (token) {
       this.fetchCurrentUser();
     } else {
-      // No token — immediately mark as initialized (nothing to fetch)
       this.initializationSubject.next(true);
     }
   }
 
   public fetchCurrentUser(): void {
     this.apiService.get<{ success: boolean; data: { user: User } }>('/auth/me').pipe(
-      catchError(() => {
-        this.storageService.clearSession();
-        this.currentUserSubject.next(null);
+      catchError((err: any) => {
+        // Status 401: Access token expired. Attempt token refresh before deciding session fate.
+        if (err?.status === 401) {
+          return this.refreshSession().pipe(
+            switchMap((refreshSuccess) => {
+              if (refreshSuccess) {
+                return this.apiService.get<{ success: boolean; data: { user: User } }>('/auth/me').pipe(
+                  catchError(() => of(null))
+                );
+              }
+              return of(null);
+            })
+          );
+        }
+        // For network errors (status 0), timeouts, or 5xx: DO NOT clear session or logout.
         return of(null);
       })
     ).subscribe((res) => {
       if (res && res.success && res.data?.user) {
         this.currentUserSubject.next(res.data.user);
       }
-      // Mark initialization complete after fetch attempt (success or failure)
       this.initializationSubject.next(true);
     });
+  }
+
+  /**
+   * Attempt to refresh expired access token using stored refresh token.
+   * Clears session ONLY if the refresh endpoint explicitly rejects (401/403).
+   */
+  public refreshSession(): Observable<boolean> {
+    const refreshToken = this.storageService.getRefreshToken();
+    if (!refreshToken || this.isRefreshing) {
+      return of(false);
+    }
+
+    this.isRefreshing = true;
+    return this.apiService.post<any>('/auth/refresh', { refreshToken }).pipe(
+      tap((res) => {
+        if (res?.success && res?.data?.tokens?.accessToken) {
+          this.storageService.setToken(res.data.tokens.accessToken);
+          if (res.data.tokens.refreshToken) {
+            this.storageService.setRefreshToken(res.data.tokens.refreshToken);
+          }
+          if (res.data.user) {
+            this.currentUserSubject.next(res.data.user);
+          }
+        }
+      }),
+      switchMap((res) => of(!!(res?.success && res?.data?.tokens?.accessToken))),
+      catchError((err: any) => {
+        // Clear session ONLY when refresh token is explicitly rejected (401 or 403)
+        if (err?.status === 401 || err?.status === 403) {
+          this.storageService.clearSession();
+          this.currentUserSubject.next(null);
+        }
+        return of(false);
+      }),
+      tap(() => {
+        this.isRefreshing = false;
+      })
+    );
+  }
+
+  private saveTokensAndUser(tokens: { accessToken: string; refreshToken?: string }, user?: User): void {
+    if (tokens?.accessToken) {
+      this.storageService.setToken(tokens.accessToken);
+    }
+    if (tokens?.refreshToken) {
+      this.storageService.setRefreshToken(tokens.refreshToken);
+    }
+    if (user) {
+      this.currentUserSubject.next(user);
+    }
+    this.initializationSubject.next(true);
   }
 
   public register(userData: {
@@ -54,9 +122,7 @@ export class AuthService {
     return this.apiService.post<any>('/auth/register', userData).pipe(
       tap((res) => {
         if (res.success && res.data?.tokens?.accessToken && !res.requiresEmailOtp) {
-          this.storageService.setToken(res.data.tokens.accessToken);
-          this.currentUserSubject.next(res.data.user);
-          this.initializationSubject.next(true);
+          this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
       })
     );
@@ -66,32 +132,26 @@ export class AuthService {
     return this.apiService.post<any>('/auth/login', { identifier, password }).pipe(
       tap((res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.storageService.setToken(res.data.tokens.accessToken);
-          this.currentUserSubject.next(res.data.user);
-          this.initializationSubject.next(true);
+          this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
       })
     );
   }
 
-  /**
-   * Admin-only login — bypasses Two-Step OTP using directToken flag.
-   * Only accepts accounts with role === 'ADMIN'.
-   */
   public adminLogin(identifier: string, password: string): Observable<any> {
     return this.apiService.post<any>('/auth/login', { identifier, password, directToken: true }).pipe(
       tap((res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.storageService.setToken(res.data.tokens.accessToken);
-          this.currentUserSubject.next(res.data.user);
-          this.initializationSubject.next(true);
+          this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
       })
     );
   }
 
   public logout(): void {
-    this.apiService.post('/auth/logout', {}).subscribe();
+    this.apiService.post('/auth/logout', {}).subscribe({
+      error: () => {},
+    });
     this.storageService.clearSession();
     this.currentUserSubject.next(null);
     this.initializationSubject.next(false);
@@ -111,30 +171,24 @@ export class AuthService {
     return requiredRoles.includes(user.role);
   }
 
-  /** True if a valid JWT token exists in storage (user may still be loading) */
   public hasToken(): boolean {
     return !!this.storageService.getToken();
   }
 
-  /** Send OTP to registered email or mobile number */
   public sendOtp(identifier: string): Observable<any> {
     return this.apiService.post<any>('/auth/otp/send', { identifier });
   }
 
-  /** Verify OTP and log in */
   public verifyOtp(identifier: string, otp: string): Observable<any> {
     return this.apiService.post<any>('/auth/otp/verify', { identifier, otp }).pipe(
       tap((res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.storageService.setToken(res.data.tokens.accessToken);
-          this.currentUserSubject.next(res.data.user);
-          this.initializationSubject.next(true);
+          this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
       })
     );
   }
 
-  /** Active challenge state kept in memory (strictly never in localStorage or sessionStorage) */
   private activeChallenge: {
     challengeId: string;
     maskedEmail: string;
@@ -161,26 +215,21 @@ export class AuthService {
     this.activeChallenge = null;
   }
 
-  /** Step B: Verify Login OTP and establish authenticated session */
   public verifyLoginOtp(challengeId: string, otp: string): Observable<any> {
     return this.apiService.post<any>('/auth/verify-login-otp', { challengeId, otp }).pipe(
       tap((res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.storageService.setToken(res.data.tokens.accessToken);
-          this.currentUserSubject.next(res.data.user);
-          this.initializationSubject.next(true);
+          this.saveTokensAndUser(res.data.tokens, res.data.user);
           this.clearActiveChallenge();
         }
       })
     );
   }
 
-  /** Step C: Resend Login OTP enforcing 60s cooldown */
   public resendLoginOtp(challengeId: string): Observable<any> {
     return this.apiService.post<any>('/auth/resend-login-otp', { challengeId });
   }
 
-  /** Wait for the initialization (initial /auth/me fetch) to complete */
   public waitForInit(): Observable<boolean> {
     return this.isInitialized$.pipe(
       filter(init => init === true),
