@@ -385,7 +385,7 @@ export class PropertyDetailsComponent implements OnInit {
   appProposedRent: number = 0;
   appMoveInDate: string = '';
   appEmploymentStatus: string = 'Salaried';
-  appMonthlyIncome: number = 0;
+  appMonthlyIncome: number | null = null;
   appOccupantsCount: number = 1;
   appMessage: string = '';
   isSubmittingApp: boolean = false;
@@ -421,7 +421,7 @@ export class PropertyDetailsComponent implements OnInit {
         if (res.success && res.data) {
           this.property = res.data;
           this.appProposedRent = this.property.rentAmount;
-          this.appMonthlyIncome = this.property.rentAmount * 3;
+          this.appMonthlyIncome = null;
 
           const mainImg = this.property.images?.find((i) => i.isMain);
           this.selectedImageUrl = mainImg?.url || this.property.images?.[0]?.url || this.fallbackImageUrl;

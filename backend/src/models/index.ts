@@ -18,4 +18,5 @@ export * from './audit.model';
 export * from './otp.model';
 export * from './login-challenge.model';
 export * from './refresh-token.model';
+export * from './verification-document.model';
 

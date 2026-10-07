@@ -207,19 +207,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <!-- Required Verification Steps Status (Owner View) -->
           <div class="space-y-2 bg-slate-50/60 p-3.5 rounded-2xl border border-slate-100">
             <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block">Verification Steps Status</span>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
               <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 space-y-1">
                 <span class="text-slate-400 font-semibold text-[10px] block">1. Government Identity</span>
                 <span class="font-bold text-slate-800 block text-[11px]">{{ getStepStatus('ID_VERIFICATION') }}</span>
                 <span class="text-[10px] text-amber-700 font-semibold block">Provider Integration Required</span>
               </div>
               <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 space-y-1">
-                <span class="text-slate-400 font-semibold text-[10px] block">2. Income Verification</span>
-                <span class="font-bold text-slate-800 block text-[11px]">{{ getStepStatus('INCOME_VERIFICATION') }}</span>
-                <span class="text-[10px] text-slate-400 block">Manual Document Review</span>
-              </div>
-              <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 space-y-1">
-                <span class="text-slate-400 font-semibold text-[10px] block">3. Rental History</span>
+                <span class="text-slate-400 font-semibold text-[10px] block">2. Rental History</span>
                 <span class="font-bold text-slate-800 block text-[11px]">{{ getStepStatus('RENTAL_HISTORY') }}</span>
                 <span class="text-[10px] text-slate-400 block">Reference Cross-Check</span>
               </div>

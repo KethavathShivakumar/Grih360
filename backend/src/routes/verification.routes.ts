@@ -29,6 +29,10 @@ router.patch('/admin/:tenantId/review', authorizeRoles('ADMIN'), VerificationCon
 // Single record inspection
 router.get('/:id', VerificationController.getById);
 
+// Real document file upload & serving (Tenant or Admin ONLY)
+router.post('/upload-document', authorizeRoles('TENANT', 'ADMIN'), VerificationController.uploadDocumentFile);
+router.get('/document/:storageKey', authorizeRoles('TENANT', 'ADMIN'), VerificationController.serveDocumentFile);
+
 // Legacy routes for backwards compatibility
 router.get('/tenant/:tenantId', VerificationController.getTenantVerification);
 router.get('/me', VerificationController.getTenantVerification);

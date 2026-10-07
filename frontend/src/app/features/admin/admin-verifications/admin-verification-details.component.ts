@@ -278,6 +278,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
 
               <div class="flex items-center space-x-2 shrink-0">
+                <a
+                  *ngIf="doc.storageKey"
+                  [href]="'/api/v1/verifications/document/' + doc.storageKey"
+                  target="_blank"
+                  class="px-3 py-1 bg-[#0F2937] hover:bg-[#164E63] text-white text-[11px] font-bold rounded-xl shadow-2xs flex items-center gap-1"
+                >
+                  👁️ View File
+                </a>
                 <span [class]="getStepBadgeClass(doc.status)" class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase">
                   {{ doc.status }}
                 </span>
@@ -286,33 +294,19 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
         </div>
 
-        <!-- Submitted Profile & Income Declarations -->
+        <!-- Submitted Tenancy Details -->
         <div *ngIf="verification.submittedInfo" class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
-            <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Submitted Tenancy & Employment Details</h3>
+            <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Submitted Residential & Reference Details</h3>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
-              <span class="text-slate-400 font-bold block text-[11px]">Employer / Company</span>
-              <span class="font-bold text-slate-800 text-sm mt-0.5 block">{{ verification.submittedInfo.employerName || 'Employed' }}</span>
-            </div>
-            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
-              <span class="text-slate-400 font-bold block text-[11px]">Designation</span>
-              <span class="font-bold text-slate-800 text-sm mt-0.5 block">{{ verification.submittedInfo.designation || 'Staff' }}</span>
-            </div>
-            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
-              <span class="text-slate-400 font-bold block text-[11px]">Declared Net Monthly Income</span>
-              <span class="font-extrabold text-[#2D7A5E] text-sm mt-0.5 block">
-                {{ verification.submittedInfo.monthlyIncome ? ('₹' + verification.submittedInfo.monthlyIncome.toLocaleString('en-IN') + '/mo') : 'Verified' }}
-              </span>
-            </div>
-            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 sm:col-span-2">
-              <span class="text-slate-400 font-bold block text-[11px]">Residential Address</span>
+              <span class="text-slate-400 font-bold block text-[11px]">Current Residential Address</span>
               <span class="font-medium text-slate-800 mt-0.5 block">{{ verification.submittedInfo.currentAddress || 'Not provided' }}</span>
             </div>
             <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
-              <span class="text-slate-400 font-bold block text-[11px]">Landlord Reference</span>
+              <span class="text-slate-400 font-bold block text-[11px]">Previous Landlord Contact</span>
               <span class="font-medium text-slate-800 mt-0.5 block">{{ verification.submittedInfo.previousLandlordContact || 'None' }}</span>
             </div>
           </div>

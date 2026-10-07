@@ -416,55 +416,85 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 </div>
               </div>
 
-              <!-- Document Upload Note/File Placeholder -->
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Document File / Scanned Copy Reference</label>
-                <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center bg-slate-50/50 hover:bg-slate-50 transition cursor-pointer">
-                  <span class="text-2xl block mb-1">📎</span>
-                  <span class="text-xs font-bold text-slate-700 block">Identity Document File Ready</span>
-                  <span class="text-[11px] text-slate-400 block mt-0.5">Encrypted and linked directly to your application vault</span>
-                </div>
-              </div>
-            </div>
+              <!-- Real Document Upload Control -->
+              <div class="space-y-2">
+                <label class="block text-xs font-semibold text-slate-700">Identity Document File (Image or PDF, Max 5 MB)</label>
 
-            <!-- Section 2: Employment & Income Verification -->
-            <div class="space-y-3 pt-3 border-t border-slate-100">
-              <h4 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">
-                Step 2 — Employment & Income Information
-              </h4>
-
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1.5">Employer / Organization</label>
+                <!-- File Select / Photo Dropzone -->
+                <div *ngIf="!selectedFile && !uploadedDocumentRecord" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-2xl p-4 text-center bg-slate-50/50 hover:bg-slate-50 transition cursor-pointer relative">
                   <input
-                    type="text"
-                    [(ngModel)]="formData.employerName"
-                    name="employerName"
-                    placeholder="e.g. Infosys, TCS, Self-Employed"
-                    class="w-full border border-slate-300 rounded-xl p-2.5 text-xs font-medium focus:ring-2 focus:ring-indigo-500"
+                    type="file"
+                    (change)="onFileSelected($event)"
+                    accept="image/*,application/pdf"
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                   />
+                  <div class="space-y-1 pointer-events-none">
+                    <span class="text-3xl block">📸</span>
+                    <span class="text-xs font-extrabold text-[#0F2937] block">Choose file or Take photo</span>
+                    <span class="text-[11px] text-slate-500 block">Supports JPG, PNG or PDF (Max ~5 MB). Camera & gallery enabled on Android.</span>
+                  </div>
                 </div>
 
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1.5">Job Designation / Role</label>
-                  <input
-                    type="text"
-                    [(ngModel)]="formData.designation"
-                    name="designation"
-                    placeholder="e.g. Software Engineer, Manager"
-                    class="w-full border border-slate-300 rounded-xl p-2.5 text-xs font-medium focus:ring-2 focus:ring-indigo-500"
-                  />
+                <!-- Selected File Preview & Upload Status -->
+                <div *ngIf="selectedFile" class="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3 min-w-0">
+                      <!-- Image Thumbnail Preview -->
+                      <div *ngIf="previewUrl" class="w-12 h-12 rounded-xl overflow-hidden bg-slate-200 border border-slate-300 shrink-0">
+                        <img [src]="previewUrl" alt="Document preview" class="w-full h-full object-cover" />
+                      </div>
+                      <!-- PDF Icon -->
+                      <div *ngIf="!previewUrl" class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-black text-xs shrink-0 border border-indigo-200">
+                        PDF
+                      </div>
+
+                      <div class="min-w-0">
+                        <p class="text-xs font-bold text-slate-900 truncate">{{ selectedFile.name }}</p>
+                        <p class="text-[10px] text-slate-500">{{ (selectedFile.size / 1024).toFixed(0) }} KB • {{ selectedFile.type || 'Document' }}</p>
+                      </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center space-x-2 shrink-0">
+                      <button
+                        *ngIf="!uploadedDocumentRecord && !isUploading"
+                        (click)="uploadDocument()"
+                        type="button"
+                        class="px-3 py-1.5 bg-[#0F2937] text-white text-xs font-bold rounded-xl shadow-xs hover:bg-[#164E63] cursor-pointer"
+                      >
+                        Upload Now
+                      </button>
+
+                      <button
+                        (click)="removeSelectedFile()"
+                        type="button"
+                        class="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Upload Progress Bar -->
+                  <div *ngIf="isUploading" class="space-y-1">
+                    <div class="flex justify-between text-[10px] font-bold text-slate-600">
+                      <span>Encrypting & Storing in Vault...</span>
+                      <span>{{ uploadProgress }}%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-indigo-600 h-full transition-all duration-300" [style.width.%]="uploadProgress"></div>
+                    </div>
+                  </div>
+
+                  <!-- Confirmed Upload Badge (Shows only after backend confirmation) -->
+                  <div *ngIf="uploadedDocumentRecord" class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
+                    <span class="text-emerald-700 font-extrabold text-sm">✓</span>
+                    <span>Document uploaded & confirmed by backend (Key: {{ uploadedDocumentRecord.storageKey }})</span>
+                  </div>
                 </div>
 
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1.5">Monthly Net Income (₹)</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="formData.monthlyIncome"
-                    name="monthlyIncome"
-                    placeholder="e.g. 75000"
-                    class="w-full border border-slate-300 rounded-xl p-2.5 text-xs font-medium focus:ring-2 focus:ring-indigo-500"
-                  />
+                <div *ngIf="uploadError" class="text-xs text-rose-600 font-bold">
+                  ⚠️ {{ uploadError }}
                 </div>
               </div>
             </div>
@@ -757,6 +787,103 @@ export class TenantVerificationComponent implements OnInit {
     return 'Submit identity and income documents above to progress your application.';
   }
 
+  selectedFile: File | null = null;
+  previewUrl: string | null = null;
+  uploadProgress: number = 0;
+  isUploading: boolean = false;
+  uploadedDocumentRecord: any = null;
+  uploadError: string | null = null;
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      this.uploadError = 'File size exceeds 5 MB. Please choose a smaller file.';
+      return;
+    }
+
+    this.uploadError = null;
+    this.selectedFile = file;
+
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxDim = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          this.previewUrl = canvas.toDataURL('image/jpeg', 0.8);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.previewUrl = null;
+    }
+  }
+
+  uploadDocument(): void {
+    if (!this.selectedFile) return;
+
+    this.isUploading = true;
+    this.uploadProgress = 30;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.uploadProgress = 60;
+      const base64Data = this.previewUrl || e.target.result;
+
+      this.verificationService.uploadDocumentFile({
+        documentType: this.documentType,
+        fileName: this.selectedFile?.name,
+        mimeType: this.selectedFile?.type || 'image/jpeg',
+        dataBase64: base64Data,
+        maskedNumber: this.documentNumber ? `XXXX-XXXX-${this.documentNumber.slice(-4)}` : undefined,
+      }).subscribe({
+        next: (res: any) => {
+          this.uploadProgress = 100;
+          this.isUploading = false;
+          if (res.success && res.data) {
+            this.uploadedDocumentRecord = res.data;
+          }
+        },
+        error: (err: any) => {
+          this.isUploading = false;
+          this.uploadProgress = 0;
+          this.uploadError = err?.error?.message || 'Failed to store document file.';
+        },
+      });
+    };
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+  removeSelectedFile(): void {
+    this.selectedFile = null;
+    this.previewUrl = null;
+    this.uploadedDocumentRecord = null;
+    this.uploadProgress = 0;
+    this.uploadError = null;
+  }
+
   submit(): void {
     if (!this.declarationAccepted) {
       alert('Please accept the statutory tenant declaration to submit verification.');
@@ -770,15 +897,26 @@ export class TenantVerificationComponent implements OnInit {
 
     this.submitting = true;
 
+    const docItem: any = {
+      documentType: this.documentType,
+      documentNumber: this.documentNumber.trim(),
+      notes: `Submitted ${this.documentType} verification`,
+    };
+
+    if (this.uploadedDocumentRecord?.storageKey) {
+      docItem.storageKey = this.uploadedDocumentRecord.storageKey;
+    }
+
     const payload = {
-      documents: [
-        {
-          documentType: this.documentType,
-          documentNumber: this.documentNumber.trim(),
-          notes: `Submitted ${this.documentType} verification`,
-        },
-      ],
-      submittedInfo: this.formData,
+      documents: [docItem],
+      submittedInfo: {
+        fullName: this.formData.fullName,
+        phone: this.formData.phone,
+        email: this.formData.email,
+        currentAddress: this.formData.currentAddress,
+        previousLandlordContact: this.formData.previousLandlordContact,
+        declarationAccepted: this.declarationAccepted,
+      },
       notes: 'Tenant submitted verification details via dedicated portal',
     };
 

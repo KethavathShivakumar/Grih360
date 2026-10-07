@@ -176,6 +176,16 @@ export class VerificationService {
     return this.apiService.get<{ success: boolean; data: RentalVerification }>(url);
   }
 
+  public uploadDocumentFile(payload: {
+    documentType: string;
+    fileName?: string;
+    mimeType?: string;
+    dataBase64: string;
+    maskedNumber?: string;
+  }): Observable<{ success: boolean; data: any }> {
+    return this.apiService.post<{ success: boolean; data: any }>('/verifications/upload-document', payload);
+  }
+
   /**
    * Legacy simple submission
    */

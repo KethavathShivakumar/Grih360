@@ -30,17 +30,8 @@ function getDefaultSteps() {
       data: null,
     },
     {
-      stepId: 'INCOME_VERIFICATION',
-      name: 'Employment & Income Verification',
-      category: 'INCOME',
-      status: 'NOT_STARTED',
-      isExternalProvider: false,
-      providerNotice: 'Manual document assessment by verification team',
-      data: null,
-    },
-    {
       stepId: 'RENTAL_HISTORY',
-      name: 'Rental History & Reference Check',
+      name: 'Rental History & Tenancy References',
       category: 'RENTAL_HISTORY',
       status: 'NOT_STARTED',
       isExternalProvider: false,
