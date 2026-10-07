@@ -111,6 +111,17 @@ export interface AmenityOption {
           </div>
         </div>
 
+        <!-- In-App Location Error Banner (No browser alert) -->
+        <div *ngIf="locationErrorBanner" class="p-3 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-900 space-y-1">
+          <div class="flex items-center justify-between font-bold">
+            <span class="flex items-center gap-1">📍 {{ locationErrorBanner }}</span>
+            <button (click)="locationErrorBanner = null" type="button" class="text-amber-600 hover:text-amber-900 font-bold ml-2">✕</button>
+          </div>
+          <p class="text-[11px] text-amber-800">
+            Select a city/district from the Filters drawer or search bar to browse properties manually.
+          </p>
+        </div>
+
         <!-- Mobile Always Visible Map (40% Screen Height ~ h-72) -->
         <div class="relative w-full h-72 rounded-2xl overflow-hidden shadow-xs border border-slate-200 bg-slate-100">
           <app-google-map
@@ -935,20 +946,23 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     this.onFilterChange();
   }
 
+  locationErrorBanner: string | null = null;
+
   /**
    * GPS device location action
    */
   useCurrentLocation(): void {
     this.isLocating = true;
-    this.locationService.requestDeviceLocation().then((coords) => {
+    this.locationErrorBanner = null;
+    this.locationService.requestDeviceLocation().then((res) => {
       this.isLocating = false;
-      if (coords) {
-        this.mapCenterCoords = coords;
+      if (res.coordinates) {
+        this.mapCenterCoords = res.coordinates;
         this.activeLocationDisplayName = 'My GPS Location';
-        this.searchRadiusKm = 25;
+        this.searchRadiusKm = 15;
         this.onFilterChange();
       } else {
-        alert('Could not determine current location. Defaulting to Hyderabad.');
+        this.locationErrorBanner = res.error || 'GPS location unavailable. Please select your city or locality manually.';
       }
     });
   }

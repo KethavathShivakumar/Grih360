@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Geolocation } from '@capacitor/geolocation';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -17,6 +18,12 @@ declare const google: any;
 export interface LocationCoordinates {
   lat: number;
   lng: number;
+}
+
+export interface LocationResult {
+  coordinates: LocationCoordinates | null;
+  error?: string;
+  isDenied?: boolean;
 }
 
 export interface StructuredLocation {
@@ -62,7 +69,7 @@ export class LocationService {
   // 1. User Location: GPS location where device is currently situated
   private userLocationSubject = new BehaviorSubject<UserLocationState>({
     permissionGranted: false,
-    manualFallbackCity: 'Hyderabad',
+    manualFallbackCity: '',
   });
   public userLocation$: Observable<UserLocationState> = this.userLocationSubject.asObservable();
 
@@ -106,43 +113,109 @@ export class LocationService {
   }
 
   /**
-   * Request device location permission with graceful fallback
+   * Request device location permission with Capacitor Geolocation (low accuracy first, timeout)
+   * Never defaults silently to Hyderabad.
    */
-  public requestDeviceLocation(): Promise<LocationCoordinates | null> {
+  public async requestDeviceLocation(): Promise<LocationResult> {
     this.userLocationSubject.next({
       ...this.userLocationSubject.value,
       isLocating: true,
     });
 
-    return new Promise((resolve) => {
-      if (!navigator.geolocation) {
-        this.setUserLocationFallback('Hyderabad');
-        resolve(null);
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const coords: LocationCoordinates = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+    try {
+      // 1. Check & request Capacitor Geolocation permissions
+      const permStatus = await Geolocation.checkPermissions();
+      if (permStatus.location !== 'granted') {
+        const req = await Geolocation.requestPermissions();
+        if (req.location !== 'granted') {
           this.userLocationSubject.next({
-            permissionGranted: true,
-            coordinates: coords,
-            manualFallbackCity: 'Hyderabad',
+            permissionGranted: false,
+            manualFallbackCity: '',
             isLocating: false,
           });
-          resolve(coords);
-        },
-        (error) => {
-          console.warn('[LocationService] Geolocation error or denied:', error.message);
-          this.setUserLocationFallback('Hyderabad');
-          resolve(null);
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
-      );
-    });
+          return {
+            coordinates: null,
+            error: 'Location permission denied. Please enable location permissions in device settings or select a city manually.',
+            isDenied: true,
+          };
+        }
+      }
+
+      // 2. Try low accuracy position first with timeout
+      let position;
+      try {
+        position = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 30000,
+        });
+      } catch (lowAccErr) {
+        // Fallback to high accuracy if low accuracy failed
+        position = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: true,
+          timeout: 8000,
+          maximumAge: 10000,
+        });
+      }
+
+      const coords: LocationCoordinates = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+
+      this.userLocationSubject.next({
+        permissionGranted: true,
+        coordinates: coords,
+        manualFallbackCity: '',
+        isLocating: false,
+      });
+
+      return { coordinates: coords };
+    } catch (err: any) {
+      console.warn('[LocationService] Capacitor Geolocation error, trying web fallback:', err);
+      return new Promise<LocationResult>((resolve) => {
+        if (!navigator.geolocation) {
+          resolve({
+            coordinates: null,
+            error: 'Geolocation is not supported by your browser or device.',
+          });
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const coords: LocationCoordinates = {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude,
+            };
+            this.userLocationSubject.next({
+              permissionGranted: true,
+              coordinates: coords,
+              manualFallbackCity: '',
+              isLocating: false,
+            });
+            resolve({ coordinates: coords });
+          },
+          (error) => {
+            let errorMsg = 'Unable to fetch your GPS location.';
+            if (error.code === error.PERMISSION_DENIED) {
+              errorMsg = 'Location permission denied. Please allow location access or select your city manually.';
+            } else if (error.code === error.POSITION_UNAVAILABLE) {
+              errorMsg = 'Location position unavailable. Please check device location settings or search manually.';
+            } else if (error.code === error.TIMEOUT) {
+              errorMsg = 'Location request timed out. Please try again or select a city manually.';
+            }
+            this.userLocationSubject.next({
+              permissionGranted: false,
+              manualFallbackCity: '',
+              isLocating: false,
+            });
+            resolve({ coordinates: null, error: errorMsg, isDenied: error.code === error.PERMISSION_DENIED });
+          },
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 30000 }
+        );
+      });
+    }
   }
 
   public setUserLocationFallback(city: string): void {
