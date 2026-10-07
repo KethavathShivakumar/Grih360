@@ -198,6 +198,9 @@ export interface TenantDoc {
           </div>
 
           <div class="space-y-3 text-xs">
+            <div *ngIf="uploadModalError" class="p-2.5 bg-rose-50 border border-rose-200 text-rose-700 font-bold rounded-xl">
+              ⚠️ {{ uploadModalError }}
+            </div>
             <div>
               <label class="block font-bold text-slate-700 mb-1">Document Title</label>
               <input
@@ -256,6 +259,8 @@ export class TenantDocumentsComponent implements OnInit {
   isLoading: boolean = true;
   isError: boolean = false;
   errorMessage: string = '';
+  toastMessage: string | null = null;
+  uploadModalError: string | null = null;
 
   activeDocPreview: TenantDoc | null = null;
   showUploadModal: boolean = false;
@@ -404,8 +409,9 @@ export class TenantDocumentsComponent implements OnInit {
   }
 
   saveUploadedDoc(): void {
+    this.uploadModalError = null;
     if (!this.newDocTitle.trim()) {
-      alert('Please provide a document title.');
+      this.uploadModalError = 'Please provide a document title.';
       return;
     }
 
@@ -422,6 +428,6 @@ export class TenantDocumentsComponent implements OnInit {
 
     this.showUploadModal = false;
     this.newDocTitle = '';
-    alert('Document added to your vault successfully!');
+    this.toastMessage = 'Document added to your vault successfully!';
   }
 }

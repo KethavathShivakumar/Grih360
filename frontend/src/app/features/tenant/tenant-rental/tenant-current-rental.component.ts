@@ -196,6 +196,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <div>
                 <h4 class="font-bold text-sm text-[#FACC15]">Confirm Agreement Terms</h4>
                 <p class="text-xs text-slate-300">By confirming, you record platform agreement to the lease terms and rental fees.</p>
+                <p *ngIf="confirmError" class="text-xs text-rose-400 font-bold mt-1">⚠️ {{ confirmError }}</p>
               </div>
               <button
                 (click)="confirmAsTenant()"
@@ -242,6 +243,7 @@ export class TenantCurrentRentalComponent implements OnInit {
   public agreement: RentalAgreement | null = null;
   public loading = true;
   public isConfirming = false;
+  public confirmError: string | null = null;
 
   constructor(
     private rentalService: RentalService,
@@ -378,6 +380,7 @@ export class TenantCurrentRentalComponent implements OnInit {
     if (!targetId) return;
 
     this.isConfirming = true;
+    this.confirmError = null;
     this.agreementService.tenantConfirmAgreement(targetId, {
       method: 'PLATFORM_CONSENT',
       notes: 'Tenant accepted residential lease terms via Tenant portal',
@@ -391,7 +394,7 @@ export class TenantCurrentRentalComponent implements OnInit {
       },
       error: (err) => {
         this.isConfirming = false;
-        alert(err?.error?.message || 'Failed to confirm agreement.');
+        this.confirmError = err?.error?.message || 'Failed to confirm agreement.';
       },
     });
   }

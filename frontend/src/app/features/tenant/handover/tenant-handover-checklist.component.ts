@@ -228,21 +228,31 @@ export interface ChecklistSection {
         </div>
 
         <!-- Sign-off & Save Bar -->
-        <div class="bg-slate-900 text-white p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h4 class="text-sm font-black text-[#FACC15]">Tenant Handover Sign-off</h4>
-            <p class="text-xs text-slate-300 mt-0.5">
-              {{ signedAt ? ('Signed off by Tenant on ' + (signedAt | date: 'medium')) : 'Review all sections above and save your handover sign-off.' }}
-            </p>
+        <div class="space-y-3">
+          <div *ngIf="toastMessage" class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-2xl flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span>✓</span>
+              <span>{{ toastMessage }}</span>
+            </div>
+            <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold">✕</button>
           </div>
 
-          <button
-            (click)="saveChecklist()"
-            type="button"
-            class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-2xl shadow-md transition hover:scale-105 cursor-pointer shrink-0"
-          >
-            {{ signedAt ? '✓ Update Sign-Off' : '✓ Sign-Off & Save Handover' }}
-          </button>
+          <div class="bg-slate-900 text-white p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h4 class="text-sm font-black text-[#FACC15]">Tenant Handover Sign-off</h4>
+              <p class="text-xs text-slate-300 mt-0.5">
+                {{ signedAt ? ('Signed off by Tenant on ' + (signedAt | date: 'medium')) : 'Review all sections above and save your handover sign-off.' }}
+              </p>
+            </div>
+
+            <button
+              (click)="saveChecklist()"
+              type="button"
+              class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-2xl shadow-md transition hover:scale-105 cursor-pointer shrink-0"
+            >
+              {{ signedAt ? '✓ Update Sign-Off' : '✓ Sign-Off & Save Handover' }}
+            </button>
+          </div>
         </div>
 
       </div>
@@ -254,14 +264,15 @@ export class TenantHandoverChecklistComponent implements OnInit {
   isLoading: boolean = true;
   isError: boolean = false;
   errorMessage: string = '';
+  toastMessage: string | null = null;
 
   checklistType: 'MOVE_IN' | 'MOVE_OUT' = 'MOVE_IN';
   signedAt: string | null = null;
 
-  meters = {
-    electricity: 4812,
-    water: 120,
-    gas: 34,
+  meters: { electricity: number | null; water: number | null; gas: number | null } = {
+    electricity: null,
+    water: null,
+    gas: null,
   };
 
   sections: ChecklistSection[] = [
@@ -368,7 +379,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     };
 
     localStorage.setItem(`handover_${this.rental.id || (this.rental as any)._id}`, JSON.stringify(payload));
-    alert('Handover checklist signed off and saved successfully! Stored in your tenancy compliance records.');
+    this.toastMessage = 'Handover checklist signed off and saved successfully! Stored in your tenancy compliance records.';
   }
 
   printChecklist(): void {

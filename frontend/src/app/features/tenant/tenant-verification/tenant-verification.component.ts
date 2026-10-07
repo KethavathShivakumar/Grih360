@@ -375,6 +375,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
 
           <form (ngSubmit)="submit()" class="space-y-6">
+            <div *ngIf="submitError" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-2xl flex items-center gap-2">
+              <span>⚠️</span>
+              <span>{{ submitError }}</span>
+            </div>
 
             <!-- Section 1: Government Identity Document -->
             <div class="space-y-3">
@@ -598,6 +602,7 @@ export class TenantVerificationComponent implements OnInit {
   public loading: boolean = true;
   public submitting: boolean = false;
   public errorMsg: string = '';
+  public submitError: string | null = null;
 
   // Form Fields
   public documentType: string = 'PASSPORT';
@@ -885,13 +890,15 @@ export class TenantVerificationComponent implements OnInit {
   }
 
   submit(): void {
+    this.submitError = null;
+
     if (!this.declarationAccepted) {
-      alert('Please accept the statutory tenant declaration to submit verification.');
+      this.submitError = 'Please accept the statutory tenant declaration to submit verification.';
       return;
     }
 
     if (!this.documentNumber.trim()) {
-      alert('Please provide a document identifier number.');
+      this.submitError = 'Please provide a document identifier number.';
       return;
     }
 
@@ -932,7 +939,7 @@ export class TenantVerificationComponent implements OnInit {
         },
         error: (err) => {
           this.submitting = false;
-          alert(err.error?.message || 'Verification submission failed. Please try again.');
+          this.submitError = err.error?.message || 'Verification submission failed. Please try again.';
         },
       });
   }

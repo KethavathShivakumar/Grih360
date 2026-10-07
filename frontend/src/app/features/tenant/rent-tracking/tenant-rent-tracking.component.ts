@@ -274,6 +274,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             />
           </div>
 
+          <div *ngIf="payError" class="p-2.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl">
+            ⚠️ {{ payError }}
+          </div>
+
           <!-- Pay Submit Button -->
           <div class="flex gap-3 pt-2">
             <button
@@ -363,6 +367,7 @@ export class TenantRentTrackingComponent implements OnInit {
   selectedPaymentMode: string = 'UPI';
   paymentNote: string = '';
   isPaying: boolean = false;
+  payError: string | null = null;
 
   showReceiptModal: boolean = false;
   activeReceipt: any = null;
@@ -468,6 +473,7 @@ export class TenantRentTrackingComponent implements OnInit {
   confirmPayment(): void {
     if (!this.rental) return;
     this.isPaying = true;
+    this.payError = null;
 
     const rentalId = this.rental.id || (this.rental as any)._id;
     this.rentalService
@@ -485,7 +491,7 @@ export class TenantRentTrackingComponent implements OnInit {
         },
         error: (err) => {
           this.isPaying = false;
-          alert(err?.error?.message || 'Payment simulation failed. Please try again.');
+          this.payError = err?.error?.message || 'Payment simulation failed. Please try again.';
         },
       });
   }

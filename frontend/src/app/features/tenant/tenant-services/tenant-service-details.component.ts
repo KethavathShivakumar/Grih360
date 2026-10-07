@@ -120,6 +120,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
               <div *ngIf="showCancelBox" class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl space-y-3">
                 <h3 class="text-xs font-bold text-[#0F2937]">Specify Cancellation Reason</h3>
+                <div *ngIf="cancelError" class="p-2 bg-[#FEF2F2] border border-[#FEE2E2] text-[#B91C1C] text-xs font-bold rounded-lg">
+                  ⚠️ {{ cancelError }}
+                </div>
                 <textarea
                   [(ngModel)]="cancelReason"
                   rows="2"
@@ -256,6 +259,7 @@ export class TenantServiceDetailsComponent implements OnInit {
 
   public showCancelBox: boolean = false;
   public cancelReason: string = '';
+  public cancelError: string = '';
   public isActionLoading: boolean = false;
 
   public reviewRating: number = 5;
@@ -356,9 +360,10 @@ export class TenantServiceDetailsComponent implements OnInit {
 
   public cancelRequest(): void {
     if (!this.cancelReason || this.cancelReason.trim() === '') {
-      alert('Please enter a reason for cancellation.');
+      this.cancelError = 'Please enter a reason for cancellation.';
       return;
     }
+    this.cancelError = '';
     this.isActionLoading = true;
     this.serviceReqService.cancelRequest(this.requestId, this.cancelReason).subscribe({
       next: () => {
@@ -368,7 +373,7 @@ export class TenantServiceDetailsComponent implements OnInit {
       },
       error: (err) => {
         this.isActionLoading = false;
-        alert(err.error?.message || 'Failed to cancel request');
+        this.cancelError = err.error?.message || 'Failed to cancel request';
       },
     });
   }

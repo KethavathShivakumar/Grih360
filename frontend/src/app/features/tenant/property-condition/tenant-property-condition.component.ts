@@ -223,6 +223,15 @@ export interface RoomInspection {
             </a>
           </div>
 
+          <!-- Toast Message Banner -->
+          <div *ngIf="toastMessage" class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-2xl flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span>✓</span>
+              <span>{{ toastMessage }}</span>
+            </div>
+            <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold">✕</button>
+          </div>
+
           <!-- Save Button -->
           <div class="flex justify-end pt-2">
             <button
@@ -244,6 +253,7 @@ export class TenantPropertyConditionComponent implements OnInit {
   isLoading: boolean = true;
   isError: boolean = false;
   errorMessage: string = '';
+  toastMessage: string | null = null;
 
   selectedRoomIndex: number = 0;
 
@@ -372,7 +382,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     ];
     const randomPhoto = samplePhotos[Math.floor(Math.random() * samplePhotos.length)];
     this.activeRoom.photos.push(randomPhoto);
-    alert('Inspection photo added to ' + this.activeRoom.name);
+    this.toastMessage = 'Inspection photo added to ' + this.activeRoom.name;
   }
 
   removePhoto(index: number): void {
@@ -387,7 +397,7 @@ export class TenantPropertyConditionComponent implements OnInit {
       updatedAt: new Date().toISOString(),
     };
     localStorage.setItem(`condition_${this.rental.id || (this.rental as any)._id}`, JSON.stringify(payload));
-    alert('Property condition assessment saved successfully! Logged in your tenancy records.');
+    this.toastMessage = 'Property condition assessment saved successfully! Logged in your tenancy records.';
   }
 
   printReport(): void {

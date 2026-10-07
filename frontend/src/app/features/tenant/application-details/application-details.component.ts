@@ -57,6 +57,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Application Detail Content -->
       <div *ngIf="!isLoading && !isError && application" class="space-y-6">
+        <div *ngIf="updateError" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-2xl flex items-center gap-2">
+          <span>⚠️</span>
+          <span>{{ updateError }}</span>
+        </div>
+
         <!-- Status Header Card -->
         <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
@@ -262,6 +267,7 @@ export class ApplicationDetailsComponent implements OnInit {
   isError: boolean = false;
   errorMessage: string = '';
   isUpdating: boolean = false;
+  updateError: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -425,7 +431,7 @@ export class ApplicationDetailsComponent implements OnInit {
 
   withdrawApplication(): void {
     if (!this.applicationId) return;
-    if (!confirm('Are you sure you want to withdraw this rental application?')) return;
+    this.updateError = null;
 
     this.isUpdating = true;
     this.applicationService.updateApplicationStatus(this.applicationId, 'WITHDRAWN').subscribe({
@@ -435,7 +441,7 @@ export class ApplicationDetailsComponent implements OnInit {
       },
       error: (err: any) => {
         this.isUpdating = false;
-        alert(err?.error?.message || 'Failed to withdraw application.');
+        this.updateError = err?.error?.message || 'Failed to withdraw application.';
       },
     });
   }
