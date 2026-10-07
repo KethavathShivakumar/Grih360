@@ -13,7 +13,7 @@ import { MoneyService } from '../../../core/services/money.service';
       class="bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden flex flex-col justify-between h-full"
     >
       <!-- Property Image Header -->
-      <div class="relative w-full h-52 bg-slate-100 overflow-hidden">
+      <div class="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
         <img
           [src]="mainImageUrl"
           [alt]="property.title"
@@ -22,18 +22,18 @@ import { MoneyService } from '../../../core/services/money.service';
         />
         
         <!-- Rent Tag Pill (Top Left) -->
-        <div class="absolute top-3 left-3 bg-white/95 text-[#0F2937] text-xs font-black px-3 py-1 rounded-full shadow-md backdrop-blur-md flex items-center gap-1 border border-slate-100">
+        <div class="absolute top-2.5 left-2.5 bg-[#0F2937] text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
           <span>{{ formattedRent }}</span>
         </div>
 
-        <!-- Action Overlay (Top Right: Save) -->
-        <div class="absolute top-3 right-3 flex items-center gap-2">
+        <!-- Action Overlay (Top Right: Save / Heart) -->
+        <div class="absolute top-2.5 right-2.5 flex items-center gap-2">
           <button
             (click)="onSaveClick($event)"
             type="button"
             [title]="isSaved ? 'Remove from Saved' : 'Save Property'"
             [class]="isSaved ? 'bg-rose-500 text-white' : 'bg-white/90 hover:bg-white text-slate-700'"
-            class="p-2 rounded-full shadow-md transition-transform active:scale-95 cursor-pointer backdrop-blur-md"
+            class="p-1.5 rounded-full shadow-md transition-transform active:scale-95 cursor-pointer backdrop-blur-md"
           >
             <svg class="w-4 h-4" [attr.fill]="isSaved ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -42,34 +42,31 @@ import { MoneyService } from '../../../core/services/money.service';
         </div>
 
         <!-- Image Count Badge (Bottom Left) -->
-        <div class="absolute bottom-3 left-3 bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md flex items-center gap-1.5">
+        <div class="absolute bottom-2.5 left-2.5 bg-black/60 text-white text-[9px] font-bold px-2 py-0.5 rounded-full backdrop-blur-md flex items-center gap-1">
           <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-          <span>{{ imageCount }} photos</span>
+          <span>{{ imageCount }}</span>
         </div>
 
         <!-- Availability Status Badge (Bottom Right) -->
         <div
           [class]="availabilityBadgeClass"
-          class="absolute bottom-3 right-3 text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wide backdrop-blur-md"
+          class="absolute bottom-2.5 right-2.5 text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow-xs uppercase tracking-wide backdrop-blur-md"
         >
           {{ formattedAvailability }}
         </div>
       </div>
 
       <!-- Property Details Body -->
-      <div class="p-4 sm:p-5 space-y-3.5 flex-grow flex flex-col justify-between">
+      <div class="p-3 sm:p-4 space-y-2 flex-grow flex flex-col justify-between">
         <div>
-          <!-- Property Type & Listing Status -->
-          <div class="flex items-center justify-between gap-2 mb-1.5">
-            <span class="text-[10px] font-black uppercase tracking-wider text-[#2D7A5E] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+          <!-- Property Type Badge -->
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="text-[9px] font-black uppercase tracking-wider text-[#2D7A5E] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
               {{ formattedPropertyType }}
-            </span>
-            <span *ngIf="property.isListed" class="text-[10px] font-bold text-slate-500">
-              MTA Compliant Listing
             </span>
           </div>
 
-          <h3 class="text-sm sm:text-base font-extrabold text-[#0F2937] group-hover:text-[#2D7A5E] transition-colors line-clamp-1">
+          <h3 class="text-xs sm:text-sm font-extrabold text-[#0F2937] group-hover:text-[#2D7A5E] transition-colors truncate">
             {{ property.title }}
           </h3>
 
