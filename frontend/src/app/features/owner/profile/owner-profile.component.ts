@@ -187,6 +187,76 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
             </div>
           </div>
         </div>
+
+        <!-- Workspace Navigation & Quick Access Menu (Requirement: 100% reachability) -->
+        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-3">
+            <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
+              <span>🚀</span>
+              <span>Owner Console Quick Navigation Menu</span>
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <a
+              routerLink="/owner/properties/new"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">➕</span>
+              <span>Add Property</span>
+            </a>
+            <a
+              routerLink="/owner/properties"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">🏢</span>
+              <span>My Properties</span>
+            </a>
+            <a
+              routerLink="/owner/applicants"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">📋</span>
+              <span>Applicants</span>
+            </a>
+            <a
+              routerLink="/owner/rentals"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">📜</span>
+              <span>Rental Leases</span>
+            </a>
+            <a
+              routerLink="/owner/rent-tracking"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">💰</span>
+              <span>Rent Tracking</span>
+            </a>
+            <a
+              routerLink="/owner/notifications"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">🔔</span>
+              <span>Notifications</span>
+            </a>
+            <a
+              routerLink="/owner/settings"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">⚙️</span>
+              <span>Settings</span>
+            </a>
+            <button
+              (click)="activeTab = 'security'"
+              type="button"
+              class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer text-left"
+            >
+              <span class="text-lg group-hover:scale-110 transition-transform">🔒</span>
+              <span>Security</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 2: EDIT PROFILE -->

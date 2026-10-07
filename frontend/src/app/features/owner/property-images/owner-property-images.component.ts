@@ -208,16 +208,44 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <button (click)="closeAddModal()" class="text-slate-400 hover:text-slate-600 font-bold cursor-pointer text-lg">✕</button>
           </div>
 
+          <!-- Camera & Gallery Direct Upload Controls -->
+          <div class="space-y-1">
+            <span class="text-xs font-bold text-slate-700 block">Take Photo or Pick from Device</span>
+            <div class="flex flex-wrap items-center gap-2">
+              <label class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[#2D7A5E] text-xs font-bold rounded-xl cursor-pointer flex items-center transition-colors">
+                <span class="mr-1.5">📷</span>
+                Take Photo (Camera)
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  (change)="onFileSelected($event)"
+                  class="hidden"
+                />
+              </label>
+              <label class="px-3.5 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-bold rounded-xl cursor-pointer flex items-center transition-colors shadow-xs">
+                <span class="mr-1.5">🖼️</span>
+                Pick from Gallery
+                <input
+                  type="file"
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                  class="hidden"
+                />
+              </label>
+            </div>
+          </div>
+
           <!-- URL Input -->
           <div class="space-y-1">
-            <label class="text-xs font-bold text-slate-700">Photo URL *</label>
+            <label class="text-xs font-bold text-slate-700">Or Enter Photo URL</label>
             <input
               type="url"
               [(ngModel)]="newImageUrl"
               placeholder="https://example.com/property-photo.jpg"
               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
             />
-            <p class="text-[10px] text-slate-400">Enter a direct HTTPS image URL (PNG, JPG, WebP)</p>
+            <p class="text-[10px] text-slate-400">Direct HTTPS image URL or uploaded photo Data URL</p>
           </div>
 
           <!-- Caption Input -->
@@ -467,6 +495,19 @@ export class OwnerPropertyImagesComponent implements OnInit {
     this.newImageUrl = sample.url;
     this.newImageCaption = sample.caption;
     this.previewError = false;
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files?.[0];
+    if (!file || !file.type.startsWith('image/')) return;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.newImageUrl = e.target.result;
+      this.newImageCaption = this.newImageCaption || file.name;
+      this.previewError = false;
+    };
+    reader.readAsDataURL(file);
   }
 
   closeAddModal(): void {
