@@ -151,11 +151,20 @@ export class AuthController {
    * POST /api/v1/auth/logout
    */
   static async logout(req: Request, res: Response): Promise<void> {
+    try {
+      const { refreshToken } = req.body;
+      if (refreshToken) {
+        const { JwtUtil } = require('../utils/jwt.util');
+        const { RefreshTokenModel } = require('../models/refresh-token.model');
+        const tokenHash = JwtUtil.hashToken(refreshToken);
+        await RefreshTokenModel.deleteOne({ tokenHash });
+      }
+    } catch (e) {}
     ApiResponseUtil.success(res, 'Logged out successfully');
   }
 
   /**
-   * Token Refresh
+   * Token Refresh with 30-day lifetime & Rotation
    * POST /api/v1/auth/refresh
    */
   static async refreshToken(req: Request, res: Response): Promise<void> {
@@ -166,13 +175,34 @@ export class AuthController {
         return;
       }
       const { JwtUtil } = require('../utils/jwt.util');
+      const { RefreshTokenModel } = require('../models/refresh-token.model');
+
       const payload = JwtUtil.verifyRefreshToken(refreshToken);
+      const tokenHash = JwtUtil.hashToken(refreshToken);
+
+      // Verify and invalidate old refresh token (Rotation security)
+      const existingToken = await RefreshTokenModel.findOneAndDelete({ tokenHash });
+      if (!existingToken) {
+        ApiResponseUtil.error(res, 'Invalid or revoked refresh token', 401, 'INVALID_REFRESH_TOKEN');
+        return;
+      }
+
       const user = await AuthService.getAuthenticatedUser(payload.userId);
       const tokens = JwtUtil.generateTokens({
         userId: payload.userId,
         role: payload.role,
         email: payload.email,
       });
+
+      // Save new rotated 30-day refresh token in MongoDB
+      const newTokenHash = JwtUtil.hashToken(tokens.refreshToken);
+      const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+      await RefreshTokenModel.create({
+        userId: payload.userId,
+        tokenHash: newTokenHash,
+        expiresAt,
+      });
+
       ApiResponseUtil.success(res, 'Token refreshed successfully', { user, tokens });
     } catch (err) {
       ApiResponseUtil.error(res, 'Invalid or expired refresh token', 401, 'INVALID_REFRESH_TOKEN');

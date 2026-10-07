@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import { config } from '../config/env';
 import { AuthTokens, UserRole } from '../types/auth.types';
 
@@ -13,10 +14,16 @@ export class JwtUtil {
     const accessToken = jwt.sign(payload, config.jwtAccessSecret, {
       expiresIn: '15m',
     });
+    const tokenId = crypto.randomBytes(16).toString('hex');
     const refreshToken = jwt.sign(payload, config.jwtRefreshSecret, {
-      expiresIn: '7d',
+      expiresIn: '30d',
+      jwtid: tokenId,
     });
     return { accessToken, refreshToken };
+  }
+
+  static hashToken(token: string): string {
+    return crypto.createHash('sha256').update(token).digest('hex');
   }
 
   static verifyAccessToken(token: string): JwtPayload {

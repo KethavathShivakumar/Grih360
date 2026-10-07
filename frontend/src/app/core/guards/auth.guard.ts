@@ -7,24 +7,21 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  // Fast path: user already in memory (e.g., after login or if already initialized)
-  if (authService.getCurrentUser()) return true;
-
-  const loginRoute = state.url.startsWith('/admin') ? '/admin/login' : '/auth/login';
-
-  // No token at all — not authenticated
-  if (!authService.hasToken()) {
-    router.navigate([loginRoute], { queryParams: { returnUrl: state.url } });
-    return false;
-  }
-
-  // Token exists but user not yet loaded (page refresh) — wait for /auth/me to complete
   return authService.waitForInit().pipe(
     map(() => {
-      if (authService.getCurrentUser()) return true;
-      // /auth/me failed (bad/expired token)
-      router.navigate([loginRoute], { queryParams: { returnUrl: state.url } });
-      return false;
+      const user = authService.getCurrentUser();
+      const hasToken = authService.hasToken();
+
+      if (user) return true;
+
+      const loginRoute = state.url.startsWith('/admin') ? '/admin/login' : '/auth/login';
+
+      if (!hasToken) {
+        router.navigate([loginRoute], { queryParams: { returnUrl: state.url } });
+        return false;
+      }
+
+      return true;
     })
   );
 };

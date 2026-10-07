@@ -84,20 +84,21 @@ import { AdminSettingsComponent } from './features/admin/settings/admin-settings
 
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 import { AdminLoginComponent } from './features/admin/auth/admin-login.component';
 import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'role-selection', pathMatch: 'full' },
-  { path: 'role-selection', component: RoleSelectionComponent },
+  { path: 'role-selection', component: RoleSelectionComponent, canActivate: [guestGuard] },
   { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'register', redirectTo: 'auth/register', pathMatch: 'full' },
   { path: 'verify-email', redirectTo: 'auth/verify-email', pathMatch: 'full' },
-  { path: 'auth/login', component: LoginComponent },
-  { path: 'auth/register', component: RegisterComponent },
-  { path: 'auth/verify-email', component: VerifyEmailComponent },
-  { path: 'admin/login', component: AdminLoginComponent },
+  { path: 'auth/login', component: LoginComponent, canActivate: [guestGuard] },
+  { path: 'auth/register', component: RegisterComponent, canActivate: [guestGuard] },
+  { path: 'auth/verify-email', component: VerifyEmailComponent, canActivate: [guestGuard] },
+  { path: 'admin/login', component: AdminLoginComponent, canActivate: [guestGuard] },
 
   // Tenant Workspace Routes
   {

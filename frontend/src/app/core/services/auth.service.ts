@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, catchError, of, filter, take, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, of, filter, take, switchMap, from, map } from 'rxjs';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
 import { User, UserRole } from '../../shared/models/user.model';
@@ -16,28 +16,44 @@ export class AuthService {
   public isInitialized$: Observable<boolean> = this.initializationSubject.asObservable();
 
   private isRefreshing = false;
+  private sessionInitPromise: Promise<void> | null = null;
 
   constructor(
     private apiService: ApiService,
     private storageService: StorageService
-  ) {
-    this.initSession();
+  ) {}
+
+  public initSessionPromise(): Promise<void> {
+    if (!this.sessionInitPromise) {
+      this.sessionInitPromise = this.initSession();
+    }
+    return this.sessionInitPromise;
   }
 
   private async initSession(): Promise<void> {
     await this.storageService.initNativeStorage();
     const token = this.storageService.getToken();
-    if (token) {
-      this.fetchCurrentUser();
+    const cachedUser = this.storageService.getUser();
+
+    // OPTIMISTIC RESTORE: If token AND stored user exist in Preferences/Storage,
+    // restore state immediately without blocking UI on network call
+    if (token && cachedUser) {
+      this.currentUserSubject.next(cachedUser);
+      this.initializationSubject.next(true);
+
+      // Validate session asynchronously in background
+      this.validateSessionInBackground();
+    } else if (token) {
+      // Token exists but no cached user details: fetch user synchronously before ready
+      await this.fetchCurrentUserPromise();
     } else {
       this.initializationSubject.next(true);
     }
   }
 
-  public fetchCurrentUser(): void {
+  private validateSessionInBackground(): void {
     this.apiService.get<{ success: boolean; data: { user: User } }>('/auth/me').pipe(
       catchError((err: any) => {
-        // Status 401: Access token expired. Attempt token refresh before deciding session fate.
         if (err?.status === 401) {
           return this.refreshSession().pipe(
             switchMap((refreshSuccess) => {
@@ -50,15 +66,53 @@ export class AuthService {
             })
           );
         }
-        // For network errors (status 0), timeouts, or 5xx: DO NOT clear session or logout.
+        // Network error (status 0), timeout, or 5xx: DO NOT logout. Keep optimistic user session!
         return of(null);
       })
     ).subscribe((res) => {
       if (res && res.success && res.data?.user) {
         this.currentUserSubject.next(res.data.user);
+        this.storageService.setUser(res.data.user);
       }
-      this.initializationSubject.next(true);
     });
+  }
+
+  private fetchCurrentUserPromise(): Promise<void> {
+    return new Promise((resolve) => {
+      this.apiService.get<{ success: boolean; data: { user: User } }>('/auth/me').pipe(
+        catchError((err: any) => {
+          if (err?.status === 401) {
+            return this.refreshSession().pipe(
+              switchMap((refreshSuccess) => {
+                if (refreshSuccess) {
+                  return this.apiService.get<{ success: boolean; data: { user: User } }>('/auth/me').pipe(
+                    catchError(() => of(null))
+                  );
+                }
+                return of(null);
+              })
+            );
+          }
+          return of(null);
+        })
+      ).subscribe((res) => {
+        if (res && res.success && res.data?.user) {
+          this.currentUserSubject.next(res.data.user);
+          this.storageService.setUser(res.data.user);
+        } else if (!this.currentUserSubject.value) {
+          const cachedUser = this.storageService.getUser();
+          if (cachedUser) {
+            this.currentUserSubject.next(cachedUser);
+          }
+        }
+        this.initializationSubject.next(true);
+        resolve();
+      });
+    });
+  }
+
+  public fetchCurrentUser(): void {
+    this.fetchCurrentUserPromise();
   }
 
   /**
@@ -73,20 +127,23 @@ export class AuthService {
 
     this.isRefreshing = true;
     return this.apiService.post<any>('/auth/refresh', { refreshToken }).pipe(
-      tap((res) => {
+      switchMap((res) => {
         if (res?.success && res?.data?.tokens?.accessToken) {
-          this.storageService.setToken(res.data.tokens.accessToken);
+          const tokenPromises: Promise<any>[] = [
+            this.storageService.setToken(res.data.tokens.accessToken)
+          ];
           if (res.data.tokens.refreshToken) {
-            this.storageService.setRefreshToken(res.data.tokens.refreshToken);
+            tokenPromises.push(this.storageService.setRefreshToken(res.data.tokens.refreshToken));
           }
           if (res.data.user) {
+            tokenPromises.push(this.storageService.setUser(res.data.user));
             this.currentUserSubject.next(res.data.user);
           }
+          return from(Promise.all(tokenPromises)).pipe(map(() => true));
         }
+        return of(false);
       }),
-      switchMap((res) => of(!!(res?.success && res?.data?.tokens?.accessToken))),
       catchError((err: any) => {
-        // Clear session ONLY when refresh token is explicitly rejected (401 or 403)
         if (err?.status === 401 || err?.status === 403) {
           this.storageService.clearSession();
           this.currentUserSubject.next(null);
@@ -99,14 +156,15 @@ export class AuthService {
     );
   }
 
-  private saveTokensAndUser(tokens: { accessToken: string; refreshToken?: string }, user?: User): void {
+  private async saveTokensAndUser(tokens: { accessToken: string; refreshToken?: string }, user?: User): Promise<void> {
     if (tokens?.accessToken) {
-      this.storageService.setToken(tokens.accessToken);
+      await this.storageService.setToken(tokens.accessToken);
     }
     if (tokens?.refreshToken) {
-      this.storageService.setRefreshToken(tokens.refreshToken);
+      await this.storageService.setRefreshToken(tokens.refreshToken);
     }
     if (user) {
+      await this.storageService.setUser(user);
       this.currentUserSubject.next(user);
     }
     this.initializationSubject.next(true);
@@ -120,35 +178,39 @@ export class AuthService {
     role: UserRole;
   }): Observable<any> {
     return this.apiService.post<any>('/auth/register', userData).pipe(
-      tap((res) => {
+      switchMap(async (res) => {
         if (res.success && res.data?.tokens?.accessToken && !res.requiresEmailOtp) {
-          this.saveTokensAndUser(res.data.tokens, res.data.user);
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
+        return res;
       })
     );
   }
 
   public login(identifier: string, password: string): Observable<any> {
     return this.apiService.post<any>('/auth/login', { identifier, password }).pipe(
-      tap((res) => {
+      switchMap(async (res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.saveTokensAndUser(res.data.tokens, res.data.user);
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
+        return res;
       })
     );
   }
 
   public adminLogin(identifier: string, password: string): Observable<any> {
     return this.apiService.post<any>('/auth/login', { identifier, password, directToken: true }).pipe(
-      tap((res) => {
+      switchMap(async (res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.saveTokensAndUser(res.data.tokens, res.data.user);
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
+        return res;
       })
     );
   }
 
   public logout(): void {
+    console.log('[Auth Debug] Explicit logout triggered by user');
     this.apiService.post('/auth/logout', {}).subscribe({
       error: () => {},
     });
@@ -181,10 +243,11 @@ export class AuthService {
 
   public verifyOtp(identifier: string, otp: string): Observable<any> {
     return this.apiService.post<any>('/auth/otp/verify', { identifier, otp }).pipe(
-      tap((res) => {
+      switchMap(async (res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.saveTokensAndUser(res.data.tokens, res.data.user);
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
         }
+        return res;
       })
     );
   }
@@ -217,11 +280,12 @@ export class AuthService {
 
   public verifyLoginOtp(challengeId: string, otp: string): Observable<any> {
     return this.apiService.post<any>('/auth/verify-login-otp', { challengeId, otp }).pipe(
-      tap((res) => {
+      switchMap(async (res) => {
         if (res.success && res.data?.tokens?.accessToken) {
-          this.saveTokensAndUser(res.data.tokens, res.data.user);
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
           this.clearActiveChallenge();
         }
+        return res;
       })
     );
   }
@@ -232,7 +296,7 @@ export class AuthService {
 
   public waitForInit(): Observable<boolean> {
     return this.isInitialized$.pipe(
-      filter(init => init === true),
+      filter((init) => init === true),
       take(1)
     );
   }
