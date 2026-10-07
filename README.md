@@ -1,6 +1,6 @@
-# Nivas360 — Unified Home Platform (Tier-2 & Tier-3 India)
+# Grih360 — Unified Home Platform (Tier-2 & Tier-3 India)
 
-Nivas360 is a production-oriented unified home ecosystem designed for Tier-2 and Tier-3 India, initially focused on Telangana and Andhra Pradesh. It unifies Property Discovery, Rental Applications, Background Verification, Lease Lifecycle, Rent Tracking, Home Services, Professional Networks, and Admin Operations into a single cohesive MEAN-stack application.
+Grih360 is a production-oriented unified home ecosystem designed for Tier-2 and Tier-3 India, initially focused on Telangana and Andhra Pradesh. It unifies Property Discovery, Rental Applications, Background Verification, Lease Lifecycle, Rent Tracking, Home Services, Professional Networks, and Admin Operations into a single cohesive MEAN-stack application.
 
 ---
 
@@ -17,7 +17,7 @@ Nivas360 is a production-oriented unified home ecosystem designed for Tier-2 and
 ## Directory Structure
 
 ```text
-Nivas360/
+Grih360/
 ├── backend/
 │   ├── src/
 │   │   ├── config/         # Environment variables & DB connection
@@ -45,13 +45,4 @@ Nivas360/
 ├── API_DOCUMENTATION.md    # REST API Specification
 └── DESIGN_TRACKING.md     # Stitch Design & Page Status Matrix
 ```
-
-
-## Pending External Integrations (Service Abstractions)
-
-The following external service integrations use clean provider abstractions and render explicit pending states (no fake provider responses):
-- **OTP Gateway**: Provider abstraction prepared for SMS gateways (e.g., MSG91 / Twilio).
-- **Government Aadhaar Verification**: Provider abstraction prepared for authorized KYC providers.
-- **Payment Gateway**: Payment tracking model ready for Razorpay / Cashfree API integration.
-- **Legal E-Sign**: Agreement model prepared for eMudhra / Digio integration.
 
