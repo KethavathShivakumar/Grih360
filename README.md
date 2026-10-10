@@ -46,12 +46,3 @@ Grih360/
 └── DESIGN_TRACKING.md     # Stitch Design & Page Status Matrix
 ```
 
-
-## Pending External Integrations (Service Abstractions)
-
-The following external service integrations use clean provider abstractions and render explicit pending states (no fake provider responses):
-- **OTP Gateway**: Provider abstraction prepared for SMS gateways (e.g., MSG91 / Twilio).
-- **Government Aadhaar Verification**: Provider abstraction prepared for authorized KYC providers.
-- **Payment Gateway**: Payment tracking model ready for Razorpay / Cashfree API integration.
-- **Legal E-Sign**: Agreement model prepared for eMudhra / Digio integration.
-
