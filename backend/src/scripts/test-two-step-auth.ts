@@ -9,7 +9,7 @@ const baseUrl = `http://localhost:${PORT}/api/v1`;
 
 async function runTests() {
   console.log('===========================================================');
-  console.log(' Nivas360 — Two-Step Authentication & Challenge Verification Test');
+  console.log(' Grih360 — Two-Step Authentication & Challenge Verification Test');
   console.log('===========================================================');
 
   try {
@@ -24,7 +24,7 @@ async function runTests() {
 
   try {
     const timestamp = Date.now();
-    const testEmail = `tenant_2step_${timestamp}@nivas360.com`;
+    const testEmail = `tenant_2step_${timestamp}@grih360.com`;
     const testPassword = 'Password123!';
 
     // STEP 1: Register Account
@@ -47,7 +47,7 @@ async function runTests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: 'nobody_does_not_exist@nivas360.com',
+        email: 'nobody_does_not_exist@grih360.com',
         password: 'SomePassword123!',
       }),
     });

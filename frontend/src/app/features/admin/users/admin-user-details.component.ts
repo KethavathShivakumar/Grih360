@@ -170,7 +170,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </h3>
           <div class="space-y-3 text-xs">
             <p class="text-slate-500 text-[11px]">
-              Inspect related records associated with this account across Nivas360 subsystems:
+              Inspect related records associated with this account across Grih360 subsystems:
             </p>
             <div class="space-y-2">
               <a

@@ -287,7 +287,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
             <div class="p-4 bg-rose-50/60 rounded-2xl border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span class="font-extrabold text-rose-900 block">Sign Out of Nivas360</span>
+                <span class="font-extrabold text-rose-900 block">Sign Out of Grih360</span>
                 <span class="text-[11px] text-rose-700 block mt-0.5">Safely end your current session across devices.</span>
               </div>
               <button
@@ -418,7 +418,7 @@ export class TenantSettingsComponent implements OnInit {
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify({ user, exportedAt: new Date().toISOString() }));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `nivas360_tenant_data_${Date.now()}.json`);
+    downloadAnchor.setAttribute('download', `grih360_tenant_data_${Date.now()}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();

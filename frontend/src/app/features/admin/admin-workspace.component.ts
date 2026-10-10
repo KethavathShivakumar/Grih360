@@ -11,7 +11,7 @@ import { CustomerCareComponent } from '../../shared/components/customer-care/cus
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col">
       <header class="bg-white border-b border-[#E8E6DF] px-6 py-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <a routerLink="/" class="text-xl font-extrabold text-[#0F2937]">Nivas<span class="text-[#2D7A5E]">360</span></a>
+          <a routerLink="/" class="text-xl font-extrabold text-[#0F2937]">Grih<span class="text-[#2D7A5E]">360</span></a>
           <span class="px-2.5 py-0.5 bg-red-700 text-white text-xs font-bold rounded-full">System Admin Console</span>
         </div>
         <app-customer-care></app-customer-care>

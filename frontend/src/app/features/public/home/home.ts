@@ -10,7 +10,7 @@ import { HealthCheckStatus } from '../../../core/models/api-response.model';
   imports: [CommonModule, RouterLink],
   template: `
     <div style="padding: 2rem; max-width: 800px; margin: 0 auto; font-family: system-ui, sans-serif;">
-      <h1 style="color: #1e293b;">Nivas360 — Phase 0 Foundation</h1>
+      <h1 style="color: #1e293b;">Grih360 — Phase 0 Foundation</h1>
       <p style="color: #64748b; font-size: 1.1rem;">
         MEAN Stack Architecture Baseline (Angular + Express + Node.js + MongoDB)
       </p>
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Health check failed:', err);
-        this.errorMessage.set('Could not connect to Nivas360 API server');
+        this.errorMessage.set('Could not connect to Grih360 API server');
         this.loading.set(false);
       }
     });

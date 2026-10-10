@@ -154,7 +154,7 @@ export interface TenantDoc {
           <!-- Document Mock Paper Body -->
           <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-3 font-mono text-xs text-slate-700">
             <div class="text-center pb-3 border-b border-slate-200">
-              <div class="font-extrabold text-sm text-[#0F2937]">NIVAS360 RESIDENTIAL NETWORK</div>
+              <div class="font-extrabold text-sm text-[#0F2937]">GRIH360 RESIDENTIAL NETWORK</div>
               <div class="text-[10px] text-slate-500">Government Registered Model Tenancy Act Archive</div>
             </div>
             <div class="space-y-1 text-[11px]">
@@ -423,7 +423,7 @@ export class TenantDocumentsComponent implements OnInit {
       type: 'Uploaded Document',
       size: '1.2 MB',
       status: 'ACTIVE',
-      description: 'Tenant uploaded document stored securely in your Nivas360 encrypted vault.',
+      description: 'Tenant uploaded document stored securely in your Grih360 encrypted vault.',
     });
 
     this.showUploadModal = false;

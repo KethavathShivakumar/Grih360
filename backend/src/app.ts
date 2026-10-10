@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 const isAllowedOrigin = (origin: string | undefined): boolean => {
   if (!origin) return true;
   if (config.frontendUrl && origin === config.frontendUrl) return true;
-  if (origin === 'https://nivas360.vercel.app') return true;
+  if (origin === 'https://nivas360.vercel.app' || origin === 'https://grih360.vercel.app') return true;
   if (/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.vercel\.app$/i.test(origin)) return true;
   // Capacitor Android & iOS native WebView origins
   if (
@@ -78,7 +78,7 @@ app.use(config.apiVersion, routes);
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'Welcome to Nivas360 REST API Server',
+    message: 'Welcome to Grih360 REST API Server',
     healthCheck: `${config.apiVersion}/health`,
   });
 });

@@ -716,7 +716,7 @@ export class VerificationService {
         recipientId: tenantIdStr,
         title: newStatus === 'VERIFIED' ? 'Identity Verification Approved' : 'Identity Verification Update',
         message: newStatus === 'VERIFIED'
-          ? 'Your identity verification has been reviewed and verified by the Nivas360 compliance team.'
+          ? 'Your identity verification has been reviewed and verified by the Grih360 compliance team.'
           : `Identity verification decision: ${newStatus}. ${rejectionReason ? 'Reason: ' + rejectionReason : ''}`,
         type: 'SYSTEM',
         link: verification.applicationId ? `/tenant/verification/${verification.applicationId}` : '/tenant/verification',
@@ -787,7 +787,7 @@ export class VerificationService {
           recipientId: tenantIdStr,
           title: newStatus === 'VERIFIED' ? 'Identity Verification Approved' : 'Identity Verification Update',
           message: newStatus === 'VERIFIED'
-            ? 'Your identity verification has been reviewed and verified by the Nivas360 compliance team.'
+            ? 'Your identity verification has been reviewed and verified by the Grih360 compliance team.'
             : `Identity verification decision: ${newStatus}. ${rejectionReason ? 'Reason: ' + rejectionReason : ''}`,
           type: 'SYSTEM',
           link: verification.applicationId ? `/tenant/verification/${verification.applicationId}` : '/tenant/verification',

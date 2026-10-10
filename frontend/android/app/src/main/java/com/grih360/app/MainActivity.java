@@ -1,4 +1,4 @@
-package com.nivas360.app;
+package com.grih360.app;
 
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;

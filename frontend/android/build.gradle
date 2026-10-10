@@ -24,6 +24,14 @@ allprojects {
     }
 }
 
+subprojects {
+    tasks.matching { it.name.startsWith("compile") && it.name.endsWith("Kotlin") }.configureEach {
+        kotlinOptions {
+            jvmTarget = "21"
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

@@ -222,7 +222,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div class="space-y-1 text-xs">
             <span class="font-extrabold text-white text-sm block">Isolated & Encrypted Identity Vault</span>
             <p class="text-slate-300 leading-relaxed">
-              In strict accordance with data privacy regulations, full unmasked identity documents are <strong class="text-white">NEVER exposed to property owners</strong>. Property owners receive only verified/unverified high-level status confirmations. Only authorized Nivas360 compliance officers access audit files.
+              In strict accordance with data privacy regulations, full unmasked identity documents are <strong class="text-white">NEVER exposed to property owners</strong>. Property owners receive only verified/unverified high-level status confirmations. Only authorized Grih360 compliance officers access audit files.
             </p>
           </div>
         </div>
@@ -544,7 +544,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <label for="declarationAccepted" class="text-xs text-indigo-950 leading-relaxed cursor-pointer">
-                <strong>Statutory Tenant Declaration:</strong> I hereby certify that the information and identity details provided are true, correct, and complete. I authorize Nivas360 compliance personnel to verify the submitted documents for tenancy eligibility in accordance with the Model Tenancy Act.
+                <strong>Statutory Tenant Declaration:</strong> I hereby certify that the information and identity details provided are true, correct, and complete. I authorize Grih360 compliance personnel to verify the submitted documents for tenancy eligibility in accordance with the Model Tenancy Act.
               </label>
             </div>
 

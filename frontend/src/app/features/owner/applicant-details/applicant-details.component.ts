@@ -385,7 +385,7 @@ export class ApplicantDetailsComponent implements OnInit {
   }
 
   get applicantEmail(): string {
-    return this.application?.tenantId?.email || this.application?.applicationData?.applicantEmail || 'tenant@nivas360.com';
+    return this.application?.tenantId?.email || this.application?.applicationData?.applicantEmail || 'tenant@grih360.com';
   }
 
   get applicantPhone(): string {
@@ -421,7 +421,7 @@ export class ApplicantDetailsComponent implements OnInit {
 
   get propertyLocation(): string {
     const loc = this.application?.propertyId?.propertyLocation;
-    return loc ? `${loc.locality || loc.address}, ${loc.city}` : 'Nivas360 Location';
+    return loc ? `${loc.locality || loc.address}, ${loc.city}` : 'Grih360 Location';
   }
 
   get propertyImage(): string {

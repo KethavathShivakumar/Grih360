@@ -13,10 +13,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <header class="w-full flex items-center justify-between py-3 border-b border-[#E8E6DF] mobile-top-bar">
         <div class="flex items-center space-x-2 shrink-0">
           <div class="w-8 h-8 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-xs">
-            N
+            G
           </div>
           <div class="flex flex-col">
-            <span class="text-base font-black text-[#0F2937] leading-tight">Nivas<span class="text-[#2D7A5E]">360</span></span>
+            <span class="text-base font-black text-[#0F2937] leading-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
             <span class="text-[10px] text-slate-500 font-medium leading-none">Civic Rental Hub</span>
           </div>
         </div>
@@ -38,7 +38,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <span>AP & TG Government Compliant</span>
           </div>
           <h1 class="text-2xl font-black text-[#0F2937] tracking-tight">
-            Welcome to Nivas360
+            Welcome to Grih360
           </h1>
           <p class="text-xs text-slate-600 max-w-xs mx-auto leading-relaxed">
             Select how you would like to proceed with your verified tenancy workspace.
@@ -107,7 +107,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
       <!-- Footer -->
       <footer class="py-3 text-center text-[11px] text-slate-500 border-t border-[#E8E6DF] flex items-center justify-between">
-        <span>© 2026 Nivas360</span>
+        <span>© 2026 Grih360</span>
         <a routerLink="/admin/login" class="text-slate-400 font-semibold hover:text-[#0F2937]">
           Admin Console →
         </a>

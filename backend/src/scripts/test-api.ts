@@ -8,7 +8,7 @@ const PORT = 5099;
 
 async function runBackendTests() {
   console.log('===========================================================');
-  console.log(' Nivas360 Phase 3 Backend & API Test Suite');
+  console.log(' Grih360 Phase 3 Backend & API Test Suite');
   console.log('===========================================================');
 
   let passed = 0;
@@ -49,7 +49,7 @@ async function runBackendTests() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: 'Malicious Admin',
-        email: 'test-phase3-fakeadmin@nivas360.com',
+        email: 'test-phase3-fakeadmin@grih360.com',
         phone: '+919800000001',
         password: 'Password123',
         role: 'ADMIN',
@@ -58,7 +58,7 @@ async function runBackendTests() {
     assert(resAdminReg.status === 400, 'POST /api/v1/auth/register rejecting public ADMIN registration with 400');
 
     // TEST 3: Real Tenant Registration
-    const tenantEmail = `test-phase3-tenant-${Date.now()}@nivas360.com`;
+    const tenantEmail = `test-phase3-tenant-${Date.now()}@grih360.com`;
     const tenantPhone = `+9198${Math.floor(10000000 + Math.random() * 90000000)}`;
     const resTenantReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
@@ -90,7 +90,7 @@ async function runBackendTests() {
     assert(resDupReg.status === 409, 'POST /api/v1/auth/register duplicate email rejected with 409 Conflict');
 
     // TEST 5: Real Owner Registration
-    const ownerEmail = `test-phase3-owner-${Date.now()}@nivas360.com`;
+    const ownerEmail = `test-phase3-owner-${Date.now()}@grih360.com`;
     const ownerPhone = `+9197${Math.floor(10000000 + Math.random() * 90000000)}`;
     const resOwnerReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
@@ -298,7 +298,7 @@ async function runBackendTests() {
     );
 
     // TEST 22: Cross-Owner Security Check (2nd Owner cannot access 1st Owner property tenant details)
-    const owner2Email = `test-phase3-owner2-${Date.now()}@nivas360.com`;
+    const owner2Email = `test-phase3-owner2-${Date.now()}@grih360.com`;
     const resOwner2Reg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -418,7 +418,7 @@ async function runBackendTests() {
       body: JSON.stringify({ status: 'APPROVED' }),
     });
 
-    const tenant2Email = `test-phase6-tenant2-${Date.now()}@nivas360.com`;
+    const tenant2Email = `test-phase6-tenant2-${Date.now()}@grih360.com`;
     const resTenant2Reg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -545,7 +545,7 @@ async function runBackendTests() {
     );
 
     // TEST 29: Admin Verification Queue & Approval Review
-    const adminEmail = `test-phase6-admin-${Date.now()}@nivas360.com`;
+    const adminEmail = `test-phase6-admin-${Date.now()}@grih360.com`;
     const adminPhone = `+9194${Math.floor(10000000 + Math.random() * 90000000)}`;
     const adminUser = await UserModel.create({
       name: 'System Admin',
@@ -625,7 +625,7 @@ async function runBackendTests() {
     );
 
     // TEST 35: Register Professional User
-    const proEmail = `test-phase7-pro-${Date.now()}@nivas360.com`;
+    const proEmail = `test-phase7-pro-${Date.now()}@grih360.com`;
     const proPhone = `+9193${Math.floor(10000000 + Math.random() * 90000000)}`;
     const resProReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
@@ -693,7 +693,7 @@ async function runBackendTests() {
     const srvRequestId = dataCreateSrvReq.data?._id || dataCreateSrvReq.data?.id;
 
     // TEST 38: Security Test — Uninvolved Tenant B cannot access Tenant A's Service Request
-    const tenantBEmail = `test-phase7-tenantB-${Date.now()}@nivas360.com`;
+    const tenantBEmail = `test-phase7-tenantB-${Date.now()}@grih360.com`;
     const resTenantBReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -952,7 +952,7 @@ async function runBackendTests() {
       },
       body: JSON.stringify({
         title: 'Platform Maintenance Scheduled',
-        message: 'Nivas360 system will undergo maintenance tonight at 11 PM.',
+        message: 'Grih360 system will undergo maintenance tonight at 11 PM.',
         targetRole: 'ALL',
       }),
     });
@@ -997,7 +997,7 @@ async function runBackendTests() {
     assert(resBadCoords.status === 400, 'GET /api/v1/properties with invalid lat=150 rejected with 400 Bad Request');
 
     // TEST 64: Account Deactivation Security Check
-    const deactivatedTenantEmail = `test-phase9-deact-${Date.now()}@nivas360.com`;
+    const deactivatedTenantEmail = `test-phase9-deact-${Date.now()}@grih360.com`;
     const resDeactReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

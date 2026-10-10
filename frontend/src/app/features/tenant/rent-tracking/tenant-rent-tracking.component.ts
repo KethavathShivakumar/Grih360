@@ -317,7 +317,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="space-y-4 text-xs font-medium text-slate-700 border border-slate-100 bg-slate-50/50 p-4 rounded-2xl">
             <div class="flex justify-between border-b border-slate-200/60 pb-2">
               <span class="text-slate-400 font-bold uppercase text-[10px]">Receipt Number</span>
-              <span class="font-mono font-bold text-slate-900">NIVAS-RCPT-{{ (activeReceipt._id || activeReceipt.id || '99102').slice(-6) }}</span>
+              <span class="font-mono font-bold text-slate-900">GRIH-RCPT-{{ (activeReceipt._id || activeReceipt.id || '99102').slice(-6) }}</span>
             </div>
             <div class="flex justify-between border-b border-slate-200/60 pb-2">
               <span class="text-slate-400 font-bold uppercase text-[10px]">Payment Date</span>

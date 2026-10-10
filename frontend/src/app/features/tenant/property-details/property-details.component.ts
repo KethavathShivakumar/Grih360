@@ -196,7 +196,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               </div>
 
               <div class="pt-3 border-t border-slate-200 text-xs text-slate-600 space-y-1">
-                <p><strong>Nivas360 ID:</strong> Verified Owner Account</p>
+                <p><strong>Grih360 ID:</strong> Verified Owner Account</p>
                 <p class="text-[11px] text-slate-400">Direct tenant applications supported via secure workspace.</p>
               </div>
 
@@ -470,7 +470,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   get ownerName(): string {
-    return (this.property as any)?.ownerId?.name || 'Nivas360 Property Owner';
+    return (this.property as any)?.ownerId?.name || 'Grih360 Property Owner';
   }
 
   get ownerInitial(): string {

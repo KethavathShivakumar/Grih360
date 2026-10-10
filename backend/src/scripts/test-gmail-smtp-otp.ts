@@ -12,7 +12,7 @@ const baseUrl = `http://localhost:${PORT}/api/v1`;
 
 async function runTests() {
   console.log('================================================================');
-  console.log('   Nivas360 — Gmail SMTP Delivery & OTP Verification Test Suite ');
+  console.log('   Grih360 — Gmail SMTP Delivery & OTP Verification Test Suite ');
   console.log('================================================================');
 
   let passed = 0;
@@ -110,15 +110,15 @@ async function runTests() {
     // TEST 5: Email Masking Security Rule
     // -------------------------------------------------------------
     console.log('\n--- TEST GROUP 5: Masked Email Privacy ---');
-    const masked = OtpService.maskEmail('tenant.user@nivas360.com');
-    assert(masked.startsWith('te') && masked.endsWith('@nivas360.com'), `Email masking correctly masks identity (${masked})`);
+    const masked = OtpService.maskEmail('tenant.user@grih360.com');
+    assert(masked.startsWith('te') && masked.endsWith('@grih360.com'), `Email masking correctly masks identity (${masked})`);
     assert(!masked.includes('tenant.user'), 'Masked email does not expose full user local-part');
 
     // -------------------------------------------------------------
     // TEST 6: User Registration & Two-Step Login Flow
     // -------------------------------------------------------------
     console.log('\n--- TEST GROUP 6: Two-Step Login & Failure Handling ---');
-    const testEmail = `smtp_test_${Date.now()}@nivas360.com`;
+    const testEmail = `smtp_test_${Date.now()}@grih360.com`;
     const testPassword = 'Password123!';
 
     // Register user
@@ -149,7 +149,7 @@ async function runTests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        identifier: 'owner@nivas360.com',
+        identifier: 'owner@grih360.com',
         password: 'Password123!',
       }),
     });

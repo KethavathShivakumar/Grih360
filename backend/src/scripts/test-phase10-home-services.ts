@@ -21,7 +21,7 @@ function assert(condition: boolean, message: string) {
 
 async function runPhase10Tests() {
   console.log('===========================================================');
-  console.log(' Nivas360 Phase 10: Real Home Services Lifecycle Verification');
+  console.log(' Grih360 Phase 10: Real Home Services Lifecycle Verification');
   console.log('===========================================================');
 
   await connectDatabase();
@@ -49,7 +49,7 @@ async function runPhase10Tests() {
   const ts = Date.now();
   const owner = await UserModel.create({
     name: `Owner Phase10 ${ts}`,
-    email: `owner10_${ts}@nivas360.com`,
+    email: `owner10_${ts}@grih360.com`,
     phone: `+9198${Math.floor(10000000 + Math.random() * 90000000)}`,
     password: 'Password123!',
     role: 'OWNER',
@@ -77,7 +77,7 @@ async function runPhase10Tests() {
 
   const tenant = await UserModel.create({
     name: `Tenant Resident ${ts}`,
-    email: `tenant10_${ts}@nivas360.com`,
+    email: `tenant10_${ts}@grih360.com`,
     phone: `+9197${Math.floor(10000000 + Math.random() * 90000000)}`,
     password: 'Password123!',
     role: 'TENANT',
@@ -85,7 +85,7 @@ async function runPhase10Tests() {
 
   const professionalUser = await UserModel.create({
     name: `Raju Plumbing Specialist ${ts}`,
-    email: `pro10_${ts}@nivas360.com`,
+    email: `pro10_${ts}@grih360.com`,
     phone: `+9196${Math.floor(10000000 + Math.random() * 90000000)}`,
     password: 'Password123!',
     role: 'PROFESSIONAL',

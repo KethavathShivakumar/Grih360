@@ -988,7 +988,7 @@ export class FindHomesComponent implements OnInit, OnDestroy {
     }
   }
 
-  // --- EMPTY STATE ACTIONS (Nivas360 Phase 2 & 3 Spec) ---
+  // --- EMPTY STATE ACTIONS (Grih360 Phase 2 & 3 Spec) ---
   expandSearchArea(): void {
     this.searchRadiusKm = Math.min(100, this.searchRadiusKm + 35);
     this.onFilterChange();

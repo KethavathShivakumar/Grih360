@@ -316,7 +316,7 @@ export class ApplicationDetailsComponent implements OnInit {
 
   get propertyLocation(): string {
     const loc = this.application?.propertyId?.propertyLocation;
-    return loc ? `${loc.address}, ${loc.locality || loc.city}` : 'Nivas360 Location';
+    return loc ? `${loc.address}, ${loc.locality || loc.city}` : 'Grih360 Location';
   }
 
   get propertyImage(): string {

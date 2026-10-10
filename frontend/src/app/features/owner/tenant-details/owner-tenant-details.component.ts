@@ -213,7 +213,7 @@ export class OwnerTenantDetailsComponent implements OnInit {
   }
 
   get tenantEmail(): string {
-    return this.tenantData?.tenant?.email || 'tenant@nivas360.com';
+    return this.tenantData?.tenant?.email || 'tenant@grih360.com';
   }
 
   get tenantPhone(): string {

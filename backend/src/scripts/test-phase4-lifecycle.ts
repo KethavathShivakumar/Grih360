@@ -7,7 +7,7 @@ const PORT = 5098;
 
 async function runPhase4Tests() {
   console.log('===========================================================');
-  console.log(' Nivas360 Phase 4 — Real Application Lifecycle Verification');
+  console.log(' Grih360 Phase 4 — Real Application Lifecycle Verification');
   console.log('===========================================================');
 
   let passed = 0;
@@ -34,7 +34,7 @@ async function runPhase4Tests() {
     const timestamp = Date.now();
 
     // STEP 1: Register and login an OWNER
-    const ownerEmail = `phase4-owner-${timestamp}@nivas360.com`;
+    const ownerEmail = `phase4-owner-${timestamp}@grih360.com`;
     const resOwnerReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -83,7 +83,7 @@ async function runPhase4Tests() {
     const propertyId = dataProp.data.id || dataProp.data._id;
 
     // STEP 3: Register and login TENANT 1
-    const tenantEmail = `phase4-tenant1-${timestamp}@nivas360.com`;
+    const tenantEmail = `phase4-tenant1-${timestamp}@grih360.com`;
     const resTenantReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -185,7 +185,7 @@ async function runPhase4Tests() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: 'Phase4 Unrelated Tenant',
-        email: `phase4-unrelated-${timestamp}@nivas360.com`,
+        email: `phase4-unrelated-${timestamp}@grih360.com`,
         phone: '+91' + Math.floor(6000000000 + Math.random() * 3999999999),
         password: 'Password123',
         role: 'TENANT',

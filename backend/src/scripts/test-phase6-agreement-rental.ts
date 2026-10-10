@@ -6,7 +6,7 @@ const PORT = 5102;
 
 async function runPhase6Tests() {
   console.log('===========================================================');
-  console.log(' Nivas360 Phase 6 — Agreement & Rental Lifecycle Test');
+  console.log(' Grih360 Phase 6 — Agreement & Rental Lifecycle Test');
   console.log('===========================================================');
 
   let passed = 0;
@@ -37,7 +37,7 @@ async function runPhase6Tests() {
     // =========================================================================
     // STEP 1: Register an OWNER
     // =========================================================================
-    const ownerEmail = `phase6-owner-${timestamp}@nivas360.com`;
+    const ownerEmail = `phase6-owner-${timestamp}@grih360.com`;
     const resOwnerReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -90,7 +90,7 @@ async function runPhase6Tests() {
     // =========================================================================
     // STEP 3: Register TENANT 1
     // =========================================================================
-    const tenantEmail = `phase6-tenant-${timestamp}@nivas360.com`;
+    const tenantEmail = `phase6-tenant-${timestamp}@grih360.com`;
     const resTenantReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -151,7 +151,7 @@ async function runPhase6Tests() {
     const { JwtUtil } = await import('../utils/jwt.util');
     const adminToken = JwtUtil.generateTokens({
       userId: `admin_phase6_${timestamp}`,
-      email: `admin-phase6-${timestamp}@nivas360.com`,
+      email: `admin-phase6-${timestamp}@grih360.com`,
       role: 'ADMIN',
     }).accessToken;
 
@@ -378,7 +378,7 @@ async function runPhase6Tests() {
     // STEP 13: IDOR Security Check (Unauthorized user cannot confirm/cancel)
     // =========================================================================
     // Register Tenant 2 (unrelated)
-    const tenant2Email = `phase6-unrelated-${timestamp}@nivas360.com`;
+    const tenant2Email = `phase6-unrelated-${timestamp}@grih360.com`;
     const resTenant2Reg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

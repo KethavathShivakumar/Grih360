@@ -14,9 +14,9 @@ import { UserRole } from '../../../shared/models/user.model';
       <header class="w-full flex items-center justify-between py-2 border-b border-[#E8E6DF] mobile-top-bar">
         <a routerLink="/" class="flex items-center space-x-2">
           <div class="w-8 h-8 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-xs">
-            N
+            G
           </div>
-          <span class="text-lg font-black text-[#0F2937]">Nivas<span class="text-[#2D7A5E]">360</span></span>
+          <span class="text-lg font-black text-[#0F2937]">Grih<span class="text-[#2D7A5E]">360</span></span>
         </a>
         <a routerLink="/auth/login" class="text-xs font-bold text-slate-500 hover:text-[#0F2937] flex items-center gap-1 min-h-[44px]">
           <span>Sign In →</span>
@@ -201,7 +201,7 @@ import { UserRole } from '../../../shared/models/user.model';
       </main>
 
       <footer class="py-2 text-center text-[11px] text-slate-400 border-t border-[#E8E6DF]">
-        © 2026 Nivas360 Technologies
+        © 2026 Grih360 Technologies
       </footer>
     </div>
   `,

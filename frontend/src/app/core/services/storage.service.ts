@@ -7,9 +7,14 @@ import { User } from '../../shared/models/user.model';
   providedIn: 'root',
 })
 export class StorageService {
-  private readonly TOKEN_KEY = 'nivas360_auth_token';
-  private readonly REFRESH_TOKEN_KEY = 'nivas360_refresh_token';
-  private readonly USER_KEY = 'nivas360_user_session';
+  private readonly TOKEN_KEY = 'grih360_auth_token';
+  private readonly REFRESH_TOKEN_KEY = 'grih360_refresh_token';
+  private readonly USER_KEY = 'grih360_user_session';
+
+  // Legacy keys for seamless one-time migration
+  private readonly LEGACY_TOKEN_KEY = 'nivas360_auth_token';
+  private readonly LEGACY_REFRESH_TOKEN_KEY = 'nivas360_refresh_token';
+  private readonly LEGACY_USER_KEY = 'nivas360_user_session';
 
   private cachedToken: string | null = null;
   private cachedRefreshToken: string | null = null;
@@ -29,13 +34,42 @@ export class StorageService {
   }
 
   private async performInit(): Promise<void> {
-    // 1. Initial attempt from localStorage for web fast-path
+    // 1. Initial attempt from localStorage for web fast-path with transparent migration
     try {
+      // Check new keys first
       this.cachedToken = localStorage.getItem(this.TOKEN_KEY);
       this.cachedRefreshToken = localStorage.getItem(this.REFRESH_TOKEN_KEY);
       const userStr = localStorage.getItem(this.USER_KEY);
       if (userStr) {
         this.cachedUser = JSON.parse(userStr);
+      }
+
+      // If missing, migrate transparently from legacy nivas360_* keys
+      if (!this.cachedToken) {
+        const legacyToken = localStorage.getItem(this.LEGACY_TOKEN_KEY);
+        if (legacyToken) {
+          this.cachedToken = legacyToken;
+          localStorage.setItem(this.TOKEN_KEY, legacyToken);
+          localStorage.removeItem(this.LEGACY_TOKEN_KEY);
+        }
+      }
+      if (!this.cachedRefreshToken) {
+        const legacyRefresh = localStorage.getItem(this.LEGACY_REFRESH_TOKEN_KEY);
+        if (legacyRefresh) {
+          this.cachedRefreshToken = legacyRefresh;
+          localStorage.setItem(this.REFRESH_TOKEN_KEY, legacyRefresh);
+          localStorage.removeItem(this.LEGACY_REFRESH_TOKEN_KEY);
+        }
+      }
+      if (!this.cachedUser) {
+        const legacyUserStr = localStorage.getItem(this.LEGACY_USER_KEY);
+        if (legacyUserStr) {
+          try {
+            this.cachedUser = JSON.parse(legacyUserStr);
+            localStorage.setItem(this.USER_KEY, legacyUserStr);
+            localStorage.removeItem(this.LEGACY_USER_KEY);
+          } catch {}
+        }
       }
     } catch {
       this.cachedToken = null;
@@ -43,14 +77,40 @@ export class StorageService {
       this.cachedUser = null;
     }
 
-    // 2. Read from @capacitor/preferences on Native Platform
+    // 2. Read from @capacitor/preferences on Native Platform with transparent migration
     if (Capacitor.isNativePlatform()) {
       try {
-        const [tokenRes, refreshRes, userRes] = await Promise.all([
+        let [tokenRes, refreshRes, userRes] = await Promise.all([
           Preferences.get({ key: this.TOKEN_KEY }),
           Preferences.get({ key: this.REFRESH_TOKEN_KEY }),
           Preferences.get({ key: this.USER_KEY }),
         ]);
+
+        // If not in new keys, migrate from legacy keys
+        if (!tokenRes.value) {
+          const legacyTokenRes = await Preferences.get({ key: this.LEGACY_TOKEN_KEY });
+          if (legacyTokenRes.value) {
+            tokenRes = legacyTokenRes;
+            await Preferences.set({ key: this.TOKEN_KEY, value: legacyTokenRes.value });
+            await Preferences.remove({ key: this.LEGACY_TOKEN_KEY });
+          }
+        }
+        if (!refreshRes.value) {
+          const legacyRefreshRes = await Preferences.get({ key: this.LEGACY_REFRESH_TOKEN_KEY });
+          if (legacyRefreshRes.value) {
+            refreshRes = legacyRefreshRes;
+            await Preferences.set({ key: this.REFRESH_TOKEN_KEY, value: legacyRefreshRes.value });
+            await Preferences.remove({ key: this.LEGACY_REFRESH_TOKEN_KEY });
+          }
+        }
+        if (!userRes.value) {
+          const legacyUserRes = await Preferences.get({ key: this.LEGACY_USER_KEY });
+          if (legacyUserRes.value) {
+            userRes = legacyUserRes;
+            await Preferences.set({ key: this.USER_KEY, value: legacyUserRes.value });
+            await Preferences.remove({ key: this.LEGACY_USER_KEY });
+          }
+        }
 
         if (tokenRes.value) this.cachedToken = tokenRes.value;
         if (refreshRes.value) this.cachedRefreshToken = refreshRes.value;

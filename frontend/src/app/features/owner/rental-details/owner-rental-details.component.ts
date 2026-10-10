@@ -187,7 +187,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-1.5">
             <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Agreement Terms Summary</span>
             <p class="text-xs text-slate-600 leading-relaxed font-medium">
-              {{ agreement?.termsSummary || 'Standard Nivas360 Residential Rental Agreement v1.0. Zero-brokerage direct lease adhering to Model Tenancy Act principles.' }}
+              {{ agreement?.termsSummary || 'Standard Grih360 Residential Rental Agreement v1.0. Zero-brokerage direct lease adhering to Model Tenancy Act principles.' }}
             </p>
           </div>
 
@@ -562,7 +562,7 @@ export class OwnerRentalDetailsComponent implements OnInit {
   }
 
   get ownerEmail(): string {
-    return this.agreement?.ownerId?.email || (this.rental as any)?.ownerId?.email || 'owner@nivas360.com';
+    return this.agreement?.ownerId?.email || (this.rental as any)?.ownerId?.email || 'owner@grih360.com';
   }
 
   get tenantName(): string {
@@ -570,7 +570,7 @@ export class OwnerRentalDetailsComponent implements OnInit {
   }
 
   get tenantEmail(): string {
-    return this.agreement?.tenantId?.email || (this.rental as any)?.tenantId?.email || 'tenant@nivas360.com';
+    return this.agreement?.tenantId?.email || (this.rental as any)?.tenantId?.email || 'tenant@grih360.com';
   }
 
   get agreedRent(): number {

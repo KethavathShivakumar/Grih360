@@ -13,5 +13,5 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class LoadingStateComponent {
-  @Input() message: string = 'Loading Nivas360 data...';
+  @Input() message: string = 'Loading Grih360 data...';
 }

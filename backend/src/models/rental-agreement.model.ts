@@ -58,7 +58,7 @@ const RentalAgreementSchema = new Schema<IRentalAgreementDocument>(
       default: 'PENDING_CONFIRMATION',
       index: true,
     },
-    termsSummary: { type: String, default: 'Standard Nivas360 Residential Rental Agreement v1.0' },
+    termsSummary: { type: String, default: 'Standard Grih360 Residential Rental Agreement v1.0' },
     tenantConfirmed: { type: Boolean, default: false },
     ownerConfirmed: { type: Boolean, default: false },
     confirmedAt: { type: Date },

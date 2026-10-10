@@ -1,6 +1,6 @@
 /**
  * Money utilities enforcing pure numeric backend storage
- * as specified in Nivas360 requirement #16.
+ * as specified in Grih360 requirement #16.
  */
 export class MoneyUtil {
   /**

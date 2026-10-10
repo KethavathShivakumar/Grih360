@@ -11,7 +11,7 @@ const startServer = async (): Promise<void> => {
     // 2. Start Express HTTP Server
     const server = app.listen(config.port, () => {
       console.log(`===================================================`);
-      console.log(` Nivas360 Backend API Server Running`);
+      console.log(` Grih360 Backend API Server Running`);
       console.log(` Port:        ${config.port}`);
       console.log(` Environment: ${config.nodeEnv}`);
       console.log(` API Endpoint: http://localhost:${config.port}${config.apiVersion}/health`);

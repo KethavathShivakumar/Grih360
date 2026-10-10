@@ -1,6 +1,6 @@
-# Nivas360 — Backend REST API Specification & Architecture
+# Grih360 — Backend REST API Specification & Architecture
 
-Production-quality backend REST API server built for **Nivas360** using Node.js, Express.js, TypeScript, and MongoDB/Mongoose.
+Production-quality backend REST API server built for **Grih360** using Node.js, Express.js, TypeScript, and MongoDB/Mongoose.
 
 ---
 

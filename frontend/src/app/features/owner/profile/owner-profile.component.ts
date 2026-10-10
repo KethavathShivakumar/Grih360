@@ -407,7 +407,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
       <!-- Build Stamp Footer -->
       <div class="mt-8 pt-4 border-t border-slate-200 text-center space-y-1">
         <p class="text-[11px] font-mono font-bold text-slate-500">
-          Nivas360 Android App v1.2.2 (Build 6)
+          Grih360 Android App v1.3.0 (Build 7)
         </p>
         <p class="text-[10px] font-mono text-slate-400">
           Build Time: {{ buildTimestamp }}
@@ -417,7 +417,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
   `,
 })
 export class OwnerProfileComponent implements OnInit {
-  buildTimestamp: string = '2026-10-08 11:26:00 IST';
+  buildTimestamp: string = '2026-10-10 14:55:00 IST';
   user: any = null;
   activeTab: 'overview' | 'edit' | 'security' = 'overview';
   metrics: OwnerDashboardMetrics | null = null;

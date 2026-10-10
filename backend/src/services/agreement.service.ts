@@ -74,7 +74,7 @@ export class AgreementService {
     const startDate = data.startDate ? new Date(data.startDate) : new Date();
     const endDate = data.endDate ? new Date(data.endDate) : new Date(startDate.getTime() + 365 * 86400000);
     const termMonths = data.termMonths || 11;
-    const termsSummary = data.termsSummary || 'Standard Nivas360 Residential Rental Agreement v1.0';
+    const termsSummary = data.termsSummary || 'Standard Grih360 Residential Rental Agreement v1.0';
 
     if (AgreementService.isMongoConnected()) {
       const existing = await RentalAgreementModel.findOne({ rentalId: data.rentalId });
@@ -409,7 +409,7 @@ export class AgreementService {
           termMonths: 11,
           agreementVersion: targetRental.agreementVersion || 'v1.0',
           status: 'PENDING_CONFIRMATION',
-          termsSummary: 'Standard Nivas360 Residential Rental Agreement v1.0',
+          termsSummary: 'Standard Grih360 Residential Rental Agreement v1.0',
         });
       }
 
@@ -512,7 +512,7 @@ export class AgreementService {
           ownerConfirmed: true,
           tenantConfirmed: false,
           confirmedAt: new Date(),
-          termsSummary: 'Standard Nivas360 Residential Rental Agreement v1.0',
+          termsSummary: 'Standard Grih360 Residential Rental Agreement v1.0',
           agreementMetadata: {
             eSignNotice: 'Digital signature integration required',
             eSignProvider: 'UNAVAILABLE',

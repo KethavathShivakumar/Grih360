@@ -24,10 +24,10 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
         <header class="max-w-7xl mx-auto w-full flex items-center justify-between py-4 border-b border-[#E8E6DF]">
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 rounded-xl bg-[#0F2937] text-white flex items-center justify-center font-bold text-xl">
-              N
+              G
             </div>
             <div>
-              <span class="text-xl font-extrabold text-[#0F2937]">Nivas<span class="text-[#2D7A5E]">360</span></span>
+              <span class="text-xl font-extrabold text-[#0F2937]">Grih<span class="text-[#2D7A5E]">360</span></span>
               <span class="block text-[11px] text-slate-500 font-medium">Deccan Civic Rental Ecosystem</span>
             </div>
           </div>
@@ -48,7 +48,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
               <span>AP & TG Government Compliant Registry</span>
             </div>
             <h1 class="text-3xl sm:text-5xl font-black text-[#0F2937] tracking-tight">
-              Welcome to Nivas360
+              Welcome to Grih360
             </h1>
             <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
               Select how you would like to proceed with your verified tenancy workspace.
@@ -116,7 +116,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
         </main>
 
         <footer class="max-w-7xl mx-auto w-full py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 border-t border-[#E8E6DF]">
-          <span>© 2026 Nivas360 Technologies Pvt Ltd • Model Tenancy Act Compliant</span>
+          <span>© 2026 Grih360 Technologies Pvt Ltd • Model Tenancy Act Compliant</span>
           <a routerLink="/admin/login" class="text-slate-400 hover:text-[#0F2937] font-semibold transition">
             🛡️ Admin Console →
           </a>

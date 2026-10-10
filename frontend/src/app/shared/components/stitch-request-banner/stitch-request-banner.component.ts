@@ -17,7 +17,7 @@ import { CustomerCareComponent } from '../customer-care/customer-care.component'
           <div>
             <h3 class="text-lg font-black text-[#0F2937]">STITCH DESIGN REQUIRED</h3>
             <p class="text-xs text-[#64748B] font-medium">
-              UI implementation paused per rule: <strong class="text-[#0F2937]">NEVER INVENT A FINAL NIVAS360 UI</strong>. Backend services are active.
+              UI implementation paused per rule: <strong class="text-[#0F2937]">NEVER INVENT A FINAL GRIH360 UI</strong>. Backend services are active.
             </p>
           </div>
         </div>
@@ -72,7 +72,7 @@ export class StitchRequestBannerComponent {
   @Input() requiredStates: string[] = [];
 
   get effectivePageName(): string {
-    return this.pageName || this.request?.pageName || 'Nivas360 Page';
+    return this.pageName || this.request?.pageName || 'Grih360 Page';
   }
 
   get effectiveRoute(): string {

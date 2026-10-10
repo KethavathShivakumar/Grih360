@@ -78,7 +78,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
               <p class="text-xs text-amber-900 leading-relaxed font-medium">
                 {{ agreement?.agreementMetadata?.legalNotice || 'Standard platform lease draft. Digital signature integration required for legal execution.' }}
-                Platform consent by Tenant and Owner represents mutual assent to lease terms on the Nivas360 network.
+                Platform consent by Tenant and Owner represents mutual assent to lease terms on the Grih360 network.
               </p>
             </div>
           </div>
@@ -158,7 +158,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2">
             <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Agreement Terms Summary</span>
             <p class="text-xs text-slate-600 leading-relaxed font-medium">
-              {{ agreement?.termsSummary || 'Standard Nivas360 Residential Rental Agreement v1.0. Compliance with Model Tenancy Act provisions, 11-month standard tenure, 30-day notice for vacating, and digital rent receipts generated on monthly basis.' }}
+              {{ agreement?.termsSummary || 'Standard Grih360 Residential Rental Agreement v1.0. Compliance with Model Tenancy Act provisions, 11-month standard tenure, 30-day notice for vacating, and digital rent receipts generated on monthly basis.' }}
             </p>
           </div>
 
@@ -324,7 +324,7 @@ export class TenantCurrentRentalComponent implements OnInit {
   }
 
   get ownerEmail(): string {
-    return this.agreement?.ownerId?.email || (this.rental as any)?.ownerId?.email || 'owner@nivas360.com';
+    return this.agreement?.ownerId?.email || (this.rental as any)?.ownerId?.email || 'owner@grih360.com';
   }
 
   get tenantName(): string {
@@ -332,7 +332,7 @@ export class TenantCurrentRentalComponent implements OnInit {
   }
 
   get tenantEmail(): string {
-    return this.agreement?.tenantId?.email || (this.rental as any)?.tenantId?.email || 'tenant@nivas360.com';
+    return this.agreement?.tenantId?.email || (this.rental as any)?.tenantId?.email || 'tenant@grih360.com';
   }
 
   get agreedRent(): number {

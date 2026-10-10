@@ -8,7 +8,7 @@
     "ownerId": "mem_usr_1790525839681_h0137",
     "agreementVersion": "v1.0",
     "status": "PENDING_CONFIRMATION",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "createdAt": "2026-09-27T16:17:20.588Z",
     "updatedAt": "2026-09-27T16:17:20.588Z"
   },
@@ -21,7 +21,7 @@
     "ownerId": "mem_usr_1790526254846_69i51",
     "agreementVersion": "v1.0",
     "status": "PENDING_CONFIRMATION",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "createdAt": "2026-09-27T16:24:16.689Z",
     "updatedAt": "2026-09-27T16:24:16.689Z"
   },
@@ -34,7 +34,7 @@
     "ownerId": "mem_usr_1790526886077_8irxh",
     "agreementVersion": "v1.0",
     "status": "PENDING_CONFIRMATION",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "createdAt": "2026-09-27T16:34:46.596Z",
     "updatedAt": "2026-09-27T16:34:46.596Z"
   },
@@ -52,7 +52,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CONFIRMED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": true,
     "ownerConfirmed": true,
     "agreementMetadata": {
@@ -94,7 +94,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CANCELLED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": false,
     "ownerConfirmed": false,
     "agreementMetadata": {
@@ -130,7 +130,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CONFIRMED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": true,
     "ownerConfirmed": true,
     "agreementMetadata": {
@@ -172,7 +172,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CANCELLED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": false,
     "ownerConfirmed": false,
     "agreementMetadata": {
@@ -208,7 +208,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "PENDING_CONFIRMATION",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": false,
     "ownerConfirmed": false,
     "agreementMetadata": {
@@ -242,7 +242,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CONFIRMED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": true,
     "ownerConfirmed": true,
     "agreementMetadata": {
@@ -284,7 +284,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CANCELLED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": false,
     "ownerConfirmed": false,
     "agreementMetadata": {
@@ -320,7 +320,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CONFIRMED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": true,
     "ownerConfirmed": true,
     "agreementMetadata": {
@@ -362,7 +362,7 @@
     "termMonths": 11,
     "agreementVersion": "v1.0",
     "status": "CANCELLED",
-    "termsSummary": "Standard Nivas360 Residential Rental Agreement v1.0",
+    "termsSummary": "Standard Grih360 Residential Rental Agreement v1.0",
     "tenantConfirmed": false,
     "ownerConfirmed": false,
     "agreementMetadata": {

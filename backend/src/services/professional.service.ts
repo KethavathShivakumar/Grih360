@@ -43,7 +43,7 @@ export class ProfessionalService {
       if (!profile) {
         profile = {
           _id: 'mem_pro_prof_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
-          userId: { _id: userId, id: userId, name: 'Professional User', email: `${userId}@nivas360.com`, phone: '+919900000000', role: 'PROFESSIONAL' },
+          userId: { _id: userId, id: userId, name: 'Professional User', email: `${userId}@grih360.com`, phone: '+919900000000', role: 'PROFESSIONAL' },
           businessName: 'Home Services Specialist',
           categories: [],
           experienceYears: 1,

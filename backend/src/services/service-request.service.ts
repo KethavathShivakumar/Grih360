@@ -167,7 +167,7 @@ export class ServiceRequestService {
       const reqObj: any = {
         _id: reqId,
         id: reqId,
-        requesterId: { _id: requesterId, id: requesterId, name: 'Tenant User', email: `${requesterId}@nivas360.com`, phone: '+919800000000' },
+        requesterId: { _id: requesterId, id: requesterId, name: 'Tenant User', email: `${requesterId}@grih360.com`, phone: '+919800000000' },
         propertyId: finalPropertyId ? { _id: finalPropertyId, id: finalPropertyId, title: 'Current Residence' } : undefined,
         rentalId: finalRentalId,
         categoryId: cat?._id || 'cat_1',

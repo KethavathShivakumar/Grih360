@@ -1,8 +1,8 @@
 {
-  "name": "nivas360",
+  "name": "grih360",
   "version": "1.0.0",
   "private": true,
-  "description": "Nivas360 — Unified Property, Rental & Home Ecosystem for Tier-2 & Tier-3 India",
+  "description": "Grih360 — Unified Property, Rental & Home Ecosystem for Tier-2 & Tier-3 India",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "build:frontend": "cd frontend && npm install && npm run build",
@@ -20,7 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
     "morgan": "^1.10.0",
-    "nodemailer": "^10.0.13"
+    "nodemailer": "^10.0.13",
+    "playwright": "^1.63.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

@@ -1,8 +1,8 @@
 /**
- * Nivas360 Input Validation Architecture Placeholder
+ * Grih360 Input Validation Architecture Placeholder
  */
 
 export const validatorsPlaceholder = {
   version: '1.0.0-phase0',
-  description: 'Nivas360 request validation middleware registry placeholder',
+  description: 'Grih360 request validation middleware registry placeholder',
 };

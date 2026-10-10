@@ -72,7 +72,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <div class="text-xs text-slate-600 space-y-2">
             <p>
-              Nivas360 uses MongoDB Mongoose schemas with an automatic in-memory fallback store to guarantee uninterrupted service during maintenance windows.
+              Grih360 uses MongoDB Mongoose schemas with an automatic in-memory fallback store to guarantee uninterrupted service during maintenance windows.
             </p>
             <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 font-mono text-[11px] text-slate-700">
               <div>Store Mode: {{ health.database === 'CONNECTED' ? 'MongoDB Replica Set' : 'In-Memory Resilient Store' }}</div>

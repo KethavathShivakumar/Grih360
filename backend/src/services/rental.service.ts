@@ -160,7 +160,7 @@ export class RentalService {
         _id: rental.tenantId,
         id: rental.tenantId,
         name: 'Test Tenant User',
-        email: 'test-tenant@nivas360.com',
+        email: 'test-tenant@grih360.com',
       };
 
       return {
@@ -231,7 +231,7 @@ export class RentalService {
 
       const amount = paymentData.amount || rental.monthlyRent;
       const paymentMethod = paymentData.paymentMethod || 'UPI';
-      const txnRef = paymentData.transactionRef || `NIVAS-TXN-${Date.now()}`;
+      const txnRef = paymentData.transactionRef || `GRIH-TXN-${Date.now()}`;
       const notes = paymentData.notes || `Rent paid via ${paymentMethod}. Transaction Ref: ${txnRef}`;
 
       const rentRecord = await RentRecordModel.create({
@@ -276,7 +276,7 @@ export class RentalService {
 
       const amount = paymentData.amount || rental.monthlyRent;
       const paymentMethod = paymentData.paymentMethod || 'UPI';
-      const txnRef = paymentData.transactionRef || `NIVAS-TXN-${Date.now()}`;
+      const txnRef = paymentData.transactionRef || `GRIH-TXN-${Date.now()}`;
       const notes = paymentData.notes || `Rent paid via ${paymentMethod}. Transaction Ref: ${txnRef}`;
 
       const recId = 'rec_' + Date.now();

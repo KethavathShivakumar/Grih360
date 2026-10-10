@@ -16,9 +16,9 @@ import { finalize, timeout } from 'rxjs';
         <div class="max-w-6xl mx-auto flex items-center justify-between">
           <a routerLink="/" class="flex items-center space-x-2.5 group">
             <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs group-hover:scale-105 transition-transform">
-              N
+              G
             </div>
-            <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Nivas<span class="text-[#2D7A5E]">360</span></span>
+            <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
           </a>
 
           <button
@@ -190,7 +190,7 @@ import { finalize, timeout } from 'rxjs';
 
       <!-- Footer -->
       <footer class="py-4 text-center text-xs text-slate-400 border-t border-[#E8E6DF]">
-        © 2026 Nivas360 Technologies Pvt Ltd • Model Tenancy Act Compliant
+        © 2026 Grih360 Technologies Pvt Ltd • Model Tenancy Act Compliant
       </footer>
     </div>
   `,

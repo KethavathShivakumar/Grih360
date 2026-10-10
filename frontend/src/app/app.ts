@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-  title = 'Nivas360';
+  title = 'Grih360';
   private currentUrl = '';
   public isInitialized$: Observable<boolean>;
 

@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.nivas360.app',
-  appName: 'Nivas360',
+  appId: 'com.grih360.app',
+  appName: 'Grih360',
   webDir: 'dist/frontend/browser',
   server: {
     androidScheme: 'https',

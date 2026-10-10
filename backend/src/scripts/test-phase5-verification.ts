@@ -7,7 +7,7 @@ const PORT = 5097;
 
 async function runPhase5Tests() {
   console.log('===========================================================');
-  console.log(' Nivas360 Phase 5 — Dedicated Verification Workflow Test');
+  console.log(' Grih360 Phase 5 — Dedicated Verification Workflow Test');
   console.log('===========================================================');
 
   let passed = 0;
@@ -34,7 +34,7 @@ async function runPhase5Tests() {
     const timestamp = Date.now();
 
     // STEP 1: Register an OWNER
-    const ownerEmail = `phase5-owner-${timestamp}@nivas360.com`;
+    const ownerEmail = `phase5-owner-${timestamp}@grih360.com`;
     const resOwnerReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -82,7 +82,7 @@ async function runPhase5Tests() {
     const propertyId = dataProp.data.id || dataProp.data._id;
 
     // STEP 3: Register a TENANT
-    const tenantEmail = `phase5-tenant-${timestamp}@nivas360.com`;
+    const tenantEmail = `phase5-tenant-${timestamp}@grih360.com`;
     const resTenantReg = await fetch(`${baseUrl}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -221,7 +221,7 @@ async function runPhase5Tests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: 'admin@nivas360.com',
+        email: 'admin@grih360.com',
         password: 'AdminSecret123!',
       }),
     });
@@ -233,7 +233,7 @@ async function runPhase5Tests() {
       const { JwtUtil } = await import('../utils/jwt.util');
       adminToken = JwtUtil.generateTokens({
         userId: 'admin_user_seed',
-        email: 'admin@nivas360.com',
+        email: 'admin@grih360.com',
         role: 'ADMIN',
       }).accessToken;
     }

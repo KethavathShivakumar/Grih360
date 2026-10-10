@@ -18,7 +18,7 @@ import { memoryProperties } from '../services/property.service';
  */
 async function runPhase11Tests() {
   console.log('🧪 ========================================================');
-  console.log('🧪 NIVAS360 — PHASE 11: REAL REVIEWS SYSTEM TEST SUITE');
+  console.log('🧪 GRIH360 — PHASE 11: REAL REVIEWS SYSTEM TEST SUITE');
   console.log('🧪 ========================================================\n');
 
   // Clear in-memory stores for clean testing
@@ -36,7 +36,7 @@ async function runPhase11Tests() {
     _id: propertyId,
     id: propertyId,
     ownerId: ownerUserId,
-    title: 'Nivas Emerald Heights Flat 402',
+    title: 'Grih Emerald Heights Flat 402',
     propertyLocation: { address: 'Hanamkonda', city: 'Warangal' }
   });
 

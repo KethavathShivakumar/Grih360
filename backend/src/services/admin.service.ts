@@ -1019,7 +1019,7 @@ export class AdminService {
    * Platform Settings
    */
   private static platformSettings = {
-    platformName: 'Nivas360',
+    platformName: 'Grih360',
     environment: process.env.NODE_ENV || 'production',
     maintenanceMode: false,
     mtaComplianceEnabled: true,

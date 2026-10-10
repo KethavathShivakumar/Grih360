@@ -157,7 +157,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                   </div>
                   <div>
                     <h3 class="font-bold text-[#0F2937] text-sm">{{ request.professionalId.name || 'Assigned Professional' }}</h3>
-                    <p class="text-[#64748B] text-[11px]">{{ proProfile?.businessName || 'Nivas360 Verified Specialist' }}</p>
+                    <p class="text-[#64748B] text-[11px]">{{ proProfile?.businessName || 'Grih360 Verified Specialist' }}</p>
                   </div>
                 </div>
 

@@ -40,10 +40,10 @@ export class AuthService {
    */
   static async seedDemoUsers(): Promise<void> {
     const demoAccounts = [
-      { name: 'Rajesh Sharma (Property Owner)', email: 'owner@nivas360.com', phone: '9876543210', password: 'Password123!', role: 'OWNER' as UserRole },
-      { name: 'Ananya Rao (Tenant)', email: 'tenant@nivas360.com', phone: '9876543211', password: 'Password123!', role: 'TENANT' as UserRole },
-      { name: 'Ramesh Master Plumbing', email: 'pro@nivas360.com', phone: '9876543212', password: 'Password123!', role: 'PROFESSIONAL' as UserRole },
-      { name: 'Nivas360 Platform Admin', email: 'admin@nivas360.com', phone: '9876543213', password: 'AdminSecret123!', role: 'ADMIN' as UserRole },
+      { name: 'Rajesh Sharma (Property Owner)', email: 'owner@grih360.com', phone: '9876543210', password: 'Password123!', role: 'OWNER' as UserRole },
+      { name: 'Ananya Rao (Tenant)', email: 'tenant@grih360.com', phone: '9876543211', password: 'Password123!', role: 'TENANT' as UserRole },
+      { name: 'Ramesh Master Plumbing', email: 'pro@grih360.com', phone: '9876543212', password: 'Password123!', role: 'PROFESSIONAL' as UserRole },
+      { name: 'Grih360 Platform Admin', email: 'admin@grih360.com', phone: '9876543213', password: 'AdminSecret123!', role: 'ADMIN' as UserRole },
     ];
 
     for (const acc of demoAccounts) {

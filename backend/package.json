@@ -1,7 +1,7 @@
 {
-  "name": "nivas360-backend",
+  "name": "grih360-backend",
   "version": "1.0.0",
-  "description": "Nivas360 Backend REST API",
+  "description": "Grih360 Backend REST API",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",

@@ -31,9 +31,9 @@ import { finalize, timeout } from 'rxjs';
           <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a routerLink="/" class="flex items-center space-x-2.5 group">
               <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs group-hover:scale-105 transition-transform">
-                N
+                G
               </div>
-              <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Nivas<span class="text-[#2D7A5E]">360</span></span>
+              <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
             </a>
 
             <a routerLink="/" class="text-xs font-bold text-slate-500 hover:text-[#0F2937] transition-colors flex items-center gap-1">
@@ -108,7 +108,7 @@ import { finalize, timeout } from 'rxjs';
 
               <!-- Footer Badge -->
               <div class="pt-6 border-t border-white/10 relative z-10 flex items-center justify-between text-[11px] text-slate-400">
-                <span>Nivas360 Identity Guard</span>
+                <span>Grih360 Identity Guard</span>
                 <span class="flex items-center gap-1 font-semibold text-emerald-400">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   Two-Factor Enforced
@@ -184,7 +184,7 @@ import { finalize, timeout } from 'rxjs';
                       [(ngModel)]="identifier"
                       name="identifier"
                       required
-                      placeholder="e.g. tenant@nivas360.com or 9876543210"
+                      placeholder="e.g. tenant@grih360.com or 9876543210"
                       class="w-full px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 focus:ring-2 focus:ring-[#2D7A5E] focus:outline-none focus:bg-white transition-all font-medium"
                     />
                   </div>
@@ -305,7 +305,7 @@ import { finalize, timeout } from 'rxjs';
 
         <!-- Footer -->
         <footer class="py-4 text-center text-xs text-slate-400 border-t border-[#E8E6DF]">
-          © 2026 Nivas360 Technologies Pvt Ltd • Model Tenancy Act Compliant
+          © 2026 Grih360 Technologies Pvt Ltd • Model Tenancy Act Compliant
         </footer>
       </div>
     }

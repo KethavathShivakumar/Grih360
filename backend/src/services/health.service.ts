@@ -10,7 +10,7 @@ export const getHealthStatus = (): HealthCheckResponse => {
 
   return {
     success: true,
-    message: 'Nivas360 API is running',
+    message: 'Grih360 API is running',
     timestamp: new Date().toISOString(),
     uptime: Math.floor(process.uptime()),
     environment: config.nodeEnv,

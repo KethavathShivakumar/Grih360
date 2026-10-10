@@ -18,9 +18,9 @@ import { Subscription } from 'rxjs';
           <div class="flex items-center space-x-6">
             <a routerLink="/owner/dashboard" class="flex items-center space-x-2 group">
               <div class="w-8 h-8 rounded-lg bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-sm group-hover:scale-105 transition-transform">
-                N
+                G
               </div>
-              <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Nivas<span class="text-[#2D7A5E]">360</span></span>
+              <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
             </a>
             <span class="hidden sm:inline-flex px-2.5 py-0.5 bg-[#0F2937] text-[#FACC15] text-[10px] font-black rounded-md uppercase tracking-wide">
               Owner Console
@@ -292,7 +292,7 @@ export class OwnerLayoutComponent implements OnInit, OnDestroy {
   }
 
   onLogout(): void {
-    if (confirm('Are you sure you want to sign out of Nivas360?')) {
+    if (confirm('Are you sure you want to sign out of Grih360?')) {
       this.authService.logout();
       this.router.navigate(['/auth/login']);
     }

@@ -18,7 +18,7 @@ import { AuthService } from '../../../core/services/auth.service';
           </div>
           <div>
             <div class="flex items-center space-x-2">
-              <span class="text-lg font-black tracking-tight text-white">Nivas360</span>
+              <span class="text-lg font-black tracking-tight text-white">Grih360</span>
               <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
                 Admin Console
               </span>
@@ -61,7 +61,7 @@ import { AuthService } from '../../../core/services/auth.service';
                 name="identifier"
                 required
                 autocomplete="username"
-                placeholder="admin@nivas360.com"
+                placeholder="admin@grih360.com"
                 class="w-full p-3.5 bg-slate-800/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm font-medium outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
               />
             </div>
@@ -107,7 +107,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
       <!-- Footer -->
       <footer class="max-w-6xl mx-auto w-full text-center py-4 border-t border-slate-800 text-xs text-slate-500">
-        Nivas360 Enterprise Platform &copy; 2026. All rights reserved.
+        Grih360 Enterprise Platform &copy; 2026. All rights reserved.
       </footer>
     </div>
   `,

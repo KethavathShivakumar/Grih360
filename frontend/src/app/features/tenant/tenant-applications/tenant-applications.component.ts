@@ -150,7 +150,7 @@ export class TenantApplicationsComponent implements OnInit {
 
   getPropertyLocation(app: RentalApplication): string {
     const loc = (app as any)?.propertyId?.propertyLocation;
-    return loc ? `${loc.locality || loc.address}, ${loc.city}` : 'Nivas360 Location';
+    return loc ? `${loc.locality || loc.address}, ${loc.city}` : 'Grih360 Location';
   }
 
   getPropertyImage(app: RentalApplication): string {

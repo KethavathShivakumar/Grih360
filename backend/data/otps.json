@@ -2,7 +2,7 @@
   {
     "id": "test_otp_1790696064187",
     "_id": "test_otp_1790696064187",
-    "identifier": "otp-test-1790696064187@nivas360.com",
+    "identifier": "otp-test-1790696064187@grih360.com",
     "purpose": "LOGIN",
     "otpHash": "$2a$10$V7zdzxopGAOcaiQubz3Zr.GOyHkArlhd4qKZbT.p9dmvLDRo.9ryu",
     "expiresAt": "2026-09-29T15:44:28.457Z",
@@ -15,7 +15,7 @@
   {
     "id": "test_expired_otp_1790696064187",
     "_id": "test_expired_otp_1790696064187",
-    "identifier": "otp-test-1790696064187@nivas360.com",
+    "identifier": "otp-test-1790696064187@grih360.com",
     "purpose": "LOGIN",
     "otpHash": "$2a$10$V7zdzxopGAOcaiQubz3Zr.GOyHkArlhd4qKZbT.p9dmvLDRo.9ryu",
     "expiresAt": "2026-09-29T15:34:24.179Z",
@@ -28,7 +28,7 @@
   {
     "id": "test_brute_otp_1790696064187",
     "_id": "test_brute_otp_1790696064187",
-    "identifier": "brute-1790696064187@nivas360.com",
+    "identifier": "brute-1790696064187@grih360.com",
     "purpose": "LOGIN",
     "otpHash": "$2a$10$V7zdzxopGAOcaiQubz3Zr.GOyHkArlhd4qKZbT.p9dmvLDRo.9ryu",
     "expiresAt": "2026-09-29T15:44:29.180Z",
@@ -41,7 +41,7 @@
   {
     "id": "valid_otp_2_1790696064187",
     "_id": "valid_otp_2_1790696064187",
-    "identifier": "otp-test-1790696064187@nivas360.com",
+    "identifier": "otp-test-1790696064187@grih360.com",
     "purpose": "LOGIN",
     "otpHash": "$2a$10$VQZu/FtLYDmvg31Xqq3UkeuDn.9AhSY2Dh3aVZSDU42CZ1ntiuEPK",
     "expiresAt": "2026-09-29T15:44:29.709Z",

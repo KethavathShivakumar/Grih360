@@ -120,7 +120,7 @@ export class EmailService {
     }
 
     const transporter = this.getTransporter();
-    const sender = from || config.emailFrom || `"Nivas360" <${config.smtpUser || 'grih360@gmail.com'}>`;
+    const sender = from || config.emailFrom || `"Grih360" <${config.smtpUser || 'grih360@gmail.com'}>`;
     const plainText = text || (html ? html.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim() : '');
 
     try {
@@ -149,32 +149,31 @@ export class EmailService {
 
   /**
    * Sends a branded, secure OTP verification email via Gmail SMTP.
-   * Adheres strictly to Phase 4 email template requirements:
-   * - Subject: "Your Nivas360 Login Verification Code"
-   * - Nivas360 branding
+   * - Subject: "Your Grih360 Login Verification Code"
+   * - Grih360 branding
    * - Six-digit OTP
-   * - Expiration time of 5 minutes
+   * - Expiration time of 10 minutes
    * - Security warning not to share code
    * - Message for users who did not request the OTP
    * - HTML and plain-text support
-   * - Sender: Nivas360 <grih360@gmail.com>
+   * - Sender: Grih360 <grih360@gmail.com>
    */
   public static async sendOtpEmail(options: SendOtpEmailOptions): Promise<{ messageId: string }> {
     const { to, otp, userName } = options;
 
     const displayName = userName && userName.trim().length > 0 ? userName.trim() : 'there';
-    const subject = 'Nivas360/Grih360 Verification Code';
+    const subject = 'Grih360 Verification Code';
 
     const plainTextContent = `Hi ${displayName},
 
-Your Nivas360/Grih360 verification code is: ${otp}
+Your Grih360 verification code is: ${otp}
 
 This code is valid for 10 minutes.
 
 If you did not request the code, You can ignore this email.
 
--Nivas admin
-Nivas360`;
+-Grih360 Admin
+Grih360`;
 
     return this.sendEmail({
       to,
@@ -187,7 +186,7 @@ Nivas360`;
    * Sends a test verification email to confirm Gmail SMTP integration.
    */
   public static async sendTestEmail(to: string): Promise<{ messageId: string; recipient: string }> {
-    const subject = 'Nivas360 — Gmail SMTP Connectivity Test Successful';
+    const subject = 'Grih360 — Gmail SMTP Connectivity Test Successful';
     const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -195,7 +194,7 @@ Nivas360`;
   <div style="max-width: 520px; margin: 0 auto; background: white; padding: 36px; border-radius: 20px; border: 1px solid #E8E6DF; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
     <h2 style="color: #2D7A5E; margin-top: 0; font-size: 22px;">✅ Gmail SMTP Connected!</h2>
     <p style="font-size: 14px; color: #334155; line-height: 1.6;">
-      This test email confirms that <strong>Nivas360</strong> has successfully connected to Gmail SMTP via Nodemailer.
+      This test email confirms that <strong>Grih360</strong> has successfully connected to Gmail SMTP via Nodemailer.
     </p>
     <div style="background-color: #F8FAFC; border-radius: 12px; padding: 16px; margin: 20px 0; border: 1px solid #E2E8F0; font-size: 13px; line-height: 1.8;">
       <div><strong>Host:</strong> ${config.smtpHost}</div>
@@ -204,16 +203,16 @@ Nivas360`;
       <div><strong>Timestamp:</strong> ${new Date().toISOString()}</div>
       <div><strong>Environment:</strong> ${config.nodeEnv}</div>
     </div>
-    <p style="font-size: 12px; color: #94A3B8; margin-bottom: 0;">Nivas360 Automated Infrastructure</p>
+    <p style="font-size: 12px; color: #94A3B8; margin-bottom: 0;">Grih360 Automated Infrastructure</p>
   </div>
 </body>
 </html>
     `;
 
     const plainText = `
-Nivas360 — Gmail SMTP Connectivity Test Successful
+Grih360 — Gmail SMTP Connectivity Test Successful
 
-This test email confirms that Nivas360 has successfully connected to Gmail SMTP via Nodemailer.
+This test email confirms that Grih360 has successfully connected to Gmail SMTP via Nodemailer.
 
 Host: ${config.smtpHost}
 Port: ${config.smtpPort}

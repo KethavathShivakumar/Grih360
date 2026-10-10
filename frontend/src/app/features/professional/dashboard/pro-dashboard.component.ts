@@ -25,7 +25,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         <div>
           <div class="flex items-center space-x-2">
             <span class="px-2.5 py-0.5 bg-[#EBF5F0] text-[#2D7A5E] text-xs font-bold rounded-full">Professional Workspace</span>
-            <span class="text-xs text-[#64748B]">Nivas360 Network</span>
+            <span class="text-xs text-[#64748B]">Grih360 Network</span>
           </div>
           <h1 class="text-2xl font-black text-[#0F2937] mt-1">{{ dashboardData?.profile?.businessName || 'Professional Dashboard' }}</h1>
           <p class="text-xs text-[#64748B]">Manage incoming service jobs, active work in progress, and availability status.</p>

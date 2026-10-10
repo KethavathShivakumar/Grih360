@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const SEED_DATA_DIR = path.resolve(__dirname, '../../data');
-const DATA_DIR = process.env.DATA_DIR || (process.env.VERCEL ? '/tmp/nivas360-data' : SEED_DATA_DIR);
+const DATA_DIR = process.env.DATA_DIR || (process.env.VERCEL ? '/tmp/grih360-data' : SEED_DATA_DIR);
 
 export class PersistentStore {
   private static caches: Map<string, any[]> = new Map();

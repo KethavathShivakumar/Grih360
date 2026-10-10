@@ -16,10 +16,10 @@ import { Subscription } from 'rxjs';
           <div class="flex items-center space-x-4">
             <a routerLink="/admin/dashboard" class="flex items-center space-x-2">
               <div class="w-8 h-8 rounded-lg bg-[#0F2937] text-rose-400 flex items-center justify-center font-black text-base shadow-sm">
-                N
+                G
               </div>
               <span class="text-xl font-black text-[#0F2937] tracking-tight">
-                Nivas<span class="text-[#2D7A5E]">360</span>
+                Grih<span class="text-[#2D7A5E]">360</span>
               </span>
             </a>
             <span class="px-2.5 py-0.5 bg-rose-700 text-white text-[10px] font-black rounded-full uppercase tracking-wide">
