@@ -55,13 +55,13 @@ export interface ChecklistSection {
             type="button"
             class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5"
           >
-            <span>🖨️ Print Checklist</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> Print Checklist</span>
           </button>
           <a
             routerLink="/tenant/condition"
             class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold rounded-xl text-xs shadow-xs transition cursor-pointer"
           >
-            📸 Property Condition
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Property Condition
           </a>
         </div>
       </div>
@@ -100,7 +100,7 @@ export interface ChecklistSection {
                 <span class="text-xs text-slate-400 font-semibold">• Certified Inventory</span>
               </div>
               <h2 class="text-lg font-black text-[#0F2937] mt-1">{{ propertyTitle }}</h2>
-              <p class="text-xs text-slate-500">📍 {{ propertyLocation }}</p>
+              <p class="text-xs text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
             </div>
 
             <!-- Move-In vs Move-Out Switcher -->
@@ -111,7 +111,7 @@ export interface ChecklistSection {
                 [class]="checklistType === 'MOVE_IN' ? 'bg-[#0F2937] text-[#FACC15] shadow-xs' : 'text-slate-600 hover:text-slate-900'"
                 class="px-4 py-2 rounded-xl transition cursor-pointer"
               >
-                📥 Move-In Handover
+                Move-In Handover
               </button>
               <button
                 (click)="checklistType = 'MOVE_OUT'"
@@ -119,7 +119,7 @@ export interface ChecklistSection {
                 [class]="checklistType === 'MOVE_OUT' ? 'bg-[#0F2937] text-[#FACC15] shadow-xs' : 'text-slate-600 hover:text-slate-900'"
                 class="px-4 py-2 rounded-xl transition cursor-pointer"
               >
-                📤 Move-Out Inspection
+                Move-Out Inspection
               </button>
             </div>
           </div>
@@ -128,7 +128,7 @@ export interface ChecklistSection {
           <div class="bg-amber-50/70 border border-amber-200 p-4 rounded-2xl space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-extrabold text-amber-900 uppercase tracking-wider">
-                ⚡ Initial Utility Meter Readings (Day 1)
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Initial Utility Meter Readings (Day 1)
               </span>
               <span class="text-[10px] font-bold text-amber-800">Prevents Tenant/Owner Billing Disputes</span>
             </div>
@@ -193,7 +193,7 @@ export interface ChecklistSection {
                     [class]="item.status === 'WORKING' ? 'bg-emerald-600 text-white font-black' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
                     class="px-2.5 py-1 rounded-xl text-[10px] transition cursor-pointer"
                   >
-                    ✓ Working / Good
+                     Working / Good
                   </button>
 
                   <button
@@ -202,7 +202,7 @@ export interface ChecklistSection {
                     [class]="item.status === 'DEFECTIVE' ? 'bg-amber-600 text-white font-black' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
                     class="px-2.5 py-1 rounded-xl text-[10px] transition cursor-pointer"
                   >
-                    ⚠️ Defective
+                    <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Defective
                   </button>
 
                   <button
@@ -211,7 +211,7 @@ export interface ChecklistSection {
                     [class]="item.status === 'MISSING' ? 'bg-rose-600 text-white font-black' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
                     class="px-2.5 py-1 rounded-xl text-[10px] transition cursor-pointer"
                   >
-                    ✕ Missing
+                     Missing
                   </button>
 
                   <!-- Remarks Input -->
@@ -231,10 +231,10 @@ export interface ChecklistSection {
         <div class="space-y-3">
           <div *ngIf="toastMessage" class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-2xl flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span>✓</span>
+              <span></span>
               <span>{{ toastMessage }}</span>
             </div>
-            <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold">✕</button>
+            <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold"></button>
           </div>
 
           <div class="bg-slate-900 text-white p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -250,7 +250,7 @@ export interface ChecklistSection {
               type="button"
               class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-2xl shadow-md transition  cursor-pointer shrink-0"
             >
-              {{ signedAt ? '✓ Update Sign-Off' : '✓ Sign-Off & Save Handover' }}
+              {{ signedAt ? ' Update Sign-Off' : ' Sign-Off & Save Handover' }}
             </button>
           </div>
         </div>
@@ -278,7 +278,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
   sections: ChecklistSection[] = [
     {
       category: 'Keys & Access Hardware',
-      icon: '🔑',
+      icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
       items: [
         { id: 'k1', name: 'Main Entrance Door Keys (2 Sets)', status: 'WORKING', remarks: 'Received 2 keys' },
         { id: 'k2', name: 'Master Bedroom & Wardrobe Keys', status: 'WORKING', remarks: 'Good condition' },
@@ -288,7 +288,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     },
     {
       category: 'Electrical Fixtures & Appliances',
-      icon: '💡',
+      icon: '',
       items: [
         { id: 'e1', name: 'Ceiling Fans & Regulators (All Rooms)', status: 'WORKING', remarks: 'All functional' },
         { id: 'e2', name: 'LED Lights & Modular Switches', status: 'WORKING', remarks: '' },
@@ -298,7 +298,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     },
     {
       category: 'Plumbing & Sanitary Fittings',
-      icon: '🚰',
+      icon: '',
       items: [
         { id: 'p1', name: 'Kitchen Sink Mixer Tap & Drain', status: 'WORKING', remarks: 'No leakage' },
         { id: 'p2', name: 'Bathroom Showers & Health Faucets', status: 'WORKING', remarks: 'Good pressure' },
@@ -308,7 +308,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     },
     {
       category: 'Doors, Windows & Paint Condition',
-      icon: '🚪',
+      icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>',
       items: [
         { id: 'd1', name: 'Main Door Lock, Latch & Peep Hole', status: 'WORKING', remarks: 'Smooth operation' },
         { id: 'd2', name: 'Balcony Sliding Doors & Mesh Nets', status: 'WORKING', remarks: 'Mosquito mesh intact' },

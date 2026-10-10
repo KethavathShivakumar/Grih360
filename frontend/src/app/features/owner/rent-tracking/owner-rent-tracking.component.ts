@@ -45,7 +45,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <!-- Header Title -->
       <div>
         <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-800 px-3 py-0.5 rounded-full text-xs font-bold border border-amber-200 mb-1.5">
-          <span>💰 Rent Collection & Financial Ledger</span>
+          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Rent Collection & Financial Ledger</span>
         </div>
         <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Rent Tracking & Records</h1>
         <p class="text-xs text-slate-500">Track monthly billing cycles, digital rent payments, auto-invoicing, and tenant payment receipts.</p>
@@ -147,7 +147,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <tbody class="divide-y divide-slate-100 font-semibold text-slate-700">
                 <tr *ngFor="let rec of records" class="hover:bg-slate-50/70 transition-colors">
                   <td class="py-3.5 px-4 text-slate-900 font-bold">
-                    <span>📅 {{ rec.dueDate | date: 'mediumDate' }}</span>
+                    <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> {{ rec.dueDate | date: 'mediumDate' }}</span>
                   </td>
                   <td class="py-3.5 px-4 text-[#0F2937] font-black text-sm">
                     {{ formatCurrency(rec.amount) }}
@@ -160,7 +160,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                   </td>
                   <td class="py-3.5 px-4 text-slate-500">
                     <span *ngIf="rec.status === 'PAID'" class="text-emerald-700 font-mono text-[11px] font-bold">
-                      ✓ REC-{{ rec.id ? rec.id.slice(-6).toUpperCase() : 'ONLINE' }}
+                       REC-{{ rec.id ? rec.id.slice(-6).toUpperCase() : 'ONLINE' }}
                     </span>
                     <span *ngIf="rec.status !== 'PAID'" class="text-slate-400 text-[11px]">
                       Awaiting payment

@@ -52,13 +52,13 @@ export interface RoomInspection {
             type="button"
             class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5"
           >
-            <span>🖨️ Export Report</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> Export Report</span>
           </button>
           <a
             routerLink="/tenant/services/request"
             class="px-4 py-2 bg-[#E26D46] hover:bg-[#d05c35] text-white font-extrabold rounded-xl text-xs shadow-xs transition cursor-pointer flex items-center gap-1.5"
           >
-            <span>🛠️ Book Service Repair</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Book Service Repair</span>
           </a>
         </div>
       </div>
@@ -90,17 +90,17 @@ export interface RoomInspection {
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 px-3 py-0.5 rounded-full text-xs font-bold border border-emerald-200">
-              <span>🛡️ Security Deposit Protection Active</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Security Deposit Protection Active</span>
             </div>
             <h2 class="text-xl font-black text-[#0F2937]">{{ propertyTitle }}</h2>
-            <p class="text-xs text-slate-500">📍 {{ propertyLocation }}</p>
+            <p class="text-xs text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
           </div>
 
           <div class="flex items-center gap-3">
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-center">
               <span class="text-[10px] font-black uppercase text-slate-400 block">Overall Condition</span>
               <span class="text-base font-black text-emerald-700 block">
-                {{ overallConditionRating > 0 ? (overallConditionRating.toFixed(1) + ' / 5.0 ★') : 'No rating yet' }}
+                {{ overallConditionRating > 0 ? (overallConditionRating.toFixed(1) + ' / 5.0 ') : 'No rating yet' }}
               </span>
             </div>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-center">
@@ -146,7 +146,7 @@ export interface RoomInspection {
                 [class.text-amber-400]="star <= activeRoom.rating"
                 [class.text-slate-300]="star > activeRoom.rating"
               >
-                ★
+                
               </button>
             </div>
           </div>
@@ -190,7 +190,7 @@ export interface RoomInspection {
                   type="button"
                   class="absolute top-1.5 right-1.5 w-6 h-6 bg-rose-600 text-white rounded-full text-[10px] font-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition cursor-pointer"
                 >
-                  ✕
+                  
                 </button>
               </div>
 
@@ -200,7 +200,7 @@ export interface RoomInspection {
                 type="button"
                 class="border-2 border-dashed border-slate-300 hover:border-[#2D7A5E] rounded-2xl p-4 flex flex-col items-center justify-center text-center text-slate-400 hover:text-[#2D7A5E] transition cursor-pointer aspect-video bg-slate-50/50"
               >
-                <span class="text-xl">📷</span>
+                <span class="text-xl"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
                 <span class="text-[10px] font-bold mt-1">Upload Photo</span>
               </button>
             </div>
@@ -226,10 +226,10 @@ export interface RoomInspection {
           <!-- Toast Message Banner -->
           <div *ngIf="toastMessage" class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-2xl flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span>✓</span>
+              <span></span>
               <span>{{ toastMessage }}</span>
             </div>
-            <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold">✕</button>
+            <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold"></button>
           </div>
 
           <!-- Save Button -->
@@ -239,7 +239,7 @@ export interface RoomInspection {
               type="button"
               class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-black text-xs rounded-xl shadow-xs transition cursor-pointer"
             >
-              ✓ Save Room Condition Assessment
+               Save Room Condition Assessment
             </button>
           </div>
         </div>
@@ -261,7 +261,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'living',
       name: 'Living & Dining Room',
-      icon: '🛋️',
+      icon: '',
       rating: 5,
       notes: 'Walls in good condition. TV console and switch sockets functional.',
       photos: [
@@ -273,7 +273,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'master_bed',
       name: 'Master Bedroom',
-      icon: '🛏️',
+      icon: '<svg class="w-3.5 h-3.5 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v11m0-4h18m0-7v11M3 10h18M7 7h3v3H7z"/></svg>',
       rating: 5,
       notes: 'Wardrobes sliding smoothly. AC cooling properly.',
       photos: [
@@ -284,7 +284,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'kitchen',
       name: 'Modular Kitchen',
-      icon: '🍳',
+      icon: '',
       rating: 4,
       notes: 'Chimney working. Minor water mark beneath sink cabinet.',
       photos: [
@@ -295,7 +295,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'bath',
       name: 'Bathrooms & Geysers',
-      icon: '🚿',
+      icon: '',
       rating: 4,
       notes: 'All taps checked. Geyser heats within 10 minutes.',
       photos: [
@@ -306,7 +306,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'balcony',
       name: 'Balcony & Utility Area',
-      icon: '🪴',
+      icon: '',
       rating: 5,
       notes: 'Washing machine inlet functional. Good drainage.',
       photos: [

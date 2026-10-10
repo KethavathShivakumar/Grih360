@@ -76,7 +76,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             [disabled]="sending || !title || !message"
             class="px-5 py-2.5 bg-[#0F2937] hover:bg-slate-800 disabled:opacity-50 text-white text-xs font-bold rounded-lg transition-colors"
           >
-            {{ sending ? 'Sending Broadcast...' : '📢 Send Broadcast Announcement' }}
+            {{ sending ? 'Sending Broadcast...' : 'Send Broadcast Announcement' }}
           </button>
         </form>
       </div>

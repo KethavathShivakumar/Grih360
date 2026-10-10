@@ -27,7 +27,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 px-3 py-0.5 rounded-full text-xs font-bold border border-emerald-200 mb-1.5">
-            <span>📜 Telangana Model Tenancy Act Compliant</span>
+            <span> Telangana Model Tenancy Act Compliant</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Rental Tenancy Management</h1>
           <p class="text-xs text-slate-500">Monitor digital leases, verified tenant occupancies, and automated monthly rent collections.</p>
@@ -38,19 +38,19 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           type="button"
           class="px-4 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 self-start sm:self-auto"
         >
-          <span>🏢</span>
+          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></span>
           <span>View Property Listings</span>
         </button>
       </div>
 
       <!-- Feedback Banners -->
       <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
       <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <!-- Summary Metrics Bar -->
@@ -129,7 +129,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 {{ getPropertyTitle(item) }}
               </h2>
               <p class="text-xs text-slate-500">
-                📍 {{ getPropertyAddress(item) }}
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ getPropertyAddress(item) }}
               </p>
             </div>
 
@@ -161,7 +161,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 {{ item.endDate ? (item.endDate | date: 'mediumDate') : '11 Months' }}
               </span>
               <span class="text-[10px] text-emerald-700 font-bold block mt-0.5">
-                ✓ 11-Month Standard Registration
+                 11-Month Standard Registration
               </span>
             </div>
 
@@ -187,7 +187,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 type="button"
                 class="px-3.5 py-1.5 bg-[#0F2937] hover:bg-[#164E63] text-white rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
               >
-                <span>📜</span>
+                <span></span>
                 <span>View Digital Lease Agreement</span>
               </button>
 
@@ -196,7 +196,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 type="button"
                 class="px-3.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl transition-colors cursor-pointer flex items-center gap-1"
               >
-                <span>💰</span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></span>
                 <span>Rent Collection Ledger</span>
               </button>
 
@@ -205,7 +205,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 type="button"
                 class="px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-xl transition-colors cursor-pointer flex items-center gap-1"
               >
-                <span>👤</span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></span>
                 <span>Tenant Profile</span>
               </button>
             </div>

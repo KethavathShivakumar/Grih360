@@ -76,11 +76,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
             <p class="text-xs text-slate-600 line-clamp-2">{{ p.description }}</p>
             <div class="flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
-              <span>📍 {{ p.propertyLocation?.address || p.location?.address }}, {{ p.propertyLocation?.city || p.location?.city }}</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ p.propertyLocation?.address || p.location?.address }}, {{ p.propertyLocation?.city || p.location?.city }}</span>
               <span>•</span>
-              <span>💰 ₹{{ p.rentAmount }}/mo</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> ₹{{ p.rentAmount }}/mo</span>
               <span>•</span>
-              <span>🏠 {{ p.bhk }} BHK {{ p.propertyType }}</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> {{ p.bhk }} BHK {{ p.propertyType }}</span>
             </div>
           </div>
 
@@ -98,21 +98,21 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 (click)="updateStatus(p, 'FLAGGED')"
                 class="px-3 py-1 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 rounded text-xs font-bold transition-colors"
               >
-                🚩 Flag
+                Flag
               </button>
               <button
                 *ngIf="p.availabilityStatus !== 'VACANT'"
                 (click)="updateStatus(p, 'VACANT')"
                 class="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded text-xs font-bold transition-colors"
               >
-                ✅ Approve/Vacant
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Approve/Vacant
               </button>
               <button
                 *ngIf="p.availabilityStatus !== 'REMOVED'"
                 (click)="updateStatus(p, 'REMOVED')"
                 class="px-3 py-1 bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 rounded text-xs font-bold transition-colors"
               >
-                🗑️ Remove
+                Remove
               </button>
             </div>
           </div>

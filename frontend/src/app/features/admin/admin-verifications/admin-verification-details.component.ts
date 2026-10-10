@@ -51,7 +51,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <!-- Error State -->
       <div *ngIf="!loading && errorMsg" class="bg-rose-50 border border-rose-200 p-6 rounded-3xl text-rose-900 space-y-3">
         <div class="flex items-center space-x-2 font-bold text-sm">
-          <span>⚠️</span>
+          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
           <span>{{ errorMsg }}</span>
         </div>
         <div class="flex gap-3">
@@ -98,7 +98,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               [disabled]="isUpdating"
               class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs transition disabled:opacity-50"
             >
-              ✓ Approve (VERIFIED)
+               Approve (VERIFIED)
             </button>
             <button
               *ngIf="verification.status !== 'REJECTED'"
@@ -106,14 +106,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               [disabled]="isUpdating"
               class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-xs transition disabled:opacity-50"
             >
-              ✕ Reject Verification
+               Reject Verification
             </button>
           </div>
         </div>
 
         <!-- Rejection Notice (if rejected) -->
         <div *ngIf="verification.status === 'REJECTED'" class="bg-rose-50 border border-rose-200 p-5 rounded-3xl flex items-start space-x-3 text-rose-950">
-          <span class="text-lg">❌</span>
+          <span class="text-lg"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>
           <div class="space-y-1">
             <h4 class="text-xs font-extrabold uppercase tracking-wider text-rose-900">Rejection Reason</h4>
             <p class="text-xs text-rose-800 font-medium leading-relaxed">
@@ -163,7 +163,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <div class="min-w-0 flex-1">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Target Property</span>
                 <h3 class="text-sm font-bold text-slate-900 truncate">{{ propertyTitle }}</h3>
-                <span class="text-[11px] text-slate-500 truncate block">📍 {{ propertyLocation }}</span>
+                <span class="text-[11px] text-slate-500 truncate block"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</span>
               </div>
             </div>
 
@@ -252,7 +252,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <p class="text-xs text-slate-500 mt-0.5">Sensitive credentials strictly accessible to administrative compliance personnel</p>
             </div>
             <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-extrabold rounded-lg">
-              🛡️ Admin Privilege Level
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Admin Privilege Level
             </span>
           </div>
 
@@ -263,7 +263,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div *ngIf="verification.documents && verification.documents.length > 0" class="divide-y divide-slate-100 border border-slate-200 rounded-2xl overflow-hidden">
             <div *ngFor="let doc of verification.documents" class="p-4 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
               <div class="flex items-center space-x-3.5">
-                <span class="p-2.5 bg-slate-100 text-slate-700 rounded-xl font-bold text-base">📄</span>
+                <span class="p-2.5 bg-slate-100 text-slate-700 rounded-xl font-bold text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
                 <div>
                   <span class="font-bold text-slate-900 block text-sm">{{ doc.documentName || doc.documentType }}</span>
                   <div class="flex items-center space-x-2 text-[11px] text-slate-500 mt-0.5">
@@ -284,7 +284,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                   target="_blank"
                   class="px-3 py-1 bg-[#0F2937] hover:bg-[#164E63] text-white text-[11px] font-bold rounded-xl shadow-2xs flex items-center gap-1"
                 >
-                  👁️ View File
+                  View File
                 </a>
                 <span [class]="getStepBadgeClass(doc.status)" class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase">
                   {{ doc.status }}

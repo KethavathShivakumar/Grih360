@@ -119,42 +119,42 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                 type="button"
                 class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg transition-colors cursor-pointer"
               >
-                ✏️ Edit
+                Edit
               </button>
               <button
                 (click)="manageImages(prop.id)"
                 type="button"
                 class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 rounded-lg transition-colors cursor-pointer"
               >
-                🖼️ Photos ({{ prop.images?.length || 0 }})
+                Photos ({{ prop.images?.length || 0 }})
               </button>
               <button
                 (click)="viewApplicants(prop.id)"
                 type="button"
                 class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
               >
-                📋 Applicants
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Applicants
               </button>
               <button
                 (click)="viewTenant(prop.id)"
                 type="button"
                 class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-lg transition-colors cursor-pointer"
               >
-                👤 Tenant
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> Tenant
               </button>
               <button
                 (click)="viewRental(prop.id)"
                 type="button"
                 class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] border border-emerald-200 rounded-lg transition-colors cursor-pointer"
               >
-                📜 Lease
+                 Lease
               </button>
               <button
                 (click)="viewRentTracking(prop.id)"
                 type="button"
                 class="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg transition-colors cursor-pointer"
               >
-                💰 Rent Records
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Rent Records
               </button>
             </div>
 

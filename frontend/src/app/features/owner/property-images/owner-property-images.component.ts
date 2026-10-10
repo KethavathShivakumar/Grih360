@@ -40,7 +40,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="px-3.5 py-1.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
           >
-            <span>➕</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></span>
             <span>Add New Photo</span>
           </button>
         </div>
@@ -48,12 +48,12 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 
       <!-- Feedback Banners -->
       <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
       <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <!-- Loading State -->
@@ -80,7 +80,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             </div>
             <h1 class="text-xl font-extrabold text-[#0F2937]">{{ property.title }}</h1>
             <p class="text-xs text-slate-500">
-              📍 {{ property.propertyLocation.address }}, {{ property.propertyLocation.locality || property.propertyLocation.city }}
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ property.propertyLocation.address }}, {{ property.propertyLocation.locality || property.propertyLocation.city }}
             </p>
           </div>
 
@@ -191,8 +191,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                     class="p-1 text-rose-600 hover:bg-rose-50 rounded-md font-bold text-xs cursor-pointer ml-1"
                     title="Delete Photo"
                   >
-                    🗑️
-                  </button>
+                    </button>
                 </div>
               </div>
             </div>
@@ -205,7 +204,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-base font-extrabold text-[#0F2937]">Add Property Photo</h3>
-            <button (click)="closeAddModal()" class="text-slate-400 hover:text-slate-600 font-bold cursor-pointer text-lg">✕</button>
+            <button (click)="closeAddModal()" class="text-slate-400 hover:text-slate-600 font-bold cursor-pointer text-lg"></button>
           </div>
 
           <!-- Camera & Gallery Direct Upload Controls -->
@@ -213,7 +212,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <span class="text-xs font-bold text-slate-700 block">Take Photo or Pick from Device</span>
             <div class="flex flex-wrap items-center gap-2">
               <label class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[#2D7A5E] text-xs font-bold rounded-xl cursor-pointer flex items-center transition-colors">
-                <span class="mr-1.5">📷</span>
+                <span class="mr-1.5"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
                 Take Photo (Camera)
                 <input
                   type="file"
@@ -224,7 +223,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 />
               </label>
               <label class="px-3.5 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-bold rounded-xl cursor-pointer flex items-center transition-colors shadow-xs">
-                <span class="mr-1.5">🖼️</span>
+                <span class="mr-1.5"></span>
                 Pick from Gallery
                 <input
                   type="file"
@@ -272,7 +271,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               />
             </div>
             <p *ngIf="previewError" class="text-[10px] text-rose-600 font-bold">
-              ⚠️ Unable to load image preview from this URL. Please verify the link.
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Unable to load image preview from this URL. Please verify the link.
             </p>
           </div>
 
@@ -331,10 +330,10 @@ export class OwnerPropertyImagesComponent implements OnInit {
   previewError: boolean = false;
 
   readonly samplePhotos = [
-    { label: '🛋️ Living Room', url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800', caption: 'Spacious Living Room' },
-    { label: '🍳 Modular Kitchen', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800', caption: 'Modern Modular Kitchen' },
-    { label: '🛏️ Master Bedroom', url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800', caption: 'Master Bedroom with Wardrobes' },
-    { label: '🌅 Balcony View', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800', caption: 'Balcony View & Natural Ventilation' },
+    { label: ' Living Room', url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800', caption: 'Spacious Living Room' },
+    { label: ' Modular Kitchen', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800', caption: 'Modern Modular Kitchen' },
+    { label: '<svg class="w-3.5 h-3.5 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v11m0-4h18m0-7v11M3 10h18M7 7h3v3H7z"/></svg> Master Bedroom', url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800', caption: 'Master Bedroom with Wardrobes' },
+    { label: 'Balcony View', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800', caption: 'Balcony View & Natural Ventilation' },
   ];
 
   constructor(

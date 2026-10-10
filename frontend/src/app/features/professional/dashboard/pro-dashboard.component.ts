@@ -35,7 +35,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             (click)="toggleAvailability()"
             [class]="dashboardData?.stats?.isAvailable ? 'px-4 py-2 bg-[#2D7A5E] text-white text-xs font-bold rounded-xl shadow-sm' : 'px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-xl'"
           >
-            {{ dashboardData?.stats?.isAvailable ? '🟢 AVAILABLE FOR JOBS' : '🔴 OFF-DUTY / UNAVAILABLE' }}
+            {{ dashboardData?.stats?.isAvailable ? 'AVAILABLE FOR JOBS' : 'OFF-DUTY / UNAVAILABLE' }}
           </button>
           <app-customer-care></app-customer-care>
         </div>
@@ -86,7 +86,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#2D7A5E] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-emerald-50 text-[#2D7A5E] flex items-center justify-center text-xl font-black  transition-transform">
-                ⚡
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937] group-hover:text-[#2D7A5E]">Active Job</h3>
               <p class="text-[11px] text-slate-500">Track current on-site work & mark completion.</p>
@@ -97,7 +97,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black  transition-transform">
-                📋
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937] group-hover:text-[#0F2937]">Assigned Requests</h3>
               <p class="text-[11px] text-slate-500">Review incoming jobs & accept/reject.</p>
@@ -108,7 +108,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black  transition-transform">
-                📜
+                
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Job History</h3>
               <p class="text-[11px] text-slate-500">Review completed jobs & earnings record.</p>
@@ -119,7 +119,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-black  transition-transform">
-                🛠️
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Offered Services</h3>
               <p class="text-[11px] text-slate-500">Configure 8 categories & specializations.</p>
@@ -141,7 +141,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-xl font-black  transition-transform">
-                📍
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Service Area</h3>
               <p class="text-[11px] text-slate-500">Operating cities & travel radius in km.</p>
@@ -163,7 +163,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black  transition-transform">
-                👤
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Pro Profile</h3>
               <p class="text-[11px] text-slate-500">Business identity & account credentials.</p>
@@ -191,7 +191,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <div class="space-y-1">
                 <div class="flex items-center space-x-2">
                   <span class="px-2 py-0.5 bg-white border text-[10px] font-bold rounded uppercase">{{ req.categoryCode }}</span>
-                  <span class="text-xs text-[#64748B]">📍 {{ req.serviceLocation?.city || 'Hyderabad' }}</span>
+                  <span class="text-xs text-[#64748B]"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ req.serviceLocation?.city || 'Hyderabad' }}</span>
                 </div>
                 <h3 class="text-xs font-bold text-[#0F2937] group-hover:text-[#2D7A5E]">{{ req.description }}</h3>
               </div>

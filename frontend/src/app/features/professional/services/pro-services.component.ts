@@ -37,7 +37,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             routerLink="/professional/service-area"
             class="px-4 py-2 bg-white border border-[#E8E6DF] hover:bg-[#FAF9F5] text-[#0F2937] text-xs font-bold rounded-xl shadow-xs transition"
           >
-            📍 Service Area Settings
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Service Area Settings
           </a>
           <app-customer-care></app-customer-care>
         </div>
@@ -45,13 +45,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Success & Error Banners -->
       <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
 
       <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <app-loading-state *ngIf="isLoading" message="Loading your service configuration..."></app-loading-state>
@@ -79,7 +79,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 [class]="isCategorySelected(cat.code) ? 'bg-[#0F2937] text-white' : 'bg-slate-100 text-slate-400 group-hover:text-slate-600'"
                 class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black transition-colors"
               >
-                {{ isCategorySelected(cat.code) ? '✓' : '+' }}
+                {{ isCategorySelected(cat.code) ? '' : '+' }}
               </span>
             </div>
 
@@ -152,14 +152,14 @@ export class ProServicesComponent implements OnInit {
   public errorMessage: string = '';
 
   public availableCategories: { code: ServiceCategoryCode; name: string; desc: string; icon: string }[] = [
-    { code: 'PLUMBING', name: 'Plumbing', desc: 'Tap fixes, pipe leakages, bathroom fittings, drainage clearance', icon: '🔧' },
-    { code: 'ELECTRICAL', name: 'Electrical', desc: 'Wiring, MCBs, lightings, fans, and switchboard repairs', icon: '⚡' },
-    { code: 'CARPENTRY', name: 'Carpentry', desc: 'Door locks, hinges, custom woodwork, and furniture fixes', icon: '🪵' },
-    { code: 'PAINTING', name: 'Painting', desc: 'Touchup painting, full wall coating, and waterproofing solutions', icon: '🎨' },
-    { code: 'CLEANING', name: 'Cleaning', desc: 'Deep home cleaning, sofa, carpet, and kitchen sanitation', icon: '✨' },
-    { code: 'AC_APPLIANCE', name: 'AC & Appliance', desc: 'Air conditioner servicing, fridge, and washing machine repair', icon: '❄️' },
-    { code: 'WATER_FILTER', name: 'Water Filter', desc: 'RO filter replacement, servicing, and TDS testing', icon: '💧' },
-    { code: 'GENERAL_MAINTENANCE', name: 'General Maintenance', desc: 'Handyman services, tile repairs, and overall property upkeep', icon: '⚙️' },
+    { code: 'PLUMBING', name: 'Plumbing', desc: 'Tap fixes, pipe leakages, bathroom fittings, drainage clearance', icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' },
+    { code: 'ELECTRICAL', name: 'Electrical', desc: 'Wiring, MCBs, lightings, fans, and switchboard repairs', icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>' },
+    { code: 'CARPENTRY', name: 'Carpentry', desc: 'Door locks, hinges, custom woodwork, and furniture fixes', icon: '' },
+    { code: 'PAINTING', name: 'Painting', desc: 'Touchup painting, full wall coating, and waterproofing solutions', icon: '' },
+    { code: 'CLEANING', name: 'Cleaning', desc: 'Deep home cleaning, sofa, carpet, and kitchen sanitation', icon: '' },
+    { code: 'AC_APPLIANCE', name: 'AC & Appliance', desc: 'Air conditioner servicing, fridge, and washing machine repair', icon: '' },
+    { code: 'WATER_FILTER', name: 'Water Filter', desc: 'RO filter replacement, servicing, and TDS testing', icon: '' },
+    { code: 'GENERAL_MAINTENANCE', name: 'General Maintenance', desc: 'Handyman services, tile repairs, and overall property upkeep', icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' },
   ];
 
   constructor(private proService: ProfessionalService) {}

@@ -81,7 +81,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="px-3.5 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
             >
-              <span>🛡️ Request Verification</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Request Verification</span>
             </button>
 
             <!-- Decline Action -->
@@ -103,7 +103,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-xl text-xs font-bold shadow-md transition-all  cursor-pointer"
             >
-              {{ isUpdating ? 'Processing...' : '✓ Approve & Create Lease' }}
+              {{ isUpdating ? 'Processing...' : ' Approve & Create Lease' }}
             </button>
           </div>
 
@@ -121,7 +121,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
               <span class="text-[10px] font-extrabold text-emerald-800 uppercase block">1. Submission</span>
               <span class="text-xs font-bold text-slate-900 block">Submitted</span>
-              <span class="text-[11px] text-emerald-700 font-semibold">✓ Completed</span>
+              <span class="text-[11px] text-emerald-700 font-semibold"> Completed</span>
             </div>
 
             <!-- Step 2: Under Review -->
@@ -165,7 +165,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               </div>
               <div class="flex-1 min-w-0">
                 <h3 class="text-sm font-bold text-slate-900 truncate">{{ propertyTitle }}</h3>
-                <p class="text-xs text-slate-500 mt-0.5 truncate">📍 {{ propertyLocation }}</p>
+                <p class="text-xs text-slate-500 mt-0.5 truncate"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
                 <div class="pt-1.5 text-xs font-semibold text-[#2D7A5E]">
                   <span>Listed at {{ formatRent(listingRent) }}</span>
                 </div>
@@ -264,7 +264,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Data Privacy Notice -->
           <div class="p-3 bg-indigo-50/70 border border-indigo-200/60 rounded-xl text-[11px] text-indigo-900 flex items-center gap-2">
-            <span>🛡️</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
             <span><strong>Owner Privacy Shield:</strong> Full unmasked identity documents and file attachments are strictly protected under privacy regulations. Verification confirmations and compliance statuses are displayed above.</span>
           </div>
         </div>
@@ -488,8 +488,8 @@ export class ApplicantDetailsComponent implements OnInit {
 
   getDecisionLabel(): string {
     const st = this.application?.status;
-    if (st === 'APPROVED') return 'Approved ✓';
-    if (st === 'REJECTED') return 'Declined ✕';
+    if (st === 'APPROVED') return 'Approved ';
+    if (st === 'REJECTED') return 'Declined ';
     if (st === 'WITHDRAWN') return 'Withdrawn';
     return 'Pending Review';
   }

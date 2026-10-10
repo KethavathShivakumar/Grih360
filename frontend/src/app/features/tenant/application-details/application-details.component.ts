@@ -58,7 +58,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Application Detail Content -->
       <div *ngIf="!isLoading && !isError && application" class="space-y-6">
         <div *ngIf="updateError" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-2xl flex items-center gap-2">
-          <span>⚠️</span>
+          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
           <span>{{ updateError }}</span>
         </div>
 
@@ -83,7 +83,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
                 <span class="text-[9px] font-black text-emerald-800 uppercase block">1. Submitted</span>
                 <span class="text-xs font-bold text-slate-900 block">Submitted</span>
-                <span class="text-[10px] text-emerald-700 font-semibold block">✓ Reached</span>
+                <span class="text-[10px] text-emerald-700 font-semibold block"> Reached</span>
               </div>
 
               <!-- Step 2: Under Review -->
@@ -155,7 +155,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             />
             <div>
               <h3 class="text-base font-bold text-slate-900">{{ propertyTitle }}</h3>
-              <p class="text-xs text-slate-500 mt-1">📍 {{ propertyLocation }}</p>
+              <p class="text-xs text-slate-500 mt-1"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
               <button
                 (click)="openPropertyListing()"
                 type="button"
@@ -407,14 +407,14 @@ export class ApplicationDetailsComponent implements OnInit {
   getTimelineStepState(stepKey: string): string {
     const st = this.application?.status;
     if (stepKey === 'UNDER_REVIEW') {
-      return st === 'UNDER_REVIEW' ? 'In Progress' : '✓ Completed';
+      return st === 'UNDER_REVIEW' ? 'In Progress' : ' Completed';
     }
     if (stepKey === 'VERIFICATION') {
       if (st === 'VERIFICATION_REQUIRED') return 'Action Needed';
       if (st === 'VERIFICATION_PENDING') return 'In Progress';
-      return '✓ Verified';
+      return ' Verified';
     }
-    return '✓ Completed';
+    return ' Completed';
   }
 
   getNextActionText(): string {

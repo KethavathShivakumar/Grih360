@@ -49,7 +49,7 @@ import { Subscription } from 'rxjs';
                 routerLinkActive="bg-[#2D7A5E] text-white font-bold"
                 class="px-3 py-1.5 rounded-lg bg-emerald-50 text-[#2D7A5E] hover:bg-[#2D7A5E] hover:text-white transition-all flex items-center gap-1"
               >
-                <span>➕ Add Property</span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add Property</span>
               </a>
               <a
                 routerLink="/owner/applicants"

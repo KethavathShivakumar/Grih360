@@ -70,7 +70,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
             <div>
               <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15 mb-2">
-                <span>🛡️ Model Tenancy Act Compliance Dossier</span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Model Tenancy Act Compliance Dossier</span>
               </div>
               <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Identity & Tenancy Assessment</h1>
               <p class="text-xs sm:text-sm text-slate-300 mt-1">
@@ -92,7 +92,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <div class="flex items-center justify-between flex-wrap gap-3">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">
-                ✓
+                
               </div>
               <div>
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-200 text-emerald-900">
@@ -107,7 +107,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               type="button"
               class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center gap-1.5"
             >
-              <span>🖨️ Print Certificate</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> Print Certificate</span>
             </button>
           </div>
 
@@ -122,7 +122,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Pillar 1: Government Identity</span>
-              <span class="text-base">🪪</span>
+              <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2H9.17A3.001 3.001 0 0112 14z"/></svg></span>
             </div>
             <div>
               <div class="font-extrabold text-sm text-[#0F2937]">
@@ -135,7 +135,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
               <span class="text-slate-400 font-semibold">Document Status:</span>
               <span class="font-extrabold" [class]="verification.status === 'VERIFIED' ? 'text-emerald-700' : 'text-amber-700'">
-                {{ verification.status === 'VERIFIED' ? '✓ Authenticated' : 'Under Assessment' }}
+                {{ verification.status === 'VERIFIED' ? ' Authenticated' : 'Under Assessment' }}
               </span>
             </div>
           </div>
@@ -144,7 +144,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Pillar 2: Income & Employment</span>
-              <span class="text-base">💼</span>
+              <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
             </div>
             <div>
               <div class="font-extrabold text-sm text-[#0F2937]">
@@ -166,7 +166,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Pillar 3: Residential Background</span>
-              <span class="text-base">🏡</span>
+              <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
             </div>
             <div>
               <div class="font-extrabold text-sm text-[#0F2937]">Previous Tenancy Record</div>
@@ -186,7 +186,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Pillar 4: Statutory Compliance</span>
-              <span class="text-base">⚖️</span>
+              <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg></span>
             </div>
             <div>
               <div class="font-extrabold text-sm text-[#0F2937]">Police Verification & Tenant Intimation</div>
@@ -194,7 +194,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
               <span class="text-slate-400 font-semibold">Compliance Status:</span>
-              <span class="font-extrabold text-emerald-700">✓ Digital Ready</span>
+              <span class="font-extrabold text-emerald-700"> Digital Ready</span>
             </div>
           </div>
         </div>

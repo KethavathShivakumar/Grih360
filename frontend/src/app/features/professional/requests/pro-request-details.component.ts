@@ -69,7 +69,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <div>
                 <strong class="text-[#64748B] block">Service Location:</strong>
                 <p class="mt-1 p-3 bg-[#FAF9F5] rounded-xl border border-[#E8E6DF] text-xs font-semibold">
-                  📍 {{ request.serviceLocation?.address }}, {{ request.serviceLocation?.city }}, {{ request.serviceLocation?.state }} - {{ request.serviceLocation?.pincode }}
+                  <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ request.serviceLocation?.address }}, {{ request.serviceLocation?.city }}, {{ request.serviceLocation?.state }} - {{ request.serviceLocation?.pincode }}
                 </p>
               </div>
               <div>
@@ -78,7 +78,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
 
               <div *ngIf="request.completion" class="p-4 bg-[#EBF5F0] border border-[#D1EADF] rounded-xl text-[#2D7A5E] space-y-1">
-                <strong>✓ Job Completed</strong>
+                <strong> Job Completed</strong>
                 <p>Notes: {{ request.completion.notes || 'Completed successfully' }}</p>
                 <span class="text-[11px] opacity-80 block">Completed at {{ request.completion.completedAt | date: 'short' }}</span>
               </div>
@@ -99,14 +99,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                   [disabled]="isSubmitting"
                   class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#206f54] text-white text-xs font-bold rounded-xl shadow-sm transition disabled:opacity-50"
                 >
-                  ✓ Accept Job Assignment
+                   Accept Job Assignment
                 </button>
                 <button
                   (click)="updateStatus('REJECTED')"
                   [disabled]="isSubmitting"
                   class="px-6 py-2.5 bg-[#FEF2F2] border border-[#FEE2E2] text-[#B91C1C] hover:bg-[#FEE2E2] text-xs font-bold rounded-xl transition disabled:opacity-50"
                 >
-                  ✕ Reject Job
+                   Reject Job
                 </button>
               </div>
 
@@ -135,16 +135,16 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                   [disabled]="isSubmitting"
                   class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#206f54] text-white text-xs font-bold rounded-xl shadow-md transition disabled:opacity-50"
                 >
-                  ✔ Complete Job
+                  <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Complete Job
                 </button>
               </div>
 
               <div *ngIf="request.status === 'COMPLETED'" class="text-xs text-[#2D7A5E] font-bold">
-                ✓ This job has been marked as COMPLETED. No further status changes allowed.
+                 This job has been marked as COMPLETED. No further status changes allowed.
               </div>
 
               <div *ngIf="request.status === 'CANCELLED'" class="text-xs text-[#B91C1C] font-bold">
-                ✕ This service request was cancelled.
+                 This service request was cancelled.
               </div>
             </div>
           </div>

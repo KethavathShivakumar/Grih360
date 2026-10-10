@@ -40,7 +40,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </div>
           <h1 class="text-2xl font-black text-[#0F2937]">{{ property.title }}</h1>
           <p class="text-xs text-slate-500 mt-0.5">
-            📍 {{ property.propertyLocation?.address || property.location?.address || 'Address not listed' }},
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ property.propertyLocation?.address || property.location?.address || 'Address not listed' }},
             {{ property.propertyLocation?.city || property.location?.city || 'Hyderabad' }}
           </p>
         </div>
@@ -58,7 +58,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             [disabled]="isUpdating"
             class="px-3.5 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-xs font-bold rounded-xl transition disabled:opacity-50"
           >
-            ✓ Approve (VACANT)
+             Approve (VACANT)
           </button>
           <button
             *ngIf="property.availabilityStatus !== 'FLAGGED'"
@@ -66,7 +66,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             [disabled]="isUpdating"
             class="px-3.5 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 text-xs font-bold rounded-xl transition disabled:opacity-50"
           >
-            🚩 Flag Listing
+            Flag Listing
           </button>
           <button
             *ngIf="property.availabilityStatus !== 'REMOVED'"
@@ -74,7 +74,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             [disabled]="isUpdating"
             class="px-3.5 py-2 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 text-xs font-bold rounded-xl transition disabled:opacity-50"
           >
-            🗑️ Remove Listing
+            Remove Listing
           </button>
         </div>
       </div>
@@ -181,7 +181,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   *ngFor="let am of property.amenities || ['Parking', 'Water Supply', 'Security', 'Power Backup']"
                   class="px-2 py-0.5 bg-[#FAF9F5] border border-[#E8E6DF] text-slate-700 rounded text-[10px] font-semibold"
                 >
-                  ✓ {{ am }}
+                   {{ am }}
                 </span>
               </div>
             </div>

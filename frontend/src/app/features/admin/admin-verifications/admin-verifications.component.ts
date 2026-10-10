@@ -82,7 +82,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             placeholder="Search applicant name, email, property..."
             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
           />
-          <span *ngIf="searchQuery" (click)="searchQuery = ''" class="absolute right-3 top-2.5 text-xs text-slate-400 cursor-pointer">✕</span>
+          <span *ngIf="searchQuery" (click)="searchQuery = ''" class="absolute right-3 top-2.5 text-xs text-slate-400 cursor-pointer"></span>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
       <!-- Empty State -->
       <div *ngIf="!loading && filteredQueue.length === 0" class="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-xs space-y-3">
-        <span class="text-4xl block">📭</span>
+        <span class="text-4xl block"></span>
         <h3 class="text-base font-bold text-slate-800">No Verifications in this Category</h3>
         <p class="text-xs text-slate-500 max-w-sm mx-auto">
           {{ searchQuery ? 'No records match your search criteria.' : 'There are currently no verification records matching this filter.' }}
@@ -165,7 +165,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               title="Quick Approve"
               class="p-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl transition font-bold text-xs"
             >
-              ✓
+              
             </button>
             <button
               *ngIf="item.status !== 'REJECTED'"
@@ -173,7 +173,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               title="Quick Reject"
               class="p-2.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl transition font-bold text-xs"
             >
-              ✕
+              
             </button>
           </div>
         </div>

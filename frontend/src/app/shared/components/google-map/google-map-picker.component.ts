@@ -30,14 +30,14 @@ export interface SelectedLocationData {
     <div class="space-y-3">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
         <span class="font-bold text-slate-700 flex items-center gap-1">
-          <span>🗺️</span> Click map or drag pin to select exact coordinates:
+          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></span> Click map or drag pin to select exact coordinates:
         </span>
         <button
           (click)="useCurrentLocation()"
           type="button"
           class="self-start sm:self-auto px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] font-bold rounded-lg border border-emerald-200 transition-colors flex items-center gap-1.5 cursor-pointer"
         >
-          <span>📍</span>
+          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
           <span>Use Current Location</span>
         </button>
       </div>

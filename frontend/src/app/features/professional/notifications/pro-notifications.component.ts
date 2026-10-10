@@ -34,7 +34,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           (click)="markAllAsRead()"
           class="px-4 py-2 bg-white border border-[#E8E6DF] hover:bg-[#FAF9F5] text-[#0F2937] text-xs font-bold rounded-xl transition"
         >
-          ✓ Mark All as Read
+           Mark All as Read
         </button>
       </div>
 

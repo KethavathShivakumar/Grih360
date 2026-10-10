@@ -41,7 +41,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             routerLink="/professional/active-job"
             class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#206f54] text-white text-xs font-bold rounded-xl shadow-xs transition"
           >
-            ⚡ Active Work
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Active Work
           </a>
           <app-customer-care></app-customer-care>
         </div>
@@ -114,7 +114,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div class="space-y-2">
             <h3 class="text-sm font-bold text-[#0F2937]">{{ job.description }}</h3>
             <p class="text-xs text-slate-500">
-              📍 {{ job.serviceLocation?.address }}, {{ job.serviceLocation?.city }} &bull; Client: {{ job.requesterId?.name || 'Resident' }}
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ job.serviceLocation?.address }}, {{ job.serviceLocation?.city }} &bull; Client: {{ job.requesterId?.name || 'Resident' }}
             </p>
           </div>
 
@@ -122,7 +122,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div *ngIf="job.completion" class="p-3.5 bg-emerald-50/60 border border-emerald-200/80 rounded-2xl text-xs text-emerald-900 space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-extrabold flex items-center gap-1.5">
-                <span>✓</span> Completed on {{ job.completion.completedAt | date: 'mediumDate' }}
+                <span></span> Completed on {{ job.completion.completedAt | date: 'mediumDate' }}
               </span>
             </div>
             <p class="text-xs text-emerald-800 mt-1 font-medium">Notes: {{ job.completion.notes || 'Job concluded successfully.' }}</p>

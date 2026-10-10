@@ -60,7 +60,7 @@ export interface AmenityOption {
                 type="button"
                 class="text-xs text-slate-300 hover:text-white"
               >
-                ✕
+                
               </button>
             </div>
 
@@ -75,7 +75,7 @@ export interface AmenityOption {
               <svg *ngIf="!isLocating" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               </svg>
-              <span *ngIf="isLocating" class="inline-block animate-spin text-xs">⏳</span>
+              <span *ngIf="isLocating" class="inline-block animate-spin text-xs"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
             </button>
 
             <!-- Filters Button -->
@@ -114,8 +114,8 @@ export interface AmenityOption {
         <!-- In-App Location Error Banner (No browser alert) -->
         <div *ngIf="locationErrorBanner" class="p-3 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-900 space-y-1">
           <div class="flex items-center justify-between font-bold">
-            <span class="flex items-center gap-1">📍 {{ locationErrorBanner }}</span>
-            <button (click)="locationErrorBanner = null" type="button" class="text-amber-600 hover:text-amber-900 font-bold ml-2">✕</button>
+            <span class="flex items-center gap-1"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ locationErrorBanner }}</span>
+            <button (click)="locationErrorBanner = null" type="button" class="text-amber-600 hover:text-amber-900 font-bold ml-2"></button>
           </div>
           <p class="text-[11px] text-amber-800">
             Select a city/district from the Filters drawer or search bar to browse properties manually.
@@ -208,7 +208,7 @@ export interface AmenityOption {
 
         <!-- Mobile Empty State -->
         <div *ngIf="!isLoading && !isError && properties.length === 0" class="p-6 bg-white border border-slate-200 rounded-2xl text-center space-y-3">
-          <div class="text-3xl">🏡</div>
+          <div class="text-3xl"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
           <h4 class="text-xs font-bold text-[#0F2937]">No homes match your current filters</h4>
           <p class="text-[11px] text-slate-500">Try expanding your search radius or resetting filters.</p>
           <button (click)="resetFilters()" type="button" class="px-4 py-2 bg-[#0F2937] text-white text-xs font-bold rounded-xl cursor-pointer">
@@ -239,7 +239,7 @@ export interface AmenityOption {
               </h3>
               <div class="flex items-center space-x-2">
                 <button (click)="resetFilters()" type="button" class="text-xs font-bold text-rose-600 hover:underline cursor-pointer">Reset</button>
-                <button (click)="showMobileFiltersDrawer = false" type="button" class="text-slate-400 hover:text-slate-700 text-sm font-bold cursor-pointer">✕</button>
+                <button (click)="showMobileFiltersDrawer = false" type="button" class="text-slate-400 hover:text-slate-700 text-sm font-bold cursor-pointer"></button>
               </div>
             </div>
 
@@ -364,7 +364,7 @@ export interface AmenityOption {
                     type="button"
                     class="text-[10px] text-slate-400 hover:text-slate-600 font-bold"
                   >
-                    ✕ Clear
+                     Clear
                   </button>
                 </div>
                 <div class="flex items-center space-x-2 mt-0.5">
@@ -441,7 +441,7 @@ export interface AmenityOption {
                   title="Search Homes Near My GPS Location"
                 >
                   <svg *ngIf="!isLocating" class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                  <span *ngIf="isLocating" class="inline-block animate-spin">⏳</span>
+                  <span *ngIf="isLocating" class="inline-block animate-spin"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
                 </button>
                 <button
                   (click)="onFilterChange()"
@@ -466,14 +466,14 @@ export interface AmenityOption {
               *ngIf="activeLocationDisplayName"
               class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-[#2D7A5E] border border-emerald-200 rounded-full text-[11px] font-extrabold"
             >
-              <span>📍 {{ activeLocationDisplayName }}</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ activeLocationDisplayName }}</span>
               <button
                 (click)="clearSelectedLocation()"
                 type="button"
                 class="hover:text-rose-600 font-bold ml-1 cursor-pointer"
                 title="Clear Location"
               >
-                ✕
+                
               </button>
             </span>
 
@@ -610,7 +610,7 @@ export interface AmenityOption {
             </div>
 
             <div *ngIf="!isLoading && !isError && properties.length === 0" class="bg-white p-8 rounded-3xl border border-[#E8E6DF] shadow-xs text-center space-y-4">
-              <div class="text-3xl">🏡</div>
+              <div class="text-3xl"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
               <h3 class="text-base font-extrabold text-[#0F2937]">No homes available in this area yet</h3>
               <p class="text-xs text-slate-500">Try expanding your search radius or resetting filters.</p>
               <button (click)="resetFilters()" type="button" class="px-4 py-2 bg-[#0F2937] text-white text-xs font-bold rounded-xl cursor-pointer">
@@ -672,14 +672,14 @@ export class FindHomesComponent implements OnInit, OnDestroy {
 
   // Canonical Amenities List
   availableAmenities: AmenityOption[] = [
-    { id: 'POWER_BACKUP', label: '100% Power Backup', icon: '⚡' },
-    { id: 'LIFT', label: 'Elevator / Lift', icon: '🛗' },
-    { id: 'COVERED_PARKING', label: 'Covered Car Parking', icon: '🚗' },
-    { id: 'SECURITY', label: '24x7 Security & CCTV', icon: '🛡️' },
-    { id: 'GYM', label: 'Gymnasium & Fitness', icon: '💪' },
-    { id: 'SWIMMING_POOL', label: 'Swimming Pool', icon: '🏊' },
-    { id: 'GAS_PIPELINE', label: 'Piped Gas Connection', icon: '🔥' },
-    { id: 'WATER_SUPPLY_24X7', label: '24x7 Water Supply', icon: '💧' },
+    { id: 'POWER_BACKUP', label: '100% Power Backup', icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>' },
+    { id: 'LIFT', label: 'Elevator / Lift', icon: '' },
+    { id: 'COVERED_PARKING', label: 'Covered Car Parking', icon: '' },
+    { id: 'SECURITY', label: '24x7 Security & CCTV', icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>' },
+    { id: 'GYM', label: 'Gymnasium & Fitness', icon: '' },
+    { id: 'SWIMMING_POOL', label: 'Swimming Pool', icon: '' },
+    { id: 'GAS_PIPELINE', label: 'Piped Gas Connection', icon: '' },
+    { id: 'WATER_SUPPLY_24X7', label: '24x7 Water Supply', icon: '' },
   ];
 
   // Autocomplete & Structured Geocoding

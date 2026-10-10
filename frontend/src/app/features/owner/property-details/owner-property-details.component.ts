@@ -65,7 +65,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
             <h1 class="text-2xl font-extrabold text-[#0F2937] mt-2">{{ property.title }}</h1>
             <p class="text-sm text-slate-500 mt-1">
-              📍 {{ property.propertyLocation.address }}, {{ property.propertyLocation.locality }}, {{ property.propertyLocation.city }}
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ property.propertyLocation.address }}, {{ property.propertyLocation.locality }}, {{ property.propertyLocation.city }}
             </p>
           </div>
 
@@ -76,14 +76,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
-              ✏️ Edit Property
+              Edit Property
             </button>
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/images')"
               type="button"
               class="px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
             >
-              <span>🖼️</span>
+              <span></span>
               <span>Manage Photos ({{ property.images?.length || 0 }})</span>
             </button>
             <button
@@ -91,28 +91,28 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
-              📋 Applicants
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Applicants
             </button>
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/tenant')"
               type="button"
               class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
-              👤 Tenant Details
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> Tenant Details
             </button>
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/rental')"
               type="button"
               class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] border border-emerald-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
-              📜 Lease Agreement
+               Lease Agreement
             </button>
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/rent')"
               type="button"
               class="px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
-              💰 Rent Records
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Rent Records
             </button>
           </div>
         </div>
@@ -126,7 +126,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="text-xs font-bold text-[#2D7A5E] hover:underline cursor-pointer flex items-center gap-1"
             >
-              <span>🖼️ Edit / Upload Photos →</span>
+              <span>Edit / Upload Photos →</span>
             </button>
           </div>
 

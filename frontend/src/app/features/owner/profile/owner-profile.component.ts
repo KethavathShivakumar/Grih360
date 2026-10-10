@@ -48,12 +48,12 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
 
       <!-- Feedback Banners -->
       <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
       <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <!-- TAB 1: OVERVIEW -->
@@ -87,7 +87,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               </div>
               <p class="text-xs text-slate-500">{{ user?.email }} • +91 {{ user?.phone || '9876543210' }}</p>
               <p class="text-xs text-slate-600 font-medium pt-1">
-                📍 Operating Zone: {{ user?.city || 'Warangal & Hyderabad, Telangana' }}
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Operating Zone: {{ user?.city || 'Warangal & Hyderabad, Telangana' }}
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <!-- Photo Actions -->
           <div class="flex sm:flex-col items-center gap-2">
             <label class="px-3 py-1.5 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer transition-colors flex items-center gap-1">
-              <span>📷</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
               <span>{{ user?.profileImage ? 'Replace Photo' : 'Upload Photo' }}</span>
               <input type="file" accept="image/png,image/jpeg,image/webp" (change)="onPhotoFileChange($event)" class="hidden" />
             </label>
@@ -116,7 +116,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div routerLink="/owner/properties" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Properties</span>
-              <span class="text-xl  transition-transform">🏢</span>
+              <span class="text-xl  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ metrics?.totalProperties || 0 }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">Manage Properties →</span>
@@ -126,7 +126,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div routerLink="/owner/rentals" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Active Leases</span>
-              <span class="text-xl  transition-transform">🔑</span>
+              <span class="text-xl  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg></span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ metrics?.activeRentals || 0 }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">View Agreements →</span>
@@ -136,7 +136,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div routerLink="/owner/applicants" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pending Applicants</span>
-              <span class="text-xl  transition-transform">📋</span>
+              <span class="text-xl  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ metrics?.pendingApplications || 0 }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">Review Applicants →</span>
@@ -147,7 +147,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
         <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
-              <span>🛡️</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
               <span>Landlord Verification & Ownership Documents</span>
             </h3>
             <span [ngClass]="verificationBadgeClass" class="text-xs font-extrabold px-2.5 py-1 rounded-full border">
@@ -160,9 +160,9 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               <span class="text-[10px] uppercase font-bold text-slate-400 block">Property Title Deed Verification</span>
               <span class="font-bold text-slate-800 text-sm block">
                 <ng-container [ngSwitch]="verificationState">
-                  <span *ngSwitchCase="'verified'" class="text-emerald-700">✓ Title Deed Verified</span>
-                  <span *ngSwitchCase="'pending_review'" class="text-amber-700">⏳ Title Deed Under Review</span>
-                  <span *ngSwitchCase="'rejected'" class="text-rose-700">⚠️ Title Deed Rejected</span>
+                  <span *ngSwitchCase="'verified'" class="text-emerald-700"> Title Deed Verified</span>
+                  <span *ngSwitchCase="'pending_review'" class="text-amber-700"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Title Deed Under Review</span>
+                  <span *ngSwitchCase="'rejected'" class="text-rose-700"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Title Deed Rejected</span>
                   <span *ngSwitchDefault class="text-slate-600">Verification Coming Soon</span>
                 </ng-container>
               </span>
@@ -175,9 +175,9 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               <span class="text-[10px] uppercase font-bold text-slate-400 block">Rent Settlement Account</span>
               <span class="font-bold text-slate-800 text-sm block">
                 <ng-container [ngSwitch]="verificationState">
-                  <span *ngSwitchCase="'verified'" class="text-emerald-700">✓ Bank Account Verified</span>
-                  <span *ngSwitchCase="'pending_review'" class="text-amber-700">⏳ Bank Details Pending</span>
-                  <span *ngSwitchCase="'rejected'" class="text-rose-700">⚠️ Bank Details Rejected</span>
+                  <span *ngSwitchCase="'verified'" class="text-emerald-700"> Bank Account Verified</span>
+                  <span *ngSwitchCase="'pending_review'" class="text-amber-700"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Bank Details Pending</span>
+                  <span *ngSwitchCase="'rejected'" class="text-rose-700"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Bank Details Rejected</span>
                   <span *ngSwitchDefault class="text-slate-600">Bank Account: Not Submitted</span>
                 </ng-container>
               </span>
@@ -192,7 +192,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
         <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
             <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
-              <span>🚀</span>
+              <span></span>
               <span>Owner Console Quick Navigation Menu</span>
             </h3>
           </div>
@@ -202,49 +202,49 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               routerLink="/owner/properties/new"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">➕</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></span>
               <span>Add Property</span>
             </a>
             <a
               routerLink="/owner/properties"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">🏢</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></span>
               <span>My Properties</span>
             </a>
             <a
               routerLink="/owner/applicants"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">📋</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
               <span>Applicants</span>
             </a>
             <a
               routerLink="/owner/rentals"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">📜</span>
+              <span class="text-lg  transition-transform"></span>
               <span>Rental Leases</span>
             </a>
             <a
               routerLink="/owner/rent-tracking"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">💰</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></span>
               <span>Rent Tracking</span>
             </a>
             <a
               routerLink="/owner/notifications"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">🔔</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></span>
               <span>Notifications</span>
             </a>
             <a
               routerLink="/owner/settings"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg  transition-transform">⚙️</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
               <span>Settings</span>
             </a>
             <button
@@ -252,7 +252,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               type="button"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer text-left"
             >
-              <span class="text-lg  transition-transform">🔒</span>
+              <span class="text-lg  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
               <span>Security</span>
             </button>
           </div>

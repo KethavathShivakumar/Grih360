@@ -23,15 +23,15 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           [disabled]="isSaving || !isDirty"
           class="px-5 py-2.5 bg-[#2D7A5E] hover:bg-teal-800 disabled:opacity-50 text-white text-xs font-bold rounded-xl transition"
         >
-          {{ isSaving ? 'Saving...' : '💾 Save Changes' }}
+          {{ isSaving ? 'Saving...' : 'Save Changes' }}
         </button>
       </div>
 
       <div *ngIf="saveSuccess" class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-800 text-xs font-bold">
-        ✓ {{ saveSuccess }}
+         {{ saveSuccess }}
       </div>
       <div *ngIf="saveError" class="bg-rose-50 border border-rose-200 p-4 rounded-xl text-rose-800 text-xs font-bold">
-        ⚠️ {{ saveError }}
+        <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ saveError }}
       </div>
 
       <app-loading-state *ngIf="loading" message="Loading platform configuration..."></app-loading-state>
@@ -147,7 +147,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   *ngFor="let city of settings.operatingCities || []"
                   class="px-2 py-0.5 bg-slate-50 border border-slate-200 text-slate-700 rounded text-[10px] font-semibold"
                 >
-                  📍 {{ city }}
+                  <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ city }}
                 </span>
               </div>
             </div>
@@ -193,7 +193,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Maintenance Mode -->
         <div class="bg-white rounded-2xl p-6 border border-rose-200 shadow-xs">
           <h3 class="text-sm font-black text-rose-800 uppercase tracking-wide border-b border-rose-100 pb-2 flex items-center space-x-2">
-            <span>⚠️</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
             <span>Maintenance Mode</span>
           </h3>
           <div class="mt-4 flex items-center justify-between">
@@ -201,7 +201,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <span class="font-bold text-slate-800 block text-sm">Maintenance Mode</span>
               <span class="text-xs text-slate-500">When enabled, platform shows maintenance page to all non-admin users.</span>
               <p *ngIf="settings.maintenanceMode" class="text-rose-600 font-bold text-xs mt-1">
-                ⚠️ MAINTENANCE MODE IS CURRENTLY ACTIVE: Platform is inaccessible to tenants and owners.
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> MAINTENANCE MODE IS CURRENTLY ACTIVE: Platform is inaccessible to tenants and owners.
               </p>
             </div>
             <button

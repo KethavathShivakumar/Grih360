@@ -92,7 +92,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
               <span class="font-bold text-slate-800 block">{{ application.property?.title || application.propertyId?.title || 'Property' }}</span>
               <span class="text-[11px] text-slate-500 block">
-                📍 {{ (application.property?.propertyLocation?.address || application.property?.location?.address) || 'N/A' }}
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ (application.property?.propertyLocation?.address || application.property?.location?.address) || 'N/A' }}
               </span>
             </div>
             <div class="flex justify-between py-1 border-b border-slate-100">

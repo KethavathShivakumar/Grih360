@@ -16,7 +16,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <div class="flex items-center justify-between">
         <div>
           <div class="inline-flex items-center space-x-2 bg-emerald-50 text-[#2D7A5E] px-3 py-1 rounded-full text-xs font-bold border border-emerald-200 mb-2">
-            <span>🏡 My Tenancy & Lease Lifecycle</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> My Tenancy & Lease Lifecycle</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937]">Rental & Lease Agreement</h1>
           <p class="text-xs sm:text-sm text-slate-500">
@@ -45,7 +45,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <!-- Empty State -->
       <div *ngIf="!loading && !rental && !agreement" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-12 text-center space-y-4">
         <div class="w-16 h-16 bg-slate-50 text-slate-400 rounded-3xl flex items-center justify-center mx-auto text-2xl border border-slate-200">
-          🏠
+          <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         </div>
         <h2 class="text-lg font-extrabold text-[#0F2937]">No Active Rental or Pending Agreement Found</h2>
         <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
@@ -53,7 +53,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </p>
         <div class="pt-2">
           <a routerLink="/tenant/homes" class="inline-block px-6 py-3 bg-[#0F2937] text-[#FACC15] font-extrabold rounded-2xl text-xs shadow-md  transition-all">
-            🔍 Browse Available Homes
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> Browse Available Homes
           </a>
         </div>
       </div>
@@ -65,7 +65,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         <div class="bg-amber-50/90 border-2 border-amber-300/80 rounded-3xl p-5 shadow-xs relative overflow-hidden">
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-2xl bg-amber-200 text-amber-900 flex items-center justify-center text-lg shrink-0 font-black">
-              ⚠️
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
             </div>
             <div class="space-y-1.5 flex-1">
               <div class="flex items-center gap-2">
@@ -111,12 +111,12 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/70 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Property Owner (Lessor)</span>
-                <span class="text-xs">🏛️</span>
+                <span class="text-xs"></span>
               </div>
               <div class="font-extrabold text-sm text-[#0F2937]">{{ ownerName }}</div>
               <div class="text-xs text-slate-500">{{ ownerEmail }}</div>
               <div class="pt-1 flex items-center gap-1.5 text-[11px] font-bold" [class]="ownerConfirmed ? 'text-emerald-700' : 'text-amber-700'">
-                <span>{{ ownerConfirmed ? '✓ Confirmed by Owner' : '⏳ Pending Owner Confirmation' }}</span>
+                <span>{{ ownerConfirmed ? ' Confirmed by Owner' : 'Pending Owner Confirmation' }}</span>
               </div>
             </div>
 
@@ -124,12 +124,12 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/70 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Tenant (Lessee)</span>
-                <span class="text-xs">👤</span>
+                <span class="text-xs"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></span>
               </div>
               <div class="font-extrabold text-sm text-[#0F2937]">{{ tenantName }}</div>
               <div class="text-xs text-slate-500">{{ tenantEmail }}</div>
               <div class="pt-1 flex items-center gap-1.5 text-[11px] font-bold" [class]="tenantConfirmed ? 'text-emerald-700' : 'text-amber-700'">
-                <span>{{ tenantConfirmed ? '✓ Confirmed by You' : '⚠️ Action Required: Tenant Confirmation Pending' }}</span>
+                <span>{{ tenantConfirmed ? ' Confirmed by You' : 'Action Required: Tenant Confirmation Pending' }}</span>
               </div>
             </div>
           </div>
@@ -196,7 +196,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <div>
                 <h4 class="font-bold text-sm text-[#FACC15]">Confirm Agreement Terms</h4>
                 <p class="text-xs text-slate-300">By confirming, you record platform agreement to the lease terms and rental fees.</p>
-                <p *ngIf="confirmError" class="text-xs text-rose-400 font-bold mt-1">⚠️ {{ confirmError }}</p>
+                <p *ngIf="confirmError" class="text-xs text-rose-400 font-bold mt-1"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ confirmError }}</p>
               </div>
               <button
                 (click)="confirmAsTenant()"
@@ -204,12 +204,12 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 type="button"
                 class="px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black rounded-xl text-xs transition-all  shrink-0 cursor-pointer disabled:opacity-50"
               >
-                {{ isConfirming ? 'Confirming...' : '✓ Accept & Confirm Agreement' }}
+                {{ isConfirming ? 'Confirming...' : ' Accept & Confirm Agreement' }}
               </button>
             </div>
 
             <div *ngIf="tenantConfirmed && !ownerConfirmed" class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-emerald-800 font-bold flex items-center gap-2">
-              <span>✓</span>
+              <span></span>
               <span>You have confirmed this agreement! Awaiting owner confirmation to activate your tenancy.</span>
             </div>
           </div>

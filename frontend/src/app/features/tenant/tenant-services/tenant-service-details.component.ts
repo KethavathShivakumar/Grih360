@@ -91,7 +91,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
               <div>
                 <strong class="text-[#64748B] block">Service Address:</strong>
-                <span>📍 {{ request.serviceLocation?.address }}, {{ request.serviceLocation?.city }}, {{ request.serviceLocation?.state }} - {{ request.serviceLocation?.pincode }}</span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ request.serviceLocation?.address }}, {{ request.serviceLocation?.city }}, {{ request.serviceLocation?.state }} - {{ request.serviceLocation?.pincode }}</span>
               </div>
               <div>
                 <strong class="text-[#64748B] block">Estimated Cost:</strong>
@@ -121,7 +121,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <div *ngIf="showCancelBox" class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl space-y-3">
                 <h3 class="text-xs font-bold text-[#0F2937]">Specify Cancellation Reason</h3>
                 <div *ngIf="cancelError" class="p-2 bg-[#FEF2F2] border border-[#FEE2E2] text-[#B91C1C] text-xs font-bold rounded-lg">
-                  ⚠️ {{ cancelError }}
+                  <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ cancelError }}
                 </div>
                 <textarea
                   [(ngModel)]="cancelReason"
@@ -147,7 +147,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <h2 class="text-base font-bold text-[#0F2937]">Assigned Professional</h2>
 
               <div *ngIf="!request.professionalId" class="p-4 bg-[#FFF7ED] border border-[#FFEDD5] text-[#C2410C] text-xs font-medium rounded-xl">
-                ⚙️ Matching in progress. We are finding available professionals in your area.
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Matching in progress. We are finding available professionals in your area.
               </div>
 
               <div *ngIf="request.professionalId" class="space-y-3 text-xs">
@@ -183,10 +183,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div *ngIf="myReview" class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-xs space-y-3">
               <div class="flex items-center justify-between">
                 <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 text-[11px] font-bold rounded-lg border border-emerald-200">
-                  ✓ Your Verified Review
+                   Your Verified Review
                 </span>
                 <div class="flex items-center space-x-1 text-sm text-amber-500 font-bold">
-                  <span>{{ '★'.repeat(myReview.rating) }}{{ '☆'.repeat(5 - myReview.rating) }}</span>
+                  <span>{{ ''.repeat(myReview.rating) }}{{ ''.repeat(5 - myReview.rating) }}</span>
                   <span class="text-xs font-black text-slate-800 ml-1">({{ myReview.rating }}.0)</span>
                 </div>
               </div>

@@ -61,7 +61,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
               (click)="selectOwner()"
               class="bento-card cursor-pointer text-left p-6 sm:p-8 border-2 hover:border-[#0F2937] group transition-all space-y-4 rounded-3xl bg-white shadow-xs">
               <div class="w-14 h-14 rounded-2xl bg-[#0F2937] text-white flex items-center justify-center text-2xl font-bold  transition-transform">
-                🏛️
+                
               </div>
               <div>
                 <h2 class="text-xl font-black text-[#0F2937]">Property Owner</h2>
@@ -80,7 +80,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
               (click)="selectTenant()"
               class="bento-card cursor-pointer text-left p-6 sm:p-8 border-2 hover:border-[#2D7A5E] group transition-all space-y-4 rounded-3xl bg-white shadow-xs">
               <div class="w-14 h-14 rounded-2xl bg-[#2D7A5E] text-white flex items-center justify-center text-2xl font-bold  transition-transform">
-                🏡
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
               </div>
               <div>
                 <h2 class="text-xl font-black text-[#0F2937]">Tenant / Resident</h2>
@@ -99,7 +99,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
               (click)="selectProfessional()"
               class="bento-card cursor-pointer text-left p-6 sm:p-8 border-2 hover:border-[#164E63] group transition-all space-y-4 rounded-3xl bg-white shadow-xs">
               <div class="w-14 h-14 rounded-2xl bg-[#164E63] text-white flex items-center justify-center text-2xl font-bold  transition-transform">
-                ⚡
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <div>
                 <h2 class="text-xl font-black text-[#0F2937]">Trade Professional</h2>
@@ -118,7 +118,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
         <footer class="max-w-7xl mx-auto w-full py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 border-t border-[#E8E6DF]">
           <span>© 2026 Grih360 Technologies Pvt Ltd • Model Tenancy Act Compliant</span>
           <a routerLink="/admin/login" class="text-slate-400 hover:text-[#0F2937] font-semibold transition">
-            🛡️ Admin Console →
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Admin Console →
           </a>
         </footer>
       </div>

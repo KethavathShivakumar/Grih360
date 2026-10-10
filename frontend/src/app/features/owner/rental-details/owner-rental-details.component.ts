@@ -44,7 +44,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           type="button"
           class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-colors cursor-pointer"
         >
-          💰 Rent Collection Records →
+          <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Rent Collection Records →
         </button>
       </div>
 
@@ -73,7 +73,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         <div class="bg-amber-50/90 border-2 border-amber-300/80 rounded-3xl p-5 shadow-xs">
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-2xl bg-amber-200 text-amber-900 flex items-center justify-center text-lg shrink-0 font-black">
-              🛡️
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <div class="space-y-1.5 flex-1">
               <div class="flex items-center gap-2">
@@ -115,20 +115,20 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
                 <span class="text-[10px] font-extrabold text-emerald-800 uppercase block">Step 1</span>
                 <span class="font-bold text-slate-900 block">Application</span>
-                <span class="text-[11px] text-emerald-700 font-semibold">✓ Approved</span>
+                <span class="text-[11px] text-emerald-700 font-semibold"> Approved</span>
               </div>
               <!-- Step 2 -->
               <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
                 <span class="text-[10px] font-extrabold text-emerald-800 uppercase block">Step 2</span>
                 <span class="font-bold text-slate-900 block">Agreement Draft</span>
-                <span class="text-[11px] text-emerald-700 font-semibold">✓ Generated</span>
+                <span class="text-[11px] text-emerald-700 font-semibold"> Generated</span>
               </div>
               <!-- Step 3 -->
               <div class="p-3.5 rounded-2xl space-y-1 border" [class]="ownerConfirmed ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-300'">
                 <span class="text-[10px] font-extrabold uppercase block" [class]="ownerConfirmed ? 'text-emerald-800' : 'text-amber-800'">Step 3</span>
                 <span class="font-bold text-slate-900 block">Owner Confirmation</span>
                 <span class="text-[11px] font-semibold" [class]="ownerConfirmed ? 'text-emerald-700' : 'text-amber-700'">
-                  {{ ownerConfirmed ? '✓ Confirmed' : 'Action Required' }}
+                  {{ ownerConfirmed ? ' Confirmed' : 'Action Required' }}
                 </span>
               </div>
               <!-- Step 4 -->
@@ -136,7 +136,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                 <span class="text-[10px] font-extrabold uppercase block" [class]="isRentalActive ? 'text-emerald-800' : 'text-slate-400'">Step 4</span>
                 <span class="font-bold block" [class]="isRentalActive ? 'text-slate-900' : 'text-slate-500'">Rental Activation</span>
                 <span class="text-[11px] font-semibold" [class]="isRentalActive ? 'text-emerald-700' : 'text-slate-400'">
-                  {{ isRentalActive ? '✓ Active Tenancy' : 'Pending Confirmation' }}
+                  {{ isRentalActive ? ' Active Tenancy' : 'Pending Confirmation' }}
                 </span>
               </div>
             </div>
@@ -149,7 +149,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <span class="font-black text-sm text-[#0F2937] block">{{ tenantName }}</span>
               <span class="text-xs text-slate-500 block">{{ tenantEmail }}</span>
               <div class="pt-1 text-[11px] font-bold" [class]="tenantConfirmed ? 'text-emerald-700' : 'text-amber-700'">
-                {{ tenantConfirmed ? '✓ Tenant Confirmed Agreement' : '⏳ Awaiting Tenant Confirmation' }}
+                {{ tenantConfirmed ? ' Tenant Confirmed Agreement' : 'Awaiting Tenant Confirmation' }}
               </div>
             </div>
 
@@ -158,7 +158,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <span class="font-black text-sm text-[#0F2937] block">{{ ownerName }}</span>
               <span class="text-xs text-slate-500 block">{{ ownerEmail }}</span>
               <div class="pt-1 text-[11px] font-bold" [class]="ownerConfirmed ? 'text-emerald-700' : 'text-amber-700'">
-                {{ ownerConfirmed ? '✓ Owner Confirmed & Activated' : '⚠️ Pending Your Confirmation' }}
+                {{ ownerConfirmed ? ' Owner Confirmed & Activated' : 'Pending Your Confirmation' }}
               </div>
             </div>
           </div>
@@ -217,7 +217,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                   type="button"
                   class="px-5 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-black rounded-xl text-xs shadow-md transition-all  cursor-pointer disabled:opacity-50"
                 >
-                  {{ isActioning ? 'Activating...' : '✓ Confirm Agreement & Activate Rental' }}
+                  {{ isActioning ? 'Activating...' : ' Confirm Agreement & Activate Rental' }}
                 </button>
               </div>
             </div>
@@ -226,7 +226,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             <div *ngIf="isRentalActive" class="p-5 bg-emerald-50 border border-emerald-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-lg">
-                  ✓
+                  
                 </div>
                 <div>
                   <h4 class="font-extrabold text-sm text-emerald-950">Rental Management is ACTIVE</h4>
@@ -286,12 +286,12 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <p class="text-xs font-semibold text-slate-800">{{ req.description }}</p>
 
               <div class="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-500 pt-1 gap-1">
-                <span>📍 {{ req.serviceLocation?.address }}, {{ req.serviceLocation?.city }}</span>
-                <span *ngIf="req.professionalId?.name">👤 Assigned Pro: <strong>{{ req.professionalId.name }}</strong></span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ req.serviceLocation?.address }}, {{ req.serviceLocation?.city }}</span>
+                <span *ngIf="req.professionalId?.name"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> Assigned Pro: <strong>{{ req.professionalId.name }}</strong></span>
               </div>
 
               <div *ngIf="req.completion" class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-800">
-                <strong>✓ Completed:</strong> {{ req.completion.notes || 'Service verified and completed.' }}
+                <strong> Completed:</strong> {{ req.completion.notes || 'Service verified and completed.' }}
               </div>
 
               <!-- Completed Job Reviews Section -->
@@ -304,10 +304,10 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                     type="button"
                     class="text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
                   >
-                    ★ Leave Owner Review
+                     Leave Owner Review
                   </button>
                   <span *ngIf="hasOwnerReviewed(req._id || req.id)" class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
-                    ✓ Owner Review Recorded
+                     Owner Review Recorded
                   </span>
                 </div>
 
@@ -324,7 +324,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                           {{ (rev.reviewerId?.role || rev.reviewer?.role) === 'OWNER' ? 'Owner Review' : 'Tenant Review' }}
                         </span>
                       </div>
-                      <span class="text-amber-500 font-bold text-xs">{{ '★'.repeat(rev.rating) }}{{ '☆'.repeat(5 - rev.rating) }}</span>
+                      <span class="text-amber-500 font-bold text-xs">{{ ''.repeat(rev.rating) }}{{ ''.repeat(5 - rev.rating) }}</span>
                     </div>
                     <p class="text-[11px] text-slate-600 font-medium italic">"{{ rev.comment }}"</p>
                     <span class="text-[9px] text-slate-400 block">{{ rev.createdAt | date: 'mediumDate' }}</span>
@@ -339,7 +339,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                 <div *ngIf="activeReviewRequestId === (req._id || req.id)" class="p-3 bg-white rounded-xl border border-emerald-300 space-y-2">
                   <div class="flex items-center justify-between">
                     <span class="text-xs font-bold text-slate-900">Owner Feedback for Completed Job</span>
-                    <button (click)="activeReviewRequestId = null" type="button" class="text-xs text-slate-400 hover:text-slate-600 cursor-pointer">✕</button>
+                    <button (click)="activeReviewRequestId = null" type="button" class="text-xs text-slate-400 hover:text-slate-600 cursor-pointer"></button>
                   </div>
                   <div *ngIf="ownerReviewError" class="p-2 bg-rose-50 text-rose-700 text-xs font-bold rounded-lg">
                     {{ ownerReviewError }}

@@ -36,7 +36,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             routerLink="/professional/active-job"
             class="px-4 py-2 bg-[#0F2937] text-white text-xs font-bold rounded-xl shadow-xs transition"
           >
-            ⚡ View Active Work
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> View Active Work
           </a>
           <app-customer-care></app-customer-care>
         </div>
@@ -44,13 +44,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Success & Error Banners -->
       <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
 
       <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <app-loading-state *ngIf="isLoading" message="Fetching availability status..."></app-loading-state>
@@ -64,7 +64,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 [class]="profile.isAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'"
                 class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-black shrink-0"
               >
-                {{ profile.isAvailable ? '🟢' : '🔴' }}
+                {{ profile.isAvailable ? '' : '' }}
               </div>
               <div>
                 <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Current Duty Status</span>
@@ -93,7 +93,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2">
               <div class="flex items-center space-x-2">
-                <span class="text-base">🎯</span>
+                <span class="text-base"></span>
                 <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Automated Dispatch</h3>
               </div>
               <p class="text-xs text-slate-600 leading-relaxed">
@@ -103,7 +103,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
             <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2">
               <div class="flex items-center space-x-2">
-                <span class="text-base">⚡</span>
+                <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></span>
                 <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Fast Response SLA</h3>
               </div>
               <p class="text-xs text-slate-600 leading-relaxed">
@@ -113,7 +113,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
             <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2">
               <div class="flex items-center space-x-2">
-                <span class="text-base">🛡️</span>
+                <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
                 <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Fair Assignment Policy</h3>
               </div>
               <p class="text-xs text-slate-600 leading-relaxed">

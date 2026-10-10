@@ -38,7 +38,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             routerLink="/tenant/homes"
             class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-1.5"
           >
-            <span>🗺️ Map & Geographic View</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg> Map & Geographic View</span>
           </a>
         </div>
       </div>
@@ -48,7 +48,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div class="flex flex-col md:flex-row items-center gap-3">
           <!-- Keyword / Locality Search Input -->
           <div class="relative flex-1 w-full">
-            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
             <input
               type="text"
               [(ngModel)]="searchQuery"
@@ -62,7 +62,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs font-bold"
             >
-              ✕
+              
             </button>
           </div>
 

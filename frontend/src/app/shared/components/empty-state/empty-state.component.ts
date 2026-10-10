@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class EmptyStateComponent {
-  @Input() icon: string = '🔍';
+  @Input() icon: string = '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>';
   @Input() title: string = 'No Items Available';
   @Input() description: string = 'There are currently no records matching your request.';
   @Input() actionLabel?: string;

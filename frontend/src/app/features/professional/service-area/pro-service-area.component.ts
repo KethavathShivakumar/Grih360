@@ -36,7 +36,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             routerLink="/professional/services"
             class="px-4 py-2 bg-white border border-[#E8E6DF] hover:bg-[#FAF9F5] text-[#0F2937] text-xs font-bold rounded-xl shadow-xs transition"
           >
-            🛠️ Offered Services
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Offered Services
           </a>
           <app-customer-care></app-customer-care>
         </div>
@@ -44,13 +44,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Success & Error Banners -->
       <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
 
       <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <app-loading-state *ngIf="isLoading" message="Fetching coverage configuration..."></app-loading-state>
@@ -97,7 +97,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               [class]="hasArea(city) ? 'bg-[#2D7A5E] text-white border-[#2D7A5E]' : 'bg-[#FAF9F5] text-slate-700 border-[#E8E6DF] hover:border-slate-400'"
               class="px-4 py-2 rounded-xl border text-xs font-bold transition cursor-pointer"
             >
-              {{ hasArea(city) ? '✓ ' : '+ ' }}{{ city }}
+              {{ hasArea(city) ? ' ' : '+ ' }}{{ city }}
             </button>
           </div>
         </div>
@@ -132,7 +132,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               *ngFor="let area of serviceAreas"
               class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 rounded-lg"
             >
-              <span>📍 {{ area }}</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ area }}</span>
               <button (click)="removeArea(area)" type="button" class="text-slate-400 hover:text-rose-600 font-black cursor-pointer">×</button>
             </span>
           </div>

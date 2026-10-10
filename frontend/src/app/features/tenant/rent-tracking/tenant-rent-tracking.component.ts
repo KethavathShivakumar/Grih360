@@ -43,13 +43,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             type="button"
             class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5"
           >
-            <span>🔄 Refresh</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Refresh</span>
           </button>
           <a
             routerLink="/tenant/documents"
             class="px-4 py-2 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-extrabold rounded-xl text-xs shadow-xs transition cursor-pointer"
           >
-            📄 All Documents
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> All Documents
           </a>
         </div>
       </div>
@@ -87,7 +87,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <span class="text-xs text-slate-400 font-semibold">• Tenancy Agreement {{ rental.agreementVersion || 'v1.0' }}</span>
             </div>
             <h2 class="text-xl font-black text-[#0F2937]">{{ propertyTitle }}</h2>
-            <p class="text-xs text-slate-500">📍 {{ propertyLocation }}</p>
+            <p class="text-xs text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
           </div>
 
           <div class="flex items-center gap-6 border-t md:border-t-0 md:border-l border-slate-100 pt-3 md:pt-0 md:pl-6 text-xs">
@@ -109,10 +109,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
             <div class="space-y-2 max-w-lg">
               <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15">
-                <span>📅 Current Billing Cycle</span>
+                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> Current Billing Cycle</span>
               </div>
               <h3 class="text-2xl font-black tracking-tight text-white">
-                {{ isPaid ? 'Rent for this Month is Paid! 🎉' : 'Upcoming Rent Payment Due' }}
+                {{ isPaid ? 'Rent for this Month is Paid! ' : 'Upcoming Rent Payment Due' }}
               </h3>
               <p class="text-xs text-slate-300 leading-relaxed">
                 {{ isPaid ? 'Your monthly rent payment has been confirmed and verified. Automated receipt generated.' : 'Pay your rent directly through verified UPI or net banking to generate statutory rent receipts for HRA tax exemption.' }}
@@ -132,7 +132,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 type="button"
                 class="w-full mt-2 px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-md transition  cursor-pointer"
               >
-                ⚡ Pay Rent Now
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Pay Rent Now
               </button>
 
               <button
@@ -141,7 +141,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 type="button"
                 class="w-full mt-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-xl transition cursor-pointer"
               >
-                📄 View Paid Receipt
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> View Paid Receipt
               </button>
             </div>
           </div>
@@ -223,7 +223,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <h3 class="text-lg font-black text-[#0F2937]">Pay Monthly Rent</h3>
             </div>
             <button (click)="closePayModal()" type="button" class="text-slate-400 hover:text-slate-600 font-bold text-sm cursor-pointer">
-              ✕
+              
             </button>
           </div>
 
@@ -275,7 +275,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </div>
 
           <div *ngIf="payError" class="p-2.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl">
-            ⚠️ {{ payError }}
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ payError }}
           </div>
 
           <!-- Pay Submit Button -->
@@ -310,7 +310,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <h3 class="text-xl font-black text-[#0F2937] mt-1">Receipt for Rent Paid</h3>
             </div>
             <button (click)="closeReceiptModal()" type="button" class="text-slate-400 hover:text-slate-600 font-bold text-sm cursor-pointer">
-              ✕
+              
             </button>
           </div>
 
@@ -337,7 +337,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
             <div class="flex justify-between pt-1">
               <span class="text-slate-400 font-bold uppercase text-[10px]">Statutory Compliance</span>
-              <span class="text-emerald-700 font-bold">✓ Model Tenancy Act Valid (HRA Tax Claim Eligible)</span>
+              <span class="text-emerald-700 font-bold"> Model Tenancy Act Valid (HRA Tax Claim Eligible)</span>
             </div>
           </div>
 
@@ -347,7 +347,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               type="button"
               class="w-full py-2.5 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-black text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
             >
-              <span>🖨️ Print / Download PDF</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> Print / Download PDF</span>
             </button>
           </div>
         </div>

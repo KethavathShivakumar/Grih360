@@ -33,7 +33,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl border border-[#E8E6DF] shadow-sm space-y-6">
         <div *ngIf="activeRentalNotice" class="p-4 bg-[#EBF5F0] border border-[#D1EADF] rounded-xl flex items-center justify-between">
           <div class="flex items-center space-x-3 text-xs text-[#2D7A5E] font-medium">
-            <span>🏠</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
             <span>Auto-linked to your current rental: <strong>{{ activeRentalNotice }}</strong></span>
           </div>
           <span class="px-2 py-0.5 bg-[#2D7A5E] text-white text-[10px] font-bold rounded-md">VERIFIED RENTAL</span>
@@ -53,14 +53,14 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               required
               class="w-full px-4 py-3 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl text-sm text-[#0F2937] font-semibold focus:outline-none focus:border-[#0F2937]"
             >
-              <option value="PLUMBING">🔧 Plumbing Services</option>
-              <option value="ELECTRICAL">⚡ Electrical Services</option>
-              <option value="CARPENTRY">🪵 Carpentry & Woodwork</option>
-              <option value="PAINTING">🎨 Painting & Wall Touchup</option>
-              <option value="CLEANING">✨ Home & Sofa Cleaning</option>
-              <option value="AC_APPLIANCE">❄️ AC & Appliance Repair</option>
-              <option value="WATER_FILTER">💧 Water Filter & RO</option>
-              <option value="GENERAL_MAINTENANCE">⚙️ General Property Maintenance</option>
+              <option value="PLUMBING"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Plumbing Services</option>
+              <option value="ELECTRICAL"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Electrical Services</option>
+              <option value="CARPENTRY"> Carpentry & Woodwork</option>
+              <option value="PAINTING"> Painting & Wall Touchup</option>
+              <option value="CLEANING"> Home & Sofa Cleaning</option>
+              <option value="AC_APPLIANCE"> AC & Appliance Repair</option>
+              <option value="WATER_FILTER"> Water Filter & RO</option>
+              <option value="GENERAL_MAINTENANCE"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> General Property Maintenance</option>
             </select>
           </div>
 

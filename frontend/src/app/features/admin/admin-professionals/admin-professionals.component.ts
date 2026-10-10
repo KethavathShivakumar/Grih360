@@ -90,7 +90,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                     (click)="verifyPro(pro._id || pro.id, 'VERIFIED')"
                     class="px-2.5 py-1 bg-[#2D7A5E] hover:bg-[#206f54] text-white font-bold rounded text-[10px]"
                   >
-                    ✓ Verify
+                     Verify
                   </button>
                   <button
                     *ngIf="pro.verificationStatus === 'VERIFIED'"

@@ -12,7 +12,7 @@ import { CustomerCareComponent } from '../customer-care/customer-care.component'
       <div class="flex items-center justify-between pb-4 border-b border-[#E8E6DF]">
         <div class="flex items-center space-x-3">
           <div class="w-10 h-10 rounded-xl bg-[#FFF7ED] border border-[#FFEDD5] flex items-center justify-center text-[#E26D46] font-bold">
-            ⚡
+            <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div>
             <h3 class="text-lg font-black text-[#0F2937]">STITCH DESIGN REQUIRED</h3>

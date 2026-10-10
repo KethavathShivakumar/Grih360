@@ -25,7 +25,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
       <div class="bg-[#0F2937] text-white p-4 rounded-2xl shadow-md border border-slate-800 space-y-3">
         <div class="space-y-1 relative z-10">
           <div class="inline-flex items-center space-x-1.5 bg-[#1E3A8A] px-2.5 py-1 rounded-full text-[10px] font-extrabold text-[#FACC15] border border-blue-900">
-            <span>🏡 Tenant Residence Portal</span>
+            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> Tenant Residence Portal</span>
           </div>
           <h1 class="text-xl font-extrabold tracking-tight text-white">Welcome, {{ tenantName }}</h1>
           <p class="text-xs text-slate-100 leading-relaxed font-normal">
@@ -67,7 +67,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
         <div class="bg-[#FEF9C3] border border-[#FDE047] p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
           <div>
             <div class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-amber-950 tracking-wide bg-amber-200/90 px-2 py-0.5 rounded-md">
-              <span>🛡️ Verification Guarantee</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Verification Guarantee</span>
             </div>
             <div class="text-xs font-black text-[#0F2937] mt-1">
               Zero Brokerage • 100% Direct Owners
@@ -160,7 +160,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
                 Active Tenancy
               </span>
               <h3 class="text-sm font-black text-[#0F2937] mt-1 line-clamp-1">{{ rentalPropertyTitle }}</h3>
-              <p class="text-[11px] text-slate-500">📍 {{ rentalPropertyLocation }}</p>
+              <p class="text-[11px] text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ rentalPropertyLocation }}</p>
             </div>
             <span
               class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase"
@@ -197,7 +197,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
               class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-left font-bold text-xs active:bg-slate-100 min-h-[44px] flex items-center justify-between"
             >
               <span>Find</span>
-              <span class="text-slate-400">🔍</span>
+              <span class="text-slate-400"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
             </button>
             <button
               (click)="navigateTo('/tenant/applications')"
@@ -205,7 +205,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
               class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-left font-bold text-xs active:bg-slate-100 min-h-[44px] flex items-center justify-between"
             >
               <span>Apps</span>
-              <span class="text-slate-400">📄</span>
+              <span class="text-slate-400"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
             </button>
             <button
               (click)="navigateTo('/tenant/services')"
@@ -213,7 +213,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
               class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-left font-bold text-xs active:bg-slate-100 min-h-[44px] flex items-center justify-between"
             >
               <span>Services</span>
-              <span class="text-slate-400">🛠️</span>
+              <span class="text-slate-400"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
             </button>
           </div>
         </div>

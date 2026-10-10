@@ -72,7 +72,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
             <div class="flex justify-between py-1 border-b border-slate-100">
               <span class="text-slate-400">Service Location:</span>
-              <span class="font-semibold text-slate-800">📍 {{ request.serviceLocation?.city || request.serviceLocation?.address || 'Hyderabad' }}</span>
+              <span class="font-semibold text-slate-800"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ request.serviceLocation?.city || request.serviceLocation?.address || 'Hyderabad' }}</span>
             </div>
             <div class="flex justify-between py-1 border-b border-slate-100">
               <span class="text-slate-400">Created:</span>
@@ -132,7 +132,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
 
             <div *ngIf="!request.professional && !request.professionalId" class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 font-bold text-center">
-              ⏳ Matching in progress: no professional assigned yet
+              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Matching in progress: no professional assigned yet
             </div>
 
             <!-- Reassign Control -->

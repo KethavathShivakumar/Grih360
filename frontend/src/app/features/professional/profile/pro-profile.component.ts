@@ -63,12 +63,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Success / Error Banners -->
       <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>✓ {{ successMessage }}</span>
-        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer">✕</button>
+        <span> {{ successMessage }}</span>
+        <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
       <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
-        <span>⚠️ {{ errorMessage }}</span>
-        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer">✕</button>
+        <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
+        <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <app-loading-state *ngIf="isLoading" message="Loading professional profile..."></app-loading-state>
@@ -102,7 +102,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <p class="text-xs text-slate-600 font-bold">{{ profile?.businessName || 'Certified Trade Specialist' }}</p>
               <p class="text-xs text-slate-500">{{ user?.email }} • +91 {{ user?.phone || 'Not set' }}</p>
               <p class="text-xs text-slate-600 font-medium pt-1">
-                📍 Serving {{ serviceAreasStr || 'Hyderabad & Warangal' }} ({{ profile?.serviceRadiusKm || 15 }} km radius)
+                <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Serving {{ serviceAreasStr || 'Hyderabad & Warangal' }} ({{ profile?.serviceRadiusKm || 15 }} km radius)
               </p>
             </div>
           </div>
@@ -110,7 +110,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <!-- Photo Action Buttons -->
           <div class="flex sm:flex-col items-center gap-2">
             <label class="px-3 py-1.5 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer transition-colors flex items-center gap-1">
-              <span>📷</span>
+              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
               <span>{{ user?.profileImage ? 'Replace Photo' : 'Upload Photo' }}</span>
               <input type="file" accept="image/png,image/jpeg,image/webp" (change)="onPhotoFileChange($event)" class="hidden" />
             </label>
@@ -449,14 +449,14 @@ export class ProProfileComponent implements OnInit {
   public isSaving: boolean = false;
 
   public allCategories: { code: ServiceCategoryCode; label: string }[] = [
-    { code: 'PLUMBING', label: '🔧 Plumbing' },
-    { code: 'ELECTRICAL', label: '⚡ Electrical' },
-    { code: 'CARPENTRY', label: '🪵 Carpentry' },
-    { code: 'PAINTING', label: '🎨 Painting' },
-    { code: 'CLEANING', label: '✨ Cleaning' },
-    { code: 'AC_APPLIANCE', label: '❄️ AC & Appliance' },
-    { code: 'WATER_FILTER', label: '💧 Water Filter' },
-    { code: 'GENERAL_MAINTENANCE', label: '⚙️ Maintenance' },
+    { code: 'PLUMBING', label: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Plumbing' },
+    { code: 'ELECTRICAL', label: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Electrical' },
+    { code: 'CARPENTRY', label: ' Carpentry' },
+    { code: 'PAINTING', label: ' Painting' },
+    { code: 'CLEANING', label: ' Cleaning' },
+    { code: 'AC_APPLIANCE', label: ' AC & Appliance' },
+    { code: 'WATER_FILTER', label: ' Water Filter' },
+    { code: 'GENERAL_MAINTENANCE', label: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Maintenance' },
   ];
 
   constructor(
