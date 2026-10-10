@@ -340,14 +340,12 @@ export interface AmenityOption {
       <!-- DESKTOP LAYOUT (>= 768px) UNCHANGED -->
       <div class="hidden md:block space-y-5">
         <!-- Hero Header & Geographic Search Hub -->
-        <div class="relative bg-gradient-to-r from-[#0F2937] via-[#164E63] to-[#0F2937] rounded-3xl p-5 sm:p-7 text-white shadow-lg overflow-visible space-y-4">
-          <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-[#FACC15]/10 rounded-full blur-3xl pointer-events-none"></div>
-
+        <div class="relative bg-[#0F2937] rounded-3xl p-5 sm:p-7 text-white shadow-md border border-slate-800 overflow-visible space-y-4">
           <div class="max-w-2xl space-y-1 relative z-10">
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
               Find homes across <span class="text-[#FACC15]">Telangana & AP</span>
             </h1>
-            <p class="text-xs sm:text-sm text-slate-300">
+            <p class="text-xs sm:text-sm text-slate-100 font-medium">
               Search across Hyderabad, Warangal, Mahabubnagar, Nalgonda, Karimnagar, Khammam, Nizamabad, Vijayawada, Guntur & Tirupati.
             </p>
           </div>

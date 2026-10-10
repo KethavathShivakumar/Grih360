@@ -22,14 +22,13 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
   template: `
     <div class="space-y-6">
       <!-- Welcome Hero Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-[#0F2937] via-[#164E63] to-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
-        <div class="absolute -right-10 -top-10 w-60 h-60 bg-[#FACC15]/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-md border border-slate-800 relative overflow-hidden">
         <div class="space-y-2 relative z-10">
-          <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15">
+          <div class="inline-flex items-center space-x-2 bg-[#1E3A8A] px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-blue-900">
             <span>🏛️ Property Owner Command Center</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Welcome, {{ ownerName }} 👋</h1>
-          <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Welcome, {{ ownerName }} 👋</h1>
+          <p class="text-xs sm:text-sm text-slate-100 max-w-xl font-medium">
             Manage your property portfolio, screen tenant applications, and monitor automated rent collections.
           </p>
         </div>
@@ -45,22 +44,22 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       </div>
 
       <!-- Accent Highlight Bento Card -->
-      <div class="accent-bento-card relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 bg-[#FEF9C3] border border-[#FDE047] p-5 sm:p-6 rounded-3xl shadow-2xs">
         <div class="space-y-2 max-w-xl">
-          <div class="inline-flex items-center space-x-2 bg-amber-200/70 text-amber-900 px-3 py-1 rounded-full text-xs font-black">
+          <div class="inline-flex items-center space-x-2 bg-amber-200/90 text-amber-950 px-3 py-1 rounded-full text-xs font-black">
             <span>📈 Portfolio Overview & Income Summary</span>
           </div>
           <h2 class="text-xl font-extrabold text-[#0F2937]">Maximized Rental Yields & Verified Tenancies</h2>
-          <p class="text-xs text-amber-900/80 font-medium leading-relaxed">
+          <p class="text-xs text-amber-950 font-bold leading-relaxed">
             All applications pass Model Tenancy Act identity checks and background verification. Manage your active leases and view live collection metrics.
           </p>
         </div>
         <div class="flex items-center gap-3 shrink-0">
-          <div class="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-amber-300 text-center space-y-0.5">
+          <div class="bg-white p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs">
             <span class="text-2xl font-black text-[#0F2937]">0%</span>
             <span class="block text-[10px] font-bold text-amber-900 uppercase">Broker Commission</span>
           </div>
-          <div class="bg-white/80 backdrop-blur-md p-4 rounded-2xl border border-amber-300 text-center space-y-0.5">
+          <div class="bg-white p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs">
             <span class="text-2xl font-black text-[#0F2937]">100%</span>
             <span class="block text-[10px] font-bold text-amber-900 uppercase">Digital Leases</span>
           </div>

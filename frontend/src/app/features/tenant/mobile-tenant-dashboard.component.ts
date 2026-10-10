@@ -22,13 +22,13 @@ import { RentalAgreement } from '../../core/services/rental.service';
     <div class="space-y-4 pb-20 font-sans text-slate-800 p-4">
 
       <!-- Compact Mobile Hero Header -->
-      <div class="bg-gradient-to-r from-[#0F2937] via-[#164E63] to-[#0F2937] text-white p-4 rounded-2xl shadow-md relative overflow-hidden space-y-3">
+      <div class="bg-[#0F2937] text-white p-4 rounded-2xl shadow-md border border-slate-800 space-y-3">
         <div class="space-y-1 relative z-10">
-          <div class="inline-flex items-center space-x-1.5 bg-white/10 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-[#FACC15]">
-            <span>Tenant Residence Portal</span>
+          <div class="inline-flex items-center space-x-1.5 bg-[#1E3A8A] px-2.5 py-1 rounded-full text-[10px] font-extrabold text-[#FACC15] border border-blue-900">
+            <span>🏡 Tenant Residence Portal</span>
           </div>
-          <h1 class="text-xl font-extrabold tracking-tight">Welcome, {{ tenantName }}</h1>
-          <p class="text-xs text-slate-200 leading-relaxed font-normal">
+          <h1 class="text-xl font-extrabold tracking-tight text-white">Welcome, {{ tenantName }}</h1>
+          <p class="text-xs text-slate-100 leading-relaxed font-normal">
             Discover verified zero-brokerage homes, track applications & manage rent.
           </p>
         </div>
@@ -42,7 +42,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
           </a>
           <a
             routerLink="/tenant/search"
-            class="flex-1 py-2 bg-white/15 active:bg-white/25 text-white font-extrabold rounded-xl text-xs text-center border border-white/20 cursor-pointer min-h-[40px] flex items-center justify-center gap-1"
+            class="flex-1 py-2 bg-[#1E3A8A] active:bg-[#1E40AF] text-white font-extrabold rounded-xl text-xs text-center border border-blue-800 cursor-pointer min-h-[40px] flex items-center justify-center gap-1"
           >
             <span>Search</span>
           </a>
@@ -64,18 +64,18 @@ import { RentalAgreement } from '../../core/services/rental.service';
       <div *ngIf="!isLoading && !isError" class="space-y-4">
 
         <!-- Zero Brokerage Callout Banner -->
-        <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl flex items-center justify-between gap-3">
+        <div class="bg-[#FEF9C3] border border-[#FDE047] p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
           <div>
-            <div class="text-[10px] font-black uppercase text-amber-900 tracking-wide">
-              Verification Guarantee
+            <div class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-amber-950 tracking-wide bg-amber-200/90 px-2 py-0.5 rounded-md">
+              <span>🛡️ Verification Guarantee</span>
             </div>
-            <div class="text-xs font-bold text-[#0F2937] mt-0.5">
+            <div class="text-xs font-black text-[#0F2937] mt-1">
               Zero Brokerage • 100% Direct Owners
             </div>
           </div>
-          <div class="px-3 py-1 bg-white border border-amber-300 rounded-xl text-center shrink-0">
+          <div class="px-3 py-1 bg-white border border-amber-300 rounded-xl text-center shrink-0 shadow-xs">
             <span class="text-base font-black text-[#0F2937]">₹0</span>
-            <span class="block text-[9px] font-bold text-amber-800 uppercase">Fee</span>
+            <span class="block text-[9px] font-bold text-amber-900 uppercase">Fee</span>
           </div>
         </div>
 

@@ -46,16 +46,14 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
       <div class="space-y-6 max-w-7xl mx-auto pb-12 font-sans text-slate-800">
 
         <!-- Welcome Hero Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-[#0F2937] via-[#164E63] to-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-72 h-72 bg-[#FACC15]/10 rounded-full blur-3xl pointer-events-none"></div>
-
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-md border border-slate-800 relative overflow-hidden">
           <div class="space-y-2 relative z-10 max-w-2xl">
-            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15">
+            <div class="inline-flex items-center space-x-2 bg-[#1E3A8A] px-3 py-1 rounded-full text-xs font-extrabold text-[#FACC15] border border-blue-900">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               <span>Tenant Residence Portal</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Welcome back, {{ tenantName }}</h1>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Welcome back, {{ tenantName }}</h1>
+            <p class="text-xs sm:text-sm text-slate-100 leading-relaxed font-medium">
               Discover verified zero-brokerage listings, track rental applications, monitor active rent schedules, and request instant home maintenance services.
             </p>
           </div>
@@ -70,7 +68,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
             </a>
             <a
               routerLink="/tenant/search"
-              class="px-5 py-2.5 bg-white/15 hover:bg-white/25 text-white font-extrabold rounded-2xl text-xs backdrop-blur-md border border-white/20 transition-all cursor-pointer flex items-center gap-1.5"
+              class="px-5 py-2.5 bg-[#1E3A8A] hover:bg-[#1E40AF] text-white font-extrabold rounded-2xl text-xs border border-blue-800 transition-all cursor-pointer flex items-center gap-1.5"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               <span>Search Listings</span>
@@ -93,28 +91,28 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
         <div *ngIf="!isLoading && !isError" class="space-y-6">
 
           <!-- Regulatory & Zero Brokerage Banner -->
-          <div class="accent-bento-card relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-amber-50 via-amber-100/40 to-amber-50 border border-amber-200/80 p-5 sm:p-6 rounded-3xl">
+          <div class="relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 bg-[#FEF9C3] border border-[#FDE047] p-5 sm:p-6 rounded-3xl shadow-2xs">
             <div class="space-y-2 max-w-xl">
-              <div class="inline-flex items-center space-x-2 bg-amber-200/70 text-amber-900 px-3 py-0.5 rounded-full text-xs font-black">
-                <svg class="w-3.5 h-3.5 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <div class="inline-flex items-center space-x-2 bg-amber-200/90 text-amber-950 px-3 py-0.5 rounded-full text-xs font-black">
+                <svg class="w-3.5 h-3.5 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 <span>Nivas360 Verification Guarantee</span>
               </div>
               <h2 class="text-base sm:text-lg font-black text-[#0F2937]">Zero Brokerage & Model Tenancy Act Compliance</h2>
-              <p class="text-xs text-amber-900/80 font-medium leading-relaxed">
+              <p class="text-xs text-amber-950 font-bold leading-relaxed">
                 All properties are listed direct from owners with verified title deeds, standardized digital rental agreements, and online rent receipts.
               </p>
             </div>
             <div class="flex items-center gap-3 shrink-0 w-full sm:w-auto justify-center sm:justify-end">
-              <div class="bg-white/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs flex-1 sm:flex-initial">
+              <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs flex-1 sm:flex-initial">
                 <span class="text-xl sm:text-2xl font-black text-[#0F2937]">₹0</span>
                 <span class="block text-[10px] font-bold text-amber-900 uppercase">Brokerage Fee</span>
               </div>
-              <div class="bg-white/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs flex-1 sm:flex-initial">
+              <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs flex-1 sm:flex-initial">
                 <span class="text-xl sm:text-2xl font-black text-[#0F2937]">100%</span>
-                <span class="block text-[10px] font-bold text-amber-900 uppercase">Direct Owners</span>
+                <span class="block text-[9px] font-bold text-amber-900 uppercase">Direct Owners</span>
               </div>
             </div>
-          </div>
+          </div>v>
 
           <!-- Metric Cards Grid (Real Database Records) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
