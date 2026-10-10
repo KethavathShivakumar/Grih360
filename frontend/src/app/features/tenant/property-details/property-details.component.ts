@@ -88,7 +88,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <button
               (click)="openApplicationModal()"
               type="button"
-              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-sm font-bold shadow-md transition-all hover:scale-[1.02]"
+              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-sm font-bold shadow-md transition-colors"
             >
               Apply Now
             </button>

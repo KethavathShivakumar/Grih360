@@ -234,7 +234,7 @@ import { finalize, timeout } from 'rxjs';
                 <button
                   type="submit"
                   [disabled]="isLoading || !identifier || !password"
-                  class="w-full py-3.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-all hover:scale-[1.01] cursor-pointer flex items-center justify-center gap-2"
+                  class="w-full py-3.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
                 >
                   <svg *ngIf="isLoading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
