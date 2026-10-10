@@ -116,7 +116,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div routerLink="/owner/properties" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Properties</span>
-              <span class="text-xl group-hover:scale-110 transition-transform">🏢</span>
+              <span class="text-xl  transition-transform">🏢</span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ metrics?.totalProperties || 0 }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">Manage Properties →</span>
@@ -126,7 +126,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div routerLink="/owner/rentals" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Active Leases</span>
-              <span class="text-xl group-hover:scale-110 transition-transform">🔑</span>
+              <span class="text-xl  transition-transform">🔑</span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ metrics?.activeRentals || 0 }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">View Agreements →</span>
@@ -136,7 +136,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
           <div routerLink="/owner/applicants" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pending Applicants</span>
-              <span class="text-xl group-hover:scale-110 transition-transform">📋</span>
+              <span class="text-xl  transition-transform">📋</span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ metrics?.pendingApplications || 0 }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">Review Applicants →</span>
@@ -202,49 +202,49 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               routerLink="/owner/properties/new"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">➕</span>
+              <span class="text-lg  transition-transform">➕</span>
               <span>Add Property</span>
             </a>
             <a
               routerLink="/owner/properties"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">🏢</span>
+              <span class="text-lg  transition-transform">🏢</span>
               <span>My Properties</span>
             </a>
             <a
               routerLink="/owner/applicants"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">📋</span>
+              <span class="text-lg  transition-transform">📋</span>
               <span>Applicants</span>
             </a>
             <a
               routerLink="/owner/rentals"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">📜</span>
+              <span class="text-lg  transition-transform">📜</span>
               <span>Rental Leases</span>
             </a>
             <a
               routerLink="/owner/rent-tracking"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">💰</span>
+              <span class="text-lg  transition-transform">💰</span>
               <span>Rent Tracking</span>
             </a>
             <a
               routerLink="/owner/notifications"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">🔔</span>
+              <span class="text-lg  transition-transform">🔔</span>
               <span>Notifications</span>
             </a>
             <a
               routerLink="/owner/settings"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">⚙️</span>
+              <span class="text-lg  transition-transform">⚙️</span>
               <span>Settings</span>
             </a>
             <button
@@ -252,7 +252,7 @@ import { OwnerService, OwnerDashboardMetrics } from '../../../core/services/owne
               type="button"
               class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white rounded-2xl border border-slate-200/80 transition-all font-bold text-xs flex items-center gap-2.5 group cursor-pointer text-left"
             >
-              <span class="text-lg group-hover:scale-110 transition-transform">🔒</span>
+              <span class="text-lg  transition-transform">🔒</span>
               <span>Security</span>
             </button>
           </div>

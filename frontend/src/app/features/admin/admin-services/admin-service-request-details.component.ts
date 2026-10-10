@@ -119,8 +119,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="space-y-3 text-xs">
 
             <!-- Current Assignment -->
-            <div *ngIf="request.professional || request.professionalId" class="flex items-center space-x-3 p-3 bg-purple-50 rounded-xl border border-purple-200">
-              <div class="w-10 h-10 rounded-full bg-purple-200 text-purple-800 font-black flex items-center justify-center">
+            <div *ngIf="request.professional || request.professionalId" class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-800 font-black flex items-center justify-center">
                 {{ (request.professional?.businessName || request.professional?.user?.name || request.professionalId?.businessName || 'P')[0] }}
               </div>
               <div class="min-w-0 flex-1">

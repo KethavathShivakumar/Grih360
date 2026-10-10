@@ -248,7 +248,7 @@ export interface ChecklistSection {
             <button
               (click)="saveChecklist()"
               type="button"
-              class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-2xl shadow-md transition hover:scale-105 cursor-pointer shrink-0"
+              class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-2xl shadow-md transition  cursor-pointer shrink-0"
             >
               {{ signedAt ? '✓ Update Sign-Off' : '✓ Sign-Off & Save Handover' }}
             </button>

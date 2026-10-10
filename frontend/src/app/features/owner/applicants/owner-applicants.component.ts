@@ -82,7 +82,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           class="bg-white p-5 rounded-3xl border border-[#E8E6DF] hover:border-[#2D7A5E] hover:shadow-md transition-all cursor-pointer flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group"
         >
           <div class="flex items-center space-x-4">
-            <div class="w-14 h-14 rounded-2xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-extrabold text-xl shrink-0 group-hover:scale-105 transition-transform shadow-xs">
+            <div class="w-14 h-14 rounded-2xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-extrabold text-xl shrink-0  transition-transform shadow-xs">
               {{ getApplicantInitial(app) }}
             </div>
             <div>

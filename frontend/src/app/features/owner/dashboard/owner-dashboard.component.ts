@@ -36,7 +36,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <button
           (click)="navigateTo('/owner/properties/new')"
           type="button"
-          class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-extrabold rounded-2xl text-xs shadow-md transition-all hover:scale-105 shrink-0 relative z-10 cursor-pointer flex items-center gap-2"
+          class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-extrabold rounded-2xl text-xs shadow-md transition-all  shrink-0 relative z-10 cursor-pointer flex items-center gap-2"
         >
           <span>➕ Add New Property</span>
           <span class="text-base">→</span>
@@ -92,7 +92,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Properties</span>
-            <span class="p-2 bg-slate-100 text-[#0F2937] rounded-xl group-hover:scale-110 transition-transform text-sm">🏠</span>
+            <span class="p-2 bg-slate-100 text-[#0F2937] rounded-xl  transition-transform text-sm">🏠</span>
           </div>
           <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ metrics.totalProperties }}</span>
           <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
@@ -104,17 +104,17 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Vacant Homes</span>
-            <span class="p-2 bg-emerald-50 text-emerald-700 rounded-xl group-hover:scale-110 transition-transform text-sm">🔑</span>
+            <span class="p-2 bg-emerald-50 text-emerald-700 rounded-xl  transition-transform text-sm">🔑</span>
           </div>
           <span class="text-3xl font-black text-emerald-800 mt-3 block">{{ metrics.availableProperties }}</span>
           <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Available to lease</span>
         </div>
 
         <!-- Card 3: Active Rentals / Tenancies -->
-        <div (click)="navigateTo('/owner/rentals')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-emerald-50/30 to-white">
+        <div (click)="navigateTo('/owner/rentals')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider">Active Rentals</span>
-            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl group-hover:scale-110 transition-transform text-sm">📜</span>
+            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl  transition-transform text-sm">📜</span>
           </div>
           <span class="text-3xl font-black text-emerald-900 mt-3 block">{{ metrics.activeRentals ?? 0 }}</span>
           <span class="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
@@ -123,10 +123,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         </div>
 
         <!-- Card 4: New Applications (Submitted) -->
-        <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-gradient-to-b from-amber-50/40 to-white">
+        <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">New Applications</span>
-            <span class="p-2 bg-amber-100 text-amber-800 rounded-xl group-hover:scale-110 transition-transform text-sm">✨</span>
+            <span class="p-2 bg-amber-100 text-amber-800 rounded-xl  transition-transform text-sm">✨</span>
           </div>
           <span class="text-3xl font-black text-amber-800 mt-3 block">{{ metrics.newApplications ?? 0 }}</span>
           <span class="text-[11px] text-amber-700 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
@@ -138,7 +138,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Applicant Reviews</span>
-            <span class="p-2 bg-slate-100 text-slate-700 rounded-xl group-hover:scale-110 transition-transform text-sm">📋</span>
+            <span class="p-2 bg-slate-100 text-slate-700 rounded-xl  transition-transform text-sm">📋</span>
           </div>
           <span class="text-3xl font-black text-slate-800 mt-3 block">{{ metrics.pendingApplications }}</span>
           <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
@@ -150,7 +150,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/rent-tracking')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Monthly Rent</span>
-            <span class="p-2 bg-indigo-50 text-indigo-700 rounded-xl group-hover:scale-110 transition-transform text-sm">💰</span>
+            <span class="p-2 bg-indigo-50 text-indigo-700 rounded-xl  transition-transform text-sm">💰</span>
           </div>
           <span class="text-xl font-black text-[#0F2937] mt-3 block">{{ formatCurrency(metrics.upcomingRent) }}</span>
           <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Expected collection</span>
@@ -166,7 +166,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">➕</span>
+            <span class="block text-xl mb-1  transition-transform">➕</span>
             Add Property
           </button>
           <button
@@ -174,7 +174,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">🏢</span>
+            <span class="block text-xl mb-1  transition-transform">🏢</span>
             My Properties
           </button>
           <button
@@ -182,7 +182,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">📋</span>
+            <span class="block text-xl mb-1  transition-transform">📋</span>
             Applicants
           </button>
           <button
@@ -190,7 +190,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">📜</span>
+            <span class="block text-xl mb-1  transition-transform">📜</span>
             Rental Leases
           </button>
           <button
@@ -198,7 +198,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">💰</span>
+            <span class="block text-xl mb-1  transition-transform">💰</span>
             Rent Tracking
           </button>
           <button
@@ -206,7 +206,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">🔔</span>
+            <span class="block text-xl mb-1  transition-transform">🔔</span>
             Notifications
           </button>
           <button
@@ -214,7 +214,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">👤</span>
+            <span class="block text-xl mb-1  transition-transform">👤</span>
             Owner Profile
           </button>
           <button
@@ -222,7 +222,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             type="button"
             class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
           >
-            <span class="block text-xl mb-1 group-hover:scale-110 transition-transform">⚙️</span>
+            <span class="block text-xl mb-1  transition-transform">⚙️</span>
             Settings
           </button>
         </div>

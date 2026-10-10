@@ -103,7 +103,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Current Cycle Payment Due Bento Card -->
-        <div class="bg-gradient-to-br from-[#0F2937] via-[#164E63] to-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
+        <div class="bg-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
           <div class="absolute -right-8 -top-8 w-60 h-60 bg-[#FACC15]/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
@@ -130,7 +130,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 *ngIf="!isPaid"
                 (click)="openPayModal()"
                 type="button"
-                class="w-full mt-2 px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-md transition hover:scale-105 cursor-pointer"
+                class="w-full mt-2 px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-md transition  cursor-pointer"
               >
                 ⚡ Pay Rent Now
               </button>

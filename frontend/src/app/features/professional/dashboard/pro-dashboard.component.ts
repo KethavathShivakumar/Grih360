@@ -85,7 +85,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/active-job"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#2D7A5E] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-[#2D7A5E] flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-[#2D7A5E] flex items-center justify-center text-xl font-black  transition-transform">
                 ⚡
               </div>
               <h3 class="text-sm font-black text-[#0F2937] group-hover:text-[#2D7A5E]">Active Job</h3>
@@ -96,7 +96,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/requests"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black  transition-transform">
                 📋
               </div>
               <h3 class="text-sm font-black text-[#0F2937] group-hover:text-[#0F2937]">Assigned Requests</h3>
@@ -107,7 +107,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/history"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black  transition-transform">
                 📜
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Job History</h3>
@@ -118,7 +118,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/services"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-black  transition-transform">
                 🛠️
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Offered Services</h3>
@@ -129,7 +129,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/availability"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-black  transition-transform">
                 ⏰
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Duty & Availability</h3>
@@ -140,7 +140,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/service-area"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-xl font-black  transition-transform">
                 📍
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Service Area</h3>
@@ -151,7 +151,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/reviews"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-black  transition-transform">
                 ⭐
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Client Reviews</h3>
@@ -162,7 +162,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               routerLink="/professional/profile"
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
-              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black group-hover:scale-105 transition-transform">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-black  transition-transform">
                 👤
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Pro Profile</h3>

@@ -292,7 +292,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <button
             type="submit"
             [disabled]="isSubmitting"
-            class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-xs font-bold shadow-md transition-all hover:scale-105"
+            class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-xs font-bold shadow-md transition-all "
           >
             {{ isSubmitting ? 'Saving Changes...' : 'Save Property Changes' }}
           </button>

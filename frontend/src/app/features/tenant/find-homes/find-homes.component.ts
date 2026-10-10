@@ -446,7 +446,7 @@ export interface AmenityOption {
                 <button
                   (click)="onFilterChange()"
                   type="button"
-                  class="p-2 sm:px-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-xs transition-transform hover:scale-105 cursor-pointer flex items-center gap-1"
+                  class="p-2 sm:px-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-xs transition-transform  cursor-pointer flex items-center gap-1"
                   title="Search Database"
                 >
                   <span>→</span>

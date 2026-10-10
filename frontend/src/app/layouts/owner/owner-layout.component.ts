@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
           <!-- Left: Brand Logo & Desktop Nav -->
           <div class="flex items-center space-x-6">
             <a routerLink="/owner/dashboard" class="flex items-center space-x-2 group">
-              <div class="w-8 h-8 rounded-lg bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-sm group-hover:scale-105 transition-transform">
+              <div class="w-8 h-8 rounded-lg bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-sm  transition-transform">
                 G
               </div>
               <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>

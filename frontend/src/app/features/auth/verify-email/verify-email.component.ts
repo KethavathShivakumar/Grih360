@@ -15,7 +15,7 @@ import { finalize, timeout } from 'rxjs';
       <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#E8E6DF] py-3.5 px-4 sm:px-8">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
           <a routerLink="/" class="flex items-center space-x-2.5 group">
-            <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs group-hover:scale-105 transition-transform">
+            <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs  transition-transform">
               G
             </div>
             <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>

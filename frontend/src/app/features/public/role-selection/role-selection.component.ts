@@ -60,7 +60,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
             <div
               (click)="selectOwner()"
               class="bento-card cursor-pointer text-left p-6 sm:p-8 border-2 hover:border-[#0F2937] group transition-all space-y-4 rounded-3xl bg-white shadow-xs">
-              <div class="w-14 h-14 rounded-2xl bg-[#0F2937] text-white flex items-center justify-center text-2xl font-bold group-hover:scale-105 transition-transform">
+              <div class="w-14 h-14 rounded-2xl bg-[#0F2937] text-white flex items-center justify-center text-2xl font-bold  transition-transform">
                 🏛️
               </div>
               <div>
@@ -79,7 +79,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
             <div
               (click)="selectTenant()"
               class="bento-card cursor-pointer text-left p-6 sm:p-8 border-2 hover:border-[#2D7A5E] group transition-all space-y-4 rounded-3xl bg-white shadow-xs">
-              <div class="w-14 h-14 rounded-2xl bg-[#2D7A5E] text-white flex items-center justify-center text-2xl font-bold group-hover:scale-105 transition-transform">
+              <div class="w-14 h-14 rounded-2xl bg-[#2D7A5E] text-white flex items-center justify-center text-2xl font-bold  transition-transform">
                 🏡
               </div>
               <div>
@@ -98,7 +98,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
             <div
               (click)="selectProfessional()"
               class="bento-card cursor-pointer text-left p-6 sm:p-8 border-2 hover:border-[#164E63] group transition-all space-y-4 rounded-3xl bg-white shadow-xs">
-              <div class="w-14 h-14 rounded-2xl bg-[#164E63] text-white flex items-center justify-center text-2xl font-bold group-hover:scale-105 transition-transform">
+              <div class="w-14 h-14 rounded-2xl bg-[#164E63] text-white flex items-center justify-center text-2xl font-bold  transition-transform">
                 ⚡
               </div>
               <div>

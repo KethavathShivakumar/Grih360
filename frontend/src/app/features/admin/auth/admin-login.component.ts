@@ -13,7 +13,7 @@ import { AuthService } from '../../../core/services/auth.service';
       <!-- Top Bar -->
       <header class="max-w-6xl mx-auto w-full flex items-center justify-between py-4 border-b border-slate-800">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg">
+          <div class="w-10 h-10 rounded-xl bg-[#F59E0B] flex items-center justify-center font-black text-slate-950 text-xl shadow-lg">
             360
           </div>
           <div>
@@ -91,7 +91,7 @@ import { AuthService } from '../../../core/services/auth.service';
             <button
               type="submit"
               [disabled]="isLoading || !identifier || !password"
-              class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-sm mt-2"
+              class="w-full py-3.5 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-black rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-sm mt-2"
             >
               {{ isLoading ? 'Verifying Credentials...' : 'Authenticate as Administrator' }}
             </button>

@@ -25,7 +25,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Header -->
       <div *ngIf="pro" class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center space-x-4">
-          <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xl">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-[#2D7A5E] flex items-center justify-center font-black text-xl">
             {{ (pro.businessName || pro.user?.name || 'P')[0] }}
           </div>
           <div>
@@ -135,7 +135,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div class="flex flex-wrap gap-1.5">
                 <span
                   *ngFor="let cat of pro.categories || pro.serviceCategories || []"
-                  class="px-2.5 py-1 bg-purple-50 border border-purple-200 text-purple-800 rounded-lg text-[10px] font-bold"
+                  class="px-2.5 py-1 bg-slate-50 border border-slate-200 text-slate-800 rounded-lg text-[10px] font-bold"
                 >
                   {{ cat }}
                 </span>

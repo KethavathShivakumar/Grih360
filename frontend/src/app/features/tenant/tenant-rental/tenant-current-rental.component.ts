@@ -52,7 +52,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           You do not currently have an active tenancy or pending lease agreement. Browse available zero-brokerage homes and submit an application to start.
         </p>
         <div class="pt-2">
-          <a routerLink="/tenant/homes" class="inline-block px-6 py-3 bg-[#0F2937] text-[#FACC15] font-extrabold rounded-2xl text-xs shadow-md hover:scale-105 transition-all">
+          <a routerLink="/tenant/homes" class="inline-block px-6 py-3 bg-[#0F2937] text-[#FACC15] font-extrabold rounded-2xl text-xs shadow-md  transition-all">
             🔍 Browse Verified Homes
           </a>
         </div>
@@ -135,7 +135,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
 
           <!-- Financial & Term Parameters Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-gradient-to-r from-slate-50 to-slate-100/50 p-5 rounded-2xl border border-slate-200/80">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200/80">
             <div>
               <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Agreed Monthly Rent</span>
               <span class="text-lg font-black text-[#0F2937] block mt-0.5">{{ formatINR(agreedRent) }}/mo</span>
@@ -202,7 +202,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 (click)="confirmAsTenant()"
                 [disabled]="isConfirming"
                 type="button"
-                class="px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black rounded-xl text-xs transition-all hover:scale-105 shrink-0 cursor-pointer disabled:opacity-50"
+                class="px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black rounded-xl text-xs transition-all  shrink-0 cursor-pointer disabled:opacity-50"
               >
                 {{ isConfirming ? 'Confirming...' : '✓ Accept & Confirm Agreement' }}
               </button>
@@ -222,7 +222,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-black">Active Tenancy</span>
           </div>
 
-          <div class="p-5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200/80 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="p-5 bg-emerald-50 border border-emerald-200/80 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div class="text-[10px] text-emerald-700 font-extrabold uppercase tracking-wider">Current Cycle Status</div>
               <div class="text-lg font-black text-emerald-950 mt-0.5">Status: {{ rental?.rentStatus || 'UPCOMING' }}</div>

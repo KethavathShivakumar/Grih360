@@ -64,7 +64,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       <div *ngIf="!isLoading && !isError && verification" class="space-y-6">
 
         <!-- Top Status & Certificate Header -->
-        <div class="bg-gradient-to-r from-[#0F2937] via-[#164E63] to-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
+        <div class="bg-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
           <div class="absolute -right-8 -bottom-8 w-56 h-56 bg-[#FACC15]/10 rounded-full blur-2xl pointer-events-none"></div>
 
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
@@ -88,7 +88,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         </div>
 
         <!-- Verified Trust Certificate (When VERIFIED) -->
-        <div *ngIf="verification.status === 'VERIFIED'" class="bg-gradient-to-br from-emerald-50 via-teal-50/50 to-emerald-50 border-2 border-emerald-300 rounded-3xl p-6 shadow-sm space-y-4">
+        <div *ngIf="verification.status === 'VERIFIED'" class="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-6 shadow-sm space-y-4">
           <div class="flex items-center justify-between flex-wrap gap-3">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">

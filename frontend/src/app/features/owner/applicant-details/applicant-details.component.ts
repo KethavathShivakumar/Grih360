@@ -101,7 +101,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               (click)="updateStatus('APPROVED')"
               [disabled]="isUpdating"
               type="button"
-              class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-xl text-xs font-bold shadow-md transition-all hover:scale-105 cursor-pointer"
+              class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-xl text-xs font-bold shadow-md transition-all  cursor-pointer"
             >
               {{ isUpdating ? 'Processing...' : '✓ Approve & Create Lease' }}
             </button>

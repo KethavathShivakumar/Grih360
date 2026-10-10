@@ -103,7 +103,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/rental')"
               type="button"
-              class="px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              class="px-4 py-2 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] border border-emerald-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
             >
               📜 Lease Agreement
             </button>

@@ -145,7 +145,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               <button
                 (click)="viewRental(prop.id)"
                 type="button"
-                class="px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 rounded-lg transition-colors cursor-pointer"
+                class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2D7A5E] border border-emerald-200 rounded-lg transition-colors cursor-pointer"
               >
                 📜 Lease
               </button>

@@ -117,7 +117,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               <img
                 [src]="img.url"
                 [alt]="img.caption || property.title"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                class="w-full h-full object-cover  transition-transform duration-300"
                 (error)="onImageError($event)"
               />
 

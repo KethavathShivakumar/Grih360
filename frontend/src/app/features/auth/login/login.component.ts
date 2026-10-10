@@ -30,7 +30,7 @@ import { finalize, timeout } from 'rxjs';
         <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#E8E6DF] py-3.5 px-4 sm:px-8">
           <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a routerLink="/" class="flex items-center space-x-2.5 group">
-              <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs  transition-transform">
                 G
               </div>
               <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
@@ -47,7 +47,7 @@ import { finalize, timeout } from 'rxjs';
           <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl border border-[#E8E6DF] overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[600px]">
             
             <!-- Left Visual Brand Showcase (Desktop) -->
-            <div class="lg:col-span-5 bg-gradient-to-br from-[#0F2937] via-[#163A4D] to-[#0A1F2C] p-6 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
+            <div class="lg:col-span-5 bg-[#0F2937] p-6 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
               <!-- Ambient Background Glows -->
               <div class="absolute -top-24 -left-24 w-64 h-64 bg-[#2D7A5E]/20 rounded-full blur-3xl pointer-events-none"></div>
               <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-[#FACC15]/15 rounded-full blur-3xl pointer-events-none"></div>

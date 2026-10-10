@@ -18,7 +18,7 @@ import { MoneyService } from '../../../core/services/money.service';
           [src]="mainImageUrl"
           [alt]="property.title"
           loading="lazy"
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          class="w-full h-full object-cover  transition-transform duration-500"
         />
         
         <!-- Rent Tag Pill (Top Left) -->
@@ -33,7 +33,7 @@ import { MoneyService } from '../../../core/services/money.service';
             type="button"
             [title]="isSaved ? 'Remove from Saved' : 'Save Property'"
             [class]="isSaved ? 'bg-rose-500 text-white' : 'bg-white/90 hover:bg-white text-slate-700'"
-            class="p-1.5 rounded-full shadow-md transition-transform active:scale-95 cursor-pointer backdrop-blur-md"
+            class="p-1.5 rounded-full shadow-md transition-transform  cursor-pointer backdrop-blur-md"
           >
             <svg class="w-4 h-4" [attr.fill]="isSaved ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -112,7 +112,7 @@ import { MoneyService } from '../../../core/services/money.service';
           <button
             (click)="onCardClick()"
             type="button"
-            class="w-8 h-8 rounded-full bg-[#0F2937] hover:bg-[#164E63] text-white flex items-center justify-center text-xs font-black transition-transform group-hover:scale-110 shadow-xs shrink-0 cursor-pointer"
+            class="w-8 h-8 rounded-full bg-[#0F2937] hover:bg-[#164E63] text-white flex items-center justify-center text-xs font-black transition-transform  shadow-xs shrink-0 cursor-pointer"
             title="View Property Details"
           >
             →

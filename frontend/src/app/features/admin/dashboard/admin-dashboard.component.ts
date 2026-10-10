@@ -84,7 +84,7 @@ import { StitchDesignRequest } from '../../../shared/models/stitch-request.model
           <div class="bg-white border border-[#E8E6DF] rounded-xl p-5 shadow-sm">
             <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">
               <span>Service Jobs</span>
-              <span class="p-1 bg-purple-50 text-purple-600 rounded">🛠️</span>
+              <span class="p-1 bg-emerald-50 text-[#2D7A5E] rounded">🛠️</span>
             </div>
             <div class="text-3xl font-black text-[#0F2937]">{{ stats.services?.total || 0 }}</div>
             <div class="mt-2 text-[11px] text-slate-500 space-x-2">

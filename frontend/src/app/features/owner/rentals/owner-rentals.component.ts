@@ -59,11 +59,11 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Tenancies</span>
           <span class="text-2xl font-black text-[#0F2937] mt-1 block">{{ rentals.length }}</span>
         </div>
-        <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-gradient-to-b from-emerald-50/40 to-white">
+        <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-white">
           <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Active Leases</span>
           <span class="text-2xl font-black text-emerald-800 mt-1 block">{{ activeRentalsCount }}</span>
         </div>
-        <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-gradient-to-b from-amber-50/40 to-white">
+        <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-white">
           <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">Pending Signing</span>
           <span class="text-2xl font-black text-amber-800 mt-1 block">{{ pendingRentalsCount }}</span>
         </div>

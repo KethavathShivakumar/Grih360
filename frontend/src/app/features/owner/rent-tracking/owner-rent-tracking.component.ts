@@ -95,12 +95,12 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             <span class="text-xl sm:text-2xl font-black text-[#0F2937] mt-1 block">{{ formatCurrency(totalBilled) }}</span>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-gradient-to-b from-emerald-50/40 to-white">
+          <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-white">
             <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Total Collected</span>
             <span class="text-xl sm:text-2xl font-black text-emerald-800 mt-1 block">{{ formatCurrency(totalCollected) }}</span>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-gradient-to-b from-amber-50/40 to-white">
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-white">
             <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">Pending / Due</span>
             <span class="text-xl sm:text-2xl font-black text-amber-800 mt-1 block">{{ formatCurrency(totalPending) }}</span>
           </div>

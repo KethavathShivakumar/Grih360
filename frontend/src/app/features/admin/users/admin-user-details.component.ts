@@ -34,7 +34,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 [ngClass]="{
                   'bg-blue-100 text-blue-800': user.role === 'TENANT',
                   'bg-emerald-100 text-emerald-800': user.role === 'OWNER',
-                  'bg-purple-100 text-purple-800': user.role === 'PROFESSIONAL',
+                  'bg-teal-100 text-teal-800': user.role === 'PROFESSIONAL',
                   'bg-red-100 text-red-800': user.role === 'ADMIN'
                 }"
                 class="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide"

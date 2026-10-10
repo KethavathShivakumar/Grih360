@@ -351,7 +351,7 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
           <button
             type="submit"
             [disabled]="isSubmitting"
-            class="px-8 py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white rounded-xl text-xs font-extrabold shadow-md transition-all hover:scale-105 cursor-pointer flex items-center gap-2"
+            class="px-8 py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white rounded-xl text-xs font-extrabold shadow-md transition-all  cursor-pointer flex items-center gap-2"
           >
             <svg *ngIf="isSubmitting" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

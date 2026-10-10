@@ -193,7 +193,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
 
           <!-- Confirmation Actions Bar -->
           <div class="border-t border-slate-100 pt-5 space-y-4">
-            <div *ngIf="!ownerConfirmed && currentStatus !== 'CANCELLED'" class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-[#0F2937] to-[#164E63] text-white p-5 rounded-2xl">
+            <div *ngIf="!ownerConfirmed && currentStatus !== 'CANCELLED'" class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#0F2937] text-white p-5 rounded-2xl">
               <div>
                 <h3 class="font-black text-sm text-[#FACC15]">Confirm Agreement & Activate Tenancy</h3>
                 <p class="text-xs text-slate-300 mt-0.5">
@@ -215,7 +215,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                   (click)="confirmAsOwner()"
                   [disabled]="isActioning"
                   type="button"
-                  class="px-5 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-black rounded-xl text-xs shadow-md transition-all hover:scale-105 cursor-pointer disabled:opacity-50"
+                  class="px-5 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-black rounded-xl text-xs shadow-md transition-all  cursor-pointer disabled:opacity-50"
                 >
                   {{ isActioning ? 'Activating...' : '✓ Confirm Agreement & Activate Rental' }}
                 </button>

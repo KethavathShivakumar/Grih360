@@ -32,7 +32,7 @@ declare const google: any;
         <button
           (click)="onSearchThisAreaClick()"
           type="button"
-          class="px-4 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-black rounded-full shadow-2xl border border-white/20 flex items-center gap-2 cursor-pointer transition-transform hover:scale-105 active:scale-95"
+          class="px-4 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-black rounded-full shadow-2xl border border-white/20 flex items-center gap-2 cursor-pointer transition-transform  "
         >
           <span>🔍</span>
           <span>Search this area</span>
@@ -44,7 +44,7 @@ declare const google: any;
         <button
           (click)="locateUser()"
           type="button"
-          class="p-2.5 bg-white/95 backdrop-blur-md hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all hover:scale-105 cursor-pointer flex items-center gap-1.5"
+          class="p-2.5 bg-white/95 backdrop-blur-md hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
           title="Center on My Location"
         >
           <span>📍</span>
@@ -55,7 +55,7 @@ declare const google: any;
           (click)="fitAllMarkers()"
           *ngIf="properties && properties.length > 0"
           type="button"
-          class="p-2.5 bg-white/95 backdrop-blur-md hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all hover:scale-105 cursor-pointer flex items-center gap-1.5"
+          class="p-2.5 bg-white/95 backdrop-blur-md hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
           title="Fit All Properties in View"
         >
           <span>🗺️</span>

@@ -117,7 +117,7 @@ import { ApplicationService } from '../../../core/services/application.service';
           <div routerLink="/tenant/saved" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Bookmarked Homes</span>
-              <span class="text-xl group-hover:scale-110 transition-transform">❤️</span>
+              <span class="text-xl  transition-transform">❤️</span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ savedCount }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">View Saved Listings →</span>
@@ -127,7 +127,7 @@ import { ApplicationService } from '../../../core/services/application.service';
           <div routerLink="/tenant/applications" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Submitted Applications</span>
-              <span class="text-xl group-hover:scale-110 transition-transform">📄</span>
+              <span class="text-xl  transition-transform">📄</span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ applicationCount }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">Track Applications →</span>
@@ -137,7 +137,7 @@ import { ApplicationService } from '../../../core/services/application.service';
           <div routerLink="/tenant/rental" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Rental Agreements</span>
-              <span class="text-xl group-hover:scale-110 transition-transform">🔑</span>
+              <span class="text-xl  transition-transform">🔑</span>
             </div>
             <span class="text-3xl font-black text-[#0F2937] mt-2 block">1</span>
             <span class="text-xs text-slate-400 font-bold mt-1 block">Model Tenancy Act Compliant</span>
@@ -159,7 +159,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/applications"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-[#2D7A5E] flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-[#2D7A5E] flex items-center justify-center text-sm font-bold  transition-transform">
                 📋
               </div>
               <div>
@@ -172,7 +172,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/verification"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center text-sm font-bold  transition-transform">
                 🛡️
               </div>
               <div>
@@ -185,7 +185,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/rent"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-700 flex items-center justify-center text-sm font-bold  transition-transform">
                 💳
               </div>
               <div>
@@ -198,7 +198,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/documents"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-[#2D7A5E] flex items-center justify-center text-sm font-bold  transition-transform">
                 📁
               </div>
               <div>
@@ -211,7 +211,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/handover"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-teal-500/10 text-teal-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-teal-500/10 text-teal-700 flex items-center justify-center text-sm font-bold  transition-transform">
                 🔑
               </div>
               <div>
@@ -224,7 +224,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/condition"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-700 flex items-center justify-center text-sm font-bold  transition-transform">
                 🏠
               </div>
               <div>
@@ -237,7 +237,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/services"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-700 flex items-center justify-center text-sm font-bold  transition-transform">
                 🛠️
               </div>
               <div>
@@ -250,7 +250,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               routerLink="/tenant/settings"
               class="p-3.5 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-2xl transition-all flex flex-col justify-between gap-2 group cursor-pointer"
             >
-              <div class="w-8 h-8 rounded-xl bg-slate-500/10 text-slate-700 flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-xl bg-slate-500/10 text-slate-700 flex items-center justify-center text-sm font-bold  transition-transform">
                 ⚙️
               </div>
               <div>

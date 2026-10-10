@@ -61,7 +61,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
           <div class="flex flex-wrap items-center gap-3 relative z-10 shrink-0">
             <a
               routerLink="/tenant/homes"
-              class="px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-extrabold rounded-2xl text-xs shadow-md transition-all hover:scale-105 cursor-pointer flex items-center gap-1.5"
+              class="px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-extrabold rounded-2xl text-xs shadow-md transition-all  cursor-pointer flex items-center gap-1.5"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.3-4.3"/></svg>
               <span>Explore Homes</span>
@@ -123,7 +123,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
             >
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Tenancy Status</span>
-                <span class="p-2 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">
+                <span class="p-2 bg-blue-50 text-blue-600 rounded-xl  transition-transform">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </span>
               </div>
@@ -142,7 +142,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
             >
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Active Applications</span>
-                <span class="p-2 bg-emerald-50 text-[#2D7A5E] rounded-xl group-hover:scale-110 transition-transform">
+                <span class="p-2 bg-emerald-50 text-[#2D7A5E] rounded-xl  transition-transform">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </span>
               </div>
@@ -159,7 +159,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
             >
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Bookmarked Homes</span>
-                <span class="p-2 bg-rose-50 text-rose-600 rounded-xl group-hover:scale-110 transition-transform">
+                <span class="p-2 bg-rose-50 text-rose-600 rounded-xl  transition-transform">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </span>
               </div>
@@ -176,7 +176,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
             >
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Unread Alerts</span>
-                <span class="p-2 bg-amber-50 text-amber-600 rounded-xl group-hover:scale-110 transition-transform">
+                <span class="p-2 bg-amber-50 text-amber-600 rounded-xl  transition-transform">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 </span>
               </div>
@@ -217,7 +217,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 routerLink="/tenant/rent"
                 class="p-3 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-center text-xs font-bold transition group cursor-pointer"
               >
-                <div class="w-8 h-8 rounded-xl bg-emerald-100 text-[#2D7A5E] group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform group-hover:scale-110">
+                <div class="w-8 h-8 rounded-xl bg-emerald-100 text-[#2D7A5E] group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 Rent Tracking
@@ -226,7 +226,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 routerLink="/tenant/rental"
                 class="p-3 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-center text-xs font-bold transition group cursor-pointer"
               >
-                <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform group-hover:scale-110">
+                <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 Lease Agreement
@@ -235,7 +235,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 routerLink="/tenant/handover"
                 class="p-3 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-center text-xs font-bold transition group cursor-pointer"
               >
-                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform group-hover:scale-110">
+                <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 022 2h2a2 2 0 02-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
                 </div>
                 Handover List
@@ -244,7 +244,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 routerLink="/tenant/condition"
                 class="p-3 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-center text-xs font-bold transition group cursor-pointer"
               >
-                <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform group-hover:scale-110">
+                <div class="w-8 h-8 rounded-xl bg-emerald-100 text-[#2D7A5E] group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                 </div>
                 Condition Log
@@ -253,7 +253,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 routerLink="/tenant/documents"
                 class="p-3 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-center text-xs font-bold transition group cursor-pointer"
               >
-                <div class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform group-hover:scale-110">
+                <div class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center mx-auto mb-1.5 transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"/></svg>
                 </div>
                 Vault & Receipts
@@ -270,7 +270,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.3-4.3"/></svg>
                 </div>
                 <span>Find Homes</span>
@@ -281,7 +281,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 </div>
                 <span>Search Results</span>
@@ -292,7 +292,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </div>
                 <span>Saved Homes</span>
@@ -303,7 +303,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-[#2D7A5E] group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-[#2D7A5E] group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <span>Applications</span>
@@ -314,7 +314,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <span>Verification</span>
@@ -325,7 +325,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-[#2D7A5E] group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </div>
                 <span>My Rental</span>
@@ -336,7 +336,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <span>Rent Tracking</span>
@@ -347,7 +347,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-[#FAF9F5] text-slate-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-[#FAF9F5] text-slate-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"/></svg>
                 </div>
                 <span>Documents</span>
@@ -358,7 +358,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 022 2h2a2 2 0 02-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
                 </div>
                 <span>Handover List</span>
@@ -369,7 +369,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-pink-50 text-pink-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-pink-50 text-pink-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                 </div>
                 <span>Condition Log</span>
@@ -380,7 +380,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-cyan-50 text-cyan-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-cyan-50 text-cyan-600 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                 </div>
                 <span>Home Services</span>
@@ -391,7 +391,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 type="button"
                 class="p-3.5 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer flex flex-col justify-between h-24"
               >
-                <div class="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <div class="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 group-hover:bg-white/20 group-hover:text-white flex items-center justify-center transition-transform ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <span>Settings</span>
