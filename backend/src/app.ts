@@ -21,7 +21,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 const isAllowedOrigin = (origin: string | undefined): boolean => {
   if (!origin) return true;
   if (config.frontendUrl && origin === config.frontendUrl) return true;
-  if (origin === 'https://nivas360.vercel.app' || origin === 'https://grih360.vercel.app') return true;
+  if (
+    origin === 'https://grih360.in' ||
+    origin === 'https://www.grih360.in' ||
+    origin === 'https://grih360.vercel.app' ||
+    origin === 'https://nivas360.vercel.app'
+  ) {
+    return true;
+  }
   if (/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.vercel\.app$/i.test(origin)) return true;
   // Capacitor Android & iOS native WebView origins
   if (

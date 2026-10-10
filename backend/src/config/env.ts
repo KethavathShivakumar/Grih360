@@ -10,7 +10,7 @@ export const config = {
   mongodbUri: process.env.MONGODB_URI || '',
   jwtAccessSecret: process.env.JWT_ACCESS_SECRET || 'default_dev_access_secret',
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'default_dev_refresh_secret',
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:4200',
+  frontendUrl: process.env.FRONTEND_URL || (process.env.NODE_ENV === 'production' ? 'https://grih360.in' : 'http://localhost:4200'),
   backendUrl: process.env.BACKEND_URL || (process.env.NODE_ENV === 'production' ? 'https://grih360.vercel.app' : 'http://localhost:5000'),
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyDSkelUvGii5waZT4Edk2n8wsAg7tlEI54',
   apiVersion: '/api/v1',

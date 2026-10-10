@@ -1,0 +1,38 @@
+{
+  "name": "Grih360: Integrated Property & Rental Ecosystem",
+  "short_name": "Grih360",
+  "description": "Unified Property, Rental & Home Ecosystem for Tier-2 & Tier-3 India. Zero brokerage, verified properties, digital agreements, and automated rent tracking.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF9F5",
+  "theme_color": "#0F2937",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
