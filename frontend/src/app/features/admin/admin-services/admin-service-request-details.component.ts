@@ -132,7 +132,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
 
             <div *ngIf="!request.professional && !request.professionalId" class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 font-bold text-center">
-              ⏳ Matching in progress — no professional assigned yet
+              ⏳ Matching in progress: no professional assigned yet
             </div>
 
             <!-- Reassign Control -->
@@ -157,7 +157,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
             <div *ngIf="['COMPLETED', 'CANCELLED'].includes(request.status)" class="border-t border-slate-100 pt-3">
               <p class="text-[11px] text-slate-400 italic text-center">
-                Reassignment unavailable — request is {{ request.status }}.
+                Reassignment unavailable: request is {{ request.status }}.
               </p>
             </div>
           </div>

@@ -23,7 +23,7 @@ export class DesignTrackerService {
       page: 'Login & Authentication Page',
       route: '/auth/login',
       role: 'Public',
-      stitchDesign: 'projects/1596135526498527550/screens/6495c2e395bb4ae999d214cec77b5888 (Grih360 Login & Authentication — Classic Architectural Bento)',
+      stitchDesign: 'projects/1596135526498527550/screens/6495c2e395bb4ae999d214cec77b5888 (Grih360 Login & Authentication: Classic Architectural Bento)',
       angularImplementation: 'IMPLEMENTED (Phase 1 Source of Truth)',
       apiStatus: 'READY (/api/v1/auth/login)',
       status: 'DESIGN_REFERENCE_AVAILABLE',

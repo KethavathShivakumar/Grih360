@@ -85,7 +85,7 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
               <div>
                 <h2 class="text-xl font-black text-[#0F2937]">Tenant / Resident</h2>
                 <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                  Discover zero-brokerage verified homes across Telangana & AP with Google Maps, apply directly, and book maintenance.
+                  Direct rental listings across Telangana and AP with interactive map search, direct applications, and maintenance requests.
                 </p>
               </div>
               <div class="pt-2 flex items-center space-x-2 text-xs font-bold text-[#2D7A5E] group-hover:text-[#0F2937]">

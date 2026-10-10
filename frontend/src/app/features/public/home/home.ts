@@ -10,7 +10,7 @@ import { HealthCheckStatus } from '../../../core/models/api-response.model';
   imports: [CommonModule, RouterLink],
   template: `
     <div style="padding: 2rem; max-width: 800px; margin: 0 auto; font-family: system-ui, sans-serif;">
-      <h1 style="color: #1e293b;">Grih360 — Phase 0 Foundation</h1>
+      <h1 style="color: #1e293b;">Grih360: Phase 0 Foundation</h1>
       <p style="color: #64748b; font-size: 1.1rem;">
         MEAN Stack Architecture Baseline (Angular + Express + Node.js + MongoDB)
       </p>
@@ -67,7 +67,7 @@ import { HealthCheckStatus } from '../../../core/models/api-response.model';
       </div>
 
       <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: 0.875rem;">
-        Phase 0 Architectural Foundation — UI will be provided by Stitch in Phase 1.
+        Phase 0 Architectural Foundation: UI will be provided by Stitch in Phase 1.
       </div>
     </div>
   `

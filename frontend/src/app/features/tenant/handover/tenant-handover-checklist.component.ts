@@ -82,7 +82,7 @@ export interface ChecklistSection {
         *ngIf="!isLoading && !isError && !rental"
         title="No active tenancy found"
         message="A move-in handover checklist is generated once a rental agreement is confirmed."
-        actionText="Explore Verified Homes"
+        actionText="Find Homes"
         (action)="router.navigate(['/tenant/homes'])"
       ></app-empty-state>
 

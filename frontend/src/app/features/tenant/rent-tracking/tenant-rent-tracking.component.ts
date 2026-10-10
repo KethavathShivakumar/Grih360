@@ -69,7 +69,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <app-empty-state
         *ngIf="!isLoading && !isError && !rental"
         title="No active rental agreement found"
-        message="You currently do not have an active residential tenancy. Browse verified homes to apply."
+        message="You currently do not have an active residential tenancy. Browse available rental homes to apply."
         actionText="Browse Available Homes"
         (action)="router.navigate(['/tenant/homes'])"
       ></app-empty-state>

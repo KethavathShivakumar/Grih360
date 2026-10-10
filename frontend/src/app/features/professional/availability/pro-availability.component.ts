@@ -127,7 +127,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-black text-[#0F2937]">Operating Hours & Days</h3>
-            <span class="text-xs text-[#2D7A5E] font-bold">Standard Network Hours: 08:00 AM – 08:00 PM</span>
+            <span class="text-xs text-[#2D7A5E] font-bold">Standard Network Hours: 08:00 AM to 08:00 PM</span>
           </div>
           <p class="text-xs text-slate-500">
             Tenants schedule appointments primarily between 09:00 AM to 08:00 PM. Keep your status online during these peak hours for maximum bookings.

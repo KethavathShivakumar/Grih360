@@ -53,7 +53,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </p>
         <div class="pt-2">
           <a routerLink="/tenant/homes" class="inline-block px-6 py-3 bg-[#0F2937] text-[#FACC15] font-extrabold rounded-2xl text-xs shadow-md  transition-all">
-            🔍 Browse Verified Homes
+            🔍 Browse Available Homes
           </a>
         </div>
       </div>

@@ -330,7 +330,7 @@ export class TenantDocumentsComponent implements OnInit {
                   if (r.status === 'PAID') {
                     docs.push({
                       id: 'doc_rcpt_' + (r._id || r.id || idx),
-                      title: `Rent Payment Receipt — ${new Date(r.paidDate || r.dueDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`,
+                      title: `Rent Payment Receipt: ${new Date(r.paidDate || r.dueDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`,
                       category: 'RECEIPT',
                       date: r.paidDate || r.dueDate || new Date().toISOString(),
                       type: 'PDF Receipt',

@@ -384,7 +384,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="space-y-3">
               <div class="flex items-center justify-between">
                 <h4 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">
-                  Step 1 — Government Identity Document
+                  Step 1: Government Identity Document
                 </h4>
                 <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-semibold">
                   Required
@@ -506,7 +506,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <!-- Section 3: Contact & Rental History -->
             <div class="space-y-3 pt-3 border-t border-slate-100">
               <h4 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">
-                Step 3 — Address & References
+                Step 3: Address & References
               </h4>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -738,11 +738,11 @@ export class TenantVerificationComponent implements OnInit {
 
   get progressLabel(): string {
     const st = this.verification?.status;
-    if (st === 'VERIFIED') return '100% Completed — Verified';
-    if (st === 'UNDER_REVIEW') return '75% Completed — Under Review';
-    if (st === 'PENDING') return '50% Completed — Documents Submitted (Pending Review)';
-    if (st === 'REJECTED') return 'Action Required — Review and Resubmit';
-    return '10% — Submission Required';
+    if (st === 'VERIFIED') return '100% Completed: Verified';
+    if (st === 'UNDER_REVIEW') return '75% Completed: Under Review';
+    if (st === 'PENDING') return '50% Completed: Documents Submitted (Pending Review)';
+    if (st === 'REJECTED') return 'Action Required: Review and Resubmit';
+    return '10%: Submission Required';
   }
 
   get progressBarClass(): string {

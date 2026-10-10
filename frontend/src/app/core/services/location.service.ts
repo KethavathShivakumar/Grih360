@@ -249,7 +249,7 @@ export class LocationService {
     }
 
     if (!this.autocompleteService || typeof google === 'undefined') {
-      // Graceful fallback to canonical districts match if Google Maps offline
+      // Graceful fallback to supported districts match if Google Maps offline
       return of(this.getFallbackPredictions(cleanQuery));
     }
 
@@ -274,7 +274,7 @@ export class LocationService {
             observer.next(mapped);
             observer.complete();
           } else {
-            // If zero results from Places, try canonical districts & localities
+            // If zero results from Places, try supported districts & localities
             const fallback = this.getFallbackPredictions(cleanQuery);
             observer.next(fallback);
             observer.complete();
@@ -394,7 +394,7 @@ export class LocationService {
   }
 
   /**
-   * Canonical Districts & States helper
+   * supported districts & States helper
    */
   public getStates(): StateInfo[] {
     return STATES_CONFIG;

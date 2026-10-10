@@ -11,7 +11,7 @@ export class StorageService {
   private readonly REFRESH_TOKEN_KEY = 'grih360_refresh_token';
   private readonly USER_KEY = 'grih360_user_session';
 
-  // Legacy keys for seamless one-time migration
+  // Legacy keys for direct one-time migration
   private readonly LEGACY_TOKEN_KEY = 'nivas360_auth_token';
   private readonly LEGACY_REFRESH_TOKEN_KEY = 'nivas360_refresh_token';
   private readonly LEGACY_USER_KEY = 'nivas360_user_session';

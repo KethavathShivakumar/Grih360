@@ -49,7 +49,7 @@ import { CustomerCareComponent } from '../customer-care/customer-care.component'
 
       <div class="flex items-center justify-between pt-2">
         <p class="text-xs text-[#64748B]">
-          Antigravity backend models, MongoDB schemas, REST API v1 routes, and controllers are fully operational for this feature.
+          Grih360 backend services, database schemas, REST API v1 routes, and controllers are fully operational for this feature.
         </p>
         <app-customer-care></app-customer-care>
       </div>

@@ -201,7 +201,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <span class="font-bold text-slate-800 block text-sm">Maintenance Mode</span>
               <span class="text-xs text-slate-500">When enabled, platform shows maintenance page to all non-admin users.</span>
               <p *ngIf="settings.maintenanceMode" class="text-rose-600 font-bold text-xs mt-1">
-                ⚠️ MAINTENANCE MODE IS CURRENTLY ACTIVE — Platform is inaccessible to tenants and owners.
+                ⚠️ MAINTENANCE MODE IS CURRENTLY ACTIVE: Platform is inaccessible to tenants and owners.
               </p>
             </div>
             <button

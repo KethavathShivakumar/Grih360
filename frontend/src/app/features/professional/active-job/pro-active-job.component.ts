@@ -82,7 +82,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="flex items-center space-x-3">
               <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
               <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
-                {{ job.status === 'IN_PROGRESS' ? 'Job In Progress' : 'Job Accepted — Ready to Start' }}
+                {{ job.status === 'IN_PROGRESS' ? 'Job In Progress' : 'Job Accepted: Ready to Start' }}
               </span>
               <span class="text-xs text-slate-300">| Job #{{ job._id || job.id }}</span>
             </div>

@@ -79,7 +79,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 <span class="text-xs font-bold text-[#2D7A5E]">→</span>
               </div>
               <p class="text-[11px] text-slate-500 mt-0.5 leading-snug line-clamp-2">
-                Zero-brokerage verified homes with Google Maps & direct apply.
+                Direct rental listings with map search and direct applications.
               </p>
             </div>
           </div>
