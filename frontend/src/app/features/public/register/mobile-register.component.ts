@@ -177,6 +177,23 @@ import { UserRole } from '../../../shared/models/user.model';
             </span>
           </div>
 
+          <!-- Terms and Privacy Consent Checkbox -->
+          <div class="flex items-start gap-2.5 pt-1">
+            <input
+              type="checkbox"
+              formControlName="acceptTerms"
+              id="mobileAcceptTerms"
+              class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#2D7A5E] focus:ring-[#2D7A5E] cursor-pointer"
+            />
+            <label for="mobileAcceptTerms" class="text-xs text-slate-600 leading-relaxed cursor-pointer select-none">
+              I agree to the <a routerLink="/terms" target="_blank" class="text-[#2D7A5E] font-bold underline">Terms and Conditions</a>
+              and acknowledge the <a routerLink="/privacy" target="_blank" class="text-[#2D7A5E] font-bold underline">Privacy Policy</a>.
+            </label>
+          </div>
+          <span *ngIf="f['acceptTerms']?.touched && f['acceptTerms']?.invalid" class="text-[11px] text-rose-600 font-semibold block">
+            You must agree to the Terms and Privacy Policy to proceed.
+          </span>
+
           <!-- Submit Button -->
           <button
             type="submit"
@@ -200,8 +217,13 @@ import { UserRole } from '../../../shared/models/user.model';
         </div>
       </main>
 
-      <footer class="py-2 text-center text-[11px] text-slate-400 border-t border-[#E8E6DF]">
-        © 2026 Grih360 Technologies
+      <footer class="py-2.5 text-center text-[11px] text-slate-500 border-t border-[#E8E6DF] flex flex-col items-center gap-1">
+        <div>&copy; 2026 Grih360 Technologies Pvt Ltd. Model Tenancy Act Compliant.</div>
+        <div class="flex items-center gap-2 font-medium">
+          <a routerLink="/privacy" class="hover:text-[#2D7A5E] underline">Privacy Policy</a>
+          <span>•</span>
+          <a routerLink="/terms" class="hover:text-[#2D7A5E] underline">Terms and Conditions</a>
+        </div>
       </footer>
     </div>
   `,

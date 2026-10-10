@@ -88,6 +88,8 @@ import { guestGuard } from './core/guards/guest.guard';
 
 import { AdminLoginComponent } from './features/admin/auth/admin-login.component';
 import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.component';
+import { PrivacyComponent } from './features/public/privacy/privacy.component';
+import { TermsComponent } from './features/public/terms/terms.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'role-selection', pathMatch: 'full' },
@@ -99,6 +101,8 @@ export const routes: Routes = [
   { path: 'auth/register', component: RegisterComponent, canActivate: [guestGuard] },
   { path: 'auth/verify-email', component: VerifyEmailComponent, canActivate: [guestGuard] },
   { path: 'admin/login', component: AdminLoginComponent, canActivate: [guestGuard] },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'terms', component: TermsComponent },
 
   // Tenant Workspace Routes
   {

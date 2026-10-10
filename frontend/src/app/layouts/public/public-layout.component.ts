@@ -29,8 +29,15 @@ import { RouterOutlet, RouterModule } from '@angular/router';
         <router-outlet></router-outlet>
       </main>
 
-      <footer class="bg-white border-t border-[#E8E6DF] py-4 text-center text-xs text-slate-500">
-        © 2026 Grih360 Technologies Pvt Ltd • Model Tenancy Act Compliant
+      <footer class="bg-white border-t border-[#E8E6DF] py-4 px-6 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>&copy; 2026 Grih360 Technologies Pvt Ltd. Model Tenancy Act Compliant.</span>
+          <div class="flex items-center gap-3 font-semibold">
+            <a routerLink="/privacy" class="hover:text-[#2D7A5E] transition-colors">Privacy Policy</a>
+            <span>•</span>
+            <a routerLink="/terms" class="hover:text-[#2D7A5E] transition-colors">Terms and Conditions</a>
+          </div>
+        </div>
       </footer>
     </div>
   `,

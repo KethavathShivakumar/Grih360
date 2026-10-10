@@ -207,7 +207,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <div *ngIf="verification?.status === 'NOT_STARTED'" class="bg-blue-50 border border-blue-200 p-5 rounded-3xl flex items-start space-x-3.5 text-blue-950">
-          <div class="w-8 h-8 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center shrink-0 font-bold">ℹ️</div>
+          <div class="w-8 h-8 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center shrink-0 font-bold"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
           <div class="space-y-1">
             <h4 class="text-sm font-extrabold text-blue-900">Verification Steps Required</h4>
             <p class="text-xs text-blue-800">
@@ -223,6 +223,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <span class="font-extrabold text-white text-sm block">Isolated & Encrypted Identity Vault</span>
             <p class="text-slate-300 leading-relaxed">
               In strict accordance with data privacy regulations, full unmasked identity documents are <strong class="text-white">NEVER exposed to property owners</strong>. Property owners receive only verified/unverified high-level status confirmations. Only authorized Grih360 compliance officers access audit files.
+            </p>
+            <p class="text-slate-300 leading-relaxed pt-1">
+              For complete data handling practices, read our <a routerLink="/privacy" target="_blank" class="text-emerald-400 font-bold underline">Privacy Policy</a>.
             </p>
           </div>
         </div>
@@ -544,7 +547,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <label for="declarationAccepted" class="text-xs text-indigo-950 leading-relaxed cursor-pointer">
-                <strong>Statutory Tenant Declaration:</strong> I hereby certify that the information and identity details provided are true, correct, and complete. I authorize Grih360 compliance personnel to verify the submitted documents for tenancy eligibility in accordance with the Model Tenancy Act.
+                <strong>Statutory Tenant Declaration:</strong> I hereby certify that the information and identity details provided are true, correct, and complete. I authorize Grih360 compliance personnel to verify the submitted documents for tenancy eligibility in accordance with the Model Tenancy Act and our <a routerLink="/privacy" target="_blank" class="text-[#2D7A5E] font-bold underline">Privacy Policy</a>.
               </label>
             </div>
 

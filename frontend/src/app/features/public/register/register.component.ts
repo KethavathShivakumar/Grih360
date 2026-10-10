@@ -300,11 +300,28 @@ import { finalize, timeout } from 'rxjs';
                   <span>An instant 6-digit OTP code will be sent to your email to verify account ownership.</span>
                 </div>
 
+                <!-- Terms and Privacy Consent Checkbox -->
+                <div class="flex items-start gap-2.5 pt-1">
+                  <input
+                    type="checkbox"
+                    formControlName="acceptTerms"
+                    id="acceptTerms"
+                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#2D7A5E] focus:ring-[#2D7A5E] cursor-pointer"
+                  />
+                  <label for="acceptTerms" class="text-xs text-slate-600 leading-relaxed cursor-pointer select-none">
+                    I agree to the <a routerLink="/terms" target="_blank" class="text-[#2D7A5E] font-bold hover:underline">Terms and Conditions</a>
+                    and acknowledge the <a routerLink="/privacy" target="_blank" class="text-[#2D7A5E] font-bold hover:underline">Privacy Policy</a>.
+                  </label>
+                </div>
+                <span *ngIf="f['acceptTerms']?.touched && f['acceptTerms']?.invalid" class="text-[11px] text-rose-600 font-semibold block">
+                  You must agree to the Terms and Privacy Policy to proceed.
+                </span>
+
                 <!-- Submit Button -->
                 <button
                   type="submit"
                   [disabled]="registerForm.invalid || isLoading"
-                  class="w-full py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-all hover:scale-[1.01] cursor-pointer flex items-center justify-center gap-2"
+                  class="w-full py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
                 >
                   <svg *ngIf="isLoading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -326,8 +343,15 @@ import { finalize, timeout } from 'rxjs';
         </main>
 
         <!-- Footer -->
-        <footer class="py-4 text-center text-xs text-slate-400 border-t border-[#E8E6DF]">
-          © 2026 Grih360 Technologies Pvt Ltd • Model Tenancy Act Compliant
+        <footer class="py-4 px-6 text-center text-xs text-slate-500 border-t border-[#E8E6DF]">
+          <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>&copy; 2026 Grih360 Technologies Pvt Ltd. Model Tenancy Act Compliant.</span>
+            <div class="flex items-center gap-3 font-semibold">
+              <a routerLink="/privacy" class="hover:text-[#2D7A5E] transition-colors">Privacy Policy</a>
+              <span>•</span>
+              <a routerLink="/terms" class="hover:text-[#2D7A5E] transition-colors">Terms and Conditions</a>
+            </div>
+          </div>
         </footer>
       </div>
     }
@@ -354,6 +378,7 @@ export class RegisterComponent implements OnInit {
         phone: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
+        acceptTerms: [false, [Validators.requiredTrue]],
       },
       { validators: this.passwordMatchValidator }
     );

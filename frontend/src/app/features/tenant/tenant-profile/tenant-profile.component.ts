@@ -497,6 +497,19 @@ import { ApplicationService } from '../../../core/services/application.service';
         </button>
       </div>
 
+      <!-- Legal & Privacy Section -->
+      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="space-y-0.5">
+          <span class="text-xs font-bold text-slate-800">Legal & Privacy Documents</span>
+          <p class="text-[11px] text-slate-500">Read our terms of service and DPDP Act 2023 compliant privacy framework.</p>
+        </div>
+        <div class="flex items-center gap-3 text-xs font-bold shrink-0">
+          <a routerLink="/privacy" class="text-[#2D7A5E] hover:underline">Privacy Policy</a>
+          <span class="text-slate-300">•</span>
+          <a routerLink="/terms" class="text-[#2D7A5E] hover:underline">Terms & Conditions</a>
+        </div>
+      </div>
+
       <!-- Build Stamp Footer -->
       <div class="mt-8 pt-4 border-t border-slate-200 text-center space-y-1">
         <p class="text-[11px] font-mono font-bold text-slate-500">
