@@ -20,10 +20,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // 3. CORS Configuration
 const isAllowedOrigin = (origin: string | undefined): boolean => {
   if (!origin) return true;
+  // Allow dynamically configured domain via SITE_URL / FRONTEND_URL environment variable
+  if (config.siteUrl && origin === config.siteUrl) return true;
   if (config.frontendUrl && origin === config.frontendUrl) return true;
   if (
-    origin === 'https://grih360.in' ||
-    origin === 'https://www.grih360.in' ||
     origin === 'https://grih360.vercel.app' ||
     origin === 'https://nivas360.vercel.app'
   ) {

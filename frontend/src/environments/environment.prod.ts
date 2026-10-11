@@ -5,6 +5,7 @@ const isBrowser = typeof window !== 'undefined' &&
 
 export const environment = {
   production: true,
+  siteUrl: 'https://grih360.vercel.app',
   apiUrl: isBrowser ? `${window.location.origin}/api/v1` : 'https://grih360.vercel.app/api/v1',
 };
 
