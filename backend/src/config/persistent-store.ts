@@ -32,6 +32,11 @@ export class PersistentStore {
   }
 
   public static loadCollection<T = any>(collectionName: string): T[] {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(`[PersistentStore] File storage read of backend/data/*.json is disabled in production. MongoDB Atlas is mandatory.`);
+      return [];
+    }
+
     if (this.caches.has(collectionName)) {
       return this.caches.get(collectionName)!;
     }

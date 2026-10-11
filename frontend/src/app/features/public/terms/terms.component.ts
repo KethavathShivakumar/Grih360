@@ -72,7 +72,16 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">5. Rent Records and Payment Tracking</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">5. Fees and Payment Policy</h2>
+              <p>
+                Account creation, browsing listings, and connecting on Grih360 are free of charge. Grih360 does not levy brokerage fees.
+                If optional premium features or paid convenience services are introduced in the future, all fees and applicable taxes will be
+                explicitly displayed and authorized prior to payment.
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">6. Rent Records and Payment Tracking</h2>
               <p>
                 Rent payment tracking on Grih360 records transactions for accounting and documentation purposes.
                 Digital receipts issued on the platform reflect ledger confirmations recorded by the respective parties.
@@ -81,7 +90,7 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">6. Home Services Marketplace</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">7. Home Services Marketplace</h2>
               <p>
                 Home maintenance professionals on the platform operate as independent service providers.
                 Grih360 facilitates booking requests, scope tracking, and review recording. Grih360 does not guarantee
@@ -90,7 +99,7 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">7. Limitation of Liability and Jurisdiction</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">8. Limitation of Liability and Jurisdiction</h2>
               <p>
                 To the fullest extent permitted by Indian law, Grih360 and [COMPANY_LEGAL_NAME] shall not be liable for
                 indirect, punitive, or consequential damages resulting from platform usage.
@@ -100,7 +109,7 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">8. Contact Information</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">9. Contact Information</h2>
               <p class="mb-2">For legal notices or questions regarding these Terms, contact:</p>
               <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1 text-xs sm:text-sm">
                 <p><strong>Entity Name:</strong> [COMPANY_LEGAL_NAME]</p>

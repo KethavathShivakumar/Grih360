@@ -336,7 +336,7 @@ export class TenantDocumentsComponent implements OnInit {
                       type: 'PDF Receipt',
                       size: '420 KB',
                       status: 'VALID',
-                      description: `Statutory rent receipt for ₹${(r.amount || rental.monthlyRent).toLocaleString('en-IN')}. Form 12BB HRA tax claim compliant.`,
+                      description: `Rent receipt for ₹${(r.amount || rental.monthlyRent).toLocaleString('en-IN')}. Form 12BB HRA tax documentation eligible.`,
                     });
                   }
                 });

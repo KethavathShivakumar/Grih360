@@ -172,7 +172,7 @@ This code is valid for 10 minutes.
 
 If you did not request the code, You can ignore this email.
 
--Grih360 Admin
+Grih360 Support Team
 Grih360`;
 
     return this.sendEmail({
@@ -186,13 +186,13 @@ Grih360`;
    * Sends a test verification email to confirm Gmail SMTP integration.
    */
   public static async sendTestEmail(to: string): Promise<{ messageId: string; recipient: string }> {
-    const subject = 'Grih360 — Gmail SMTP Connectivity Test Successful';
+    const subject = 'Grih360: Gmail SMTP Connectivity Test Successful';
     const htmlContent = `
 <!DOCTYPE html>
 <html>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FAF9F5; padding: 24px; margin: 0;">
   <div style="max-width: 520px; margin: 0 auto; background: white; padding: 36px; border-radius: 20px; border: 1px solid #E8E6DF; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-    <h2 style="color: #2D7A5E; margin-top: 0; font-size: 22px;">✅ Gmail SMTP Connected!</h2>
+    <h2 style="color: #2D7A5E; margin-top: 0; font-size: 22px;">Gmail SMTP Connected</h2>
     <p style="font-size: 14px; color: #334155; line-height: 1.6;">
       This test email confirms that <strong>Grih360</strong> has successfully connected to Gmail SMTP via Nodemailer.
     </p>
@@ -210,7 +210,7 @@ Grih360`;
     `;
 
     const plainText = `
-Grih360 — Gmail SMTP Connectivity Test Successful
+Grih360: Gmail SMTP Connectivity Test Successful
 
 This test email confirms that Grih360 has successfully connected to Gmail SMTP via Nodemailer.
 

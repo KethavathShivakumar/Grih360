@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "node scripts/check-legal-placeholders.js --strict && ng build",
+    "check:legal": "node scripts/check-legal-placeholders.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

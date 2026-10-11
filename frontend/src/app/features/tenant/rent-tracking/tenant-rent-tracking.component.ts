@@ -115,7 +115,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 {{ isPaid ? 'Rent for this Month is Paid! ' : 'Upcoming Rent Payment Due' }}
               </h3>
               <p class="text-xs text-slate-300 leading-relaxed">
-                {{ isPaid ? 'Your monthly rent payment has been confirmed and verified. Automated receipt generated.' : 'Pay your rent directly through verified UPI or net banking to generate statutory rent receipts for HRA tax exemption.' }}
+                {{ isPaid ? 'Your monthly rent payment has been confirmed and verified. Automated receipt generated.' : 'Pay your rent directly through verified UPI or net banking to generate official rent receipts for HRA tax exemption.' }}
               </p>
             </div>
 
@@ -305,12 +305,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="flex items-center justify-between border-b border-slate-200 pb-4">
             <div>
               <span class="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
-                Statutory Rent Receipt
+                Official Rent Receipt
               </span>
               <h3 class="text-xl font-black text-[#0F2937] mt-1">Receipt for Rent Paid</h3>
             </div>
-            <button (click)="closeReceiptModal()" type="button" class="text-slate-400 hover:text-slate-600 font-bold text-sm cursor-pointer">
-              
+            <button (click)="closeReceiptModal()" type="button" class="text-slate-400 hover:text-slate-600 font-bold text-sm cursor-pointer" aria-label="Close modal">
+              ✕
             </button>
           </div>
 
@@ -336,8 +336,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <span class="font-black text-base text-[#2D7A5E]">{{ formatINR(activeReceipt.amount || monthlyRent) }}</span>
             </div>
             <div class="flex justify-between pt-1">
-              <span class="text-slate-400 font-bold uppercase text-[10px]">Statutory Compliance</span>
-              <span class="text-emerald-700 font-bold"> Model Tenancy Act Valid (HRA Tax Claim Eligible)</span>
+              <span class="text-slate-400 font-bold uppercase text-[10px]">Tenancy Record</span>
+              <span class="text-emerald-700 font-bold"> Rent Payment Confirmed (HRA Documentation Eligible)</span>
             </div>
           </div>
 

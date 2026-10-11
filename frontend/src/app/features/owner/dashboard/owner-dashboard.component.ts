@@ -95,7 +95,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <span class="p-2 bg-slate-100 text-[#0F2937] rounded-xl  transition-transform text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
           </div>
           <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ metrics.totalProperties }}</span>
-          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
             View All →
           </span>
         </div>
@@ -104,7 +104,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Vacant Homes</span>
-            <span class="p-2 bg-emerald-50 text-emerald-700 rounded-xl  transition-transform text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg></span>
+            <span class="p-2 bg-emerald-50 text-emerald-700 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg></span>
           </div>
           <span class="text-3xl font-black text-emerald-800 mt-3 block">{{ metrics.availableProperties }}</span>
           <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Available to lease</span>
@@ -114,10 +114,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/rentals')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider">Active Rentals</span>
-            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl  transition-transform text-sm"></span>
+            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
           </div>
           <span class="text-3xl font-black text-emerald-900 mt-3 block">{{ metrics.activeRentals ?? 0 }}</span>
-          <span class="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+          <span class="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
             Active Leases →
           </span>
         </div>
@@ -126,10 +126,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-white">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">New Applications</span>
-            <span class="p-2 bg-amber-100 text-amber-800 rounded-xl  transition-transform text-sm"></span>
+            <span class="p-2 bg-amber-100 text-amber-800 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></span>
           </div>
           <span class="text-3xl font-black text-amber-800 mt-3 block">{{ metrics.newApplications ?? 0 }}</span>
-          <span class="text-[11px] text-amber-700 font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+          <span class="text-[11px] text-amber-700 font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
             Review Submitted →
           </span>
         </div>
@@ -138,10 +138,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Applicant Reviews</span>
-            <span class="p-2 bg-slate-100 text-slate-700 rounded-xl  transition-transform text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+            <span class="p-2 bg-slate-100 text-slate-700 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
           </div>
           <span class="text-3xl font-black text-slate-800 mt-3 block">{{ metrics.pendingApplications }}</span>
-          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
             Track Pipeline →
           </span>
         </div>

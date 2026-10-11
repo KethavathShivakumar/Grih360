@@ -29,7 +29,8 @@ const isAllowedOrigin = (origin: string | undefined): boolean => {
   ) {
     return true;
   }
-  if (/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.vercel\.app$/i.test(origin)) return true;
+  // Vercel deployment and project preview origins (strictly Grih360/Nivas360 project domains)
+  if (/^https:\/\/(grih360|nivas360)(-[a-z0-9-]+)?\.vercel\.app$/i.test(origin)) return true;
   // Capacitor Android & iOS native WebView origins
   if (
     origin === 'https://localhost' ||

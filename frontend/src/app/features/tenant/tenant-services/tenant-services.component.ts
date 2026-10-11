@@ -67,7 +67,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               </div>
             </div>
 
-            <div class="pt-3 border-t border-[#E8E6DF] flex items-center justify-between text-xs font-bold text-[#E26D46] group-hover:translate-x-1 transition">
+            <div class="pt-3 border-t border-[#E8E6DF] flex items-center justify-between text-xs font-bold text-[#E26D46] group-hover:text-amber-700 transition-colors">
               <span>View Services</span>
               <span>&rarr;</span>
             </div>

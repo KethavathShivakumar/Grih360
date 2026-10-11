@@ -45,7 +45,7 @@ export interface ChecklistSection {
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Handover & Move-In Inspection</h1>
           <p class="text-xs text-slate-500 mt-0.5">
-            Model Tenancy Act statutory inventory checklist, key handover, and utility meter readings.
+            Move-in inventory checklist, key handover, and utility meter readings.
           </p>
         </div>
 

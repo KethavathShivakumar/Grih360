@@ -17,8 +17,10 @@ import { MoneyService } from '../../../core/services/money.service';
         <img
           [src]="mainImageUrl"
           [alt]="property.title"
+          width="400"
+          height="300"
           loading="lazy"
-          class="w-full h-full object-cover  transition-transform duration-500"
+          class="w-full h-full object-cover transition-transform duration-500"
         />
         
         <!-- Rent Tag Pill (Top Left) -->

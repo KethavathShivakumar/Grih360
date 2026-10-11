@@ -164,7 +164,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
         <!-- Dynamic Status Notification Banner -->
         <div *ngIf="verification?.status === 'VERIFIED'" class="bg-emerald-50 border border-emerald-200 p-5 rounded-3xl flex items-start space-x-3.5 text-emerald-950">
-          <div class="w-8 h-8 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center shrink-0 font-bold"></div>
+          <div class="w-8 h-8 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center shrink-0 font-bold">
+            <svg class="w-4 h-4 text-emerald-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          </div>
           <div class="space-y-1">
             <h4 class="text-sm font-extrabold text-emerald-900">Verification Approved by Compliance Officer</h4>
             <p class="text-xs text-emerald-800">
@@ -194,7 +196,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <div *ngIf="verification?.status === 'REJECTED'" class="bg-rose-50 border border-rose-200 p-5 rounded-3xl flex items-start space-x-3.5 text-rose-950">
-          <div class="w-8 h-8 rounded-full bg-rose-200 text-rose-800 flex items-center justify-center shrink-0 font-bold"></div>
+          <div class="w-8 h-8 rounded-full bg-rose-200 text-rose-800 flex items-center justify-center shrink-0 font-bold">
+            <svg class="w-4 h-4 text-rose-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+          </div>
           <div class="space-y-1 flex-1">
             <h4 class="text-sm font-extrabold text-rose-900">Verification Requires Resubmission</h4>
             <p class="text-xs text-rose-800">
@@ -258,14 +262,14 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
             </div>
 
-            <!-- Step 2: Income Verification -->
+            <!-- Step 2: Residence & Contact Details -->
             <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div class="space-y-1">
                 <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-slate-900">2. Employment & Income Proof</span>
+                  <span class="text-sm font-bold text-slate-900">2. Residence & Contact Details</span>
                 </div>
                 <p class="text-xs text-slate-500">
-                  Salary slips, bank statement, or employment offer letter to verify rent-to-income ratio.
+                  Current residential address and contact references to verify tenancy profile.
                 </p>
               </div>
               <div class="shrink-0">
@@ -547,7 +551,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <label for="declarationAccepted" class="text-xs text-indigo-950 leading-relaxed cursor-pointer">
-                <strong>Statutory Tenant Declaration:</strong> I hereby certify that the information and identity details provided are true, correct, and complete. I authorize Grih360 compliance personnel to verify the submitted documents for tenancy eligibility in accordance with the Model Tenancy Act and our <a routerLink="/privacy" target="_blank" class="text-[#2D7A5E] font-bold underline">Privacy Policy</a>.
+                <strong>Tenant Verification Declaration:</strong> I hereby certify that the information and identity details provided are true, correct, and complete. I authorize Grih360 compliance personnel to verify the submitted documents for tenancy eligibility in accordance with our <a routerLink="/privacy" target="_blank" class="text-[#2D7A5E] font-bold underline">Privacy Policy</a>.
               </label>
             </div>
 
@@ -896,7 +900,7 @@ export class TenantVerificationComponent implements OnInit {
     this.submitError = null;
 
     if (!this.declarationAccepted) {
-      this.submitError = 'Please accept the statutory tenant declaration to submit verification.';
+      this.submitError = 'Please accept the tenant verification declaration to submit verification.';
       return;
     }
 

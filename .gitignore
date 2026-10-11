@@ -49,3 +49,8 @@ local.properties
 android/app/release/
 **/release/
 
+# Built APKs
+*.apk
+**/*.apk
+
+

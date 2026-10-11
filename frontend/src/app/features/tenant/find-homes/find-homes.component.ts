@@ -626,7 +626,7 @@ export interface AmenityOption {
                 (cardSelect)="openPropertyDetails($event)"
                 (toggleSave)="onToggleSave($event)"
                 (mouseenter)="hoverProperty(prop)"
-                class="transition-all hover:scale-[1.008]"
+                class="transition-shadow"
               ></app-property-card>
             </div>
           </div>

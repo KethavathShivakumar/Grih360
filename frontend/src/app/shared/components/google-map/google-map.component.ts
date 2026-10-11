@@ -74,6 +74,8 @@ declare const google: any;
               <img
                 [src]="getPropertyImage(activeProperty)"
                 [alt]="activeProperty.title"
+                width="56"
+                height="56"
                 class="w-full h-full object-cover"
               />
             </div>
@@ -89,8 +91,8 @@ declare const google: any;
               </p>
             </div>
           </div>
-          <button (click)="activeProperty = null" class="text-slate-400 hover:text-slate-700 text-xs font-bold cursor-pointer">
-            
+          <button (click)="activeProperty = null" class="text-slate-400 hover:text-slate-700 text-xs font-bold cursor-pointer" aria-label="Close preview">
+            ✕
           </button>
         </div>
         <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between">

@@ -87,7 +87,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
             <div class="flex items-center space-x-4 self-end md:self-center">
               <app-status-badge [status]="req.status"></app-status-badge>
-              <span class="text-xs font-bold text-[#E26D46] group-hover:translate-x-1 transition">&rarr;</span>
+              <span class="text-xs font-bold text-[#E26D46] group-hover:text-amber-700 transition-colors">&rarr;</span>
             </div>
           </div>
         </div>

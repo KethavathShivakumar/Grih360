@@ -130,7 +130,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
               <span class="text-xl font-black text-[#0F2937] mt-3 block truncate">
                 {{ activeRental ? (formatINR(activeRental.monthlyRent) + '/mo') : 'No Active Lease' }}
               </span>
-              <span class="text-xs font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform" [class]="activeRental ? 'text-[#2D7A5E]' : 'text-slate-500'">
+              <span class="text-xs font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors" [class]="activeRental ? 'text-[#2D7A5E]' : 'text-slate-500'">
                 {{ activeRental ? ('Rent ' + (activeRental.rentStatus || 'UPCOMING') + ' →') : 'Find a Home →' }}
               </span>
             </div>
@@ -147,7 +147,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 </span>
               </div>
               <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ applicationCount }}</span>
-              <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
                 Track Applications →
               </span>
             </div>
@@ -164,7 +164,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 </span>
               </div>
               <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ savedCount }}</span>
-              <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
                 View Saved Homes →
               </span>
             </div>
@@ -181,7 +181,7 @@ import { MobileTenantDashboardComponent } from './mobile-tenant-dashboard.compon
                 </span>
               </div>
               <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ unreadNotificationCount }}</span>
-              <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <span class="text-xs text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
                 View Alerts →
               </span>
             </div>

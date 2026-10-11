@@ -38,7 +38,7 @@ import { RouterModule } from '@angular/router';
               <p>
                 This Privacy Policy describes how [COMPANY_LEGAL_NAME] ("Grih360", "we", "us", or "our") collects,
                 uses, stores, and protects personal data obtained through the Grih360 web platform and mobile application.
-                This policy is formulated in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act) of India.
+                This policy outlines our transparent data handling principles and privacy practices.
               </p>
             </section>
 
@@ -48,7 +48,7 @@ import { RouterModule } from '@angular/router';
               <ul class="list-disc pl-5 space-y-1">
                 <li><strong>Account Information:</strong> Name, email address, phone number, and user role (Tenant, Owner, Professional).</li>
                 <li><strong>Authentication Data:</strong> One-time password (OTP) delivery logs and session tokens.</li>
-                <li><strong>Identity Documents:</strong> Government-issued identity documents (Aadhaar card, PAN, or Passport) submitted by tenants for compliance verification.</li>
+                <li><strong>Identity Documents:</strong> Government-issued identity documents (Aadhaar card masked reference, Voter ID, Driving License, PAN, or Passport) submitted by tenants for profile verification. We do not collect salary slips, tax returns, or bank account statements.</li>
                 <li><strong>Property and Tenancy Records:</strong> Property listings, rental agreements, move-in checklists, and rent payment tracking receipts.</li>
                 <li><strong>Service Requests:</strong> Maintenance and repair requests, location coordinates, and category details.</li>
                 <li><strong>Geographic Location:</strong> Device location and search coordinates when permitted for map-based property search.</li>
@@ -79,17 +79,26 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">5. Third-Party Service Providers</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">5. Third-Party Service Providers (Processors)</h2>
               <p class="mb-2">We do not sell personal data. We engage vetted service providers under confidentiality agreements:</p>
               <ul class="list-disc pl-5 space-y-1">
-                <li><strong>Hosting Infrastructure:</strong> Vercel Inc. and MongoDB Atlas cloud database servers.</li>
-                <li><strong>Email Delivery:</strong> Google SMTP (Gmail) and transactional mail services for OTP verification codes.</li>
+                <li><strong>Hosting Infrastructure:</strong> Vercel Inc. (web application hosting and serverless compute).</li>
+                <li><strong>Database Infrastructure:</strong> MongoDB Atlas (cloud database servers).</li>
+                <li><strong>Email Delivery:</strong> Google Workspace / Gmail SMTP for transactional email and login verification OTP codes.</li>
                 <li><strong>Geographic Mapping:</strong> Google Maps Platform for displaying map coordinates and location autocomplete.</li>
               </ul>
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">6. Data Retention and Deletion</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">6. Platform Fees</h2>
+              <p>
+                Browsing property listings, searching for rentals, and registering an account on Grih360 are free of charge.
+                If optional paid services or premium features are introduced, all fees will be clearly presented and confirmed prior to charging.
+              </p>
+            </section>
+
+            <section>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">7. Data Retention and Deletion</h2>
               <p>
                 Personal data is retained only for the duration of your active account or as required to maintain tenancy records
                 under applicable Indian tax and property regulations. You may request account deletion and data erasure at any time
@@ -98,8 +107,8 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">7. Rights Under the Digital Personal Data Protection Act, 2023</h2>
-              <p class="mb-2">As a data principal under Indian law, you have the following statutory rights:</p>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">8. Your Privacy Rights and Account Controls</h2>
+              <p class="mb-2">As a registered user of Grih360, you have the following rights and account controls:</p>
               <ul class="list-disc pl-5 space-y-1">
                 <li>Right to access summaries of personal data processed by Grih360.</li>
                 <li>Right to correction, completion, and updating of inaccurate data.</li>
@@ -109,7 +118,7 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">8. Grievance Officer and Contact Details</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">9. Grievance Officer and Contact Details</h2>
               <p class="mb-2">For inquiries, data requests, or complaints regarding this Privacy Policy, please contact:</p>
               <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1 text-xs sm:text-sm">
                 <p><strong>Grievance Officer:</strong> [GRIEVANCE_OFFICER_NAME]</p>

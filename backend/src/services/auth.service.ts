@@ -39,6 +39,11 @@ export class AuthService {
    * Seed Default Platform Accounts (Owner, Tenant, Pro, Admin)
    */
   static async seedDemoUsers(): Promise<void> {
+    if (process.env.NODE_ENV === 'production') {
+      console.log('[AuthService] Production environment: Demo account seeding is disabled.');
+      return;
+    }
+
     const demoAccounts = [
       { name: 'Rajesh Sharma (Property Owner)', email: 'owner@grih360.com', phone: '9876543210', password: 'Password123!', role: 'OWNER' as UserRole },
       { name: 'Ananya Rao (Tenant)', email: 'tenant@grih360.com', phone: '9876543211', password: 'Password123!', role: 'TENANT' as UserRole },
@@ -153,6 +158,9 @@ export class AuthService {
         message: 'Account registered successfully. Verification code sent to your email.',
       };
     } else {
+      if (process.env.NODE_ENV === 'production') {
+        throw { statusCode: 503, code: 'DATABASE_UNAVAILABLE', message: 'MongoDB Atlas connection is required in production. In-memory accounts are forbidden.' };
+      }
       // Resilient In-Memory Mode
       for (const u of memoryUsers.values()) {
         if (u.email === emailNormalized) {
@@ -233,6 +241,9 @@ export class AuthService {
 
       // If directToken is requested by internal scripts or headless automation
       if (input.directToken) {
+        if (process.env.NODE_ENV === 'production') {
+          throw { statusCode: 403, code: 'DIRECT_TOKEN_FORBIDDEN', message: 'Direct token bypass is disabled in production.' };
+        }
         const tokens = JwtUtil.generateTokens({
           userId: (user._id as any).toString(),
           role: user.role,
@@ -259,6 +270,9 @@ export class AuthService {
         message: 'Verification code sent to your registered email.',
       };
     } else {
+      if (process.env.NODE_ENV === 'production') {
+        throw { statusCode: 503, code: 'DATABASE_UNAVAILABLE', message: 'MongoDB Atlas connection is required in production. In-memory fallback is disabled.' };
+      }
       // In-Memory Mode
       let user: any = null;
       for (const u of memoryUsers.values()) {

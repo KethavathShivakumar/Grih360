@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-grih-primary: #0F2937;
+  --color-grih-secondary: #2D7A5E;
+  --color-grih-tertiary: #E26D46;
+  --color-grih-bg: #FAF9F5;
+  --color-grih-surface: #FFFFFF;
+  --color-grih-border: #E8E6DF;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+}
+
 /* Grih360: Deccan Civic Bento Design System Styles & Design Tokens */
 
 :root {
@@ -85,12 +95,12 @@ body {
   border-radius: var(--radius-bento);
   padding: 1.5rem;
   box-shadow: 0 1px 2px rgba(15, 41, 55, 0.04), 0 4px 12px rgba(15, 41, 55, 0.03);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .bento-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(15, 41, 55, 0.07);
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 16px rgba(15, 41, 55, 0.06);
 }
 
 /* Status Badges */
@@ -165,7 +175,7 @@ body {
 
 .action-circle-btn:hover {
   background-color: #EAB308;
-  transform: scale(1.06);
+  box-shadow: 0 6px 16px rgba(250, 204, 21, 0.5);
 }
 
 /* Property Image Spec Badge Pill (Image 3, 5) */
@@ -257,5 +267,14 @@ body {
   }
 }
 
-
-
+/* Accessibility: Respect user preference for reduced motion (Rule 8) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

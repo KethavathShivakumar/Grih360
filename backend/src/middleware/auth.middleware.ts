@@ -48,6 +48,10 @@ export const authenticateToken = async (
         name: user.name,
       };
     } else {
+      if (process.env.NODE_ENV === 'production') {
+        ApiResponseUtil.error(res, 'Invalid user identity token. Production requires verified database user.', 401, 'INVALID_IDENTITY');
+        return;
+      }
       const memUser = memoryUsers.get(payload.userId);
       if (memUser && memUser.isActive === false) {
         ApiResponseUtil.error(res, 'Your account has been deactivated. Please contact support at 6300063704.', 401, 'ACCOUNT_DEACTIVATED');

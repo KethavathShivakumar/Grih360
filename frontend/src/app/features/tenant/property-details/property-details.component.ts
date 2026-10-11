@@ -101,6 +101,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <img
               [src]="selectedImageUrl || fallbackImageUrl"
               [alt]="property.title"
+              width="800"
+              height="420"
               class="w-full h-full object-cover"
             />
           </div>
@@ -114,7 +116,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               [class]="selectedImageUrl === img.url ? 'ring-2 ring-[#2D7A5E]' : 'opacity-70 hover:opacity-100'"
               class="relative w-24 h-16 rounded-lg overflow-hidden shrink-0 border border-slate-200 transition-all"
             >
-              <img [src]="img.url" class="w-full h-full object-cover" />
+              <img [src]="img.url" width="96" height="64" class="w-full h-full object-cover" />
             </button>
           </div>
         </div>
