@@ -139,7 +139,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Rating</span>
             <div *ngIf="profile && profile.reviewCount > 0" class="mt-2 space-y-1">
               <div class="flex items-center space-x-1.5">
-                <span class="text-2xl font-black text-[#2D7A5E]">⭐ {{ profile.rating.toFixed(1) }}</span>
+                <span class="text-2xl font-black text-[#2D7A5E] flex items-center gap-1">
+                  <svg class="w-6 h-6 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  <span>{{ profile.rating.toFixed(1) }}</span>
+                </span>
                 <span class="text-xs text-slate-400">/ 5.0</span>
               </div>
               <span class="text-xs text-slate-500 font-medium block">Based on {{ profile.reviewCount }} verified {{ profile.reviewCount === 1 ? 'review' : 'reviews' }}</span>
@@ -207,11 +210,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <div *ngIf="reviews.length > 0" class="space-y-3 max-h-60 overflow-y-auto pr-1">
               <div *ngFor="let rev of reviews" class="p-3.5 bg-[#FAF9F5] rounded-2xl border border-[#E8E6DF] space-y-1 text-xs">
                 <div class="flex items-center justify-between font-bold text-[#0F2937]">
-                  <span class="text-[#2D7A5E]">⭐ {{ rev.rating }} / 5</span>
+                  <span class="text-[#2D7A5E] flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <span>{{ rev.rating }} / 5</span>
+                  </span>
                   <span class="text-[10px] text-slate-400">{{ rev.createdAt | date: 'mediumDate' }}</span>
                 </div>
                 <p class="text-slate-600 italic">"{{ rev.comment }}"</p>
-                <div class="text-[10px] text-slate-500 font-semibold">&mdash; {{ rev.reviewerId?.name || 'Verified Tenant' }}</div>
+                <div class="text-[10px] text-slate-500 font-semibold">- {{ rev.reviewerId?.name || 'Verified Tenant' }}</div>
               </div>
             </div>
           </div>
@@ -449,14 +455,14 @@ export class ProProfileComponent implements OnInit {
   public isSaving: boolean = false;
 
   public allCategories: { code: ServiceCategoryCode; label: string }[] = [
-    { code: 'PLUMBING', label: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Plumbing' },
-    { code: 'ELECTRICAL', label: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Electrical' },
-    { code: 'CARPENTRY', label: ' Carpentry' },
-    { code: 'PAINTING', label: ' Painting' },
-    { code: 'CLEANING', label: ' Cleaning' },
-    { code: 'AC_APPLIANCE', label: ' AC & Appliance' },
-    { code: 'WATER_FILTER', label: ' Water Filter' },
-    { code: 'GENERAL_MAINTENANCE', label: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Maintenance' },
+    { code: 'PLUMBING', label: 'Plumbing' },
+    { code: 'ELECTRICAL', label: 'Electrical' },
+    { code: 'CARPENTRY', label: 'Carpentry' },
+    { code: 'PAINTING', label: 'Painting' },
+    { code: 'CLEANING', label: 'Cleaning' },
+    { code: 'AC_APPLIANCE', label: 'AC & Appliance' },
+    { code: 'WATER_FILTER', label: 'Water Filter' },
+    { code: 'GENERAL_MAINTENANCE', label: 'General Maintenance' },
   ];
 
   constructor(
@@ -697,7 +703,7 @@ export class ProProfileComponent implements OnInit {
   public onLogout(): void {
     if (confirm('Are you sure you want to log out of your Grih360 account?')) {
       this.authService.logout();
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login'], { replaceUrl: true });
     }
   }
 }

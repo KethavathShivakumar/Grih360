@@ -642,7 +642,7 @@ export class OwnerProfileComponent implements OnInit {
   onLogout(): void {
     if (confirm('Are you sure you want to log out?')) {
       this.authService.logout();
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login'], { replaceUrl: true });
     }
   }
 }

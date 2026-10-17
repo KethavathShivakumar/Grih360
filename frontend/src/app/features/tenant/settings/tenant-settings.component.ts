@@ -7,6 +7,8 @@ import { UserService } from '../../../core/services/user.service';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
 
+import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
+
 @Component({
   selector: 'app-tenant-settings',
   standalone: true,
@@ -14,6 +16,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
     CommonModule,
     FormsModule,
     RouterModule,
+    SafeHtmlPipe,
   ],
   template: `
     <div class="space-y-6 max-w-5xl mx-auto pb-12 font-sans text-slate-800">
@@ -36,10 +39,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             (click)="activeTab = tab.id"
             type="button"
             [class]="activeTab === tab.id ? 'bg-[#0F2937] text-[#FACC15]' : 'bg-white text-slate-700 hover:bg-slate-50'"
-            class="px-3.5 py-2 text-xs font-black rounded-xl border border-slate-200 shadow-2xs transition-colors cursor-pointer"
+            class="px-3.5 py-2 text-xs font-black rounded-xl border border-slate-200 shadow-2xs transition-colors cursor-pointer flex items-center gap-1.5"
           >
-            <span>{{ tab.icon }}</span>
-            <span class="ml-1.5">{{ tab.label }}</span>
+            <span [innerHTML]="tab.icon | safeHtml" class="w-4 h-4 inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4"></span>
+            <span>{{ tab.label }}</span>
           </button>
         </div>
       </div>
@@ -427,7 +430,7 @@ export class TenantSettingsComponent implements OnInit {
   signOut(): void {
     if (confirm('Are you sure you want to sign out?')) {
       this.authService.logout();
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login'], { replaceUrl: true });
     }
   }
 }

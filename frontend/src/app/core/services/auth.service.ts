@@ -25,28 +25,42 @@ export class AuthService {
 
   public initSessionPromise(): Promise<void> {
     if (!this.sessionInitPromise) {
-      this.sessionInitPromise = this.initSession();
+      const timeoutPromise = new Promise<void>((resolve) => {
+        setTimeout(() => {
+          console.warn('[Auth Service] initSession timed out after 5000ms; completing session initialization');
+          this.initializationSubject.next(true);
+          resolve();
+        }, 5000);
+      });
+
+      this.sessionInitPromise = Promise.race([this.initSession(), timeoutPromise]);
     }
     return this.sessionInitPromise;
   }
 
   private async initSession(): Promise<void> {
-    await this.storageService.initNativeStorage();
-    const token = this.storageService.getToken();
-    const cachedUser = this.storageService.getUser();
+    try {
+      await this.storageService.initNativeStorage();
+      const token = this.storageService.getToken();
+      const cachedUser = this.storageService.getUser();
 
-    // OPTIMISTIC RESTORE: If token AND stored user exist in Preferences/Storage,
-    // restore state immediately without blocking UI on network call
-    if (token && cachedUser) {
-      this.currentUserSubject.next(cachedUser);
-      this.initializationSubject.next(true);
+      // OPTIMISTIC RESTORE: If token AND stored user exist in Preferences/Storage,
+      // restore state immediately without blocking UI on network call
+      if (token && cachedUser) {
+        this.currentUserSubject.next(cachedUser);
+        this.initializationSubject.next(true);
 
-      // Validate session asynchronously in background
-      this.validateSessionInBackground();
-    } else if (token) {
-      // Token exists but no cached user details: fetch user synchronously before ready
-      await this.fetchCurrentUserPromise();
-    } else {
+        // Validate session asynchronously in background
+        this.validateSessionInBackground();
+      } else if (token) {
+        // Token exists but no cached user details: fetch user synchronously before ready
+        await this.fetchCurrentUserPromise();
+      } else {
+        this.initializationSubject.next(true);
+      }
+    } catch (err) {
+      console.error('[Auth Service] initSession error:', err);
+    } finally {
       this.initializationSubject.next(true);
     }
   }
@@ -198,6 +212,17 @@ export class AuthService {
     );
   }
 
+  public loginWithGoogle(idToken: string, role?: string, phone?: string): Observable<any> {
+    return this.apiService.post<any>('/auth/google', { idToken, role, phone }).pipe(
+      switchMap(async (res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
+        }
+        return res;
+      })
+    );
+  }
+
   public adminLogin(identifier: string, password: string): Observable<any> {
     return this.apiService.post<any>('/auth/login', { identifier, password, directToken: true }).pipe(
       switchMap(async (res) => {
@@ -209,14 +234,19 @@ export class AuthService {
     );
   }
 
-  public logout(): void {
+  public async logout(): Promise<void> {
     console.log('[Auth Debug] Explicit logout triggered by user');
-    this.apiService.post('/auth/logout', {}).subscribe({
-      error: () => {},
-    });
-    this.storageService.clearSession();
+    try {
+      this.apiService.post('/auth/logout', {}).subscribe({
+        error: () => {},
+      });
+    } catch (_) {}
+
+    await this.storageService.clearSession();
     this.currentUserSubject.next(null);
-    this.initializationSubject.next(false);
+    this.clearActiveChallenge();
+    this.initializationSubject.next(true);
+    this.sessionInitPromise = Promise.resolve();
   }
 
   public getCurrentUser(): User | null {

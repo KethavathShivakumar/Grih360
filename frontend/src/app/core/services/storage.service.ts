@@ -189,6 +189,9 @@ export class StorageService {
       localStorage.removeItem(this.TOKEN_KEY);
       localStorage.removeItem(this.REFRESH_TOKEN_KEY);
       localStorage.removeItem(this.USER_KEY);
+      localStorage.removeItem(this.LEGACY_TOKEN_KEY);
+      localStorage.removeItem(this.LEGACY_REFRESH_TOKEN_KEY);
+      localStorage.removeItem(this.LEGACY_USER_KEY);
     } catch (e) {}
 
     if (Capacitor.isNativePlatform()) {
@@ -196,6 +199,9 @@ export class StorageService {
         Preferences.remove({ key: this.TOKEN_KEY }),
         Preferences.remove({ key: this.REFRESH_TOKEN_KEY }),
         Preferences.remove({ key: this.USER_KEY }),
+        Preferences.remove({ key: this.LEGACY_TOKEN_KEY }),
+        Preferences.remove({ key: this.LEGACY_REFRESH_TOKEN_KEY }),
+        Preferences.remove({ key: this.LEGACY_USER_KEY }),
       ]).catch(() => {});
     }
   }
