@@ -27,6 +27,48 @@ export class AuthController {
   }
 
   /**
+   * Google Identity Services & Mobile Native OAuth Handler
+   * POST /api/v1/auth/google
+   */
+  static async googleLogin(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { idToken, role, phone } = req.body;
+      if (!idToken || typeof idToken !== 'string') {
+        ApiResponseUtil.error(res, 'Google ID token is required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      const result = await AuthService.loginWithGoogle({
+        idToken: idToken.trim(),
+        role,
+        phone,
+      });
+
+      if ((result as any).needsProfile) {
+        res.status(200).json({
+          success: true,
+          needsProfile: true,
+          message: (result as any).message,
+          data: result,
+        });
+        return;
+      }
+
+      ApiResponseUtil.success(res, 'Google authentication successful', result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'GOOGLE_AUTH_ERROR',
+          message: err.message,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
    * Step A: Password Verification & Challenge Generation
    * POST /api/v1/auth/login
    */

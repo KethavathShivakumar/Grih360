@@ -18,41 +18,45 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // 3. CORS Configuration
+const normalizeOrigin = (url?: string): string => {
+  if (!url) return '';
+  return url.trim().replace(/\/+$/, '').toLowerCase();
+};
+
 const isAllowedOrigin = (origin: string | undefined): boolean => {
   if (!origin) return true;
-  // Allow dynamically configured domain via SITE_URL / FRONTEND_URL environment variable
-  if (config.siteUrl && origin === config.siteUrl) return true;
-  if (config.frontendUrl && origin === config.frontendUrl) return true;
-  if (
-    origin === 'https://grih360.vercel.app' ||
-    origin === 'https://nivas360.vercel.app'
-  ) {
+  const norm = normalizeOrigin(origin);
+
+  // Exact current Vercel production URL
+  if (norm === 'https://grih360.vercel.app') {
     return true;
   }
-  // Vercel deployment and project preview origins (strictly Grih360/Nivas360 project domains)
-  if (/^https:\/\/(grih360|nivas360)(-[a-z0-9-]+)?\.vercel\.app$/i.test(origin)) return true;
-  // Capacitor Android & iOS native WebView origins
+
+  // Allow dynamically configured domain via SITE_URL / FRONTEND_URL environment variable
+  if (config.siteUrl && norm === normalizeOrigin(config.siteUrl)) return true;
+  if (config.frontendUrl && norm === normalizeOrigin(config.frontendUrl)) return true;
+
+  // Exact Capacitor Android native WebView origins
   if (
-    origin === 'https://localhost' ||
-    origin === 'http://localhost' ||
-    origin === 'capacitor://localhost' ||
-    origin === 'ionic://localhost'
+    norm === 'https://localhost' ||
+    norm === 'capacitor://localhost'
   ) {
     return true;
   }
   // Local development
   if (
-    origin === 'http://localhost:4200' ||
-    origin === 'http://127.0.0.1:4200' ||
-    origin === 'http://localhost:3000' ||
-    origin === 'http://127.0.0.1:3000' ||
-    /^http:\/\/localhost:[0-9]+$/.test(origin) ||
-    /^http:\/\/127\.0\.0\.1:[0-9]+$/.test(origin)
+    norm === 'http://localhost:4200' ||
+    norm === 'http://127.0.0.1:4200' ||
+    norm === 'http://localhost:3000' ||
+    norm === 'http://127.0.0.1:3000' ||
+    /^http:\/\/localhost:[0-9]+$/.test(norm) ||
+    /^http:\/\/127\.0\.0\.1:[0-9]+$/.test(norm)
   ) {
     return true;
   }
   return false;
 };
+
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {

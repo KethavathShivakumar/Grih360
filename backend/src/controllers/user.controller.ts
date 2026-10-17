@@ -95,8 +95,8 @@ export class UserController {
         return;
       }
       const { currentPassword, newPassword } = req.body;
-      if (!currentPassword || !newPassword) {
-        ApiResponseUtil.error(res, 'Current password and new password are required', 400, 'VALIDATION_ERROR');
+      if (!newPassword || typeof newPassword !== 'string') {
+        ApiResponseUtil.error(res, 'New password is required', 400, 'VALIDATION_ERROR');
         return;
       }
       if (newPassword.length < 6) {
@@ -107,8 +107,24 @@ export class UserController {
       const userId = req.user.userId;
       if (mongoose.connection.readyState === 1) {
         const user = await UserModel.findById(userId).select('+passwordHash');
-        if (!user || !user.passwordHash) {
+        if (!user) {
           ApiResponseUtil.error(res, 'User not found', 404, 'NOT_FOUND');
+          return;
+        }
+
+        // If user was created via Google and has no password yet
+        if (!user.passwordHash) {
+          user.passwordHash = await PasswordUtil.hashPassword(newPassword);
+          if (!user.authProviders) user.authProviders = ['GOOGLE'];
+          if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
+          await user.save();
+          ApiResponseUtil.success(res, 'Password created successfully');
+          return;
+        }
+
+        // Existing password requires verification
+        if (!currentPassword) {
+          ApiResponseUtil.error(res, 'Current password is required to change password', 400, 'VALIDATION_ERROR');
           return;
         }
         const isValid = await PasswordUtil.comparePassword(currentPassword, user.passwordHash);
@@ -121,8 +137,22 @@ export class UserController {
         ApiResponseUtil.success(res, 'Password changed successfully');
       } else {
         let user = memoryUsers.get(userId) || PersistentStore.findById('users', userId);
-        if (!user || !user.passwordHash) {
+        if (!user) {
           ApiResponseUtil.error(res, 'User not found', 404, 'NOT_FOUND');
+          return;
+        }
+        if (!user.passwordHash) {
+          user.passwordHash = await PasswordUtil.hashPassword(newPassword);
+          if (!user.authProviders) user.authProviders = ['GOOGLE'];
+          if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
+          memoryUsers.set(userId, user);
+          PersistentStore.update('users', userId, { passwordHash: user.passwordHash, authProviders: user.authProviders });
+          ApiResponseUtil.success(res, 'Password created successfully');
+          return;
+        }
+
+        if (!currentPassword) {
+          ApiResponseUtil.error(res, 'Current password is required to change password', 400, 'VALIDATION_ERROR');
           return;
         }
         const isValid = await PasswordUtil.comparePassword(currentPassword, user.passwordHash);

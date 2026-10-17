@@ -13,8 +13,8 @@ export interface HealthCheckStatus {
   uptime: number;
   environment: string;
   mongodb: {
-    status: 'connected' | 'connecting' | 'disconnected' | 'disconnecting';
-    host?: string;
-    name?: string;
+    connected: boolean;
+    status?: string;
   };
 }
+

@@ -29,9 +29,9 @@ npm test
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb://127.0.0.1:27017/nivas360
-JWT_ACCESS_SECRET=nivas360_dev_jwt_access_secret_key_2026
-JWT_REFRESH_SECRET=nivas360_dev_jwt_refresh_secret_key_2026
+MONGODB_URI=mongodb://127.0.0.1:27017/grih360
+JWT_ACCESS_SECRET=your_jwt_access_secret_key_2026
+JWT_REFRESH_SECRET=your_jwt_refresh_secret_key_2026
 FRONTEND_URL=http://localhost:4200
 GOOGLE_MAPS_API_KEY=AIzaSyDSkelUvGii5waZT4Edk2n8wsAg7tlEI54
 NODE_ENV=development

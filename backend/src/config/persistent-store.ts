@@ -64,6 +64,10 @@ export class PersistentStore {
   }
 
   public static saveCollection(collectionName: string, items: any[]): void {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(`[PersistentStore] File storage write of backend/data/*.json is disabled in production. MongoDB Atlas is mandatory.`);
+      return;
+    }
     this.caches.set(collectionName, items);
     const filePath = this.getFilePath(collectionName);
     try {

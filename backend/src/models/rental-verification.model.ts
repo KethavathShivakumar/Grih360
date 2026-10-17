@@ -5,7 +5,7 @@ export type VerificationStatus = 'NOT_STARTED' | 'PENDING' | 'UNDER_REVIEW' | 'V
 export interface IVerificationStep {
   stepId: string;
   name: string;
-  category: 'IDENTITY' | 'INCOME' | 'RENTAL_HISTORY' | 'POLICE_VERIFICATION';
+  category: 'IDENTITY' | 'RENTAL_HISTORY' | 'POLICE_VERIFICATION';
   status: 'NOT_STARTED' | 'PENDING' | 'UNDER_REVIEW' | 'VERIFIED' | 'REJECTED' | 'UNAVAILABLE';
   isExternalProvider?: boolean;
   providerNotice?: string;
@@ -62,7 +62,7 @@ const VerificationStepSchema = new Schema<IVerificationStep>(
     name: { type: String, required: true },
     category: {
       type: String,
-      enum: ['IDENTITY', 'INCOME', 'RENTAL_HISTORY', 'POLICE_VERIFICATION'],
+      enum: ['IDENTITY', 'RENTAL_HISTORY', 'POLICE_VERIFICATION'],
       required: true,
     },
     status: {

@@ -352,14 +352,6 @@ export class ApplicationService {
                 providerNotice: 'Verification provider integration required',
               },
               {
-                stepId: 'INCOME_VERIFICATION',
-                name: 'Employment & Income Verification',
-                category: 'INCOME',
-                status: 'NOT_STARTED',
-                isExternalProvider: false,
-                providerNotice: 'Manual document assessment by verification team',
-              },
-              {
                 stepId: 'RENTAL_HISTORY',
                 name: 'Rental History & Reference Check',
                 category: 'RENTAL_HISTORY',
@@ -493,14 +485,6 @@ export class ApplicationService {
                 status: 'NOT_STARTED',
                 isExternalProvider: true,
                 providerNotice: 'Verification provider integration required',
-              },
-              {
-                stepId: 'INCOME_VERIFICATION',
-                name: 'Employment & Income Verification',
-                category: 'INCOME',
-                status: 'NOT_STARTED',
-                isExternalProvider: false,
-                providerNotice: 'Manual document assessment by verification team',
               },
               {
                 stepId: 'RENTAL_HISTORY',

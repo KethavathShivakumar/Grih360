@@ -9,6 +9,9 @@ const router = Router();
 // Standard Password Authentication
 router.post('/register', authRateLimiter, AuthValidator.validateRegister, AuthController.register);
 
+// Google OAuth Authentication (GIS & Android Native)
+router.post('/google', authRateLimiter, AuthController.googleLogin);
+
 // Two-Step Authentication Flow
 router.post('/login', authRateLimiter, AuthValidator.validateLogin, AuthController.login);
 router.post('/verify-login-otp', authRateLimiter, AuthController.verifyLoginOtp);

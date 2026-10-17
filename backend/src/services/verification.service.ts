@@ -277,13 +277,7 @@ export class VerificationService {
             providerNotice: 'Verification provider integration required. Document submitted for manual administrative review.',
           };
         }
-        if (step.stepId === 'INCOME_VERIFICATION' && (payload.submittedInfo?.monthlyIncome || processedDocs.some(d => ['SALARY_SLIP', 'BANK_STATEMENT'].includes(d.documentType)))) {
-          return {
-            ...step.toObject ? step.toObject() : step,
-            status: 'PENDING',
-            completedAt: new Date(),
-          };
-        }
+
         if (step.stepId === 'RENTAL_HISTORY' && (payload.submittedInfo?.previousLandlordContact || payload.submittedInfo?.currentAddress)) {
           return {
             ...step.toObject ? step.toObject() : step,
@@ -379,13 +373,7 @@ export class VerificationService {
             providerNotice: 'Verification provider integration required. Document submitted for manual administrative review.',
           };
         }
-        if (step.stepId === 'INCOME_VERIFICATION' && (payload.submittedInfo?.monthlyIncome || processedDocs.some((d: any) => ['SALARY_SLIP', 'BANK_STATEMENT'].includes(d.documentType)))) {
-          return {
-            ...step,
-            status: 'PENDING',
-            completedAt: new Date(),
-          };
-        }
+
         if (step.stepId === 'RENTAL_HISTORY' && (payload.submittedInfo?.previousLandlordContact || payload.submittedInfo?.currentAddress)) {
           return {
             ...step,

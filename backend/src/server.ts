@@ -21,14 +21,6 @@ const startServer = async (): Promise<void> => {
     // 3. Initiate MongoDB Connection in background
     connectDatabase();
 
-    // 4. Seed default platform demo accounts & properties
-    AuthService.seedDemoUsers()
-      .then(() => {
-        const { PropertyService } = require('./services/property.service');
-        return PropertyService.seedDefaultProperties();
-      })
-      .catch((err) => console.warn('[Seed notice]:', err));
-
     // Graceful shutdown handling
     const shutdown = async () => {
       console.log('\n[Server] Shutting down gracefully...');

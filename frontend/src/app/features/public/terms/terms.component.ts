@@ -53,12 +53,16 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">3. User Accounts and Verification</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">3. User Accounts and Authentication</h2>
+              <p class="mb-2">
+                Users must register using accurate contact information and complete email verification via one time password or through Continue with Google.
+                Users are solely responsible for safeguarding their login credentials and device sessions.
+              </p>
+              <p class="mb-2">
+                When authenticating via Continue with Google, you authorize Google LLC as an authentication processor to share your basic verified profile information (name, email address, and profile photo) with Grih360. Grih360 never receives or stores your Google account password.
+              </p>
               <p>
-                Users must register using accurate contact information and complete email verification via OTP.
-                Users are solely responsible for safeguarding their login credentials. Tenants may submit government identity
-                documents for verification badges. Submitting fraudulent, forged, or expired documents will result in immediate
-                account suspension and potential notification to civil authorities.
+                Tenants may submit government identity documents for verification badges. Submitting fraudulent, forged, or expired documents will result in immediate account suspension and potential notification to civil authorities.
               </p>
             </section>
 
@@ -94,7 +98,7 @@ import { RouterModule } from '@angular/router';
               <p>
                 Home maintenance professionals on the platform operate as independent service providers.
                 Grih360 facilitates booking requests, scope tracking, and review recording. Grih360 does not guarantee
-                third-party workmanship and is not liable for property damage incurred during independent maintenance visits.
+                third party workmanship and is not liable for property damage incurred during independent maintenance visits.
               </p>
             </section>
 

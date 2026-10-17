@@ -126,13 +126,13 @@ import { UserRole } from '../../../shared/models/user.model';
               <input
                 type="tel"
                 formControlName="phone"
-                placeholder="10-digit phone"
+                placeholder="10 digit phone"
                 maxlength="10"
                 class="w-full px-3.5 py-3 bg-white border border-slate-300 rounded-none rounded-r-xl text-base text-slate-900 focus:ring-2 focus:ring-[#2D7A5E] focus:outline-none font-medium min-h-[44px]"
               />
             </div>
             <span *ngIf="f['phone'].touched && f['phone'].invalid" class="text-[11px] text-rose-600 font-semibold block">
-              Valid 10-digit phone required.
+              Valid 10 digit phone required.
             </span>
           </div>
 
@@ -208,6 +208,34 @@ import { UserRole } from '../../../shared/models/user.model';
           </button>
         </form>
 
+        <!-- Or Divider -->
+        <div class="relative my-3 flex items-center justify-center">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-slate-200"></div>
+          </div>
+          <div class="relative bg-[#FAF9F5] px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            or
+          </div>
+        </div>
+
+        <!-- Official Google Button (Reserved 44px Height) -->
+        <div class="w-full h-[44px] min-h-[44px] flex items-center justify-center">
+          <button
+            type="button"
+            (click)="googleSignIn.emit()"
+            [disabled]="isGoogleLoading"
+            class="w-full h-[44px] bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-300 rounded-xl text-slate-700 font-bold text-xs flex items-center justify-center gap-2.5 transition-colors shadow-2xs cursor-pointer select-none min-h-[44px]"
+          >
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+            </svg>
+            <span>{{ isGoogleLoading ? 'Connecting to Google...' : 'Continue with Google' }}</span>
+          </button>
+        </div>
+
         <!-- Login Redirect -->
         <div class="text-center pt-2 border-t border-slate-200 text-xs text-slate-500">
           Already registered?
@@ -216,6 +244,82 @@ import { UserRole } from '../../../shared/models/user.model';
           </a>
         </div>
       </main>
+
+      <!-- Profile Completion Bottom Sheet (Mobile) -->
+      <div *ngIf="showProfileSheet" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-end justify-center p-0">
+        <div class="bg-white rounded-t-3xl p-5 w-full max-w-md shadow-2xl space-y-4 border-t border-[#E8E6DF] animate-in slide-in-from-bottom duration-200">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-100">
+            <div>
+              <h3 class="text-base font-extrabold text-[#0F2937]">Complete Your Profile</h3>
+              <p class="text-xs text-slate-500">Select your workspace role and enter phone</p>
+            </div>
+            <button (click)="closeProfileSheet.emit()" class="text-slate-400 hover:text-slate-700 text-base font-bold p-2 cursor-pointer">✕</button>
+          </div>
+
+          <!-- Role Selector -->
+          <div class="space-y-1">
+            <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Workspace Role</label>
+            <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-xl">
+              <button
+                type="button"
+                (click)="onSetRole('TENANT')"
+                [class]="selectedRole === 'TENANT' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                class="py-2 text-xs rounded-lg transition-all text-center cursor-pointer min-h-[40px]"
+              >
+                Tenant
+              </button>
+              <button
+                type="button"
+                (click)="onSetRole('OWNER')"
+                [class]="selectedRole === 'OWNER' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                class="py-2 text-xs rounded-lg transition-all text-center cursor-pointer min-h-[40px]"
+              >
+                Owner
+              </button>
+              <button
+                type="button"
+                (click)="onSetRole('PROFESSIONAL')"
+                [class]="selectedRole === 'PROFESSIONAL' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                class="py-2 text-xs rounded-lg transition-all text-center cursor-pointer min-h-[40px]"
+              >
+                Pro
+              </button>
+            </div>
+          </div>
+
+          <!-- Phone Number Input -->
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-slate-700 block">Mobile Number <span class="text-rose-500">*</span></label>
+            <div class="flex">
+              <span class="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-slate-300 bg-slate-100 text-xs font-bold text-slate-600">
+                +91
+              </span>
+              <input
+                type="tel"
+                [(ngModel)]="profilePhone"
+                (ngModelChange)="profilePhoneChange.emit($event)"
+                placeholder="10 digit mobile number"
+                maxlength="10"
+                class="w-full px-3.5 py-3 bg-white border border-slate-300 rounded-none rounded-r-xl text-base text-slate-900 focus:ring-2 focus:ring-[#2D7A5E] font-medium min-h-[44px]"
+              />
+            </div>
+            <span *ngIf="profileError" class="text-[11px] text-rose-600 font-semibold block">
+              {{ profileError }}
+            </span>
+          </div>
+
+          <div class="pt-2">
+            <button
+              (click)="completeProfile.emit()"
+              [disabled]="isCompletingProfile || !profilePhone"
+              type="button"
+              class="w-full py-3.5 bg-[#0F2937] active:bg-[#164E63] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md min-h-[48px] cursor-pointer"
+            >
+              {{ isCompletingProfile ? 'Registering...' : 'Complete Registration →' }}
+            </button>
+          </div>
+        </div>
+      </div>
 
       <footer class="py-2.5 text-center text-[11px] text-slate-500 border-t border-[#E8E6DF] flex flex-col items-center gap-1">
         <div>&copy; 2026 Grih360 Technologies Pvt Ltd. Model Tenancy Act Compliant.</div>
@@ -233,6 +337,17 @@ export class MobileRegisterComponent {
   @Input() selectedRole: UserRole = 'TENANT';
   @Input() isLoading: boolean = false;
   @Input() errorMessage: string = '';
+
+  @Input() isGoogleLoading: boolean = false;
+  @Output() googleSignIn = new EventEmitter<void>();
+
+  @Input() showProfileSheet: boolean = false;
+  @Output() closeProfileSheet = new EventEmitter<void>();
+  @Input() profilePhone: string = '';
+  @Output() profilePhoneChange = new EventEmitter<string>();
+  @Input() profileError: string = '';
+  @Input() isCompletingProfile: boolean = false;
+  @Output() completeProfile = new EventEmitter<void>();
 
   @Output() setRole = new EventEmitter<UserRole>();
   @Output() registerSubmit = new EventEmitter<void>();

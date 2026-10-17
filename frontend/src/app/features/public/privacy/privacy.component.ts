@@ -47,18 +47,19 @@ import { RouterModule } from '@angular/router';
               <p class="mb-2">We collect only personal data necessary to provide our property and rental facilitation services:</p>
               <ul class="list-disc pl-5 space-y-1">
                 <li><strong>Account Information:</strong> Name, email address, phone number, and user role (Tenant, Owner, Professional).</li>
-                <li><strong>Authentication Data:</strong> One-time password (OTP) delivery logs and session tokens.</li>
-                <li><strong>Identity Documents:</strong> Government-issued identity documents (Aadhaar card masked reference, Voter ID, Driving License, PAN, or Passport) submitted by tenants for profile verification. We do not collect salary slips, tax returns, or bank account statements.</li>
-                <li><strong>Property and Tenancy Records:</strong> Property listings, rental agreements, move-in checklists, and rent payment tracking receipts.</li>
+                <li><strong>Authentication Data:</strong> One time password (OTP) delivery logs, session tokens, and authentication provider references.</li>
+                <li><strong>Google Sign In Profile:</strong> When signing in via Continue with Google, we receive your full name, verified email address, and profile photo URL from Google LLC. We do not receive, see, or store your Google account password.</li>
+                <li><strong>Identity Documents:</strong> Government issued identity documents (Aadhaar card masked reference, Voter ID, Driving License, PAN, or Passport) submitted by tenants for profile verification. We do not collect salary slips, tax returns, or bank account statements.</li>
+                <li><strong>Property and Tenancy Records:</strong> Property listings, rental agreements, move in checklists, and rent payment tracking receipts.</li>
                 <li><strong>Service Requests:</strong> Maintenance and repair requests, location coordinates, and category details.</li>
-                <li><strong>Geographic Location:</strong> Device location and search coordinates when permitted for map-based property search.</li>
+                <li><strong>Geographic Location:</strong> Device location and search coordinates when permitted for map based property search.</li>
               </ul>
             </section>
 
             <section>
               <h2 class="text-base font-bold text-[#0F2937] mb-2">3. How We Use Personal Data</h2>
               <ul class="list-disc pl-5 space-y-1">
-                <li>To authenticate accounts and verify email addresses via secure OTP codes.</li>
+                <li>To authenticate accounts and verify email addresses via secure OTP codes or Google single sign on.</li>
                 <li>To enable tenants and property owners to view listings, submit rental applications, and record rental payments.</li>
                 <li>To conduct internal verification of submitted identity documents for safety and fraud prevention.</li>
                 <li>To dispatch verified home service professionals based on submitted maintenance tickets.</li>
@@ -79,11 +80,12 @@ import { RouterModule } from '@angular/router';
             </section>
 
             <section>
-              <h2 class="text-base font-bold text-[#0F2937] mb-2">5. Third-Party Service Providers (Processors)</h2>
+              <h2 class="text-base font-bold text-[#0F2937] mb-2">5. Third Party Service Providers (Processors)</h2>
               <p class="mb-2">We do not sell personal data. We engage vetted service providers under confidentiality agreements:</p>
               <ul class="list-disc pl-5 space-y-1">
                 <li><strong>Hosting Infrastructure:</strong> Vercel Inc. (web application hosting and serverless compute).</li>
                 <li><strong>Database Infrastructure:</strong> MongoDB Atlas (cloud database servers).</li>
+                <li><strong>Single Sign On Authentication:</strong> Google LLC (Google Identity Services and OAuth token verification as authentication processor).</li>
                 <li><strong>Email Delivery:</strong> Google Workspace / Gmail SMTP for transactional email and login verification OTP codes.</li>
                 <li><strong>Geographic Mapping:</strong> Google Maps Platform for displaying map coordinates and location autocomplete.</li>
               </ul>

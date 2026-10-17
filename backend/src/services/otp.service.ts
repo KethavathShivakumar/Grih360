@@ -69,11 +69,22 @@ export class OtpService {
     return crypto.randomInt(min, max).toString();
   }
 
+  private static getOtpHmacSecret(): string {
+    const secret = config.otpHmacSecret || config.jwtAccessSecret;
+    if (!secret) {
+      if (config.nodeEnv === 'production') {
+        throw new Error('FATAL SECURITY ERROR: Missing required OTP secret. OTP_HMAC_SECRET or JWT_ACCESS_SECRET must be configured.');
+      }
+      throw new Error('Missing OTP secret. Please set OTP_HMAC_SECRET or JWT_ACCESS_SECRET in your .env file.');
+    }
+    return secret;
+  }
+
   /**
    * Hashes the generated token using server-side HMAC-SHA256 secret (Keyed Hashing)
    */
   public static hashOtp(rawOtp: string): string {
-    const secret = process.env.OTP_HMAC_SECRET || config.jwtAccessSecret || 'nivas360_secure_otp_hmac_secret_2026';
+    const secret = this.getOtpHmacSecret();
     return crypto.createHmac('sha256', secret).update(rawOtp.trim()).digest('hex');
   }
 
@@ -91,7 +102,7 @@ export class OtpService {
     }
 
     // Constant-time HMAC-SHA256 comparison
-    const secret = process.env.OTP_HMAC_SECRET || config.jwtAccessSecret || 'nivas360_secure_otp_hmac_secret_2026';
+    const secret = this.getOtpHmacSecret();
     const computedHash = crypto.createHmac('sha256', secret).update(cleanOtp).digest('hex');
 
     if (computedHash.length !== storedHash.length) {

@@ -27,10 +27,7 @@ export interface HealthCheckResponse {
   uptime: number;
   environment: string;
   mongodb: {
-    status: string;
-    host?: string;
-    name?: string;
-    diagnostics?: string;
+    connected: boolean;
   };
   envStatus?: {
     hasJwtAccessSecret: boolean;
@@ -40,3 +37,4 @@ export interface HealthCheckResponse {
     nodeEnv: string;
   };
 }
+

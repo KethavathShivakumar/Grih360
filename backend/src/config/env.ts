@@ -8,12 +8,14 @@ export const config = {
   port: parseInt(process.env.PORT || '5000', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
   mongodbUri: process.env.MONGODB_URI || '',
-  jwtAccessSecret: process.env.JWT_ACCESS_SECRET || 'default_dev_access_secret',
-  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'default_dev_refresh_secret',
+  jwtAccessSecret: (process.env.JWT_ACCESS_SECRET || '').trim(),
+  jwtRefreshSecret: (process.env.JWT_REFRESH_SECRET || '').trim(),
+  otpHmacSecret: (process.env.OTP_HMAC_SECRET || '').trim(),
   siteUrl: (process.env.SITE_URL || process.env.FRONTEND_URL || (process.env.NODE_ENV === 'production' ? 'https://grih360.vercel.app' : 'http://localhost:4200')).trim(),
   frontendUrl: (process.env.SITE_URL || process.env.FRONTEND_URL || (process.env.NODE_ENV === 'production' ? 'https://grih360.vercel.app' : 'http://localhost:4200')).trim(),
   backendUrl: process.env.BACKEND_URL || (process.env.NODE_ENV === 'production' ? 'https://grih360.vercel.app' : 'http://localhost:5000'),
-  googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyDSkelUvGii5waZT4Edk2n8wsAg7tlEI54',
+  googleMapsApiKey: (process.env.GOOGLE_MAPS_API_KEY || '').trim(),
+  googleWebClientId: (process.env.GOOGLE_WEB_CLIENT_ID || '').trim(),
   apiVersion: '/api/v1',
 
   // Gmail SMTP Delivery Configuration
@@ -34,5 +36,19 @@ export const validateEnv = (): void => {
     console.error('Please create a .env file with MONGODB_URI set.');
     // Fail clearly as specified in requirements
     process.exit(1);
+  }
+
+  // In production, the backend must strictly refuse to start if any required secret is missing
+  if (config.nodeEnv === 'production') {
+    const missing: string[] = [];
+    if (!config.jwtAccessSecret) missing.push('JWT_ACCESS_SECRET');
+    if (!config.jwtRefreshSecret) missing.push('JWT_REFRESH_SECRET');
+    if (!config.otpHmacSecret) missing.push('OTP_HMAC_SECRET');
+
+    if (missing.length > 0) {
+      console.error(`FATAL SECURITY ERROR: Missing required production secret(s): ${missing.join(', ')}`);
+      console.error('The backend refuses to start in production mode without explicit environment secrets.');
+      process.exit(1);
+    }
   }
 };

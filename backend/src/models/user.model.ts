@@ -12,6 +12,9 @@ export interface IUserDocument extends Document {
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   identityVerificationStatus: VerificationStatus;
+  googleId?: string;
+  authProviders?: string[];
+  hasPassword?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -73,6 +76,18 @@ const UserSchema = new Schema<IUserDocument>(
       default: 'NOT_STARTED',
       index: true,
     },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+      trim: true,
+      index: true,
+    },
+    authProviders: {
+      type: [String],
+      enum: ['LOCAL', 'GOOGLE'],
+      default: ['LOCAL'],
+    },
   },
   {
     timestamps: true,
@@ -82,8 +97,10 @@ const UserSchema = new Schema<IUserDocument>(
 // Method to return safe JSON representation excluding passwordHash
 UserSchema.methods.toJSON = function () {
   const obj = this.toObject();
+  const hasPassword = Boolean(obj.passwordHash);
   delete obj.passwordHash;
   delete obj.__v;
+  obj.hasPassword = hasPassword;
   return obj;
 };
 

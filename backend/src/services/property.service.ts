@@ -714,6 +714,8 @@ export class PropertyService {
    * Seed Default Realistic Residential Properties (Telangana & AP Tier-2/Tier-3 & Hubs)
    */
   static async seedDefaultProperties(): Promise<void> {
+    // Disabled - no demo properties will be seeded
+    return;
     const defaultProperties = [
       {
         title: '3 BHK Gated Community Apartment in Gachibowli',
@@ -1308,7 +1310,7 @@ export class PropertyService {
       if (!mongoOwner) {
         mongoOwner = await UserModel.findOne();
       }
-      ownerId = mongoOwner ? mongoOwner._id : new mongoose.Types.ObjectId();
+      ownerId = (mongoOwner as any)?._id || new mongoose.Types.ObjectId();
 
       for (const p of defaultProperties) {
         const geoPoint = {
@@ -1323,7 +1325,7 @@ export class PropertyService {
             geoPoint,
           },
         };
-        const existing = await PropertyModel.findOne({ title: p.title });
+        const existing: any = await PropertyModel.findOne({ title: p.title });
         if (!existing) {
           await PropertyModel.create(docData);
         } else {

@@ -53,4 +53,8 @@ android/app/release/
 *.apk
 **/*.apk
 
+# Database and code backups
+backup/
+**/backup/
+
 

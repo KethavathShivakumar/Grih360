@@ -1,6 +1,6 @@
 # Grih360 Custom Domain Switch Checklist
 
-When you are ready to connect your purchased custom domain (e.g. `grih360.com`, `grih360.in`, etc.), follow this concise checklist. It takes approximately **5 minutes** to execute.
+When you are ready to connect your purchased custom domain (e.g. `yourdomain.com`), follow this concise checklist. It takes approximately **5 minutes** to execute.
 
 ---
 
