@@ -6,6 +6,7 @@ import { RentalService, RentalAgreement } from '../../../core/services/rental.se
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
+import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
 export interface RoomInspection {
   id: string;
@@ -27,6 +28,7 @@ export interface RoomInspection {
     LoadingStateComponent,
     EmptyStateComponent,
     ErrorStateComponent,
+    SafeHtmlPipe,
   ],
   template: `
     <div class="space-y-6 max-w-5xl mx-auto pb-12 font-sans text-slate-800">
@@ -117,9 +119,9 @@ export interface RoomInspection {
             (click)="selectedRoomIndex = i"
             type="button"
             [class]="selectedRoomIndex === i ? 'bg-[#0F2937] text-[#FACC15] font-black shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 font-bold'"
-            class="px-4 py-2 rounded-xl whitespace-nowrap transition cursor-pointer flex items-center gap-1.5"
+            class="px-4 py-2 rounded-xl whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 text-xs"
           >
-            <span>{{ room.icon }}</span>
+            <span *ngIf="room.icon" [innerHTML]="room.icon | safeHtml" class="w-3.5 h-3.5 inline-flex items-center justify-center [&>svg]:w-3.5 [&>svg]:h-3.5"></span>
             <span>{{ room.name }}</span>
           </button>
         </div>
@@ -128,7 +130,7 @@ export interface RoomInspection {
         <div *ngIf="activeRoom" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
             <div class="flex items-center gap-3">
-              <span class="text-3xl p-3 bg-slate-50 rounded-2xl border border-slate-200">{{ activeRoom.icon }}</span>
+              <span class="w-12 h-12 flex items-center justify-center bg-slate-50 rounded-2xl border border-slate-200 text-slate-700 [&>svg]:w-6 [&>svg]:h-6" [innerHTML]="activeRoom.icon | safeHtml"></span>
               <div>
                 <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Area Assessment</span>
                 <h3 class="text-xl font-black text-[#0F2937]">{{ activeRoom.name }}</h3>
@@ -261,7 +263,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'living',
       name: 'Living & Dining Room',
-      icon: '',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>',
       rating: 5,
       notes: 'Walls in good condition. TV console and switch sockets functional.',
       photos: [
@@ -273,7 +275,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'master_bed',
       name: 'Master Bedroom',
-      icon: '<svg class="w-3.5 h-3.5 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v11m0-4h18m0-7v11M3 10h18M7 7h3v3H7z"/></svg>',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v11m0-4h18m0-7v11M3 10h18M7 7h3v3H7z"/></svg>',
       rating: 5,
       notes: 'Wardrobes sliding smoothly. AC cooling properly.',
       photos: [
@@ -284,7 +286,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'kitchen',
       name: 'Modular Kitchen',
-      icon: '',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>',
       rating: 4,
       notes: 'Chimney working. Minor water mark beneath sink cabinet.',
       photos: [
@@ -295,7 +297,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'bath',
       name: 'Bathrooms & Geysers',
-      icon: '',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>',
       rating: 4,
       notes: 'All taps checked. Geyser heats within 10 minutes.',
       photos: [
@@ -306,7 +308,7 @@ export class TenantPropertyConditionComponent implements OnInit {
     {
       id: 'balcony',
       name: 'Balcony & Utility Area',
-      icon: '',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>',
       rating: 5,
       notes: 'Washing machine inlet functional. Good drainage.',
       photos: [

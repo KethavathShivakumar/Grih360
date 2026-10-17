@@ -20,23 +20,20 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
   ],
   template: `
     <div class="space-y-6">
-      <!-- Header Bar -->
-      <div class="flex items-center justify-between">
+      <!-- Header Bar: Responsive stacking for mobile (390px) to prevent overlap -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/60">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Saved Homes</h1>
-          <p class="text-xs text-slate-500">Keep track of properties you are interested in applying for.</p>
+          <h1 class="text-2xl font-extrabold text-[#0F2937] tracking-tight">Saved Homes</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Keep track of properties you are interested in applying for.</p>
         </div>
         <button
           (click)="goToFindHomes()"
           type="button"
-          class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-lg text-xs font-bold shadow-xs transition-colors"
+          class="w-full sm:w-auto px-4 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer text-center shrink-0 min-h-[40px] flex items-center justify-center gap-1"
         >
-          + Discover More Homes
+          <span>+</span> Discover More Homes
         </button>
       </div>
-
-      <!-- Stitch Request Banner -->
-      
 
       <!-- Loading State -->
       <app-loading-state *ngIf="isLoading" message="Fetching saved properties..."></app-loading-state>
@@ -49,12 +46,13 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         (retry)="loadSavedHomes()"
       ></app-error-state>
 
-      <!-- Empty State -->
+      <!-- Empty State with clean bookmark heart SVG -->
       <app-empty-state
         *ngIf="!isLoading && !isError && savedHomes.length === 0"
         title="No saved homes yet"
         message="Browse properties on Find Homes and click the heart bookmark icon to save properties you like."
         actionText="Explore Find Homes"
+        icon='<svg class="w-7 h-7 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>'
         (action)="goToFindHomes()"
       ></app-empty-state>
 

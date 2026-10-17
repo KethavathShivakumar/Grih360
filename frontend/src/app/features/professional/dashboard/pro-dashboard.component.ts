@@ -67,7 +67,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div class="bg-white p-5 rounded-2xl border border-[#E8E6DF] shadow-sm space-y-2 col-span-2 lg:col-span-1">
             <span class="text-xs text-[#64748B] font-medium">Rating & Reviews</span>
             <div *ngIf="dashboardData.stats.reviewCount > 0" class="space-y-1">
-              <div class="text-2xl font-black text-[#2D7A5E]">⭐ {{ dashboardData.stats.rating.toFixed(1) }}</div>
+              <div class="text-2xl font-black text-[#2D7A5E] flex items-center gap-1.5">
+                <svg class="w-6 h-6 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span>{{ dashboardData.stats.rating.toFixed(1) }}</span>
+              </div>
               <span class="text-[11px] text-[#64748B] block">({{ dashboardData.stats.reviewCount }} verified customer {{ dashboardData.stats.reviewCount === 1 ? 'review' : 'reviews' }})</span>
             </div>
             <div *ngIf="dashboardData.stats.reviewCount === 0" class="space-y-1">
@@ -130,7 +133,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl font-black  transition-transform">
-                ⏰
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Duty & Availability</h3>
               <p class="text-[11px] text-slate-500">Toggle shift status & matching availability.</p>
@@ -152,7 +155,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               class="bg-white p-5 rounded-2xl border border-[#E8E6DF] hover:border-[#0F2937] hover:shadow-md transition space-y-2 group block"
             >
               <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-black  transition-transform">
-                ⭐
+                <svg class="w-5 h-5 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
               </div>
               <h3 class="text-sm font-black text-[#0F2937]">Client Reviews</h3>
               <p class="text-[11px] text-slate-500">Tenant star ratings & verified feedback.</p>

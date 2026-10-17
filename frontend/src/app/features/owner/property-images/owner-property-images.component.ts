@@ -126,7 +126,8 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 *ngIf="img.isMain || (i === 0 && !hasExplicitMain)"
                 class="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#2D7A5E] text-white text-[10px] font-black rounded-lg shadow-sm tracking-wide uppercase flex items-center gap-1"
               >
-                <span>⭐</span> Cover Photo
+                <svg class="w-3 h-3 fill-amber-300 text-amber-300" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span>Cover Photo</span>
               </span>
 
               <!-- Photo Order Tag -->
@@ -330,9 +331,9 @@ export class OwnerPropertyImagesComponent implements OnInit {
   previewError: boolean = false;
 
   readonly samplePhotos = [
-    { label: ' Living Room', url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800', caption: 'Spacious Living Room' },
-    { label: ' Modular Kitchen', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800', caption: 'Modern Modular Kitchen' },
-    { label: '<svg class="w-3.5 h-3.5 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v11m0-4h18m0-7v11M3 10h18M7 7h3v3H7z"/></svg> Master Bedroom', url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800', caption: 'Master Bedroom with Wardrobes' },
+    { label: 'Living Room', url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800', caption: 'Spacious Living Room' },
+    { label: 'Modular Kitchen', url: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800', caption: 'Modern Modular Kitchen' },
+    { label: 'Master Bedroom', url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800', caption: 'Master Bedroom with Wardrobes' },
     { label: 'Balcony View', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800', caption: 'Balcony View & Natural Ventilation' },
   ];
 

@@ -164,8 +164,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 <div class="p-3 bg-[#FAF9F5] rounded-xl border border-[#E8E6DF] space-y-1">
                   <div class="flex items-center justify-between">
                     <span class="text-[#64748B]">Rating:</span>
-                    <span *ngIf="proProfile && proProfile.reviewCount > 0" class="font-bold text-[#2D7A5E]">
-                      ⭐ {{ proProfile.rating.toFixed(1) }} ({{ proProfile.reviewCount }} verified {{ proProfile.reviewCount === 1 ? 'review' : 'reviews' }})
+                    <span *ngIf="proProfile && proProfile.reviewCount > 0" class="font-bold text-[#2D7A5E] flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5 fill-amber-400 text-amber-400 inline" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                      <span>{{ proProfile.rating.toFixed(1) }} ({{ proProfile.reviewCount }} verified {{ proProfile.reviewCount === 1 ? 'review' : 'reviews' }})</span>
                     </span>
                     <span *ngIf="!proProfile || proProfile.reviewCount === 0" class="font-semibold text-slate-400">
                       No reviews yet
@@ -202,7 +203,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <!-- Review Submission Form (Only when COMPLETED and not yet reviewed) -->
             <div *ngIf="request.status === 'COMPLETED' && !myReview" class="bg-white p-6 rounded-2xl border border-[#D1EADF] shadow-sm space-y-4">
               <div class="flex items-center space-x-2">
-                <span class="text-lg">⭐</span>
+                <svg class="w-5 h-5 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                 <h2 class="text-base font-bold text-[#0F2937]">Leave Service Review</h2>
               </div>
               <p class="text-xs text-slate-500">
@@ -221,11 +222,11 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 <div>
                   <label class="block text-xs font-bold text-[#0F2937] mb-1">Rating (1 to 5 Stars)</label>
                   <select [(ngModel)]="reviewRating" class="w-full p-2 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl text-xs font-bold text-[#0F2937]">
-                    <option [value]="5">⭐⭐⭐⭐⭐ 5 - Excellent</option>
-                    <option [value]="4">⭐⭐⭐⭐ 4 - Very Good</option>
-                    <option [value]="3">⭐⭐⭐ 3 - Satisfactory</option>
-                    <option [value]="2">⭐⭐ 2 - Poor</option>
-                    <option [value]="1">⭐ 1 - Very Poor</option>
+                    <option [value]="5">5 - Excellent (Top Tier)</option>
+                    <option [value]="4">4 - Very Good (Exceeded expectations)</option>
+                    <option [value]="3">3 - Satisfactory (Met requirements)</option>
+                    <option [value]="2">2 - Poor</option>
+                    <option [value]="1">1 - Very Poor</option>
                   </select>
                 </div>
 

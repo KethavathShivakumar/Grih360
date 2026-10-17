@@ -6,6 +6,7 @@ import { RentalService, RentalAgreement } from '../../../core/services/rental.se
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
+import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
 export interface ChecklistItem {
   id: string;
@@ -30,6 +31,7 @@ export interface ChecklistSection {
     LoadingStateComponent,
     EmptyStateComponent,
     ErrorStateComponent,
+    SafeHtmlPipe,
   ],
   template: `
     <div class="space-y-6 max-w-5xl mx-auto pb-12 font-sans text-slate-800">
@@ -172,7 +174,7 @@ export interface ChecklistSection {
             class="bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs space-y-4"
           >
             <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
-              <span class="text-xl">{{ section.icon }}</span>
+              <span *ngIf="section.icon" [innerHTML]="section.icon | safeHtml" class="w-5 h-5 flex items-center justify-center [&>svg]:w-5 [&>svg]:h-5 text-slate-700"></span>
               <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wider">{{ section.category }}</h3>
             </div>
 
@@ -278,7 +280,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
   sections: ChecklistSection[] = [
     {
       category: 'Keys & Access Hardware',
-      icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
       items: [
         { id: 'k1', name: 'Main Entrance Door Keys (2 Sets)', status: 'WORKING', remarks: 'Received 2 keys' },
         { id: 'k2', name: 'Master Bedroom & Wardrobe Keys', status: 'WORKING', remarks: 'Good condition' },
@@ -288,7 +290,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     },
     {
       category: 'Electrical Fixtures & Appliances',
-      icon: '',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
       items: [
         { id: 'e1', name: 'Ceiling Fans & Regulators (All Rooms)', status: 'WORKING', remarks: 'All functional' },
         { id: 'e2', name: 'LED Lights & Modular Switches', status: 'WORKING', remarks: '' },
@@ -298,7 +300,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     },
     {
       category: 'Plumbing & Sanitary Fittings',
-      icon: '',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
       items: [
         { id: 'p1', name: 'Kitchen Sink Mixer Tap & Drain', status: 'WORKING', remarks: 'No leakage' },
         { id: 'p2', name: 'Bathroom Showers & Health Faucets', status: 'WORKING', remarks: 'Good pressure' },
@@ -308,7 +310,7 @@ export class TenantHandoverChecklistComponent implements OnInit {
     },
     {
       category: 'Doors, Windows & Paint Condition',
-      icon: '<svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>',
+      icon: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>',
       items: [
         { id: 'd1', name: 'Main Door Lock, Latch & Peep Hole', status: 'WORKING', remarks: 'Smooth operation' },
         { id: 'd2', name: 'Balcony Sliding Doors & Mesh Nets', status: 'WORKING', remarks: 'Mosquito mesh intact' },

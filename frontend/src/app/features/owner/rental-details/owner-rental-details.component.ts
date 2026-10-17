@@ -348,11 +348,11 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                     <div>
                       <label class="text-[10px] font-bold text-slate-600 block mb-0.5">Rating (1 to 5 Stars)</label>
                       <select [(ngModel)]="ownerRating" class="w-full p-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-900">
-                        <option [value]="5">⭐⭐⭐⭐⭐ 5 - Excellent</option>
-                        <option [value]="4">⭐⭐⭐⭐ 4 - Very Good</option>
-                        <option [value]="3">⭐⭐⭐ 3 - Satisfactory</option>
-                        <option [value]="2">⭐⭐ 2 - Poor</option>
-                        <option [value]="1">⭐ 1 - Very Poor</option>
+                        <option [value]="5">5 - Excellent (Top Tier)</option>
+                        <option [value]="4">4 - Very Good (Exceeded expectations)</option>
+                        <option [value]="3">3 - Satisfactory (Met requirements)</option>
+                        <option [value]="2">2 - Poor</option>
+                        <option [value]="1">1 - Very Poor</option>
                       </select>
                     </div>
                     <div>

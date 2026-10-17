@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { CustomerCareComponent } from '../../../shared/components/customer-care/customer-care.component';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { IsMobileService } from '../../../core/services/is-mobile.service';
 import { MobileRoleSelectionComponent } from './mobile-role-selection.component';
@@ -12,7 +11,6 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
   imports: [
     CommonModule,
     RouterModule,
-    CustomerCareComponent,
     StatusBadgeComponent,
     MobileRoleSelectionComponent,
   ],
