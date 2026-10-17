@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AdminService } from '../../../core/services/admin.service';
+import { UserService } from '../../../core/services/user.service';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { ErrorStateComponent } from '../../../shared/components/error-state/error-state.component';
 
@@ -190,6 +191,64 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </div>
         </div>
 
+        <!-- Administrator Password Update -->
+        <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+            Administrator Credentials & Password
+          </h3>
+          <p class="text-xs text-slate-500">
+            For security compliance, change the default generated administrator password immediately upon your first login.
+          </p>
+
+          <div *ngIf="passwordSuccess" class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-emerald-800 text-xs font-bold">
+            {{ passwordSuccess }}
+          </div>
+          <div *ngIf="passwordError" class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-rose-800 text-xs font-bold">
+            {{ passwordError }}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Current Password</label>
+              <input
+                type="password"
+                [(ngModel)]="currentPassword"
+                placeholder="Current password"
+                class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#2D7A5E] bg-slate-50"
+              />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">New Strong Password</label>
+              <input
+                type="password"
+                [(ngModel)]="newPassword"
+                placeholder="Minimum 8 characters"
+                class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#2D7A5E] bg-slate-50"
+              />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Confirm New Password</label>
+              <input
+                type="password"
+                [(ngModel)]="confirmPassword"
+                placeholder="Re-enter new password"
+                class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#2D7A5E] bg-slate-50"
+              />
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button
+              (click)="changeAdminPassword()"
+              [disabled]="isChangingPassword || !currentPassword || !newPassword || !confirmPassword"
+              type="button"
+              class="px-5 py-2.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white text-xs font-bold rounded-xl transition cursor-pointer"
+            >
+              {{ isChangingPassword ? 'Updating Password...' : 'Update Admin Password' }}
+            </button>
+          </div>
+        </div>
+
         <!-- Maintenance Mode -->
         <div class="bg-white rounded-2xl p-6 border border-rose-200 shadow-xs">
           <h3 class="text-sm font-black text-rose-800 uppercase tracking-wide border-b border-rose-100 pb-2 flex items-center space-x-2">
@@ -233,7 +292,52 @@ export class AdminSettingsComponent implements OnInit {
   saveSuccess: string | null = null;
   saveError: string | null = null;
 
-  constructor(private adminService: AdminService) {}
+  // Change Admin Password fields
+  currentPassword = '';
+  newPassword = '';
+  confirmPassword = '';
+  isChangingPassword = false;
+  passwordSuccess: string | null = null;
+  passwordError: string | null = null;
+
+  constructor(
+    private adminService: AdminService,
+    private userService: UserService
+  ) {}
+
+  changeAdminPassword(): void {
+    if (this.newPassword !== this.confirmPassword) {
+      this.passwordError = 'New password and confirmation do not match.';
+      return;
+    }
+    if (this.newPassword.length < 8) {
+      this.passwordError = 'New password must be at least 8 characters long.';
+      return;
+    }
+
+    this.isChangingPassword = true;
+    this.passwordSuccess = null;
+    this.passwordError = null;
+
+    this.userService
+      .changePassword({
+        currentPassword: this.currentPassword,
+        newPassword: this.newPassword,
+      })
+      .subscribe({
+        next: (res) => {
+          this.isChangingPassword = false;
+          this.passwordSuccess = res.message || 'Password updated successfully.';
+          this.currentPassword = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+        },
+        error: (err) => {
+          this.isChangingPassword = false;
+          this.passwordError = err?.error?.message || err?.message || 'Failed to update password. Please check your current password.';
+        },
+      });
+  }
 
   ngOnInit(): void {
     this.loadSettings();
