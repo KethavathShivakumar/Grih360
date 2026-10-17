@@ -92,7 +92,7 @@ import { PrivacyComponent } from './features/public/privacy/privacy.component';
 import { TermsComponent } from './features/public/terms/terms.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'role-selection', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'role-selection', component: RoleSelectionComponent, canActivate: [guestGuard], title: 'Select Workspace Persona | Grih360' },
   { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'register', redirectTo: 'auth/register', pathMatch: 'full' },

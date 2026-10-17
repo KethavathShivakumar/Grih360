@@ -18,22 +18,23 @@ export const roleGuard = (allowedRoles: UserRole[]): CanActivateFn => {
           if (allowedRoles.includes(fetchedUser.role)) {
             return true;
           }
-          router.navigate(['/role-selection']);
+          // User is authenticated under a different role - navigate them to their legitimate workspace
+          const targetDashboard =
+            fetchedUser.role === 'OWNER'
+              ? '/owner/dashboard'
+              : fetchedUser.role === 'PROFESSIONAL'
+              ? '/professional/dashboard'
+              : fetchedUser.role === 'ADMIN'
+              ? '/admin/dashboard'
+              : '/tenant/dashboard';
+          router.navigate([targetDashboard], { replaceUrl: true });
           return false;
         }
 
         const loginRoute = state.url.startsWith('/admin') ? '/admin/login' : '/auth/login';
 
-        if (!hasToken) {
-          router.navigate([loginRoute]);
-          return false;
-        }
-
-        if (state.url.startsWith('/admin')) {
-          router.navigate(['/admin/login']);
-        } else {
-          router.navigate(['/role-selection']);
-        }
+        // Unauthenticated user - strictly navigate to Login screen
+        router.navigate([loginRoute], { replaceUrl: true });
         return false;
       })
     );
