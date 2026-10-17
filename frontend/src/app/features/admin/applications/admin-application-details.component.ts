@@ -36,7 +36,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             >
               {{ application.status }}
             </span>
-            <span class="font-mono text-[10px] text-slate-400">ID: {{ application._id || application.id }}</span>
+            <span class="text-[10px] text-slate-500 font-semibold">Tenant Application</span>
           </div>
           <h1 class="text-2xl font-black text-[#0F2937]">Rental Application Dossier</h1>
           <p class="text-xs text-slate-500 mt-0.5">Submitted: {{ application.createdAt | date:'medium' }}</p>

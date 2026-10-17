@@ -23,7 +23,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-2xl font-extrabold text-[#0F2937]">Edit Property Listing</h1>
-          <p class="text-xs text-slate-500">Update specifications, monthly rent, location, and images for Property ID: {{ propertyId }}</p>
+          <p class="text-xs text-slate-500">Update specifications, monthly rent, location, and images for {{ title || 'this property' }}</p>
         </div>
         <button
           (click)="goBack()"

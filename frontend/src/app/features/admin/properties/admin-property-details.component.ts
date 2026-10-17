@@ -36,7 +36,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             >
               {{ property.availabilityStatus || property.status }}
             </span>
-            <span class="text-xs text-slate-400 font-mono">ID: {{ property._id || property.id }}</span>
+            <span class="text-xs text-slate-500 font-semibold">{{ property.propertyType }}</span>
           </div>
           <h1 class="text-2xl font-black text-[#0F2937]">{{ property.title }}</h1>
           <p class="text-xs text-slate-500 mt-0.5">

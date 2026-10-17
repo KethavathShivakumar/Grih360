@@ -74,7 +74,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               </div>
               <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Identity & Tenancy Assessment</h1>
               <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                Reference ID: <span class="font-mono text-white">{{ verification._id || verification.id }}</span>
+                Verified compliance record for tenancy screening
               </p>
             </div>
 

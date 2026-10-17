@@ -48,7 +48,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 {{ user.isActive ? 'ACTIVE' : 'INACTIVE' }}
               </span>
             </div>
-            <p class="text-xs text-slate-500 font-mono mt-1">UUID: {{ user._id || user.id }}</p>
+            <p class="text-xs text-slate-500 mt-1">Member since {{ user.createdAt | date: 'mediumDate' }}</p>
           </div>
         </div>
 

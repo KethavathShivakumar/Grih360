@@ -84,7 +84,6 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <tr *ngFor="let u of users" class="hover:bg-slate-50 transition-colors">
                 <td class="px-4 py-3 font-bold text-[#0F2937]">
                   {{ u.name }}
-                  <div class="text-[10px] text-slate-400 font-mono font-normal">ID: {{ u._id || u.id }}</div>
                 </td>
                 <td class="px-4 py-3">
                   <div>{{ u.email }}</div>

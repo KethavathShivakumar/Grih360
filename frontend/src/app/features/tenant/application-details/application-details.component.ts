@@ -66,8 +66,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
             <div>
-              <span class="text-xs font-bold text-slate-400 uppercase">Application Reference</span>
-              <h1 class="text-xl font-extrabold text-[#0F2937]">APP-{{ application.id || application._id }}</h1>
+              <span class="text-xs font-bold text-slate-400 uppercase">Rental Application</span>
+              <h1 class="text-xl font-extrabold text-[#0F2937]">{{ propertyTitle }}</h1>
               <p class="text-xs text-slate-500 mt-0.5">Submitted on {{ applicationDate | date: 'longDate' }}</p>
             </div>
             <div class="flex items-center space-x-3">

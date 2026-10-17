@@ -53,7 +53,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <div>
               <div class="flex items-center space-x-2">
                 <app-status-badge [status]="application.status"></app-status-badge>
-                <span class="text-xs text-slate-400 font-semibold">APP-{{ application.id || (application._id) }}</span>
+                <span class="text-xs text-slate-500 font-semibold">Applied for {{ propertyTitle }}</span>
               </div>
               <h1 class="text-xl font-extrabold text-[#0F2937] mt-1">{{ applicantName }}</h1>
               <p class="text-xs text-slate-500 mt-0.5">Submitted on {{ getAppDate() | date: 'longDate' }}</p>

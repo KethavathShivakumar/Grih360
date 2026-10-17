@@ -30,7 +30,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           Back to My Properties
         </button>
 
-        <span class="text-xs font-semibold text-slate-500">Owner View: Property ID: {{ propertyId }}</span>
+        <span *ngIf="property" class="text-xs font-semibold text-slate-500">Owner View: {{ property.title }} • {{ property.propertyLocation?.locality || property.propertyLocation?.city }}</span>
       </div>
 
       <!-- Stitch Banner -->

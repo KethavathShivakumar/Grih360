@@ -33,7 +33,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           Back to Find Homes
         </button>
 
-        <span class="text-xs font-semibold text-slate-500">Property ID: {{ propertyId }}</span>
+        <span *ngIf="property" class="text-xs font-semibold text-slate-500">{{ property.propertyLocation?.locality || property.propertyLocation?.city || property.title }}</span>
       </div>
 
       <!-- Stitch Request Banner -->
@@ -198,7 +198,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               </div>
 
               <div class="pt-3 border-t border-slate-200 text-xs text-slate-600 space-y-1">
-                <p><strong>Grih360 ID:</strong> Verified Owner Account</p>
+                <p><strong>Verification:</strong> Verified Owner Account</p>
                 <p class="text-[11px] text-slate-400">Direct tenant applications supported via secure workspace.</p>
               </div>
 

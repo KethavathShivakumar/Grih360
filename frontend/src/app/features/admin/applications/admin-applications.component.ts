@@ -49,9 +49,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <table class="w-full text-left text-xs">
             <thead class="bg-[#F4F3EE] text-slate-600 font-bold uppercase tracking-wider border-b border-[#E8E6DF]">
               <tr>
-                <th class="px-4 py-3">Application ID</th>
-                <th class="px-4 py-3">Tenant ID</th>
-                <th class="px-4 py-3">Property ID</th>
+                <th class="px-4 py-3">Applicant</th>
+                <th class="px-4 py-3">Property</th>
                 <th class="px-4 py-3">Proposed Move-In</th>
                 <th class="px-4 py-3">Status</th>
                 <th class="px-4 py-3">Submitted</th>
@@ -60,9 +59,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </thead>
             <tbody class="divide-y divide-slate-100 font-medium text-slate-800">
               <tr *ngFor="let a of applications" class="hover:bg-slate-50 transition-colors">
-                <td class="px-4 py-3 font-mono text-slate-600 font-bold">{{ a._id || a.id }}</td>
-                <td class="px-4 py-3 text-slate-700">{{ a.tenantId }}</td>
-                <td class="px-4 py-3 text-slate-700">{{ a.propertyId }}</td>
+                <td class="px-4 py-3 font-bold text-slate-900">{{ a.tenant?.name || a.tenantId?.name || a.applicantName || 'Applicant' }}</td>
+                <td class="px-4 py-3 text-slate-700 font-medium">{{ a.property?.title || a.propertyId?.title || a.propertyTitle || 'Residential Property' }}</td>
                 <td class="px-4 py-3">{{ a.moveInDate | date: 'shortDate' }}</td>
                 <td class="px-4 py-3">
                   <span

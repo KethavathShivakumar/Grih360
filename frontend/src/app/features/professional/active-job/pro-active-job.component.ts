@@ -84,7 +84,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
                 {{ job.status === 'IN_PROGRESS' ? 'Job In Progress' : 'Job Accepted: Ready to Start' }}
               </span>
-              <span class="text-xs text-slate-300">| Job #{{ job._id || job.id }}</span>
+              <span class="text-xs text-slate-300">| Assigned Service</span>
             </div>
             <div class="flex items-center space-x-2">
               <span class="px-3 py-1 bg-white/10 rounded-lg text-xs font-bold uppercase tracking-wider">

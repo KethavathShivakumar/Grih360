@@ -123,7 +123,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <div>
               <div class="flex items-center gap-2">
                 <app-status-badge [status]="item.status"></app-status-badge>
-                <span class="text-xs font-semibold text-slate-400">Lease Ref: RENTAL-{{ item.id || item._id }}</span>
+                <span class="text-xs font-semibold text-slate-500">Active Lease • Started {{ item.startDate | date: 'mediumDate' }}</span>
               </div>
               <h2 class="text-lg font-bold text-slate-900 mt-1">
                 {{ getPropertyTitle(item) }}

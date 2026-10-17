@@ -76,7 +76,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               <span class="bg-[#0F2937] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">
                 {{ property.propertyType }}
               </span>
-              <span class="text-xs text-slate-400 font-semibold">ID: {{ property.id }}</span>
+              <span class="text-xs text-slate-500 font-semibold">{{ property.propertyLocation.locality || property.propertyLocation.city }}</span>
             </div>
             <h1 class="text-xl font-extrabold text-[#0F2937]">{{ property.title }}</h1>
             <p class="text-xs text-slate-500">
