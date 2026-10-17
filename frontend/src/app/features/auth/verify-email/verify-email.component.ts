@@ -147,11 +147,11 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
               </div>
             </div>
 
-            <!-- Primary Submit Button -->
+            <!-- Primary Submit Button (Requires explicit tap, zero layout shift) -->
             <button
               type="submit"
               [disabled]="!isCodeComplete || isLoading || isLockedOut"
-              class="w-full py-3.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
+              class="w-full min-h-[48px] h-[48px] bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 disabled:cursor-not-allowed text-white font-extrabold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
               <svg *ngIf="isLoading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -346,9 +346,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
       input.value = cleaned;
     }
 
-    if (this.isCodeComplete && !this.isLoading) {
-      this.onVerifySubmit();
-    }
+    // Do NOT auto-submit. Wait until user taps 'Verify Code' button.
   }
 
   onOtpKeyDown(event: KeyboardEvent): void {
@@ -372,9 +370,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.errorMessage = '';
 
-    if (this.isCodeComplete && !this.isLoading) {
-      this.onVerifySubmit();
-    }
+    // Do NOT auto-submit on paste. User must explicitly tap 'Verify Code' button.
   }
 
   clearOtpInputs(): void {
