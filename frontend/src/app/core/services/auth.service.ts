@@ -311,6 +311,13 @@ export class AuthService {
     selectedRole?: string;
   } | null): void {
     this.activeChallenge = challenge;
+    try {
+      if (challenge) {
+        sessionStorage.setItem('grih360_active_challenge', JSON.stringify(challenge));
+      } else {
+        sessionStorage.removeItem('grih360_active_challenge');
+      }
+    } catch (e) {}
   }
 
   public getActiveChallenge(): {
@@ -318,11 +325,22 @@ export class AuthService {
     maskedEmail: string;
     selectedRole?: string;
   } | null {
+    if (!this.activeChallenge) {
+      try {
+        const raw = sessionStorage.getItem('grih360_active_challenge');
+        if (raw) {
+          this.activeChallenge = JSON.parse(raw);
+        }
+      } catch (e) {}
+    }
     return this.activeChallenge;
   }
 
   public clearActiveChallenge(): void {
     this.activeChallenge = null;
+    try {
+      sessionStorage.removeItem('grih360_active_challenge');
+    } catch (e) {}
   }
 
   public verifyLoginOtp(challengeId: string, otp: string): Observable<any> {
