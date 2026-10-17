@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap, catchError, of, filter, take, switchMap, from, map } from 'rxjs';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
@@ -16,12 +17,18 @@ export class AuthService {
   public isInitialized$: Observable<boolean> = this.initializationSubject.asObservable();
 
   private isRefreshing = false;
+  private isLoggingOut = false;
   private sessionInitPromise: Promise<void> | null = null;
 
   constructor(
     private apiService: ApiService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {}
+
+  public get isExplicitlyLoggingOut(): boolean {
+    return this.isLoggingOut;
+  }
 
   public initSessionPromise(): Promise<void> {
     if (!this.sessionInitPromise) {
@@ -235,9 +242,11 @@ export class AuthService {
   }
 
   public async logout(): Promise<void> {
+    this.isLoggingOut = true;
     console.log('[Auth Debug] Explicit logout triggered by user');
+    const refreshToken = this.storageService.getRefreshToken();
     try {
-      this.apiService.post('/auth/logout', {}).subscribe({
+      this.apiService.post('/auth/logout', { refreshToken }).subscribe({
         error: () => {},
       });
     } catch (_) {}
@@ -247,6 +256,14 @@ export class AuthService {
     this.clearActiveChallenge();
     this.initializationSubject.next(true);
     this.sessionInitPromise = Promise.resolve();
+
+    try {
+      this.router.navigate(['/auth/login'], { replaceUrl: true });
+    } catch (_) {}
+
+    setTimeout(() => {
+      this.isLoggingOut = false;
+    }, 1500);
   }
 
   public getCurrentUser(): User | null {

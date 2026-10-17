@@ -58,6 +58,7 @@ export interface UserLocationState {
   coordinates?: LocationCoordinates;
   manualFallbackCity: string;
   isLocating?: boolean;
+  locatingMessage?: string;
 }
 
 @Injectable({
@@ -65,11 +66,15 @@ export interface UserLocationState {
 })
 export class LocationService {
   private apiUrl = `${environment.apiUrl}/locations`;
+  private static readonly SESSION_LOCATION_KEY = 'grih360_session_location';
+  private sessionCachedCoords: LocationCoordinates | null = null;
 
   // 1. User Location: GPS location where device is currently situated
   private userLocationSubject = new BehaviorSubject<UserLocationState>({
     permissionGranted: false,
     manualFallbackCity: '',
+    isLocating: false,
+    locatingMessage: '',
   });
   public userLocation$: Observable<UserLocationState> = this.userLocationSubject.asObservable();
 
@@ -88,7 +93,36 @@ export class LocationService {
   private sessionToken: any = null;
 
   constructor(private http: HttpClient) {
+    this.restoreSessionCachedLocation();
     this.initGoogleServices();
+  }
+
+  private restoreSessionCachedLocation(): void {
+    try {
+      const stored = sessionStorage.getItem(LocationService.SESSION_LOCATION_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed.lat === 'number' && typeof parsed.lng === 'number') {
+          this.sessionCachedCoords = parsed;
+          this.userLocationSubject.next({
+            ...this.userLocationSubject.value,
+            permissionGranted: true,
+            coordinates: parsed,
+          });
+        }
+      }
+    } catch (_) {}
+  }
+
+  public getLastKnownLocation(): LocationCoordinates | null {
+    return this.sessionCachedCoords;
+  }
+
+  private cacheSessionLocation(coords: LocationCoordinates): void {
+    this.sessionCachedCoords = coords;
+    try {
+      sessionStorage.setItem(LocationService.SESSION_LOCATION_KEY, JSON.stringify(coords));
+    } catch (_) {}
   }
 
   private initGoogleServices(): void {
@@ -113,13 +147,14 @@ export class LocationService {
   }
 
   /**
-   * Request device location permission with Capacitor Geolocation (low accuracy first, timeout)
-   * Never defaults silently to Hyderabad.
+   * Request device location permission with Capacitor Geolocation (18s timeout, session cached)
+   * Shows 'Getting your location...' and gracefully falls back to manual area search.
    */
   public async requestDeviceLocation(): Promise<LocationResult> {
     this.userLocationSubject.next({
       ...this.userLocationSubject.value,
       isLocating: true,
+      locatingMessage: 'Getting your location...',
     });
 
     try {
@@ -132,29 +167,30 @@ export class LocationService {
             permissionGranted: false,
             manualFallbackCity: '',
             isLocating: false,
+            locatingMessage: '',
           });
           return {
-            coordinates: null,
-            error: 'Location permission denied. Please enable location permissions in device settings or select a city manually.',
+            coordinates: this.sessionCachedCoords,
+            error: 'Location permission was denied. You can search by area or city manually.',
             isDenied: true,
           };
         }
       }
 
-      // 2. Try low accuracy position first with timeout
+      // 2. Try with 18 second timeout (high resilience for real device GPS lock)
       let position;
       try {
         position = await Geolocation.getCurrentPosition({
-          enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: 30000,
-        });
-      } catch (lowAccErr) {
-        // Fallback to high accuracy if low accuracy failed
-        position = await Geolocation.getCurrentPosition({
           enableHighAccuracy: true,
-          timeout: 8000,
-          maximumAge: 10000,
+          timeout: 18000,
+          maximumAge: 60000,
+        });
+      } catch (highAccErr) {
+        // Fallback to low accuracy / cellular tower location
+        position = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: false,
+          timeout: 10000,
+          maximumAge: 120000,
         });
       }
 
@@ -163,21 +199,29 @@ export class LocationService {
         lng: position.coords.longitude,
       };
 
+      this.cacheSessionLocation(coords);
+
       this.userLocationSubject.next({
         permissionGranted: true,
         coordinates: coords,
         manualFallbackCity: '',
         isLocating: false,
+        locatingMessage: '',
       });
 
       return { coordinates: coords };
     } catch (err: any) {
-      console.warn('[LocationService] Capacitor Geolocation error, trying web fallback:', err);
+      console.warn('[LocationService] Capacitor Geolocation timed out or unavailable, trying web fallback:', err);
       return new Promise<LocationResult>((resolve) => {
         if (!navigator.geolocation) {
+          this.userLocationSubject.next({
+            ...this.userLocationSubject.value,
+            isLocating: false,
+            locatingMessage: '',
+          });
           resolve({
-            coordinates: null,
-            error: 'Geolocation is not supported by your browser or device.',
+            coordinates: this.sessionCachedCoords,
+            error: 'Geolocation is not available on this device. Please select your area manually.',
           });
           return;
         }
@@ -188,31 +232,37 @@ export class LocationService {
               lat: pos.coords.latitude,
               lng: pos.coords.longitude,
             };
+            this.cacheSessionLocation(coords);
             this.userLocationSubject.next({
               permissionGranted: true,
               coordinates: coords,
               manualFallbackCity: '',
               isLocating: false,
+              locatingMessage: '',
             });
             resolve({ coordinates: coords });
           },
           (error) => {
-            let errorMsg = 'Unable to fetch your GPS location.';
+            let errorMsg = 'Location request timed out. You can search by area manually.';
             if (error.code === error.PERMISSION_DENIED) {
-              errorMsg = 'Location permission denied. Please allow location access or select your city manually.';
+              errorMsg = 'Location permission was denied. Please allow location access or search by area manually.';
             } else if (error.code === error.POSITION_UNAVAILABLE) {
-              errorMsg = 'Location position unavailable. Please check device location settings or search manually.';
-            } else if (error.code === error.TIMEOUT) {
-              errorMsg = 'Location request timed out. Please try again or select a city manually.';
+              errorMsg = 'Current location is unavailable. You can search by area manually.';
             }
             this.userLocationSubject.next({
               permissionGranted: false,
               manualFallbackCity: '',
               isLocating: false,
+              locatingMessage: '',
             });
-            resolve({ coordinates: null, error: errorMsg, isDenied: error.code === error.PERMISSION_DENIED });
+            // If we have a session cached location, provide it gracefully
+            resolve({
+              coordinates: this.sessionCachedCoords,
+              error: errorMsg,
+              isDenied: error.code === error.PERMISSION_DENIED,
+            });
           },
-          { enableHighAccuracy: false, timeout: 5000, maximumAge: 30000 }
+          { enableHighAccuracy: false, timeout: 18000, maximumAge: 60000 }
         );
       });
     }
