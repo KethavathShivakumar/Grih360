@@ -20,8 +20,8 @@ import { MoneyService } from '../../../core/services/money.service';
           class="w-full pl-8 pr-3.5 py-2.5 bg-white border border-[#E8E6DF] rounded-xl text-sm font-semibold text-[#1B1C1A] focus:border-[#0F2937] focus:ring-1 focus:ring-[#0F2937] outline-none transition"
         />
       </div>
-      <p *ngIf="amountValue > 0" class="text-[11px] text-[#2D7A5E] font-medium pt-0.5">
-        Display: {{ formattedDisplay }} (Backend: {{ amountValue }})
+      <p *ngIf="amountValue > 0" class="text-[11px] text-[#2D7A5E] font-bold pt-0.5">
+        {{ formattedDisplay }}
       </p>
     </div>
   `,

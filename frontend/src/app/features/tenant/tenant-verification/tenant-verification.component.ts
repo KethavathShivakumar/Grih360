@@ -262,28 +262,11 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
             </div>
 
-            <!-- Step 2: Residence & Contact Details -->
+            <!-- Step 2: Rental History -->
             <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div class="space-y-1">
                 <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-slate-900">2. Residence & Contact Details</span>
-                </div>
-                <p class="text-xs text-slate-500">
-                  Current residential address and contact references to verify tenancy profile.
-                </p>
-              </div>
-              <div class="shrink-0">
-                <span [class]="getStepBadgeClass(getStepStatus('INCOME_VERIFICATION'))" class="px-2.5 py-1 rounded-full text-[11px] font-bold">
-                  {{ getStepStatus('INCOME_VERIFICATION') }}
-                </span>
-              </div>
-            </div>
-
-            <!-- Step 3: Rental History -->
-            <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div class="space-y-1">
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-slate-900">3. Rental History & Tenancy References</span>
+                  <span class="text-sm font-bold text-slate-900">2. Rental History & Tenancy References</span>
                 </div>
                 <p class="text-xs text-slate-500">
                   Previous landlord contact and current residential address confirmation.
@@ -306,7 +289,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <p class="text-xs text-slate-500 mt-0.5">Recorded on {{ verification?.submittedAt | date:'medium' }}</p>
             </div>
             <span class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-xl">
-              Audit Record #{{ (verification?._id || verification?.id || '').slice(-6) }}
+              Verified Audit Record
             </span>
           </div>
 
@@ -349,7 +332,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                   <span class="p-2 bg-indigo-50 text-indigo-700 rounded-lg font-bold"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
                   <div>
                     <span class="font-bold text-slate-800 block">{{ doc.documentName || doc.documentType }}</span>
-                    <span class="text-slate-400 text-[11px]">Masked ID: {{ doc.maskedIdentifier || 'XXXX-XXXX-****' }} • Uploaded: {{ doc.uploadedAt | date:'shortDate' }}</span>
+                    <span class="text-slate-400 text-[11px]">Identity Document • Uploaded: {{ doc.uploadedAt | date:'shortDate' }}</span>
                   </div>
                 </div>
                 <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase"
@@ -497,10 +480,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                     </div>
                   </div>
 
-                  <!-- Confirmed Upload Badge (Shows only after backend confirmation) -->
-                  <div *ngIf="uploadedDocumentRecord" class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
-                    <span class="text-emerald-700 font-extrabold text-sm"></span>
-                    <span>Document uploaded & confirmed by backend (Key: {{ uploadedDocumentRecord.storageKey }})</span>
+                  <!-- Confirmed Upload Badge -->
+                  <div *ngIf="uploadedDocumentRecord" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
+                    <svg class="w-4 h-4 text-[#2D7A5E] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Document uploaded. Our team will review it and update your status.</span>
                   </div>
                 </div>
 

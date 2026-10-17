@@ -5,6 +5,7 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserRole } from '../../../shared/models/user.model';
 import { IsMobileService } from '../../../core/services/is-mobile.service';
+import { GoogleAuthService } from '../../../core/services/google-auth.service';
 import { MobileRegisterComponent } from './mobile-register.component';
 import { finalize, timeout } from 'rxjs';
 
@@ -21,6 +22,14 @@ import { finalize, timeout } from 'rxjs';
         [errorMessage]="errorMessage"
         (setRole)="setRole($event)"
         (registerSubmit)="onSubmit()"
+        [isGoogleLoading]="isGoogleLoading"
+        (googleSignIn)="onGoogleSignIn()"
+        [showProfileSheet]="showProfileCompletionModal"
+        (closeProfileSheet)="showProfileCompletionModal = false"
+        [(profilePhone)]="profilePhone"
+        [profileError]="profileError"
+        [isCompletingProfile]="isCompletingProfile"
+        (completeProfile)="submitProfileCompletion()"
       ></app-mobile-register>
     } @else {
       <div class="min-h-screen bg-[#FAF9F5] flex flex-col justify-between font-sans text-slate-800">
@@ -245,7 +254,7 @@ import { finalize, timeout } from 'rxjs';
                       />
                     </div>
                     <span *ngIf="f['phone'].touched && f['phone'].invalid" class="text-[11px] text-rose-600 font-semibold block">
-                      Valid 10-digit mobile number required.
+                      Valid 10 digit mobile number required.
                     </span>
                   </div>
                 </div>
@@ -331,6 +340,34 @@ import { finalize, timeout } from 'rxjs';
                 </button>
               </form>
 
+              <!-- Or Divider -->
+              <div class="relative my-3.5 flex items-center justify-center">
+                <div class="absolute inset-0 flex items-center">
+                  <div class="w-full border-t border-slate-200"></div>
+                </div>
+                <div class="relative bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  or
+                </div>
+              </div>
+
+              <!-- Official Google Button (Reserved 44px Height) -->
+              <div class="w-full h-[44px] min-h-[44px] flex items-center justify-center">
+                <button
+                  type="button"
+                  (click)="onGoogleSignIn()"
+                  [disabled]="isGoogleLoading"
+                  class="w-full h-[44px] bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-300 rounded-xl text-slate-700 font-bold text-xs flex items-center justify-center gap-2.5 transition-colors shadow-2xs cursor-pointer select-none"
+                >
+                  <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                  </svg>
+                  <span>{{ isGoogleLoading ? 'Connecting to Google...' : 'Continue with Google' }}</span>
+                </button>
+              </div>
+
               <!-- Login Redirect -->
               <div class="text-center pt-2 border-t border-slate-100 text-xs text-slate-500">
                 Already have an account?
@@ -341,6 +378,88 @@ import { finalize, timeout } from 'rxjs';
             </div>
           </div>
         </main>
+
+        <!-- Profile Completion Modal (Role & Phone for New Google Users) -->
+        <div *ngIf="showProfileCompletionModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-4 border border-[#E8E6DF]">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-extrabold text-[#0F2937]">Complete Your Profile</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Welcome, {{ googleProfileData?.name || 'User' }}</p>
+              </div>
+              <button (click)="showProfileCompletionModal = false" class="text-slate-400 hover:text-slate-700 text-lg font-bold cursor-pointer">✕</button>
+            </div>
+
+            <!-- Role Selector -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-slate-700 block">Choose Workspace Role</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  (click)="profileRole = 'TENANT'"
+                  [class]="profileRole === 'TENANT' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
+                  class="py-2.5 px-2 text-xs rounded-xl transition text-center cursor-pointer flex flex-col items-center justify-center gap-1"
+                >
+                  <span>Tenant</span>
+                </button>
+                <button
+                  type="button"
+                  (click)="profileRole = 'OWNER'"
+                  [class]="profileRole === 'OWNER' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
+                  class="py-2.5 px-2 text-xs rounded-xl transition text-center cursor-pointer flex flex-col items-center justify-center gap-1"
+                >
+                  <span>Owner</span>
+                </button>
+                <button
+                  type="button"
+                  (click)="profileRole = 'PROFESSIONAL'"
+                  [class]="profileRole === 'PROFESSIONAL' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
+                  class="py-2.5 px-2 text-xs rounded-xl transition text-center cursor-pointer flex flex-col items-center justify-center gap-1"
+                >
+                  <span>Service Pro</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Phone Input -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-slate-700 block">Mobile Number <span class="text-rose-500">*</span></label>
+              <div class="flex">
+                <span class="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-slate-300 bg-slate-100 text-xs font-bold text-slate-600">
+                  +91
+                </span>
+                <input
+                  type="tel"
+                  [(ngModel)]="profilePhone"
+                  placeholder="10 digit mobile number"
+                  maxlength="10"
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-none rounded-r-xl text-sm text-slate-900 focus:ring-2 focus:ring-[#2D7A5E] font-medium"
+                />
+              </div>
+              <span *ngIf="profileError" class="text-[11px] text-rose-600 font-semibold block">
+                {{ profileError }}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-end space-x-2 pt-2">
+              <button
+                (click)="showProfileCompletionModal = false"
+                type="button"
+                class="px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                (click)="submitProfileCompletion()"
+                [disabled]="isCompletingProfile || !profilePhone"
+                type="button"
+                class="px-5 py-2.5 text-xs font-bold bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white rounded-xl shadow-xs cursor-pointer"
+              >
+                {{ isCompletingProfile ? 'Registering...' : 'Complete Registration →' }}
+              </button>
+            </div>
+          </div>
+        </div>
 
         <!-- Footer -->
         <footer class="py-4 px-6 text-center text-xs text-slate-500 border-t border-[#E8E6DF]">
@@ -364,12 +483,23 @@ export class RegisterComponent implements OnInit {
   errorMessage: string = '';
   showPassword: boolean = false;
 
+  // Google Authentication State
+  isGoogleLoading: boolean = false;
+  showProfileCompletionModal: boolean = false;
+  googleProfileData: any = null;
+  profileRole: UserRole = 'TENANT';
+  profilePhone: string = '';
+  profileError: string = '';
+  isCompletingProfile: boolean = false;
+  pendingIdToken: string = '';
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    public isMobile: IsMobileService
+    public isMobile: IsMobileService,
+    private googleAuthService: GoogleAuthService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -393,6 +523,90 @@ export class RegisterComponent implements OnInit {
         }
       }
     });
+
+    // Dynamically load Google Identity Services client script for web only
+    if (!this.googleAuthService.isNative()) {
+      this.googleAuthService.loadGsiScript().catch(() => {});
+    }
+
+    // Listen for profile completion requirements (role and phone for new Google users)
+    this.googleAuthService.profileRequired$.subscribe((data) => {
+      this.googleProfileData = data;
+      this.pendingIdToken = data.idToken;
+      this.profileRole = (data.suggestedRole || this.selectedRole) as UserRole;
+      this.showProfileCompletionModal = true;
+      this.isGoogleLoading = false;
+    });
+  }
+
+  onGoogleSignIn(): void {
+    if (!this.googleAuthService.isAvailable()) {
+      this.errorMessage = 'Google sign in is currently unavailable.';
+      return;
+    }
+
+    this.isGoogleLoading = true;
+    this.errorMessage = '';
+
+    if (this.googleAuthService.isNative()) {
+      this.googleAuthService
+        .signInNative(this.selectedRole)
+        .then((res) => {
+          this.isGoogleLoading = false;
+          if (!res.success && res.error && !res.cancelled) {
+            this.errorMessage = res.error;
+          }
+        })
+        .catch(() => {
+          this.isGoogleLoading = false;
+          this.errorMessage = 'Unable to complete Google sign in at this time. Please try again or use password login.';
+        });
+      return;
+    }
+
+    this.googleAuthService
+      .initializeGsi((idToken: string) => {
+        this.googleAuthService
+          .submitGoogleToken(idToken, this.selectedRole)
+          .then((res) => {
+            this.isGoogleLoading = false;
+            if (!res.success && res.error) {
+              this.errorMessage = res.error;
+            }
+          });
+      })
+      .then(() => {
+        this.googleAuthService.prompt();
+      })
+      .catch(() => {
+        this.isGoogleLoading = false;
+        this.errorMessage = 'Unable to launch Google sign in. Please verify your internet connection.';
+      });
+  }
+
+  submitProfileCompletion(): void {
+    this.profileError = '';
+    const cleanPhone = this.profilePhone.replace(/\D/g, '');
+    if (cleanPhone.length !== 10) {
+      this.profileError = 'Please enter a valid 10 digit mobile number.';
+      return;
+    }
+
+    this.isCompletingProfile = true;
+    this.googleAuthService
+      .submitGoogleToken(this.pendingIdToken, this.profileRole, cleanPhone)
+      .then((res) => {
+        this.isCompletingProfile = false;
+        if (res.success && !res.needsProfile) {
+          this.showProfileCompletionModal = false;
+        } else if (res.error) {
+          this.profileError = res.error;
+        }
+      })
+      .catch(() => {
+        this.isCompletingProfile = false;
+        this.profileError = 'Failed to complete profile. Please try again.';
+      });
   }
 
   get f() {
@@ -471,9 +685,9 @@ export class RegisterComponent implements OnInit {
         },
         error: (err: any) => {
           if (err.name === 'TimeoutError') {
-            this.errorMessage = 'Connection timeout. Please verify backend server is reachable and retry.';
+            this.errorMessage = 'Connection timeout. Please check your internet connection and retry.';
           } else if (err.status === 0) {
-            this.errorMessage = 'Network connection error or server unreachable. Please check your internet connection.';
+            this.errorMessage = 'Network connection error. Please check your internet connection and retry.';
           } else {
             this.errorMessage = err?.error?.message || 'Registration failed. An account with this email or phone may already exist.';
           }

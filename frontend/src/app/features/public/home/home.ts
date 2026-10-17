@@ -19,11 +19,11 @@ import { HealthCheckStatus } from '../../../core/models/api-response.model';
         <h2 style="font-size: 1.25rem; margin-top: 0; color: #334155;">API & MongoDB Connectivity Verification</h2>
 
         @if (loading()) {
-          <p style="color: #6366f1;">Connecting to Express backend API (/api/v1/health)...</p>
+          <p style="color: #6366f1;">Checking service health...</p>
         } @else if (healthStatus()) {
           <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
             <p style="margin: 0; color: #166534; font-weight: 600;">
-               Backend Communication Successful
+              Platform Services Operational
             </p>
             <p style="margin: 0.5rem 0 0; color: #15803d; font-size: 0.95rem;">
               Response Message: {{ healthStatus()?.message }}
@@ -32,10 +32,7 @@ import { HealthCheckStatus } from '../../../core/models/api-response.model';
               Environment: {{ healthStatus()?.environment }} | Uptime: {{ healthStatus()?.uptime }}s
             </p>
             <p style="margin: 0.25rem 0 0; color: #15803d; font-size: 0.95rem;">
-              MongoDB Status: <strong>{{ healthStatus()?.mongodb?.status }}</strong>
-              @if (healthStatus()?.mongodb?.name) {
-                ({{ healthStatus()?.mongodb?.host }}/{{ healthStatus()?.mongodb?.name }})
-              }
+              MongoDB Status: <strong>{{ healthStatus()?.mongodb?.connected ? 'Connected' : 'Disconnected' }}</strong>
             </p>
           </div>
         } @else if (errorMessage()) {
