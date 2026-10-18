@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { finalize, timeout } from 'rxjs';
 import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-verify-email',
@@ -421,14 +422,17 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
           }, 600);
         },
         error: (err: any) => {
-          if (err.name === 'TimeoutError') {
-            this.errorMessage = 'Verification timed out. Please check your connection and retry.';
+          if (!environment.production) {
+            console.error('[Verify Email Technical Error]:', err);
+          }
+          if (err.name === 'TimeoutError' || err.status === 0) {
+            this.errorMessage = 'Unable to connect to server. Please check your internet connection and retry.';
             return;
           }
 
           const status = err?.status;
           const errorBody = err?.error;
-          const msg = errorBody?.message || 'Invalid verification code. Please try again.';
+          const msg = errorBody?.message || '';
 
           if (errorBody?.remainingAttempts !== undefined) {
             this.remainingAttempts = errorBody.remainingAttempts;
@@ -436,19 +440,39 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
 
           if (status === 401 && (msg.includes('Too many') || errorBody?.remainingAttempts === 0)) {
             this.isLockedOut = true;
-            this.errorMessage = 'Too many failed attempts. In accordance with security protocols, please sign in again.';
+            this.errorMessage = 'Too many failed verification attempts. For your security, please sign in again.';
             setTimeout(() => {
               this.onBackToLogin();
             }, 2500);
             return;
           }
 
-          if (status === 400 && msg.includes('expired')) {
+          if (status === 400 && (msg.includes('expired') || errorBody?.code === 'EXPIRED_CODE')) {
             this.errorMessage = 'Verification code has expired. Please request a new code.';
             return;
           }
 
-          this.errorMessage = msg;
+          if (status === 401 || errorBody?.code === 'INVALID_CODE' || errorBody?.code === 'VERIFICATION_FAILED') {
+            if (this.remainingAttempts !== null && this.remainingAttempts !== undefined) {
+              this.errorMessage = `Incorrect verification code. ${this.remainingAttempts} attempt${this.remainingAttempts === 1 ? '' : 's'} remaining.`;
+            } else {
+              this.errorMessage = msg || 'Incorrect verification code. Please check your code and try again.';
+            }
+            this.clearOtpInputs();
+            return;
+          }
+
+          if (status === 429) {
+            this.errorMessage = 'Too many attempts. Please wait a few moments before trying again.';
+            return;
+          }
+
+          if (status >= 500) {
+            this.errorMessage = 'Verification server is temporarily unavailable. Please try again shortly.';
+            return;
+          }
+
+          this.errorMessage = msg || 'Invalid verification code. Please try again.';
           this.clearOtpInputs();
         },
       });

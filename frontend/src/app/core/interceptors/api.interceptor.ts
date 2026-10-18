@@ -37,6 +37,12 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
       if (err instanceof HttpErrorResponse && err.status === 401) {
         const isAuthEndpoint =
           req.url.includes('/auth/login') ||
+          req.url.includes('/auth/verify-login-otp') ||
+          req.url.includes('/auth/resend-login-otp') ||
+          req.url.includes('/auth/google') ||
+          req.url.includes('/auth/otp/send') ||
+          req.url.includes('/auth/otp/verify') ||
+          req.url.includes('/auth/register') ||
           req.url.includes('/auth/refresh') ||
           req.url.includes('/auth/logout');
 

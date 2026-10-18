@@ -32,23 +32,32 @@ export const config = {
 // Environment validation
 export const validateEnv = (): void => {
   if (!config.mongodbUri) {
-    console.error('FATAL CONFIG ERROR: MONGODB_URI environment variable is not defined.');
-    console.error('Please create a .env file with MONGODB_URI set.');
-    // Fail clearly as specified in requirements
+    console.error('FATAL CONFIG ERROR: Missing required environment variable: MONGODB_URI');
     process.exit(1);
   }
 
-  // In production, the backend must strictly refuse to start if any required secret is missing
+  // In production, the backend must strictly refuse to start ONLY if truly required authentication secrets are missing
   if (config.nodeEnv === 'production') {
     const missing: string[] = [];
     if (!config.jwtAccessSecret) missing.push('JWT_ACCESS_SECRET');
     if (!config.jwtRefreshSecret) missing.push('JWT_REFRESH_SECRET');
-    if (!config.otpHmacSecret) missing.push('OTP_HMAC_SECRET');
 
     if (missing.length > 0) {
-      console.error(`FATAL SECURITY ERROR: Missing required production secret(s): ${missing.join(', ')}`);
-      console.error('The backend refuses to start in production mode without explicit environment secrets.');
+      console.error(`FATAL CONFIG ERROR: Missing required production environment variable(s): ${missing.join(', ')}`);
+      console.error('The backend refuses to start in production mode without explicit authentication secrets.');
       process.exit(1);
+    }
+
+    if (!config.otpHmacSecret) {
+      console.warn('[Startup Notice] OTP_HMAC_SECRET is not configured; using JWT_ACCESS_SECRET for OTP keyed HMAC operations.');
+    }
+
+    if (!config.googleWebClientId) {
+      console.warn('[Startup Notice] GOOGLE_WEB_CLIENT_ID is not configured; Google sign-in endpoint will return 503 SERVICE_UNAVAILABLE.');
+    }
+
+    if (!config.smtpPass || !config.smtpUser) {
+      console.warn('[Startup Notice] SMTP_USER or SMTP_PASS is not configured; email dispatch will return 503 SERVICE_UNAVAILABLE.');
     }
   }
 };

@@ -72,10 +72,12 @@ export class OtpService {
   private static getOtpHmacSecret(): string {
     const secret = config.otpHmacSecret || config.jwtAccessSecret;
     if (!secret) {
-      if (config.nodeEnv === 'production') {
-        throw new Error('FATAL SECURITY ERROR: Missing required OTP secret. OTP_HMAC_SECRET or JWT_ACCESS_SECRET must be configured.');
-      }
-      throw new Error('Missing OTP secret. Please set OTP_HMAC_SECRET or JWT_ACCESS_SECRET in your .env file.');
+      console.error('[OtpService] Missing OTP secret: OTP_HMAC_SECRET or JWT_ACCESS_SECRET must be configured.');
+      throw {
+        statusCode: 503,
+        code: 'SERVICE_UNAVAILABLE',
+        message: 'OTP authentication service is temporarily unavailable due to missing security configuration.',
+      };
     }
     return secret;
   }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '../services/auth.service';
+import { GoogleAuthService } from '../services/google-auth.service';
 import { EmailService } from '../services/email.service';
 import { ApiResponseUtil } from '../utils/api-response.util';
 import { AuthenticatedRequest } from '../middleware/auth.middleware';
@@ -38,7 +39,7 @@ export class AuthController {
         return;
       }
 
-      const result = await AuthService.loginWithGoogle({
+      const result = await GoogleAuthService.loginWithGoogle({
         idToken: idToken.trim(),
         role,
         phone,

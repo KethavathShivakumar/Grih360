@@ -29,6 +29,9 @@ export interface HealthCheckResponse {
   mongodb: {
     connected: boolean;
   };
+  database: string;
+  secrets: string;
+  email: string;
   envStatus?: {
     hasJwtAccessSecret: boolean;
     hasJwtRefreshSecret: boolean;

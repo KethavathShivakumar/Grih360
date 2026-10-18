@@ -5,6 +5,15 @@ import { HealthCheckResponse } from '../types';
 export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
   const mongoState = getMongoStatus();
 
+  const hasJwtAccess = Boolean(config.jwtAccessSecret || process.env.JWT_ACCESS_SECRET);
+  const hasJwtRefresh = Boolean(config.jwtRefreshSecret || process.env.JWT_REFRESH_SECRET);
+  const hasOtpSecret = Boolean(config.otpHmacSecret || process.env.OTP_HMAC_SECRET);
+  const hasSecrets = hasJwtAccess && hasJwtRefresh && hasOtpSecret;
+
+  const hasSmtpUser = Boolean(config.smtpUser || process.env.SMTP_USER);
+  const hasSmtpPass = Boolean(config.smtpPass || process.env.SMTP_PASS);
+  const hasEmail = hasSmtpUser && hasSmtpPass;
+
   const response: HealthCheckResponse = {
     success: true,
     message: 'Grih360 API is running',
@@ -14,6 +23,9 @@ export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
     mongodb: {
       connected: mongoState === 'connected',
     },
+    database: mongoState === 'connected' ? 'ok' : 'disconnected',
+    secrets: hasSecrets ? 'ok' : 'incomplete',
+    email: hasEmail ? 'ok' : 'incomplete',
   };
 
   if (isAdmin) {

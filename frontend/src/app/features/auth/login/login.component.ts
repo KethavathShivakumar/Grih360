@@ -7,6 +7,7 @@ import { IsMobileService } from '../../../core/services/is-mobile.service';
 import { GoogleAuthService } from '../../../core/services/google-auth.service';
 import { MobileLoginComponent } from './mobile-login.component';
 import { finalize, timeout } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -582,12 +583,23 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err: any) => {
-          if (err.name === 'TimeoutError') {
-            this.errorMessage = 'Connection timeout. Please check your internet connection and retry.';
-          } else if (err.status === 0) {
-            this.errorMessage = 'Network connection error. Please check your internet connection and retry.';
+          if (!environment.production) {
+            console.error('[Login Technical Error]:', err);
+          }
+          if (err.name === 'TimeoutError' || err.status === 0) {
+            this.errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+          } else if (err.status === 401) {
+            this.errorMessage = err?.error?.message || 'Invalid email or password. Please try again.';
+          } else if (err.status === 403) {
+            this.errorMessage = err?.error?.message || 'Your account has been deactivated or suspended.';
+          } else if (err.status === 404) {
+            this.errorMessage = 'No registered account found with this email or mobile number.';
+          } else if (err.status === 429) {
+            this.errorMessage = 'Too many sign-in attempts. Please wait a few minutes and try again.';
+          } else if (err.status === 503) {
+            this.errorMessage = err?.error?.message || 'Authentication service is temporarily unavailable. Please try again shortly.';
           } else {
-            this.errorMessage = err?.error?.message || 'Invalid email/phone or password. Please try again.';
+            this.errorMessage = 'A server error occurred. Please try again in a few moments.';
           }
         },
       });

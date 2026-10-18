@@ -177,6 +177,9 @@ export class GoogleAuthService {
 
       return await this.submitGoogleToken(idToken, role);
     } catch (err: any) {
+      if (!environment.production) {
+        console.error('[Google Native Sign-In Technical Error]:', err);
+      }
       return this.parseNativeGoogleError(err);
     }
   }
@@ -322,7 +325,22 @@ export class GoogleAuthService {
 
       return { success: false, error: res?.message || 'Authentication failed' };
     } catch (err: any) {
-      const msg = err?.error?.message || err?.message || 'Google authentication failed';
+      if (!environment.production) {
+        console.error('[Google Auth Technical Error]:', err);
+      }
+      if (err.name === 'TimeoutError' || err.status === 0) {
+        return { success: false, error: 'Unable to connect to the server. Please check your internet connection.' };
+      }
+      if (err.status === 503) {
+        return { success: false, error: 'Google sign-in is currently unavailable on this server. Please use password login.' };
+      }
+      if (err.status === 403) {
+        return { success: false, error: err?.error?.message || 'Administrative accounts cannot sign in using Google.' };
+      }
+      if (err.status === 401) {
+        return { success: false, error: 'Google authentication token expired or could not be verified. Please try again.' };
+      }
+      const msg = err?.error?.message || 'Google sign-in could not be completed at this time.';
       return { success: false, error: msg };
     }
   }

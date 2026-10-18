@@ -168,9 +168,16 @@ async function runTests() {
     // STEP 10: Complete Verification with Correct OTP
     // To obtain the exact code for testing without actual inbox retrieval, we can inspect test storage or test with known code
     let validOtpCode = '';
+    const mongoose = require('mongoose');
+    const { OtpModel } = require('../models/otp.model');
     const { PersistentStore } = require('../config/persistent-store');
-    const otps = PersistentStore.loadCollection('otps');
-    const activeRecord = otps.filter((o: any) => o.email === testEmail && !o.isUsed).slice(-1)[0];
+    let activeRecord: any = null;
+    if (mongoose.connection.readyState === 1) {
+      activeRecord = await OtpModel.findOne({ email: testEmail, isUsed: false }).sort({ createdAt: -1 }).select('+otpHash');
+    } else {
+      const otps = PersistentStore.loadCollection('otps');
+      activeRecord = otps.filter((o: any) => o.email === testEmail && !o.isUsed).slice(-1)[0];
+    }
 
     // Compute or test with generated code
     if (activeRecord) {

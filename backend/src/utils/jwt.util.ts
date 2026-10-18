@@ -11,6 +11,14 @@ export interface JwtPayload {
 
 export class JwtUtil {
   static generateTokens(payload: JwtPayload): AuthTokens {
+    if (!config.jwtAccessSecret || !config.jwtRefreshSecret) {
+      console.error('[JwtUtil] Cannot generate tokens: JWT_ACCESS_SECRET or JWT_REFRESH_SECRET is not configured');
+      throw {
+        statusCode: 503,
+        code: 'SERVICE_UNAVAILABLE',
+        message: 'Authentication service is temporarily unavailable due to missing token signing secrets.',
+      };
+    }
     const accessToken = jwt.sign(payload, config.jwtAccessSecret, {
       expiresIn: '15m',
     });

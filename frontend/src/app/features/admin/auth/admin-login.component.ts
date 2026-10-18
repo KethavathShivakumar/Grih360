@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-login',
@@ -151,7 +152,22 @@ export class AdminLoginComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error?.message || 'Invalid administrator credentials.';
+        if (!environment.production) {
+          console.error('[Admin Login Technical Error]:', err);
+        }
+        if (err.name === 'TimeoutError' || err.status === 0) {
+          this.errorMessage = 'Unable to connect to server. Please check your internet connection.';
+        } else if (err.status === 401) {
+          this.errorMessage = err.error?.message || 'Invalid administrator credentials.';
+        } else if (err.status === 403) {
+          this.errorMessage = err.error?.message || 'Access Denied: Administrative account suspended or forbidden.';
+        } else if (err.status === 429) {
+          this.errorMessage = 'Too many attempts. Please wait a few minutes before trying again.';
+        } else if (err.status >= 500) {
+          this.errorMessage = 'Authentication service is temporarily unavailable. Please try again shortly.';
+        } else {
+          this.errorMessage = 'A server error occurred. Please try again later.';
+        }
       },
     });
   }

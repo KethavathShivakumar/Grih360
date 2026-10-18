@@ -53,10 +53,12 @@ export const errorHandler = (
   }
 
   const isProd = config.nodeEnv === 'production';
-  const finalMessage = isProd && statusCode === 500 ? 'An unexpected error occurred. Please try again later.' : message;
+  const finalMessage = isProd && statusCode === 500 && code === 'INTERNAL_ERROR'
+    ? 'An unexpected server error occurred. Please try again later.'
+    : message;
   const stackDetails = !isProd && err.stack ? err.stack : undefined;
 
-  console.error(`[Error] ${req.method} ${req.originalUrl} (${statusCode}):`, message);
+  console.error(`[Error] ${req.method} ${req.originalUrl} (${statusCode} ${code}):`, message);
 
   ApiResponseUtil.error(res, finalMessage, statusCode, code, stackDetails);
 };
