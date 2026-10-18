@@ -187,15 +187,18 @@ export class AuthService {
       }).select('+passwordHash');
 
       if (!user || !user.passwordHash) {
+        console.warn(`[Auth Security] Login rejected: Account not found or missing password hash for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
       if (!user.isActive) {
+        console.warn(`[Auth Security] Login rejected: Account is inactive or suspended for identifier [${identifierNormalized}]`);
         throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
       }
 
       const isPasswordValid = await PasswordUtil.comparePassword(input.password, user.passwordHash);
       if (!isPasswordValid) {
+        console.warn(`[Auth Security] Login rejected: Password verification mismatch for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
@@ -243,15 +246,18 @@ export class AuthService {
       }
 
       if (!user) {
+        console.warn(`[Auth Security] In-memory login rejected: Account not found for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
       if (!user.isActive) {
+        console.warn(`[Auth Security] In-memory login rejected: Account is inactive or suspended for identifier [${identifierNormalized}]`);
         throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
       }
 
       const isPasswordValid = await PasswordUtil.comparePassword(input.password, user.passwordHash);
       if (!isPasswordValid) {
+        console.warn(`[Auth Security] In-memory login rejected: Password verification mismatch for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
