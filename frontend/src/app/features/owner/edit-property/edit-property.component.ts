@@ -22,7 +22,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Edit Property Listing</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Edit Property Listing</h1>
           <p class="text-xs text-slate-500">Update specifications, monthly rent, location, and images for {{ title || 'this property' }}</p>
         </div>
         <button
@@ -52,7 +52,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <form *ngIf="!isLoading && !isError && property" (ngSubmit)="onUpdateProperty()" class="space-y-6">
         <!-- Section 1: Basic Specifications -->
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
-          <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">1. Basic Property Information</h2>
+          <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">1. Basic Property Information</h2>
 
           <div class="space-y-1">
             <label class="text-xs font-bold text-slate-700">Property Title *</label>
@@ -169,7 +169,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Section 2: Location -->
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
-          <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">2. Property Location</h2>
+          <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">2. Property Location</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="space-y-1">
               <label class="text-xs font-bold text-slate-700">Address *</label>
@@ -230,7 +230,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Section 3: Image Management -->
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
           <div class="flex items-center justify-between">
-            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">3. Manage Photos</h2>
+            <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">3. Manage Photos</h2>
             <label class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md text-xs font-bold cursor-pointer transition-colors">
               + Upload Photos / Camera
               <input

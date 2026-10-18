@@ -45,9 +45,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Applicant Details Content -->
       <div *ngIf="!isLoading && !isError && application" class="space-y-6">
         <!-- Applicant Header Card -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 rounded-2xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-extrabold text-2xl shrink-0 shadow-md">
+            <div class="w-16 h-16 rounded-2xl bg-navy text-n-0 flex items-center justify-center font-semibold text-2xl shrink-0 shadow-md">
               {{ applicantInitial }}
             </div>
             <div>
@@ -55,7 +55,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 <app-status-badge [status]="application.status"></app-status-badge>
                 <span class="text-xs text-slate-500 font-semibold">Applied for {{ propertyTitle }}</span>
               </div>
-              <h1 class="text-xl font-extrabold text-[#0F2937] mt-1">{{ applicantName }}</h1>
+              <h1 class="text-xl font-semibold text-[#0F2937] mt-1">{{ applicantName }}</h1>
               <p class="text-xs text-slate-500 mt-0.5">Submitted on {{ getAppDate() | date: 'longDate' }}</p>
             </div>
           </div>
@@ -114,40 +114,40 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Timeline Stepper (Synchronized with Backend) -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-3">
-          <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Application Lifecycle & Verification Timeline</h2>
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-3">
+          <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Application Lifecycle & Verification Timeline</h2>
           <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2">
             <!-- Step 1: Submitted -->
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
-              <span class="text-[10px] font-extrabold text-emerald-800 uppercase block">1. Submission</span>
+              <span class="text-[10px] font-semibold text-emerald-800 uppercase block">1. Submission</span>
               <span class="text-xs font-bold text-slate-900 block">Submitted</span>
               <span class="text-[11px] text-emerald-700 font-semibold"> Completed</span>
             </div>
 
             <!-- Step 2: Under Review -->
             <div [class]="getTimelineStepClass('UNDER_REVIEW')" class="p-3 border rounded-2xl space-y-1">
-              <span class="text-[10px] font-extrabold uppercase block">2. Screening</span>
+              <span class="text-[10px] font-semibold uppercase block">2. Screening</span>
               <span class="text-xs font-bold block">Owner Review</span>
               <span class="text-[11px] block font-semibold">{{ getTimelineStepLabel('UNDER_REVIEW') }}</span>
             </div>
 
             <!-- Step 3: Verification -->
             <div [class]="getTimelineStepClass('VERIFICATION_REQUIRED')" class="p-3 border rounded-2xl space-y-1">
-              <span class="text-[10px] font-extrabold uppercase block">3. Verification</span>
+              <span class="text-[10px] font-semibold uppercase block">3. Verification</span>
               <span class="text-xs font-bold block">Background Checks</span>
               <span class="text-[11px] block font-semibold">{{ getTimelineStepLabel('VERIFICATION_REQUIRED') }}</span>
             </div>
 
             <!-- Step 4: Decision -->
             <div [class]="getTimelineStepClass('APPROVED')" class="p-3 border rounded-2xl space-y-1">
-              <span class="text-[10px] font-extrabold uppercase block">4. Decision</span>
+              <span class="text-[10px] font-semibold uppercase block">4. Decision</span>
               <span class="text-xs font-bold block">{{ isRejected ? 'Rejected' : 'Approved' }}</span>
               <span class="text-[11px] block font-semibold">{{ getDecisionLabel() }}</span>
             </div>
 
             <!-- Step 5: Agreement -->
             <div [class]="getTimelineStepClass('AGREEMENT')" class="p-3 border rounded-2xl space-y-1">
-              <span class="text-[10px] font-extrabold uppercase block">5. Tenancy</span>
+              <span class="text-[10px] font-semibold uppercase block">5. Tenancy</span>
               <span class="text-xs font-bold block">Lease Agreement</span>
               <span class="text-[11px] block font-semibold">{{ isApproved ? 'Active Lease' : 'Pending Approval' }}</span>
             </div>
@@ -157,8 +157,8 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Property & Proposed Terms Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Property Summary -->
-          <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-3">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Target Listing</h2>
+          <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-3">
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Target Listing</h2>
             <div class="flex items-center space-x-3.5">
               <div class="w-16 h-16 bg-slate-100 rounded-xl overflow-hidden shrink-0 border border-slate-200">
                 <img [src]="propertyImage" [alt]="propertyTitle" class="w-full h-full object-cover" />
@@ -174,12 +174,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </div>
 
           <!-- Applicant Proposed Terms -->
-          <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-3">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Proposed Tenancy Terms</h2>
+          <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-3">
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Proposed Tenancy Terms</h2>
             <div class="grid grid-cols-2 gap-3">
               <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
                 <span class="text-[11px] text-slate-400 font-bold block">Offered Rent</span>
-                <span class="text-base font-extrabold text-[#0F2937] mt-0.5 block">{{ formatRent(application.proposedRent) }}</span>
+                <span class="text-base font-semibold text-[#0F2937] mt-0.5 block">{{ formatRent(application.proposedRent) }}</span>
               </div>
               <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
                 <span class="text-[11px] text-slate-400 font-bold block">Move-In Date</span>
@@ -190,15 +190,15 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Applicant Verification & Contact Dossier -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Applicant Dossier & Verification</h2>
+              <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Applicant Dossier & Verification</h2>
               <p class="text-xs text-slate-500 mt-0.5">Model Tenancy Act compliance assessment</p>
             </div>
             <span
               [class]="verificationBadgeClass"
-              class="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider"
+              class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider"
             >
               {{ verificationStatusText }}
             </span>
@@ -206,7 +206,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Required Verification Steps Status (Owner View) -->
           <div class="space-y-2 bg-slate-50/60 p-3.5 rounded-2xl border border-slate-100">
-            <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block">Verification Steps Status</span>
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">Verification Steps Status</span>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
               <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 space-y-1">
                 <span class="text-slate-400 font-semibold text-[10px] block">1. Government Identity</span>

@@ -25,12 +25,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Header -->
       <div *ngIf="pro" class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center space-x-4">
-          <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-[#2D7A5E] flex items-center justify-center font-black text-xl">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-[#2D7A5E] flex items-center justify-center font-semibold text-xl">
             {{ (pro.businessName || pro.user?.name || 'P')[0] }}
           </div>
           <div>
             <div class="flex items-center space-x-2 mb-0.5">
-              <h1 class="text-2xl font-black text-[#0F2937]">{{ pro.businessName || pro.user?.name || 'Professional' }}</h1>
+              <h1 class="text-2xl font-semibold text-[#0F2937]">{{ pro.businessName || pro.user?.name || 'Professional' }}</h1>
               <span
                 [ngClass]="{
                   'bg-emerald-100 text-emerald-800': pro.verificationStatus === 'VERIFIED',
@@ -92,7 +92,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Business Profile -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Business Profile</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Business Profile</h3>
           <div class="space-y-3 text-xs">
             <div>
               <span class="text-slate-400 block text-[10px] uppercase font-bold mb-1">Business Name</span>
@@ -133,7 +133,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Service Categories & Areas -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Services & Coverage</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Services & Coverage</h3>
           <div class="space-y-4 text-xs">
             <div>
               <span class="text-[10px] font-bold text-slate-400 uppercase block mb-2">Service Categories</span>
@@ -185,10 +185,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Linked User Account -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Linked User Account</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Linked User Account</h3>
           <div class="space-y-3 text-xs">
             <div *ngIf="pro.user || pro.userId" class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <div class="w-10 h-10 rounded-full bg-[#0F2937] text-white font-black flex items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-[#0F2937] text-white font-semibold flex items-center justify-center">
                 {{ (pro.user?.name || pro.userId?.name || 'P')[0] }}
               </div>
               <div class="min-w-0 flex-1">

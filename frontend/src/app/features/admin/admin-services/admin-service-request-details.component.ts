@@ -41,7 +41,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               {{ request.status }}
             </span>
           </div>
-          <h1 class="text-2xl font-black text-[#0F2937]">Service Request #{{ (request._id || request.id || '').slice(-6).toUpperCase() }}</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Service Request #{{ (request._id || request.id || '').slice(-6).toUpperCase() }}</h1>
           <p class="text-xs text-slate-500 mt-0.5">Submitted: {{ request.createdAt | date:'medium' }}</p>
         </div>
 
@@ -60,7 +60,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Request Details -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Request Details</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Request Details</h3>
           <div class="space-y-3 text-xs">
             <div class="flex justify-between py-1 border-b border-slate-100">
               <span class="text-slate-400">Category:</span>
@@ -91,10 +91,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Requester -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Requester</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Requester</h3>
           <div class="space-y-3 text-xs">
             <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-xl border border-blue-200">
-              <div class="w-10 h-10 rounded-full bg-blue-200 text-blue-800 font-black flex items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-blue-200 text-blue-800 font-semibold flex items-center justify-center">
                 {{ (request.requester?.name || request.requesterId?.name || 'T')[0] }}
               </div>
               <div class="min-w-0 flex-1">
@@ -115,12 +115,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Assigned Professional & Reassignment -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Assigned Professional</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Assigned Professional</h3>
           <div class="space-y-3 text-xs">
 
             <!-- Current Assignment -->
             <div *ngIf="request.professional || request.professionalId" class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-800 font-black flex items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-800 font-semibold flex items-center justify-center">
                 {{ (request.professional?.businessName || request.professional?.user?.name || request.professionalId?.businessName || 'P')[0] }}
               </div>
               <div class="min-w-0 flex-1">

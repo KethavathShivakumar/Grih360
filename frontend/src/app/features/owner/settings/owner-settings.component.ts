@@ -24,7 +24,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
       <!-- Header Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Owner Workspace Settings</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Owner Workspace Settings</h1>
           <p class="text-xs text-slate-500">Configure automated rent payouts, digital lease defaults, alert channels, and account security.</p>
         </div>
 
@@ -44,11 +44,11 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
       </div>
 
       <!-- Feedback Banners -->
-      <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
+      <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-between shadow-2xs">
         <span> {{ successMessage }}</span>
         <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
-      <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
+      <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs font-bold flex items-center justify-between shadow-2xs">
         <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
         <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
@@ -68,9 +68,9 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
       <div *ngIf="!isLoading && !isError" class="space-y-6">
 
         <!-- TAB 1: PAYOUTS & BANKING -->
-        <div *ngIf="activeTab === 'payouts'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+        <div *ngIf="activeTab === 'payouts'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Rent Collection & Bank Account Payouts</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Rent Collection & Bank Account Payouts</h2>
             <p class="text-xs text-slate-500 mt-0.5">Automated direct-to-bank monthly rent disbursements processed via RBI-compliant payment gateways.</p>
           </div>
 
@@ -140,9 +140,9 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
         </div>
 
         <!-- TAB 2: LEASE & TENANCY DEFAULTS -->
-        <div *ngIf="activeTab === 'lease'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+        <div *ngIf="activeTab === 'lease'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Lease Agreement Defaults & Compliance</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Lease Agreement Defaults & Compliance</h2>
             <p class="text-xs text-slate-500 mt-0.5">Pre-fill standard clauses for all new property listings and tenant applications.</p>
           </div>
 
@@ -227,14 +227,14 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
         </div>
 
         <!-- TAB 3: NOTIFICATION CHANNELS -->
-        <div *ngIf="activeTab === 'notifications'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+        <div *ngIf="activeTab === 'notifications'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Notification & Alert Preferences</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Notification & Alert Preferences</h2>
             <p class="text-xs text-slate-500 mt-0.5">Control how and when you receive real-time updates regarding tenant applications and rent payments.</p>
           </div>
 
           <div class="space-y-4">
-            <label class="flex items-start justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200 cursor-pointer">
+            <label class="flex items-start justify-between p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
               <div class="space-y-0.5 pr-4">
                 <span class="text-xs font-bold text-slate-900 block">Email Notifications</span>
                 <span class="text-[11px] text-slate-500 block">Receive instant emails via Gmail SMTP when new tenant applications are submitted or leases signed.</span>
@@ -242,7 +242,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
               <input type="checkbox" [(ngModel)]="notificationPrefs.email" class="w-4 h-4 text-[#2D7A5E] rounded accent-[#2D7A5E] mt-1" />
             </label>
 
-            <label class="flex items-start justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200 cursor-pointer">
+            <label class="flex items-start justify-between p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
               <div class="space-y-0.5 pr-4">
                 <span class="text-xs font-bold text-slate-900 block">SMS Alerts</span>
                 <span class="text-[11px] text-slate-500 block">Direct SMS messages sent to your registered mobile number for rent payments and OTP alerts.</span>
@@ -250,7 +250,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
               <input type="checkbox" [(ngModel)]="notificationPrefs.sms" class="w-4 h-4 text-[#2D7A5E] rounded accent-[#2D7A5E] mt-1" />
             </label>
 
-            <label class="flex items-start justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200 cursor-pointer">
+            <label class="flex items-start justify-between p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
               <div class="space-y-0.5 pr-4">
                 <span class="text-xs font-bold text-slate-900 block">WhatsApp Tenancy Alerts</span>
                 <span class="text-[11px] text-slate-500 block">Automated WhatsApp receipt dispatch upon successful online rent settlement.</span>
@@ -272,18 +272,18 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
         </div>
 
         <!-- TAB 4: SECURITY & MFA -->
-        <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+        <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Account Security & Two-Step Verification</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Account Security & Two-Step Verification</h2>
             <p class="text-xs text-slate-500 mt-0.5">Manage your credentials, change password, and verify two-step authentication status.</p>
           </div>
 
           <!-- Two-Step Verification Status Box -->
-          <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between">
+          <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
             <div class="space-y-0.5">
               <div class="flex items-center gap-2">
-                <span class="text-xs font-black text-emerald-900"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Two-Step Verification: Active</span>
-                <span class="px-2 py-0.5 bg-emerald-200 text-emerald-800 text-[10px] font-black rounded-md uppercase">Enforced</span>
+                <span class="text-xs font-semibold text-emerald-900"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Two-Step Verification: Active</span>
+                <span class="px-2 py-0.5 bg-emerald-200 text-emerald-800 text-[10px] font-semibold rounded-md uppercase">Enforced</span>
               </div>
               <p class="text-[11px] text-emerald-800 font-medium">
                 Logins require password validation followed by a secure 6-digit one-time PIN dispatched to your email address via Gmail SMTP.
@@ -294,7 +294,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
           <!-- Change Password Form -->
           <div class="space-y-4 pt-2">
-            <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Change Password</h3>
+            <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider">Change Password</h3>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="space-y-1">

@@ -44,7 +44,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- Search & Filters Control Bar -->
-      <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
         <div class="flex flex-col md:flex-row items-center gap-3">
           <!-- Keyword / Locality Search Input -->
           <div class="relative flex-1 w-full">
@@ -102,7 +102,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <button
             (click)="applyFilters()"
             type="button"
-            class="w-full md:w-auto px-6 py-2.5 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-extrabold text-xs rounded-2xl shadow-sm transition-all cursor-pointer shrink-0"
+            class="w-full md:w-auto px-6 py-2.5 bg-navy hover:opacity-90 text-n-0 font-semibold text-xs rounded-2xl shadow-sm transition-all cursor-pointer shrink-0"
           >
             Search
           </button>
@@ -112,7 +112,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
           <!-- BHK Filter Chips -->
           <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="text-[10px] font-black uppercase text-slate-400 mr-1">Bedrooms:</span>
+            <span class="text-[10px] font-semibold uppercase text-slate-400 mr-1">Bedrooms:</span>
             <button
               *ngFor="let bhk of [1, 2, 3, 4]"
               (click)="toggleBhk(bhk)"
@@ -134,7 +134,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Furnishing Chips -->
           <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="text-[10px] font-black uppercase text-slate-400 mr-1">Furnishing:</span>
+            <span class="text-[10px] font-semibold uppercase text-slate-400 mr-1">Furnishing:</span>
             <button
               *ngFor="let furn of furnishingOptions"
               (click)="toggleFurnishing(furn.value)"
@@ -148,7 +148,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Sort Dropdown -->
           <div class="flex items-center gap-2">
-            <span class="text-[10px] font-black uppercase text-slate-400">Sort By:</span>
+            <span class="text-[10px] font-semibold uppercase text-slate-400">Sort By:</span>
             <select
               [(ngModel)]="sortBy"
               (ngModelChange)="sortResults()"
@@ -165,7 +165,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Result Count & Clear Filters -->
       <div class="flex items-center justify-between px-1">
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-black text-xs rounded-full">
+          <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-semibold text-xs rounded-full">
             {{ filteredProperties.length }} Homes Found
           </span>
           <span *ngIf="activeFiltersCount > 0" class="text-xs text-slate-400">

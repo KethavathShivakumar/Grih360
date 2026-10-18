@@ -15,7 +15,7 @@ import { CustomerCareComponent } from '../customer-care/customer-care.component'
             <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div>
-            <h3 class="text-lg font-black text-[#0F2937]">STITCH DESIGN REQUIRED</h3>
+            <h3 class="text-lg font-semibold text-[#0F2937]">STITCH DESIGN REQUIRED</h3>
             <p class="text-xs text-[#64748B] font-medium">
               UI implementation paused per rule: <strong class="text-[#0F2937]">NEVER INVENT A FINAL GRIH360 UI</strong>. Backend services are active.
             </p>

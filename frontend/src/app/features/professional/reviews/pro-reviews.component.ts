@@ -28,7 +28,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
             <span>/</span>
             <span class="text-[#0F2937]">Client Reviews</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Customer Reviews & Ratings</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Customer Reviews & Ratings</h1>
           <p class="text-xs text-slate-500">Verified feedback and star ratings submitted by customers after completed jobs.</p>
         </div>
         <div class="flex items-center space-x-3">
@@ -47,15 +47,15 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 
       <div *ngIf="!isLoading && !errorMessage" class="space-y-6">
         <!-- Rating Metrics Bento Card -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             <!-- Overall Score -->
             <div class="text-center md:text-left space-y-1">
-              <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Aggregate Rating</span>
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Aggregate Rating</span>
               
               <div *ngIf="reviews.length > 0" class="space-y-1">
                 <div class="flex items-baseline justify-center md:justify-start gap-2">
-                  <span class="text-4xl sm:text-5xl font-black text-[#0F2937]">
+                  <span class="text-3xl font-semibold text-n-900">
                     {{ aggregateRating.toFixed(1) }}
                   </span>
                   <span class="text-xs font-bold text-slate-400">/ 5.0</span>
@@ -70,7 +70,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 
               <!-- ZERO REVIEWS RULE: Show "No reviews yet", NOT fake 5.0/4.9 -->
               <div *ngIf="reviews.length === 0" class="space-y-1.5 py-2">
-                <span class="text-2xl font-black text-slate-400 block">No reviews yet</span>
+                <span class="text-2xl font-semibold text-slate-400 block">No reviews yet</span>
                 <span class="inline-block text-[11px] font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
                   Ratings appear after completed jobs
                 </span>
@@ -106,15 +106,15 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 
         <!-- Reviews Feed -->
         <div *ngIf="reviews.length > 0" class="space-y-4">
-          <h2 class="text-base font-black text-[#0F2937]">Recent Customer Reviews ({{ reviews.length }})</h2>
+          <h2 class="text-base font-semibold text-[#0F2937]">Recent Customer Reviews ({{ reviews.length }})</h2>
 
           <div
             *ngFor="let rev of reviews"
-            class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-3"
+            class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-3"
           >
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-[#0F2937] text-white flex items-center justify-center font-black text-sm">
+                <div class="w-10 h-10 rounded-full bg-[#0F2937] text-white flex items-center justify-center font-semibold text-sm">
                   {{ (rev.reviewerId?.name || rev.reviewer?.name || 'C')[0] }}
                 </div>
                 <div>
@@ -132,11 +132,11 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               <!-- Star Rating -->
               <div class="flex items-center space-x-1 text-sm text-amber-500 font-bold">
                 <span>{{ ''.repeat(rev.rating) }}{{ ''.repeat(5 - rev.rating) }}</span>
-                <span class="text-xs font-black text-slate-800 ml-1">({{ rev.rating }}.0)</span>
+                <span class="text-xs font-semibold text-slate-800 ml-1">({{ rev.rating }}.0)</span>
               </div>
             </div>
 
-            <p class="text-xs text-slate-700 leading-relaxed font-medium bg-[#FAF9F5] p-3.5 rounded-2xl border border-[#E8E6DF]">
+            <p class="text-xs text-slate-700 leading-relaxed font-medium bg-[#FAF9F5] p-3.5 rounded-xl border border-[#E8E6DF]">
               "{{ rev.comment }}"
             </p>
           </div>

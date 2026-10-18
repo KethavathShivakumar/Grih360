@@ -28,7 +28,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
       <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">My Service Requests</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">My Service Requests</h1>
           <p class="text-xs text-[#64748B]">Track real-time progress, assigned professionals, and completion history.</p>
         </div>
         <a routerLink="/tenant/services/request" class="px-4 py-2 bg-[#E26D46] hover:bg-[#d05c35] text-white text-xs font-bold rounded-xl transition">

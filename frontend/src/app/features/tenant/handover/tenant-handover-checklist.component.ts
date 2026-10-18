@@ -45,7 +45,7 @@ export interface ChecklistSection {
             <span>/</span>
             <span class="text-slate-800 font-bold">Handover Checklist</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Handover & Move-In Inspection</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Handover & Move-In Inspection</h1>
           <p class="text-xs text-slate-500 mt-0.5">
             Move-in inventory checklist, key handover, and utility meter readings.
           </p>
@@ -61,7 +61,7 @@ export interface ChecklistSection {
           </button>
           <a
             routerLink="/tenant/condition"
-            class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold rounded-xl text-xs shadow-xs transition cursor-pointer"
+            class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold rounded-xl text-xs shadow-xs transition cursor-pointer"
           >
             <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Property Condition
           </a>
@@ -92,16 +92,16 @@ export interface ChecklistSection {
       <div *ngIf="!isLoading && !isError && rental" class="space-y-6">
 
         <!-- Top Overview & Mode Toggle -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
               <div class="flex items-center gap-2">
-                <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase rounded-full">
+                <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-semibold uppercase rounded-full">
                   MTA Form Schedule III
                 </span>
                 <span class="text-xs text-slate-400 font-semibold">• Certified Inventory</span>
               </div>
-              <h2 class="text-lg font-black text-[#0F2937] mt-1">{{ propertyTitle }}</h2>
+              <h2 class="text-lg font-semibold text-[#0F2937] mt-1">{{ propertyTitle }}</h2>
               <p class="text-xs text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
             </div>
 
@@ -110,7 +110,7 @@ export interface ChecklistSection {
               <button
                 (click)="checklistType = 'MOVE_IN'"
                 type="button"
-                [class]="checklistType === 'MOVE_IN' ? 'bg-[#0F2937] text-[#FACC15] shadow-xs' : 'text-slate-600 hover:text-slate-900'"
+                [class]="checklistType === 'MOVE_IN' ? 'bg-navy text-n-0 shadow-xs' : 'text-slate-600 hover:text-slate-900'"
                 class="px-4 py-2 rounded-xl transition cursor-pointer"
               >
                 Move-In Handover
@@ -118,7 +118,7 @@ export interface ChecklistSection {
               <button
                 (click)="checklistType = 'MOVE_OUT'"
                 type="button"
-                [class]="checklistType === 'MOVE_OUT' ? 'bg-[#0F2937] text-[#FACC15] shadow-xs' : 'text-slate-600 hover:text-slate-900'"
+                [class]="checklistType === 'MOVE_OUT' ? 'bg-navy text-n-0 shadow-xs' : 'text-slate-600 hover:text-slate-900'"
                 class="px-4 py-2 rounded-xl transition cursor-pointer"
               >
                 Move-Out Inspection
@@ -129,7 +129,7 @@ export interface ChecklistSection {
           <!-- Utility Meter Readings Banner -->
           <div class="bg-amber-50/70 border border-amber-200 p-4 rounded-2xl space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold text-amber-900 uppercase tracking-wider">
+              <span class="text-xs font-semibold text-amber-900 uppercase tracking-wider">
                 <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Initial Utility Meter Readings (Day 1)
               </span>
               <span class="text-[10px] font-bold text-amber-800">Prevents Tenant/Owner Billing Disputes</span>
@@ -142,7 +142,7 @@ export interface ChecklistSection {
                   type="number"
                   [(ngModel)]="meters.electricity"
                   placeholder="e.g. 4812"
-                  class="w-full mt-1 font-black text-sm text-[#0F2937] bg-transparent focus:outline-none"
+                  class="w-full mt-1 font-semibold text-sm text-[#0F2937] bg-transparent focus:outline-none"
                 />
               </div>
               <div class="bg-white p-3 rounded-xl border border-amber-200">
@@ -151,7 +151,7 @@ export interface ChecklistSection {
                   type="number"
                   [(ngModel)]="meters.water"
                   placeholder="e.g. 120"
-                  class="w-full mt-1 font-black text-sm text-[#0F2937] bg-transparent focus:outline-none"
+                  class="w-full mt-1 font-semibold text-sm text-[#0F2937] bg-transparent focus:outline-none"
                 />
               </div>
               <div class="bg-white p-3 rounded-xl border border-amber-200">
@@ -160,7 +160,7 @@ export interface ChecklistSection {
                   type="number"
                   [(ngModel)]="meters.gas"
                   placeholder="e.g. 34"
-                  class="w-full mt-1 font-black text-sm text-[#0F2937] bg-transparent focus:outline-none"
+                  class="w-full mt-1 font-semibold text-sm text-[#0F2937] bg-transparent focus:outline-none"
                 />
               </div>
             </div>
@@ -171,11 +171,11 @@ export interface ChecklistSection {
         <div class="space-y-4">
           <div
             *ngFor="let section of sections"
-            class="bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs space-y-4"
+            class="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs space-y-4"
           >
             <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
               <span *ngIf="section.icon" [innerHTML]="section.icon | safeHtml" class="w-5 h-5 flex items-center justify-center [&>svg]:w-5 [&>svg]:h-5 text-slate-700"></span>
-              <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wider">{{ section.category }}</h3>
+              <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">{{ section.category }}</h3>
             </div>
 
             <div class="space-y-3">
@@ -192,7 +192,7 @@ export interface ChecklistSection {
                   <button
                     (click)="item.status = 'WORKING'"
                     type="button"
-                    [class]="item.status === 'WORKING' ? 'bg-emerald-600 text-white font-black' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
+                    [class]="item.status === 'WORKING' ? 'bg-emerald-600 text-white font-semibold' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
                     class="px-2.5 py-1 rounded-xl text-[10px] transition cursor-pointer"
                   >
                      Working / Good
@@ -201,7 +201,7 @@ export interface ChecklistSection {
                   <button
                     (click)="item.status = 'DEFECTIVE'"
                     type="button"
-                    [class]="item.status === 'DEFECTIVE' ? 'bg-amber-600 text-white font-black' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
+                    [class]="item.status === 'DEFECTIVE' ? 'bg-amber-600 text-white font-semibold' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
                     class="px-2.5 py-1 rounded-xl text-[10px] transition cursor-pointer"
                   >
                     <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Defective
@@ -210,7 +210,7 @@ export interface ChecklistSection {
                   <button
                     (click)="item.status = 'MISSING'"
                     type="button"
-                    [class]="item.status === 'MISSING' ? 'bg-rose-600 text-white font-black' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
+                    [class]="item.status === 'MISSING' ? 'bg-rose-600 text-white font-semibold' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
                     class="px-2.5 py-1 rounded-xl text-[10px] transition cursor-pointer"
                   >
                      Missing
@@ -239,9 +239,9 @@ export interface ChecklistSection {
             <button (click)="toastMessage = null" type="button" class="text-emerald-600 hover:text-emerald-900 font-bold"></button>
           </div>
 
-          <div class="bg-slate-900 text-white p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h4 class="text-sm font-black text-[#FACC15]">Tenant Handover Sign-off</h4>
+              <h4 class="text-sm font-semibold text-brand">Tenant Handover Sign-off</h4>
               <p class="text-xs text-slate-300 mt-0.5">
                 {{ signedAt ? ('Signed off by Tenant on ' + (signedAt | date: 'medium')) : 'Review all sections above and save your handover sign-off.' }}
               </p>
@@ -250,7 +250,7 @@ export interface ChecklistSection {
             <button
               (click)="saveChecklist()"
               type="button"
-              class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-2xl shadow-md transition  cursor-pointer shrink-0"
+              class="px-6 py-3 bg-brand hover:bg-brand-hover text-n-0 font-semibold text-xs rounded-2xl shadow-md transition  cursor-pointer shrink-0"
             >
               {{ signedAt ? ' Update Sign-Off' : ' Sign-Off & Save Handover' }}
             </button>

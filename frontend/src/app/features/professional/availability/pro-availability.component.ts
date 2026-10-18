@@ -28,7 +28,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <span>/</span>
             <span class="text-[#0F2937]">Availability & Duty</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Availability & Shift Status</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Availability & Shift Status</h1>
           <p class="text-xs text-slate-500">Toggle whether you are actively on-duty and accepting real-time automated job matches.</p>
         </div>
         <div class="flex items-center space-x-3">
@@ -43,12 +43,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- Success & Error Banners -->
-      <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
+      <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-between">
         <span> {{ successMessage }}</span>
         <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
 
-      <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
+      <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs font-bold flex items-center justify-between">
         <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
         <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
@@ -57,18 +57,18 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Main Status Card -->
       <div *ngIf="!isLoading && profile" class="space-y-6">
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-slate-100">
             <div class="flex items-center space-x-4">
               <div
                 [class]="profile.isAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'"
-                class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-black shrink-0"
+                class="w-14 h-14 rounded-xl flex items-center justify-center text-2xl font-semibold shrink-0"
               >
                 {{ profile.isAvailable ? '' : '' }}
               </div>
               <div>
-                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Current Duty Status</span>
-                <h2 class="text-xl sm:text-2xl font-black text-[#0F2937]">
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Current Duty Status</span>
+                <h2 class="text-xl sm:text-2xl font-semibold text-[#0F2937]">
                   {{ profile.isAvailable ? 'On-Duty: Accepting Job Requests' : 'Off-Duty: Temporarily Unavailable' }}
                 </h2>
                 <p class="text-xs text-slate-500 mt-0.5">
@@ -83,7 +83,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               [disabled]="isUpdating"
               type="button"
               [class]="profile.isAvailable ? 'bg-rose-600 hover:bg-rose-700 text-white' : 'bg-[#2D7A5E] hover:bg-[#206f54] text-white'"
-              class="px-8 py-3.5 text-xs font-black rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50 shrink-0"
+              class="px-8 py-3.5 text-xs font-semibold rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50 shrink-0"
             >
               {{ isUpdating ? 'Updating Status...' : (profile.isAvailable ? 'Turn OFF Duty (Go Offline)' : 'Turn ON Duty (Accept Jobs)') }}
             </button>
@@ -91,30 +91,30 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Algorithm Explanation Cards -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2">
+            <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl space-y-2">
               <div class="flex items-center space-x-2">
                 <span class="text-base"></span>
-                <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Automated Dispatch</h3>
+                <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider">Automated Dispatch</h3>
               </div>
               <p class="text-xs text-slate-600 leading-relaxed">
                 When online, incoming requests from nearby tenants within your service radius matching your categories are automatically assigned to you.
               </p>
             </div>
 
-            <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2">
+            <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl space-y-2">
               <div class="flex items-center space-x-2">
                 <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></span>
-                <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Fast Response SLA</h3>
+                <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider">Fast Response SLA</h3>
               </div>
               <p class="text-xs text-slate-600 leading-relaxed">
                 Aim to review and accept assigned requests within 15 minutes to maintain a top matching rank and high customer satisfaction ratings.
               </p>
             </div>
 
-            <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-2xl space-y-2">
+            <div class="p-4 bg-[#FAF9F5] border border-[#E8E6DF] rounded-xl space-y-2">
               <div class="flex items-center space-x-2">
                 <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
-                <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Fair Assignment Policy</h3>
+                <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider">Fair Assignment Policy</h3>
               </div>
               <p class="text-xs text-slate-600 leading-relaxed">
                 No fake completed jobs or fictitious assignments. Every request matches real tenant residences with genuine maintenance requirements.
@@ -124,9 +124,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Weekly Operating Schedule -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-black text-[#0F2937]">Operating Hours & Days</h3>
+            <h3 class="text-base font-semibold text-[#0F2937]">Operating Hours & Days</h3>
             <span class="text-xs text-[#2D7A5E] font-bold">Standard Network Hours: 08:00 AM to 08:00 PM</span>
           </div>
           <p class="text-xs text-slate-500">
@@ -135,31 +135,31 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <div class="grid grid-cols-2 sm:grid-cols-7 gap-2 pt-2 text-center text-xs font-bold">
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
-              <span class="block text-[10px] text-emerald-600 font-extrabold">MON</span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">MON</span>
               <span>Available</span>
             </div>
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
-              <span class="block text-[10px] text-emerald-600 font-extrabold">TUE</span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">TUE</span>
               <span>Available</span>
             </div>
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
-              <span class="block text-[10px] text-emerald-600 font-extrabold">WED</span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">WED</span>
               <span>Available</span>
             </div>
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
-              <span class="block text-[10px] text-emerald-600 font-extrabold">THU</span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">THU</span>
               <span>Available</span>
             </div>
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
-              <span class="block text-[10px] text-emerald-600 font-extrabold">FRI</span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">FRI</span>
               <span>Available</span>
             </div>
             <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900">
-              <span class="block text-[10px] text-emerald-600 font-extrabold">SAT</span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">SAT</span>
               <span>Available</span>
             </div>
             <div class="p-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-600">
-              <span class="block text-[10px] text-slate-400 font-extrabold">SUN</span>
+              <span class="block text-[10px] text-slate-400 font-semibold">SUN</span>
               <span>Optional</span>
             </div>
           </div>

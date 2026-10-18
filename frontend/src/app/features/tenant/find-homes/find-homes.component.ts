@@ -38,11 +38,11 @@ export interface AmenityOption {
       <!-- MOBILE LAYOUT (< 768px) -->
       <div class="md:hidden space-y-3 pb-6">
         <!-- Top Compact Header Bar (Solid Navy #0F2937) -->
-        <div class="bg-[#0F2937] text-white p-3 rounded-2xl shadow-md space-y-2">
+        <div class="bg-navy text-white p-3 rounded-2xl shadow-md space-y-2">
           <div class="flex items-center gap-2">
             <!-- Locality Search Input -->
             <div class="relative flex-1 bg-white/10 rounded-xl px-3 py-1.5 flex items-center gap-2 border border-white/15">
-              <svg class="w-4 h-4 text-[#FACC15] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
               <input
@@ -69,7 +69,7 @@ export interface AmenityOption {
               (click)="useCurrentLocation()"
               [disabled]="isLocating"
               type="button"
-              class="p-2.5 bg-white/10 hover:bg-white/20 text-[#FACC15] rounded-xl text-xs font-bold transition-colors cursor-pointer border border-white/15 shrink-0 flex items-center justify-center"
+              class="p-2.5 bg-white/10 hover:bg-white/20 text-brand rounded-xl text-xs font-bold transition-colors cursor-pointer border border-white/15 shrink-0 flex items-center justify-center"
               title="Use My Location"
             >
               <svg *ngIf="!isLocating" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,13 +82,13 @@ export interface AmenityOption {
             <button
               (click)="toggleMobileFilters()"
               type="button"
-              class="px-3 py-2 bg-white text-[#0F2937] hover:bg-slate-100 rounded-xl text-xs font-black cursor-pointer flex items-center gap-1.5 shrink-0 shadow-xs"
+              class="px-3 py-2 bg-white text-navy hover:bg-slate-100 rounded-xl text-xs font-semibold cursor-pointer flex items-center gap-1.5 shrink-0 shadow-xs"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
               </svg>
               <span>Filters</span>
-              <span *ngIf="activeFilterCount > 0" class="px-1.5 py-0.5 bg-[#2D7A5E] text-white text-[9px] font-black rounded-full">
+              <span *ngIf="activeFilterCount > 0" class="px-1.5 py-0.5 bg-[#2D7A5E] text-white text-[9px] font-semibold rounded-full">
                 {{ activeFilterCount }}
               </span>
             </button>
@@ -127,7 +127,7 @@ export interface AmenityOption {
               <svg class="w-4 h-4 text-amber-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
               {{ locationErrorBanner }}
             </span>
-            <button (click)="locationErrorBanner = null" type="button" class="text-amber-700 hover:text-amber-900 font-extrabold text-xs ml-2 cursor-pointer">✕</button>
+            <button (click)="locationErrorBanner = null" type="button" class="text-amber-700 hover:text-amber-900 font-semibold text-xs ml-2 cursor-pointer">✕</button>
           </div>
           <p class="text-[11px] text-amber-800">
             Select a district or type an area in the search bar to browse properties manually.
@@ -150,7 +150,7 @@ export interface AmenityOption {
           <button
             (click)="isMobileMapExpanded = true"
             type="button"
-            class="absolute top-2.5 right-2.5 z-20 px-2.5 py-1.5 bg-[#0F2937]/90 text-white hover:bg-[#0F2937] text-[11px] font-black rounded-xl shadow-md backdrop-blur-md flex items-center gap-1 cursor-pointer"
+            class="absolute top-2.5 right-2.5 z-20 px-2.5 py-1.5 bg-navy/90 text-white hover:bg-navy text-[11px] font-semibold rounded-xl shadow-md  flex items-center gap-1 cursor-pointer"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
@@ -161,7 +161,7 @@ export interface AmenityOption {
 
         <!-- Fullscreen Map Modal -->
         <div *ngIf="isMobileMapExpanded" class="fixed inset-0 z-50 bg-white flex flex-col">
-          <div class="bg-[#0F2937] text-white p-3 flex items-center justify-between shadow-md shrink-0">
+          <div class="bg-navy text-white p-3 flex items-center justify-between shadow-md shrink-0">
             <button
               (click)="isMobileMapExpanded = false"
               type="button"
@@ -169,7 +169,7 @@ export interface AmenityOption {
             >
               ← Back to List
             </button>
-            <span class="text-xs font-extrabold text-white">Full Screen Map View</span>
+            <span class="text-xs font-semibold text-white">Full Screen Map View</span>
             <div class="w-16"></div>
           </div>
           <div class="flex-1 w-full relative">
@@ -187,7 +187,7 @@ export interface AmenityOption {
 
         <!-- Below Map: Result Count & Sort Chip -->
         <div class="flex items-center justify-between px-1">
-          <span class="text-xs font-black text-[#0F2937]">
+          <span class="text-xs font-semibold text-navy">
             {{ totalProperties }} Homes Found
           </span>
           <select
@@ -213,7 +213,7 @@ export interface AmenityOption {
         <!-- Mobile Error State -->
         <div *ngIf="isError && !isLoading" class="p-5 bg-rose-50 border border-rose-200 rounded-2xl text-center space-y-2">
           <p class="text-xs font-bold text-rose-800">{{ errorMessage }}</p>
-          <button (click)="loadProperties()" type="button" class="px-3 py-1.5 bg-[#0F2937] text-white text-xs font-bold rounded-xl cursor-pointer">
+          <button (click)="loadProperties()" type="button" class="px-3 py-1.5 bg-navy text-white text-xs font-bold rounded-xl cursor-pointer">
             Retry Search
           </button>
         </div>
@@ -221,9 +221,9 @@ export interface AmenityOption {
         <!-- Mobile Empty State -->
         <div *ngIf="!isLoading && !isError && properties.length === 0" class="p-6 bg-white border border-slate-200 rounded-2xl text-center space-y-3">
           <div class="text-3xl"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
-          <h4 class="text-xs font-bold text-[#0F2937]">No homes match your current filters</h4>
+          <h4 class="text-xs font-bold text-navy">No homes match your current filters</h4>
           <p class="text-[11px] text-slate-500">Try expanding your search radius or resetting filters.</p>
-          <button (click)="resetFilters()" type="button" class="px-4 py-2 bg-[#0F2937] text-white text-xs font-bold rounded-xl cursor-pointer">
+          <button (click)="resetFilters()" type="button" class="px-4 py-2 bg-navy text-white text-xs font-bold rounded-xl cursor-pointer">
             Reset Filters
           </button>
         </div>
@@ -240,12 +240,12 @@ export interface AmenityOption {
         </div>
 
         <!-- Mobile Bottom Sheet Filters Modal -->
-        <div *ngIf="showMobileFiltersDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end">
+        <div *ngIf="showMobileFiltersDrawer" class="fixed inset-0 z-50 bg-black/60  flex flex-col justify-end">
           <div class="bg-white rounded-t-3xl p-5 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl border-t border-slate-200">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-1.5">
+              <h3 class="text-xs font-semibold text-navy uppercase tracking-wider flex items-center gap-1.5">
                 <span>Filter Search Results</span>
-                <span *ngIf="activeFilterCount > 0" class="px-2 py-0.5 bg-emerald-100 text-[#2D7A5E] text-[10px] font-black rounded-full">
+                <span *ngIf="activeFilterCount > 0" class="px-2 py-0.5 bg-emerald-100 text-[#2D7A5E] text-[10px] font-semibold rounded-full">
                   {{ activeFilterCount }} Active
                 </span>
               </h3>
@@ -306,7 +306,7 @@ export interface AmenityOption {
                   *ngFor="let bhk of [1, 2, 3, 4]"
                   (click)="toggleBhk(bhk)"
                   type="button"
-                  [class]="selectedBhkList.has(bhk) ? 'bg-[#0F2937] text-white font-extrabold' : 'bg-slate-100 text-slate-700'"
+                  [class]="selectedBhkList.has(bhk) ? 'bg-navy text-white font-semibold' : 'bg-slate-100 text-slate-700'"
                   class="py-1.5 text-xs rounded-xl text-center cursor-pointer"
                 >
                   {{ bhk }}{{ bhk === 4 ? '+' : '' }} BHK
@@ -341,7 +341,7 @@ export interface AmenityOption {
             <button
               (click)="showMobileFiltersDrawer = false"
               type="button"
-              class="w-full py-3 bg-[#0F2937] hover:bg-[#164E63] text-white font-extrabold text-xs rounded-xl shadow-md cursor-pointer mt-2"
+              class="w-full py-3 bg-navy hover:bg-navy text-white font-semibold text-xs rounded-xl shadow-md cursor-pointer mt-2"
             >
               Apply Filters
             </button>
@@ -352,10 +352,10 @@ export interface AmenityOption {
       <!-- DESKTOP LAYOUT (>= 768px) UNCHANGED -->
       <div class="hidden md:block space-y-5">
         <!-- Hero Header & Geographic Search Hub -->
-        <div class="relative bg-[#0F2937] rounded-3xl p-5 sm:p-7 text-white shadow-md border border-slate-800 overflow-visible space-y-4">
+        <div class="relative bg-navy rounded-xl p-5 sm:p-7 text-white shadow-md border border-slate-800 overflow-visible space-y-4">
           <div class="max-w-2xl space-y-1 relative z-10">
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Find homes across <span class="text-[#FACC15]">Telangana & AP</span>
+            <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+              Find homes across <span class="text-brand">Telangana & AP</span>
             </h1>
             <p class="text-xs sm:text-sm text-slate-100 font-medium">
               Search across Hyderabad, Warangal, Mahabubnagar, Nalgonda, Karimnagar, Khammam, Nizamabad, Vijayawada, Guntur & Tirupati.
@@ -369,7 +369,7 @@ export interface AmenityOption {
               <!-- 1. Google Places Autocomplete Input -->
               <div class="md:col-span-5 px-3 py-1 relative border-b md:border-b-0 md:border-r border-slate-200">
                 <div class="flex items-center justify-between">
-                  <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Locality / Landmark</label>
+                  <label class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider">Locality / Landmark</label>
                   <button
                     *ngIf="searchQuery"
                     (click)="clearLocalityInput()"
@@ -414,7 +414,7 @@ export interface AmenityOption {
 
               <!-- 2. State Selector -->
               <div class="md:col-span-3 px-3 py-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200">
-                <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">State</label>
+                <label class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider">State</label>
                 <select
                   [(ngModel)]="selectedState"
                   (change)="onStateChange()"
@@ -428,7 +428,7 @@ export interface AmenityOption {
 
               <!-- 3. District Selector -->
               <div class="md:col-span-3 px-3 py-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200">
-                <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider">District / Hub</label>
+                <label class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider">District / Hub</label>
                 <select
                   [(ngModel)]="selectedDistrict"
                   (change)="onDistrictChange()"
@@ -458,7 +458,7 @@ export interface AmenityOption {
                 <button
                   (click)="onFilterChange()"
                   type="button"
-                  class="p-2 sm:px-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-xs transition-transform  cursor-pointer flex items-center gap-1"
+                  class="p-2 sm:px-3 bg-brand hover:bg-brand-hover text-navy font-semibold text-xs rounded-xl shadow-xs transition-transform  cursor-pointer flex items-center gap-1"
                   title="Search Database"
                 >
                   <span>→</span>
@@ -470,13 +470,13 @@ export interface AmenityOption {
         </div>
 
         <!-- Action & View Controls Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-[#E8E6DF] shadow-2xs">
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-n-200 shadow-2xs">
           <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-700">
-            <span>Showing <strong class="text-[#0F2937]">{{ totalProperties }}</strong> properties</span>
+            <span>Showing <strong class="text-navy">{{ totalProperties }}</strong> properties</span>
             
             <span
               *ngIf="activeLocationDisplayName"
-              class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-[#2D7A5E] border border-emerald-200 rounded-full text-[11px] font-extrabold"
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-[#2D7A5E] border border-emerald-200 rounded-full text-[11px] font-semibold"
             >
               <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ activeLocationDisplayName }}</span>
               <button
@@ -524,9 +524,9 @@ export interface AmenityOption {
           
           <!-- LEFT COLUMN: Desktop Persistent Filter Sidebar -->
           <div class="col-span-3">
-            <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-5">
+            <div class="bg-white p-5 rounded-xl border border-n-200 shadow-xs space-y-5">
               <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider flex items-center gap-1.5">
+                <h3 class="text-xs font-semibold text-navy uppercase tracking-wider flex items-center gap-1.5">
                   <svg class="w-4 h-4 text-[#2D7A5E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                   <span>Search Filters</span>
                 </h3>
@@ -568,7 +568,7 @@ export interface AmenityOption {
                     *ngFor="let bhk of [1, 2, 3, 4]"
                     (click)="toggleBhk(bhk)"
                     type="button"
-                    [class]="selectedBhkList.has(bhk) ? 'bg-[#0F2937] text-white font-extrabold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
+                    [class]="selectedBhkList.has(bhk) ? 'bg-navy text-white font-semibold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
                     class="py-1.5 text-xs rounded-xl transition-colors cursor-pointer text-center"
                   >
                     {{ bhk }}{{ bhk === 4 ? '+' : '' }} BHK
@@ -616,16 +616,16 @@ export interface AmenityOption {
 
             <div *ngIf="isError && !isLoading" class="bg-white p-6 rounded-2xl border border-rose-200 text-center space-y-3">
               <p class="text-rose-600 font-bold text-sm">{{ errorMessage }}</p>
-              <button (click)="loadProperties()" type="button" class="px-4 py-2 bg-[#0F2937] text-white rounded-xl text-xs font-bold cursor-pointer">
+              <button (click)="loadProperties()" type="button" class="px-4 py-2 bg-navy text-white rounded-xl text-xs font-bold cursor-pointer">
                 Retry Search
               </button>
             </div>
 
-            <div *ngIf="!isLoading && !isError && properties.length === 0" class="bg-white p-8 rounded-3xl border border-[#E8E6DF] shadow-xs text-center space-y-4">
+            <div *ngIf="!isLoading && !isError && properties.length === 0" class="bg-white p-8 rounded-xl border border-n-200 shadow-xs text-center space-y-4">
               <div class="text-3xl"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
-              <h3 class="text-base font-extrabold text-[#0F2937]">No homes available in this area yet</h3>
+              <h3 class="text-base font-semibold text-navy">No homes available in this area yet</h3>
               <p class="text-xs text-slate-500">Try expanding your search radius or resetting filters.</p>
-              <button (click)="resetFilters()" type="button" class="px-4 py-2 bg-[#0F2937] text-white text-xs font-bold rounded-xl cursor-pointer">
+              <button (click)="resetFilters()" type="button" class="px-4 py-2 bg-navy text-white text-xs font-bold rounded-xl cursor-pointer">
                 Reset Filters
               </button>
             </div>

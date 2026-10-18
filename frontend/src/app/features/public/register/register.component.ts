@@ -34,31 +34,31 @@ import { finalize, timeout } from 'rxjs';
     } @else {
       <div class="min-h-screen bg-[#FAF9F5] flex flex-col justify-between font-sans text-slate-800">
         <!-- Top Simple Header -->
-        <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#E8E6DF] py-3.5 px-4 sm:px-8">
+        <header class="w-full bg-white/95  border-b border-[#E8E6DF] py-3.5 px-4 sm:px-8">
           <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a routerLink="/" class="flex items-center space-x-2.5 group">
-              <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs  transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-navy text-n-0 flex items-center justify-center font-semibold text-lg shadow-xs  transition-transform">
                 G
               </div>
-              <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
+              <span class="text-xl font-semibold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
             </a>
 
             <a routerLink="/auth/login" class="text-xs font-bold text-slate-500 hover:text-[#0F2937] transition-colors flex items-center gap-1.5">
               <span>Already registered?</span>
-              <strong class="text-[#2D7A5E] hover:underline font-extrabold">Sign In →</strong>
+              <strong class="text-[#2D7A5E] hover:underline font-semibold">Sign In →</strong>
             </a>
           </div>
         </header>
 
         <!-- Main Split-Screen Container -->
         <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8 my-auto">
-          <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl border border-[#E8E6DF] overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+          <div class="w-full max-w-5xl bg-white rounded-xl shadow-xl border border-[#E8E6DF] overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
             
             <!-- Left Visual Brand Showcase (Desktop) -->
             <div class="lg:col-span-5 bg-[#0F2937] p-6 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
               <!-- Ambient Background Glows -->
               <div class="absolute -top-24 -left-24 w-64 h-64 bg-[#2D7A5E]/20 rounded-full blur-3xl pointer-events-none"></div>
-              <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-[#FACC15]/15 rounded-full blur-3xl pointer-events-none"></div>
+              <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-brand/15 rounded-full blur-3xl pointer-events-none"></div>
 
               <div class="space-y-6 relative z-10">
                 <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide">
@@ -66,7 +66,7 @@ import { finalize, timeout } from 'rxjs';
                 </div>
 
                 <div class="space-y-2">
-                  <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
+                  <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight leading-tight">
                     Start your verified tenancy journey.
                   </h2>
                   <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
@@ -76,7 +76,7 @@ import { finalize, timeout } from 'rxjs';
 
                 <!-- Trust Pillars -->
                 <div class="space-y-3.5 pt-2">
-                  <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+                  <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 ">
                     <div class="w-8 h-8 rounded-xl bg-[#2D7A5E]/30 text-emerald-300 flex items-center justify-center text-sm shrink-0 font-bold">
                       <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
@@ -88,8 +88,8 @@ import { finalize, timeout } from 'rxjs';
                     </div>
                   </div>
 
-                  <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-                    <div class="w-8 h-8 rounded-xl bg-[#FACC15]/20 text-[#FACC15] flex items-center justify-center text-sm shrink-0 font-bold">
+                  <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 ">
+                    <div class="w-8 h-8 rounded-xl bg-brand/20 text-brand flex items-center justify-center text-sm shrink-0 font-bold">
                       
                     </div>
                     <div>
@@ -100,7 +100,7 @@ import { finalize, timeout } from 'rxjs';
                     </div>
                   </div>
 
-                  <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+                  <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 ">
                     <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center text-sm shrink-0 font-bold">
                       <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
@@ -129,7 +129,7 @@ import { finalize, timeout } from 'rxjs';
               
               <!-- Step Progress Indicator -->
               <div class="space-y-2">
-                <div class="flex items-center justify-between text-[11px] font-extrabold uppercase tracking-wider">
+                <div class="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wider">
                   <span class="text-[#2D7A5E] flex items-center gap-1.5">
                     <span class="w-5 h-5 rounded-full bg-[#2D7A5E] text-white flex items-center justify-center text-[10px]">1</span>
                     Account Registration
@@ -146,7 +146,7 @@ import { finalize, timeout } from 'rxjs';
 
               <!-- Form Header -->
               <div class="space-y-1">
-                <h1 class="text-2xl font-extrabold text-[#0F2937] tracking-tight">
+                <h1 class="text-2xl font-semibold text-[#0F2937] tracking-tight">
                   Create Your Account
                 </h1>
                 <p class="text-xs text-slate-500">
@@ -171,7 +171,7 @@ import { finalize, timeout } from 'rxjs';
                     <button
                       type="button"
                       (click)="setRole('TENANT')"
-                      [class]="selectedRole === 'TENANT' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold ring-2 ring-[#0F2937] shadow-sm' : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 font-semibold'"
+                      [class]="selectedRole === 'TENANT' ? 'bg-navy text-n-0 font-semibold ring-2 ring-[#0F2937] shadow-sm' : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 font-semibold'"
                       class="p-2.5 text-xs rounded-xl text-center transition-all cursor-pointer flex flex-col items-center gap-1"
                     >
                       <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
@@ -181,7 +181,7 @@ import { finalize, timeout } from 'rxjs';
                     <button
                       type="button"
                       (click)="setRole('OWNER')"
-                      [class]="selectedRole === 'OWNER' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold ring-2 ring-[#0F2937] shadow-sm' : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 font-semibold'"
+                      [class]="selectedRole === 'OWNER' ? 'bg-navy text-n-0 font-semibold ring-2 ring-[#0F2937] shadow-sm' : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 font-semibold'"
                       class="p-2.5 text-xs rounded-xl text-center transition-all cursor-pointer flex flex-col items-center gap-1"
                     >
                       <span class="text-base"></span>
@@ -191,7 +191,7 @@ import { finalize, timeout } from 'rxjs';
                     <button
                       type="button"
                       (click)="setRole('PROFESSIONAL')"
-                      [class]="selectedRole === 'PROFESSIONAL' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold ring-2 ring-[#0F2937] shadow-sm' : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 font-semibold'"
+                      [class]="selectedRole === 'PROFESSIONAL' ? 'bg-navy text-n-0 font-semibold ring-2 ring-[#0F2937] shadow-sm' : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 font-semibold'"
                       class="p-2.5 text-xs rounded-xl text-center transition-all cursor-pointer flex flex-col items-center gap-1"
                     >
                       <span class="text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
@@ -330,7 +330,7 @@ import { finalize, timeout } from 'rxjs';
                 <button
                   type="submit"
                   [disabled]="registerForm.invalid || isLoading"
-                  class="w-full py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
+                  class="w-full py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white font-semibold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
                 >
                   <svg *ngIf="isLoading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -371,7 +371,7 @@ import { finalize, timeout } from 'rxjs';
               <!-- Login Redirect -->
               <div class="text-center pt-2 border-t border-slate-100 text-xs text-slate-500">
                 Already have an account?
-                <a routerLink="/auth/login" class="font-extrabold text-[#0F2937] hover:underline ml-1">
+                <a routerLink="/auth/login" class="font-semibold text-[#0F2937] hover:underline ml-1">
                   Sign in to your portal →
                 </a>
               </div>
@@ -380,11 +380,11 @@ import { finalize, timeout } from 'rxjs';
         </main>
 
         <!-- Profile Completion Modal (Role & Phone for New Google Users) -->
-        <div *ngIf="showProfileCompletionModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-          <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-4 border border-[#E8E6DF]">
+        <div *ngIf="showProfileCompletionModal" class="fixed inset-0 bg-black/50  z-50 flex items-center justify-center p-4">
+          <div class="bg-white rounded-xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-4 border border-[#E8E6DF]">
             <div class="flex items-center justify-between">
               <div>
-                <h3 class="text-lg font-extrabold text-[#0F2937]">Complete Your Profile</h3>
+                <h3 class="text-lg font-semibold text-[#0F2937]">Complete Your Profile</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Welcome, {{ googleProfileData?.name || 'User' }}</p>
               </div>
               <button (click)="showProfileCompletionModal = false" class="text-slate-400 hover:text-slate-700 text-lg font-bold cursor-pointer">✕</button>
@@ -397,7 +397,7 @@ import { finalize, timeout } from 'rxjs';
                 <button
                   type="button"
                   (click)="profileRole = 'TENANT'"
-                  [class]="profileRole === 'TENANT' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
+                  [class]="profileRole === 'TENANT' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
                   class="py-2.5 px-2 text-xs rounded-xl transition text-center cursor-pointer flex flex-col items-center justify-center gap-1"
                 >
                   <span>Tenant</span>
@@ -405,7 +405,7 @@ import { finalize, timeout } from 'rxjs';
                 <button
                   type="button"
                   (click)="profileRole = 'OWNER'"
-                  [class]="profileRole === 'OWNER' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
+                  [class]="profileRole === 'OWNER' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
                   class="py-2.5 px-2 text-xs rounded-xl transition text-center cursor-pointer flex flex-col items-center justify-center gap-1"
                 >
                   <span>Owner</span>
@@ -413,7 +413,7 @@ import { finalize, timeout } from 'rxjs';
                 <button
                   type="button"
                   (click)="profileRole = 'PROFESSIONAL'"
-                  [class]="profileRole === 'PROFESSIONAL' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
+                  [class]="profileRole === 'PROFESSIONAL' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'bg-slate-100 text-slate-600 font-semibold hover:bg-slate-200'"
                   class="py-2.5 px-2 text-xs rounded-xl transition text-center cursor-pointer flex flex-col items-center justify-center gap-1"
                 >
                   <span>Service Pro</span>

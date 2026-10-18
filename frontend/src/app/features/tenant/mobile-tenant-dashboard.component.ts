@@ -19,30 +19,32 @@ import { RentalAgreement } from '../../core/services/rental.service';
     ErrorStateComponent,
   ],
   template: `
-    <div class="space-y-4 pb-20 font-sans text-slate-800 p-4">
+    <div class="space-y-4 pb-20 text-n-900 p-4">
 
       <!-- Compact Mobile Hero Header -->
-      <div class="bg-[#0F2937] text-white p-4 rounded-2xl shadow-md border border-slate-800 space-y-3">
-        <div class="space-y-1 relative z-10">
-          <div class="inline-flex items-center space-x-1.5 bg-[#1E3A8A] px-2.5 py-1 rounded-full text-[10px] font-extrabold text-[#FACC15] border border-blue-900">
-            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> Tenant Residence Portal</span>
+      <div class="bg-navy text-n-0 p-5 rounded-xl space-y-3">
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-1.5 bg-n-0/10 px-2.5 py-1 rounded-full text-xs font-semibold text-n-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Tenant Portal</span>
           </div>
-          <h1 class="text-xl font-extrabold tracking-tight text-white">Welcome, {{ tenantName }}</h1>
-          <p class="text-xs text-slate-100 leading-relaxed font-normal">
-            Discover verified zero-brokerage homes, track applications & manage rent.
+          <h1 class="text-xl font-semibold tracking-tight text-n-0">Welcome, {{ tenantName }}</h1>
+          <p class="text-xs text-n-300 leading-relaxed">
+            Verified direct-owner homes, active leases, and rent records.
           </p>
         </div>
 
-        <div class="flex items-center gap-2 pt-1 relative z-10">
+        <div class="flex items-center gap-2 pt-1">
           <a
             routerLink="/tenant/homes"
-            class="flex-1 py-2 bg-[#FACC15] active:bg-[#EAB308] text-[#0F2937] font-extrabold rounded-xl text-xs text-center shadow-xs cursor-pointer min-h-[40px] flex items-center justify-center gap-1"
+            class="flex-1 py-2.5 bg-brand active:bg-brand-hover text-n-0 font-semibold rounded-lg text-xs text-center min-h-[44px] flex items-center justify-center gap-1.5 transition-colors"
           >
-            <span>Explore Homes</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.3-4.3"/></svg>
+            <span>Find Homes</span>
           </a>
           <a
             routerLink="/tenant/search"
-            class="flex-1 py-2 bg-[#1E3A8A] active:bg-[#1E40AF] text-white font-extrabold rounded-xl text-xs text-center border border-blue-800 cursor-pointer min-h-[40px] flex items-center justify-center gap-1"
+            class="flex-1 py-2.5 bg-n-0/10 active:bg-n-0/20 text-n-0 font-semibold rounded-lg text-xs text-center border border-n-0/20 min-h-[44px] flex items-center justify-center gap-1.5 transition-colors"
           >
             <span>Search</span>
           </a>
@@ -50,7 +52,7 @@ import { RentalAgreement } from '../../core/services/rental.service';
       </div>
 
       <!-- Loading State -->
-      <app-loading-state *ngIf="isLoading" message="Calculating dashboard parameters..."></app-loading-state>
+      <app-loading-state *ngIf="isLoading" message="Loading your dashboard..."></app-loading-state>
 
       <!-- Error State -->
       <app-error-state
@@ -64,165 +66,167 @@ import { RentalAgreement } from '../../core/services/rental.service';
       <div *ngIf="!isLoading && !isError" class="space-y-4">
 
         <!-- Zero Brokerage Callout Banner -->
-        <div class="bg-[#FEF9C3] border border-[#FDE047] p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
-          <div>
-            <div class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-amber-950 tracking-wide bg-amber-200/90 px-2 py-0.5 rounded-md">
-              <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Verification Guarantee</span>
+        <div class="card bg-brand-subtle border-brand/20 p-4 flex items-center justify-between gap-3">
+          <div class="space-y-0.5">
+            <div class="inline-flex items-center gap-1 text-xs font-semibold text-brand">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>Zero Brokerage</span>
             </div>
-            <div class="text-xs font-black text-[#0F2937] mt-1">
-              Zero Brokerage • 100% Direct Owners
-            </div>
+            <p class="text-xs text-n-700">Direct owner rentals with verified ID review</p>
           </div>
-          <div class="px-3 py-1 bg-white border border-amber-300 rounded-xl text-center shrink-0 shadow-xs">
-            <span class="text-base font-black text-[#0F2937]">₹0</span>
-            <span class="block text-[9px] font-bold text-amber-900 uppercase">Fee</span>
+          <div class="px-3 py-1 bg-n-0 border border-n-200 rounded-lg text-center shrink-0">
+            <span class="text-sm font-semibold text-brand">₹0</span>
+            <span class="block text-[11px] text-n-500">brokerage</span>
           </div>
         </div>
 
-        <!-- Metric Cards 2x2 Grid (Compact Mobile Height) -->
+        <!-- Metric Cards 2x2 Grid -->
         <div class="grid grid-cols-2 gap-2.5">
           <!-- Metric 1: Tenancy Status -->
           <div
             (click)="navigateTo(activeRental ? '/tenant/rent' : '/tenant/homes')"
-            class="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs active:bg-slate-50 cursor-pointer space-y-1.5"
+            class="card p-3.5 cursor-pointer hover:border-brand transition-colors space-y-1.5"
           >
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Tenancy</span>
-              <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-              </span>
+              <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Tenancy</span>
+              <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
             </div>
-            <span class="text-base font-black text-[#0F2937] block truncate">
+            <span class="text-base font-semibold text-n-900 block truncate">
               {{ activeRental ? formatINR(activeRental.monthlyRent) : 'No Lease' }}
             </span>
-            <span class="text-[11px] font-bold text-[#2D7A5E] block truncate">
-              {{ activeRental ? (activeRental.rentStatus || 'UPCOMING') : 'Find Home →' }}
+            <span class="text-xs font-semibold text-brand block truncate">
+              {{ activeRental ? (activeRental.rentStatus || 'Active') : 'Find Home →' }}
             </span>
           </div>
 
           <!-- Metric 2: Applications -->
           <div
             (click)="navigateTo('/tenant/applications')"
-            class="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs active:bg-slate-50 cursor-pointer space-y-1.5"
+            class="card p-3.5 cursor-pointer hover:border-brand transition-colors space-y-1.5"
           >
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Apps</span>
-              <span class="p-1.5 bg-emerald-50 text-[#2D7A5E] rounded-lg">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              </span>
+              <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Applications</span>
+              <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
             </div>
-            <span class="text-2xl font-black text-[#0F2937] block">{{ applicationCount }}</span>
-            <span class="text-[11px] font-bold text-[#2D7A5E] block truncate">
-              Applications →
+            <span class="text-xl font-semibold text-n-900 block">{{ applicationCount }}</span>
+            <span class="text-xs font-semibold text-brand block truncate">
+              Track status →
             </span>
           </div>
 
           <!-- Metric 3: Saved Homes -->
           <div
             (click)="navigateTo('/tenant/saved')"
-            class="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs active:bg-slate-50 cursor-pointer space-y-1.5"
+            class="card p-3.5 cursor-pointer hover:border-brand transition-colors space-y-1.5"
           >
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Saved</span>
-              <span class="p-1.5 bg-rose-50 text-rose-600 rounded-lg">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-              </span>
+              <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Saved</span>
+              <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
             </div>
-            <span class="text-2xl font-black text-[#0F2937] block">{{ savedCount }}</span>
-            <span class="text-[11px] font-bold text-[#2D7A5E] block truncate">
-              Bookmarked →
+            <span class="text-xl font-semibold text-n-900 block">{{ savedCount }}</span>
+            <span class="text-xs font-semibold text-brand block truncate">
+              Shortlisted →
             </span>
           </div>
 
           <!-- Metric 4: Unread Notifications -->
           <div
             (click)="navigateTo('/tenant/notifications')"
-            class="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs active:bg-slate-50 cursor-pointer space-y-1.5"
+            class="card p-3.5 cursor-pointer hover:border-brand transition-colors space-y-1.5"
           >
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Alerts</span>
-              <span class="p-1.5 bg-amber-50 text-amber-600 rounded-lg">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-              </span>
+              <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Alerts</span>
+              <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              </div>
             </div>
-            <span class="text-2xl font-black text-[#0F2937] block">{{ unreadNotificationCount }}</span>
-            <span class="text-[11px] font-bold text-[#2D7A5E] block truncate">
-              Unread Alerts →
+            <span class="text-xl font-semibold text-n-900 block">{{ unreadNotificationCount }}</span>
+            <span class="text-xs font-semibold text-brand block truncate">
+              View notifications →
             </span>
           </div>
         </div>
 
-        <!-- Active Rental Overview Card (If Tenant Has Active Rental) -->
-        <div *ngIf="activeRental" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+        <!-- Active Rental Overview Card -->
+        <div *ngIf="activeRental" class="card p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-n-200 pb-2.5">
             <div>
-              <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-black uppercase rounded-full">
+              <span class="badge badge-success text-xs font-semibold">
                 Active Tenancy
               </span>
-              <h3 class="text-sm font-black text-[#0F2937] mt-1 line-clamp-1">{{ rentalPropertyTitle }}</h3>
-              <p class="text-[11px] text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ rentalPropertyLocation }}</p>
+              <h3 class="text-sm font-semibold text-n-900 mt-1 line-clamp-1">{{ rentalPropertyTitle }}</h3>
+              <p class="text-xs text-n-500 flex items-center gap-1 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-n-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>{{ rentalPropertyLocation }}</span>
+              </p>
             </div>
             <span
-              class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase"
-              [class]="activeRental.rentStatus === 'PAID' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'"
+              class="badge text-xs font-semibold"
+              [class]="activeRental.rentStatus === 'PAID' ? 'badge-success' : 'badge-warning'"
             >
-              {{ activeRental.rentStatus || 'UPCOMING' }}
+              {{ activeRental.rentStatus || 'Upcoming' }}
             </span>
           </div>
 
           <!-- Quick Navigation Actions -->
-          <div class="grid grid-cols-4 gap-2 text-center text-[10px] font-bold">
-            <a routerLink="/tenant/rent" class="p-2 bg-slate-50 rounded-xl border border-slate-200 text-slate-700 active:bg-slate-100 min-h-[44px] flex flex-col items-center justify-center">
+          <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold">
+            <a routerLink="/tenant/rent" class="p-2 bg-n-50 rounded-lg border border-n-200 text-n-700 active:bg-n-100 min-h-[44px] flex flex-col items-center justify-center transition-colors">
               <span>Rent</span>
             </a>
-            <a routerLink="/tenant/rental" class="p-2 bg-slate-50 rounded-xl border border-slate-200 text-slate-700 active:bg-slate-100 min-h-[44px] flex flex-col items-center justify-center">
+            <a routerLink="/tenant/rental" class="p-2 bg-n-50 rounded-lg border border-n-200 text-n-700 active:bg-n-100 min-h-[44px] flex flex-col items-center justify-center transition-colors">
               <span>Lease</span>
             </a>
-            <a routerLink="/tenant/handover" class="p-2 bg-slate-50 rounded-xl border border-slate-200 text-slate-700 active:bg-slate-100 min-h-[44px] flex flex-col items-center justify-center">
+            <a routerLink="/tenant/handover" class="p-2 bg-n-50 rounded-lg border border-n-200 text-n-700 active:bg-n-100 min-h-[44px] flex flex-col items-center justify-center transition-colors">
               <span>Handover</span>
             </a>
-            <a routerLink="/tenant/documents" class="p-2 bg-slate-50 rounded-xl border border-slate-200 text-slate-700 active:bg-slate-100 min-h-[44px] flex flex-col items-center justify-center">
-              <span>Vault</span>
+            <a routerLink="/tenant/documents" class="p-2 bg-n-50 rounded-lg border border-n-200 text-n-700 active:bg-n-100 min-h-[44px] flex flex-col items-center justify-center transition-colors">
+              <span>Receipts</span>
             </a>
           </div>
         </div>
 
         <!-- Quick Workspace Hub Tools -->
-        <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-2xs space-y-2.5">
-          <h2 class="text-[11px] font-black text-[#0F2937] uppercase tracking-wider">Quick Tools</h2>
+        <div class="card p-4 space-y-2.5">
+          <h2 class="text-xs font-semibold text-n-500 uppercase tracking-wider">Quick Tools</h2>
           <div class="grid grid-cols-3 gap-2">
             <button
               (click)="navigateTo('/tenant/homes')"
               type="button"
-              class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-left font-bold text-xs active:bg-slate-100 min-h-[44px] flex items-center justify-between"
+              class="p-2.5 bg-n-50 border border-n-200 rounded-lg text-left font-semibold text-xs active:bg-n-100 min-h-[44px] flex items-center justify-between text-n-700 transition-colors"
             >
               <span>Find</span>
-              <span class="text-slate-400"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
+              <svg class="w-4 h-4 text-n-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </button>
             <button
               (click)="navigateTo('/tenant/applications')"
               type="button"
-              class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-left font-bold text-xs active:bg-slate-100 min-h-[44px] flex items-center justify-between"
+              class="p-2.5 bg-n-50 border border-n-200 rounded-lg text-left font-semibold text-xs active:bg-n-100 min-h-[44px] flex items-center justify-between text-n-700 transition-colors"
             >
               <span>Apps</span>
-              <span class="text-slate-400"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+              <svg class="w-4 h-4 text-n-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             </button>
             <button
               (click)="navigateTo('/tenant/services')"
               type="button"
-              class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-left font-bold text-xs active:bg-slate-100 min-h-[44px] flex items-center justify-between"
+              class="p-2.5 bg-n-50 border border-n-200 rounded-lg text-left font-semibold text-xs active:bg-n-100 min-h-[44px] flex items-center justify-between text-n-700 transition-colors"
             >
               <span>Services</span>
-              <span class="text-slate-400"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
+              <svg class="w-4 h-4 text-n-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             </button>
           </div>
         </div>
 
         <!-- Recent Applications -->
-        <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-2xs space-y-3">
+        <div class="card p-4 space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-xs font-black text-[#0F2937] uppercase tracking-wider">Recent Applications</h3>
-            <a routerLink="/tenant/applications" class="text-[11px] font-bold text-[#2D7A5E] hover:underline">
+            <h3 class="text-xs font-semibold text-n-500 uppercase tracking-wider">Recent Applications</h3>
+            <a routerLink="/tenant/applications" class="text-xs font-semibold text-brand hover:text-brand-hover">
               View All →
             </a>
           </div>
@@ -231,21 +235,21 @@ import { RentalAgreement } from '../../core/services/rental.service';
             <div
               *ngFor="let app of recentApplications"
               (click)="navigateTo('/tenant/applications/' + (app.id || app._id))"
-              class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between gap-2 active:bg-slate-100 cursor-pointer min-h-[48px]"
+              class="p-3 bg-n-50 rounded-lg border border-n-200 flex items-center justify-between gap-2 active:bg-n-100 cursor-pointer min-h-[48px] transition-colors"
             >
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-1.5">
                   <app-status-badge [status]="app.status"></app-status-badge>
                 </div>
-                <h4 class="text-xs font-extrabold text-slate-900 mt-1 truncate">
-                  {{ app.propertyId?.title || 'Rental Residence' }}
+                <h4 class="text-xs font-semibold text-n-900 mt-1 truncate">
+                  {{ app.propertyId?.title || 'Rental Home' }}
                 </h4>
               </div>
-              <span class="text-xs font-bold text-[#2D7A5E] shrink-0">→</span>
+              <svg class="w-4 h-4 text-n-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></svg>
             </div>
           </div>
 
-          <div *ngIf="recentApplications.length === 0" class="py-4 text-center text-xs text-slate-400 font-semibold">
+          <div *ngIf="recentApplications.length === 0" class="py-4 text-center text-xs text-n-500">
             No rental applications submitted yet.
           </div>
         </div>

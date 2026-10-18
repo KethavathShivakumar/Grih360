@@ -15,7 +15,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <!-- Header & Actions -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937] tracking-tight">Identity Verification Queue</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937] tracking-tight">Identity Verification Queue</h1>
           <p class="text-xs text-slate-500 mt-0.5">
             Central compliance portal for tenant identity verification and Model Tenancy Act screening
           </p>
@@ -35,28 +35,28 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
       <!-- Quick Metrics Summary -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="bg-white p-4 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-1">
-          <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Total In Queue</span>
-          <span class="text-2xl font-black text-slate-900 block">{{ queue.length }}</span>
+        <div class="bg-white p-4 rounded-xl border border-[#E8E6DF] shadow-xs space-y-1">
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Total In Queue</span>
+          <span class="text-2xl font-semibold text-slate-900 block">{{ queue.length }}</span>
         </div>
-        <div class="bg-amber-50 p-4 rounded-3xl border border-amber-200 shadow-xs space-y-1">
-          <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-800">Pending Review</span>
-          <span class="text-2xl font-black text-amber-900 block">{{ getCountByStatus('PENDING') }}</span>
+        <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-xs space-y-1">
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-800">Pending Review</span>
+          <span class="text-2xl font-semibold text-amber-900 block">{{ getCountByStatus('PENDING') }}</span>
         </div>
-        <div class="bg-indigo-50 p-4 rounded-3xl border border-indigo-200 shadow-xs space-y-1">
-          <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-800">Under Review</span>
-          <span class="text-2xl font-black text-indigo-900 block">{{ getCountByStatus('UNDER_REVIEW') }}</span>
+        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 shadow-xs space-y-1">
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-indigo-800">Under Review</span>
+          <span class="text-2xl font-semibold text-indigo-900 block">{{ getCountByStatus('UNDER_REVIEW') }}</span>
         </div>
-        <div class="bg-emerald-50 p-4 rounded-3xl border border-emerald-200 shadow-xs space-y-1">
-          <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">Verified</span>
-          <span class="text-2xl font-black text-emerald-900 block">{{ getCountByStatus('VERIFIED') }}</span>
+        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 shadow-xs space-y-1">
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-emerald-800">Verified</span>
+          <span class="text-2xl font-semibold text-emerald-900 block">{{ getCountByStatus('VERIFIED') }}</span>
         </div>
       </div>
 
       <!-- Controls & Filter Tabs -->
-      <div class="bg-white rounded-3xl p-4 border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="bg-white rounded-xl p-4 border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <!-- Status Filter Tabs -->
-        <div class="flex flex-wrap items-center gap-1.5 bg-slate-50 p-1 rounded-2xl border border-slate-200/70">
+        <div class="flex flex-wrap items-center gap-1.5 bg-slate-50 p-1 rounded-xl border border-slate-200/70">
           <button
             *ngFor="let tab of statusTabs"
             (click)="setFilter(tab.key)"
@@ -80,20 +80,20 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             type="text"
             [(ngModel)]="searchQuery"
             placeholder="Search applicant name, email, property..."
-            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
           />
           <span *ngIf="searchQuery" (click)="searchQuery = ''" class="absolute right-3 top-2.5 text-xs text-slate-400 cursor-pointer"></span>
         </div>
       </div>
 
       <!-- Loading State -->
-      <div *ngIf="loading" class="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-xs">
+      <div *ngIf="loading" class="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-xs">
         <div class="animate-spin w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full mx-auto mb-3"></div>
         <p class="text-sm font-semibold text-slate-600">Loading administrative verification queue...</p>
       </div>
 
       <!-- Empty State -->
-      <div *ngIf="!loading && filteredQueue.length === 0" class="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-xs space-y-3">
+      <div *ngIf="!loading && filteredQueue.length === 0" class="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-xs space-y-3">
         <span class="text-4xl block"></span>
         <h3 class="text-base font-bold text-slate-800">No Verifications in this Category</h3>
         <p class="text-xs text-slate-500 max-w-sm mx-auto">
@@ -105,16 +105,16 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <div *ngIf="!loading && filteredQueue.length > 0" class="space-y-3">
         <div
           *ngFor="let item of filteredQueue"
-          class="bg-white rounded-3xl p-5 border border-[#E8E6DF] hover:border-indigo-300 transition shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4"
+          class="bg-white rounded-xl p-5 border border-[#E8E6DF] hover:border-indigo-300 transition shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4"
         >
           <!-- Left: Tenant & Application Context -->
           <div class="flex items-start space-x-4 min-w-0">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center shrink-0 text-base">
+            <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center shrink-0 text-base">
               {{ (getTenantName(item) || 'T')[0] }}
             </div>
             <div class="min-w-0 flex-1 space-y-1">
               <div class="flex items-center space-x-2">
-                <h3 class="text-sm font-extrabold text-slate-900 truncate">{{ getTenantName(item) }}</h3>
+                <h3 class="text-sm font-semibold text-slate-900 truncate">{{ getTenantName(item) }}</h3>
                 <app-status-badge [status]="item.status"></app-status-badge>
               </div>
               <p class="text-xs text-slate-500 truncate">

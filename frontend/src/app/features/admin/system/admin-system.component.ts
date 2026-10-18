@@ -15,7 +15,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">System Health & Infrastructure</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">System Health & Infrastructure</h1>
           <p class="text-xs text-slate-500">Monitor API server health, database connectivity, and uptime metrics</p>
         </div>
         <button (click)="loadHealth()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-md">
@@ -32,7 +32,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- API Server Health Card -->
         <div class="bg-white border border-[#E8E6DF] rounded-xl p-5 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide">API Engine Health</h3>
+            <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide">API Engine Health</h3>
             <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
               Status: {{ health.status }}
             </span>
@@ -61,7 +61,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Database Connectivity Card -->
         <div class="bg-white border border-[#E8E6DF] rounded-xl p-5 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide">Database Store</h3>
+            <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide">Database Store</h3>
             <span
               [ngClass]="health.database === 'CONNECTED' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'"
               class="px-2.5 py-0.5 text-xs font-bold rounded-full"

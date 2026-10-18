@@ -32,7 +32,7 @@ declare const google: any;
         <button
           (click)="onSearchThisAreaClick()"
           type="button"
-          class="px-4 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-black rounded-full shadow-2xl border border-white/20 flex items-center gap-2 cursor-pointer transition-transform  "
+          class="px-4 py-2 bg-[#0F2937] hover:bg-[#164E63] text-white text-xs font-semibold rounded-full shadow-2xl border border-white/20 flex items-center gap-2 cursor-pointer transition-transform  "
         >
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
           <span>Search this area</span>
@@ -44,7 +44,7 @@ declare const google: any;
         <button
           (click)="locateUser()"
           type="button"
-          class="p-2.5 bg-white/95 backdrop-blur-md hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
+          class="p-2.5 bg-white/95  hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
           title="Center on My Location"
         >
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
@@ -55,7 +55,7 @@ declare const google: any;
           (click)="fitAllMarkers()"
           *ngIf="properties && properties.length > 0"
           type="button"
-          class="p-2.5 bg-white/95 backdrop-blur-md hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
+          class="p-2.5 bg-white/95  hover:bg-white text-slate-800 rounded-xl shadow-md border border-slate-200/80 text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
           title="Fit All Properties in View"
         >
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg></span>
@@ -80,13 +80,13 @@ declare const google: any;
               />
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              <span class="text-[10px] font-semibold text-[#2D7A5E] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                 {{ activeProperty.bhk }} BHK • {{ activeProperty.propertyType }}
               </span>
               <h4 class="text-xs font-bold text-slate-900 mt-1 line-clamp-1">
                 {{ activeProperty.title }}
               </h4>
-              <p class="text-[11px] font-extrabold text-[#0F2937]">
+              <p class="text-[11px] font-semibold text-[#0F2937]">
                 {{ activeProperty.formattedRent || '₹' + activeProperty.rentAmount + '/mo' }}
               </p>
             </div>

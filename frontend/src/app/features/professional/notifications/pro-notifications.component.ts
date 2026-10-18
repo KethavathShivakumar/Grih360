@@ -26,7 +26,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 
       <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">Professional Notifications</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Professional Notifications</h1>
           <p class="text-xs text-[#64748B]">Real-time alerts for new job assignments, schedule updates, and customer reviews.</p>
         </div>
         <button

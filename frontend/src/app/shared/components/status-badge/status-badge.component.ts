@@ -7,7 +7,7 @@ import { VerificationStatus } from '../../models/user.model';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <span class="badge-status" [ngClass]="getBadgeClass()">
+    <span class="badge" [ngClass]="getBadgeClass()">
       <span class="w-2 h-2 rounded-full" [ngClass]="getDotClass()"></span>
       {{ getLabel() }}
     </span>
@@ -21,29 +21,29 @@ export class StatusBadgeComponent {
       case 'VERIFIED':
         return 'badge-verified';
       case 'UNDER_REVIEW':
-        return 'badge-under-review';
+        return 'badge-review';
       case 'PENDING':
       case 'REJECTED':
       case 'EXPIRED':
-        return 'badge-pending';
+        return 'badge-error';
       case 'NOT_STARTED':
       default:
-        return 'badge-not-started';
+        return 'badge-neutral';
     }
   }
 
   getDotClass(): string {
     switch (this.status) {
       case 'VERIFIED':
-        return 'bg-[#2D7A5E]';
+        return 'bg-ok-text';
       case 'UNDER_REVIEW':
-        return 'bg-[#C2410C]';
+        return 'bg-warn-text';
       case 'PENDING':
       case 'REJECTED':
       case 'EXPIRED':
-        return 'bg-[#B91C1C]';
+        return 'bg-err-text';
       default:
-        return 'bg-[#64748B]';
+        return 'bg-n-400';
     }
   }
 
@@ -54,11 +54,11 @@ export class StatusBadgeComponent {
       case 'UNDER_REVIEW':
         return 'Under Review';
       case 'PENDING':
-        return 'Pending Verification';
+        return 'Pending';
       case 'REJECTED':
-        return 'Verification Rejected';
+        return 'Rejected';
       case 'EXPIRED':
-        return 'Verification Expired';
+        return 'Expired';
       case 'NOT_STARTED':
       default:
         return 'Not Started';

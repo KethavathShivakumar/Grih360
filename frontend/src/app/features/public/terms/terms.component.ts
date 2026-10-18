@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
       <header class="bg-[#0F2937] text-white py-4 px-6 border-b border-slate-800">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
           <a routerLink="/" class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-[#0F2937] border border-amber-400 text-amber-400 flex items-center justify-center font-black text-sm">
+            <div class="w-8 h-8 rounded-lg bg-[#0F2937] border border-amber-400 text-amber-400 flex items-center justify-center font-semibold text-sm">
               G
             </div>
             <span class="font-bold text-lg text-white">Grih<span class="text-[#2D7A5E]">360</span></span>
@@ -23,10 +23,10 @@ import { RouterModule } from '@angular/router';
       </header>
 
       <main class="max-w-4xl mx-auto px-6 py-10 flex-1 w-full">
-        <div class="bg-white rounded-3xl border border-[#E8E6DF] p-6 sm:p-10 shadow-xs">
+        <div class="bg-white rounded-xl border border-[#E8E6DF] p-6 sm:p-10 shadow-xs">
           <div class="mb-8 border-b border-slate-100 pb-6">
             <span class="text-xs font-bold uppercase tracking-wider text-[#2D7A5E]">Legal and Compliance</span>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] mt-1">Terms and Conditions</h1>
+            <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] mt-1">Terms and Conditions</h1>
             <p class="text-xs sm:text-sm text-slate-500 mt-2">
               Effective Date: October 10, 2026. Last Updated: October 10, 2026.
             </p>
@@ -115,7 +115,7 @@ import { RouterModule } from '@angular/router';
             <section>
               <h2 class="text-base font-bold text-[#0F2937] mb-2">9. Contact Information</h2>
               <p class="mb-2">For legal notices or questions regarding these Terms, contact:</p>
-              <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1 text-xs sm:text-sm">
+              <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
                 <p><strong>Entity Name:</strong> [COMPANY_LEGAL_NAME]</p>
                 <p><strong>Registered Address:</strong> [REGISTERED_ADDRESS]</p>
                 <p><strong>Legal Inquiries:</strong> [CONTACT_EMAIL]</p>

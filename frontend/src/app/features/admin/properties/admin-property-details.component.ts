@@ -38,7 +38,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </span>
             <span class="text-xs text-slate-500 font-semibold">{{ property.propertyType }}</span>
           </div>
-          <h1 class="text-2xl font-black text-[#0F2937]">{{ property.title }}</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">{{ property.title }}</h1>
           <p class="text-xs text-slate-500 mt-0.5">
             <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ property.propertyLocation?.address || property.location?.address || 'Address not listed' }},
             {{ property.propertyLocation?.city || property.location?.city || 'Hyderabad' }}
@@ -87,13 +87,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Column 1: Financial & Core Specs -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
             Specifications & Pricing
           </h3>
           <div class="space-y-3 text-xs">
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center">
               <span class="text-slate-500 font-bold">Monthly Rent</span>
-              <span class="text-lg font-black text-[#0F2937]">₹{{ property.rentAmount?.toLocaleString('en-IN') }}/mo</span>
+              <span class="text-lg font-semibold text-[#0F2937]">₹{{ property.rentAmount?.toLocaleString('en-IN') }}/mo</span>
             </div>
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center">
               <span class="text-slate-500 font-bold">Security Deposit</span>
@@ -122,12 +122,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Column 2: Owner & Governance -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
             Property Owner
           </h3>
           <div class="space-y-3 text-xs">
             <div class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
-              <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm">
+              <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-semibold flex items-center justify-center text-sm">
                 {{ (property.owner?.name || property.ownerId?.name || 'O')[0] }}
               </div>
               <div class="min-w-0 flex-1">
@@ -163,7 +163,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Column 3: Amenities & Description -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
             Description & Amenities
           </h3>
           <div class="space-y-3 text-xs">

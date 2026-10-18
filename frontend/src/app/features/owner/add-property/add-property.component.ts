@@ -15,7 +15,7 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Add New Property Listing</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Add New Property Listing</h1>
           <p class="text-xs text-slate-500">List your property for verified tenants across Telangana and Andhra Pradesh.</p>
         </div>
         <button
@@ -30,10 +30,10 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
       <!-- Main Form -->
       <form (ngSubmit)="onSubmitProperty()" class="space-y-6">
         <!-- Section 1: Basic Specifications -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-black">1</span>
-            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Basic Property Information</h2>
+            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-semibold">1</span>
+            <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">Basic Property Information</h2>
           </div>
 
           <div class="space-y-1">
@@ -169,10 +169,10 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
         </div>
 
         <!-- Section 2: Interactive Google Map Location Picker (Requirements #8, #9, #11) -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-black">2</span>
-            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Property Location & Interactive Map Pin</h2>
+            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-semibold">2</span>
+            <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">Property Location & Interactive Map Pin</h2>
           </div>
 
           <!-- Embedded Map Picker -->
@@ -248,10 +248,10 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
         </div>
 
         <!-- Section 3: Amenities Checklist -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-black">3</span>
-            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Amenities & Features</h2>
+            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-semibold">3</span>
+            <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">Amenities & Features</h2>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -268,10 +268,10 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
         </div>
 
         <!-- Section 4: Property Photos -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-black">4</span>
-            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Property Photos</h2>
+            <span class="w-6 h-6 rounded-lg bg-[#0F2937] text-white flex items-center justify-center text-xs font-semibold">4</span>
+            <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">Property Photos</h2>
           </div>
 
           <!-- Upload Controls -->
@@ -309,7 +309,7 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
               class="relative bg-slate-100 rounded-xl overflow-hidden border h-32 group"
             >
               <img [src]="img.url" class="w-full h-full object-cover" />
-              <div *ngIf="img.isMain" class="absolute top-2 left-2 bg-[#0F2937] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-xs">
+              <div *ngIf="img.isMain" class="absolute top-2 left-2 bg-[#0F2937] text-white text-[9px] font-semibold px-1.5 py-0.5 rounded shadow-xs">
                 MAIN
               </div>
               <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center space-x-2 transition-opacity">
@@ -334,7 +334,7 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
         </div>
 
         <!-- Submission Error Alert -->
-        <div *ngIf="submitError" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-semibold flex items-center gap-2">
+        <div *ngIf="submitError" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs font-semibold flex items-center gap-2">
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
           <span>{{ submitError }}</span>
         </div>
@@ -351,7 +351,7 @@ import { GoogleMapPickerComponent, SelectedLocationData } from '../../../shared/
           <button
             type="submit"
             [disabled]="isSubmitting"
-            class="px-8 py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white rounded-xl text-xs font-extrabold shadow-md transition-all  cursor-pointer flex items-center gap-2"
+            class="px-8 py-3.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-md transition-all  cursor-pointer flex items-center gap-2"
           >
             <svg *ngIf="isSubmitting" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

@@ -19,7 +19,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Header Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Owner Notifications</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Owner Notifications</h1>
           <p class="text-xs text-slate-500">Real-time alerts regarding new tenant applications, rental updates, and rent tracking.</p>
         </div>
 
@@ -50,14 +50,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           *ngFor="let tab of tabs"
           (click)="selectedTab = tab.key"
           type="button"
-          [class]="selectedTab === tab.key ? 'bg-[#0F2937] text-white font-extrabold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold'"
+          [class]="selectedTab === tab.key ? 'bg-[#0F2937] text-white font-semibold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold'"
           class="px-3 py-1.5 rounded-xl text-xs transition-all cursor-pointer flex items-center gap-1.5"
         >
           <span>{{ tab.label }}</span>
           <span
             *ngIf="getTabCount(tab.key) > 0"
             [class]="selectedTab === tab.key ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-800'"
-            class="px-1.5 py-0.2 rounded-full text-[10px] font-black"
+            class="px-1.5 py-0.2 rounded-full text-[10px] font-semibold"
           >
             {{ getTabCount(tab.key) }}
           </span>
@@ -93,7 +93,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <div class="flex items-center gap-2">
               <span
                 [ngClass]="getTypeBadgeClass(item.type)"
-                class="text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider"
+                class="text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wider"
               >
                 {{ item.type }}
               </span>

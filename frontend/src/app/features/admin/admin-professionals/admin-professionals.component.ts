@@ -24,7 +24,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">Admin Professional Network Control</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Admin Professional Network Control</h1>
           <p class="text-xs text-[#64748B]">Review registered professionals, update verification states, and manage active status.</p>
         </div>
         <span class="px-3 py-1 bg-[#FEF2F2] border border-[#FEE2E2] text-[#B91C1C] text-xs font-bold rounded-full">

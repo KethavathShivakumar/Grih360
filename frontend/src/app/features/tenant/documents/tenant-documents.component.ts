@@ -42,7 +42,7 @@ export interface TenantDoc {
             <span>/</span>
             <span class="text-slate-800 font-bold">Documents & Certificates</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Tenancy Documents & Vault</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Tenancy Documents & Vault</h1>
           <p class="text-xs text-slate-500 mt-0.5">
             Model Tenancy Act compliant digital lease copies, HRA rent receipts, and verification records.
           </p>
@@ -52,7 +52,7 @@ export interface TenantDoc {
           <button
             (click)="showUploadModal = true"
             type="button"
-            class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold rounded-xl text-xs shadow-xs transition cursor-pointer flex items-center gap-1.5"
+            class="px-4 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold rounded-xl text-xs shadow-xs transition cursor-pointer flex items-center gap-1.5"
           >
             <span>+ Upload Document</span>
           </button>
@@ -65,7 +65,7 @@ export interface TenantDoc {
           *ngFor="let cat of categories"
           (click)="selectedCategory = cat.value"
           type="button"
-          [class]="selectedCategory === cat.value ? 'bg-[#0F2937] text-white font-black shadow-xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 font-bold'"
+          [class]="selectedCategory === cat.value ? 'bg-[#0F2937] text-white font-semibold shadow-xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 font-bold'"
           class="px-3.5 py-1.5 rounded-xl whitespace-nowrap transition cursor-pointer"
         >
           {{ cat.label }}
@@ -96,12 +96,12 @@ export interface TenantDoc {
       <div *ngIf="!isLoading && !isError && filteredDocuments.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
           *ngFor="let doc of filteredDocuments"
-          class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-4"
+          class="bg-white p-5 rounded-xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-4"
         >
           <div class="space-y-2">
             <div class="flex items-center justify-between">
               <span
-                class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider"
+                class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
                 [class]="getCategoryBadgeClass(doc.category)"
               >
                 {{ doc.category }}
@@ -110,7 +110,7 @@ export interface TenantDoc {
             </div>
 
             <div>
-              <h3 class="text-sm font-extrabold text-[#0F2937]">{{ doc.title }}</h3>
+              <h3 class="text-sm font-semibold text-[#0F2937]">{{ doc.title }}</h3>
               <p class="text-xs text-slate-500 mt-1 leading-relaxed">{{ doc.description }}</p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export interface TenantDoc {
               <button
                 (click)="downloadDoc(doc)"
                 type="button"
-                class="px-3 py-1 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-black rounded-lg transition cursor-pointer"
+                class="px-3 py-1 bg-navy hover:opacity-90 text-n-0 font-semibold rounded-lg transition cursor-pointer"
               >
                 Download ↓
               </button>
@@ -139,12 +139,12 @@ export interface TenantDoc {
       </div>
 
       <!-- Document Preview Modal -->
-      <div *ngIf="activeDocPreview" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 border border-slate-200">
+      <div *ngIf="activeDocPreview" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 ">
+        <div class="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl space-y-5 border border-slate-200">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">{{ activeDocPreview.category }}</span>
-              <h3 class="text-base font-black text-[#0F2937]">{{ activeDocPreview.title }}</h3>
+              <span class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider">{{ activeDocPreview.category }}</span>
+              <h3 class="text-base font-semibold text-[#0F2937]">{{ activeDocPreview.title }}</h3>
             </div>
             <button (click)="activeDocPreview = null" type="button" class="text-slate-400 hover:text-slate-600 font-bold cursor-pointer">
               
@@ -154,7 +154,7 @@ export interface TenantDoc {
           <!-- Document Mock Paper Body -->
           <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-3 font-mono text-xs text-slate-700">
             <div class="text-center pb-3 border-b border-slate-200">
-              <div class="font-extrabold text-sm text-[#0F2937]">GRIH360 RESIDENTIAL NETWORK</div>
+              <div class="font-semibold text-sm text-[#0F2937]">GRIH360 RESIDENTIAL NETWORK</div>
               <div class="text-[10px] text-slate-500">Government Registered Model Tenancy Act Archive</div>
             </div>
             <div class="space-y-1 text-[11px]">
@@ -179,7 +179,7 @@ export interface TenantDoc {
             <button
               (click)="downloadDoc(activeDocPreview)"
               type="button"
-              class="flex-1 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold text-xs rounded-xl shadow-xs transition cursor-pointer"
+              class="flex-1 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-xs transition cursor-pointer"
             >
               Print / Save File
             </button>
@@ -188,10 +188,10 @@ export interface TenantDoc {
       </div>
 
       <!-- Upload Modal -->
-      <div *ngIf="showUploadModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
+      <div *ngIf="showUploadModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 ">
+        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-base font-black text-[#0F2937]">Upload Tenancy Document</h3>
+            <h3 class="text-base font-semibold text-[#0F2937]">Upload Tenancy Document</h3>
             <button (click)="showUploadModal = false" type="button" class="text-slate-400 hover:text-slate-600 font-bold cursor-pointer">
               
             </button>
@@ -242,7 +242,7 @@ export interface TenantDoc {
             <button
               (click)="saveUploadedDoc()"
               type="button"
-              class="flex-1 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold text-xs rounded-xl shadow-xs transition cursor-pointer"
+              class="flex-1 py-2 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-xs transition cursor-pointer"
             >
               Save Document
             </button>

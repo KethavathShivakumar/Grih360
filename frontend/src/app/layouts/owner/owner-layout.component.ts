@@ -10,243 +10,140 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterModule],
   template: `
-    <div class="min-h-screen bg-[#FAF9F5] flex flex-col font-sans text-slate-800">
-      <!-- Slim Top Bar Header -->
-      <header class="bg-white border-b border-[#E8E6DF] px-4 sm:px-6 py-2.5 sm:py-3 sticky top-0 z-50 shadow-xs mobile-top-bar">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-          <!-- Left: Brand Logo & Desktop Nav -->
-          <div class="flex items-center space-x-6">
-            <a routerLink="/owner/dashboard" class="flex items-center space-x-2 group">
-              <div class="w-8 h-8 rounded-lg bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-sm  transition-transform">
-                G
-              </div>
-              <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
+    <div class="min-h-screen bg-n-50 flex flex-col">
+
+      <!-- Top app bar -->
+      <header class="bg-n-0 border-b border-n-200 sticky top-0 z-50 mobile-top-bar">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+
+          <!-- Logo + nav -->
+          <div class="flex items-center gap-6">
+            <a routerLink="/owner/dashboard" class="flex items-center gap-2 shrink-0">
+              <div class="w-8 h-8 rounded-lg bg-navy flex items-center justify-center text-n-0 font-semibold text-sm">G</div>
+              <span class="text-base font-semibold text-navy">Grih<span class="text-brand">360</span></span>
             </a>
-            <span class="hidden sm:inline-flex px-2.5 py-0.5 bg-[#0F2937] text-[#FACC15] text-[10px] font-black rounded-md uppercase tracking-wide">
-              Owner Console
+            <span class="hidden sm:inline-flex px-2 py-0.5 bg-brand-subtle border border-brand-border text-brand text-xs font-semibold rounded">
+              Owner
             </span>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600">
-              <a
-                routerLink="/owner/dashboard"
-                routerLinkActive="bg-[#0F2937] text-white shadow-2xs"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
-              >
-                Dashboard
+            <!-- Desktop nav -->
+            <nav class="hidden xl:flex items-center gap-0.5 text-sm text-n-500">
+              <a routerLink="/owner/dashboard" routerLinkActive="text-n-900 bg-n-100" [routerLinkActiveOptions]="{exact:true}"
+                class="px-3 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Dashboard</a>
+              <a routerLink="/owner/properties" routerLinkActive="text-n-900 bg-n-100" [routerLinkActiveOptions]="{exact:true}"
+                class="px-3 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Properties</a>
+              <a routerLink="/owner/properties/new"
+                class="px-3 py-1.5 rounded-md bg-brand-subtle text-brand hover:bg-brand hover:text-n-0 transition-colors font-semibold flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                Add Property
               </a>
-              <a
-                routerLink="/owner/properties"
-                routerLinkActive="bg-[#0F2937] text-white shadow-2xs"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
-              >
-                Properties
-              </a>
-              <a
-                routerLink="/owner/properties/new"
-                routerLinkActive="bg-[#2D7A5E] text-white font-bold"
-                class="px-3 py-1.5 rounded-lg bg-emerald-50 text-[#2D7A5E] hover:bg-[#2D7A5E] hover:text-white transition-all flex items-center gap-1"
-              >
-                <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add Property</span>
-              </a>
-              <a
-                routerLink="/owner/applicants"
-                routerLinkActive="bg-[#0F2937] text-white shadow-2xs"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
-              >
-                Applicants
-              </a>
-              <a
-                routerLink="/owner/rentals"
-                routerLinkActive="bg-[#0F2937] text-white shadow-2xs"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
-              >
-                Rentals
-              </a>
-              <a
-                routerLink="/owner/rent-tracking"
-                routerLinkActive="bg-[#0F2937] text-white shadow-2xs"
-                class="px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937] transition-all"
-              >
-                Rent Tracking
-              </a>
+              <a routerLink="/owner/applicants" routerLinkActive="text-n-900 bg-n-100"
+                class="px-3 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Applicants</a>
+              <a routerLink="/owner/rentals" routerLinkActive="text-n-900 bg-n-100"
+                class="px-3 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Rentals</a>
+              <a routerLink="/owner/rent-tracking" routerLinkActive="text-n-900 bg-n-100"
+                class="px-3 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Rent</a>
             </nav>
 
-            <!-- Medium Screens Nav (compact) -->
-            <nav class="hidden md:flex xl:hidden items-center space-x-1 text-xs font-bold text-slate-600">
-              <a
-                routerLink="/owner/dashboard"
-                routerLinkActive="bg-[#0F2937] text-white"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
-              >
-                Dashboard
-              </a>
-              <a
-                routerLink="/owner/properties"
-                routerLinkActive="bg-[#0F2937] text-white"
-                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
-              >
-                Properties
-              </a>
-              <a
-                routerLink="/owner/applicants"
-                routerLinkActive="bg-[#0F2937] text-white"
-                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
-              >
-                Applicants
-              </a>
-              <a
-                routerLink="/owner/rentals"
-                routerLinkActive="bg-[#0F2937] text-white"
-                class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 hover:text-[#0F2937]"
-              >
-                Rentals
-              </a>
+            <!-- Medium compact nav -->
+            <nav class="hidden md:flex xl:hidden items-center gap-0.5 text-sm text-n-500">
+              <a routerLink="/owner/dashboard" routerLinkActive="text-n-900 bg-n-100" [routerLinkActiveOptions]="{exact:true}"
+                class="px-2.5 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Home</a>
+              <a routerLink="/owner/properties" routerLinkActive="text-n-900 bg-n-100" [routerLinkActiveOptions]="{exact:true}"
+                class="px-2.5 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Properties</a>
+              <a routerLink="/owner/applicants" routerLinkActive="text-n-900 bg-n-100"
+                class="px-2.5 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Applicants</a>
+              <a routerLink="/owner/rentals" routerLinkActive="text-n-900 bg-n-100"
+                class="px-2.5 py-1.5 rounded-md hover:bg-n-100 hover:text-n-900 transition-colors font-semibold">Rentals</a>
             </nav>
           </div>
 
-          <!-- Right: Owner Notifications, Settings, Profile & Actions -->
-          <div class="flex items-center space-x-2 sm:space-x-3">
-            <!-- Notifications Bell -->
-            <a
-              routerLink="/owner/notifications"
-              routerLinkActive="text-[#2D7A5E] bg-emerald-50"
-              class="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
-              title="Notifications"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          <!-- Right actions -->
+          <div class="flex items-center gap-2">
+            <a routerLink="/owner/notifications" routerLinkActive="text-brand bg-brand-subtle"
+              class="relative p-2 text-n-500 hover:text-n-900 hover:bg-n-100 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
               </svg>
-              <span
-                *ngIf="unreadCount > 0"
-                class="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-500 text-white text-[9px] font-black rounded-full flex items-center justify-center animate-pulse"
-              >
-                {{ unreadCount > 9 ? '9+' : unreadCount }}
-              </span>
+              <span *ngIf="unreadCount > 0"
+                class="absolute top-1.5 right-1.5 w-4 h-4 bg-err-text text-n-0 rounded-full flex items-center justify-center font-semibold leading-none"
+                style="font-size: 10px;">{{ unreadCount > 9 ? '9+' : unreadCount }}</span>
             </a>
 
-            <!-- Settings Button (Desktop) -->
-            <a
-              routerLink="/owner/settings"
-              routerLinkActive="text-[#0F2937] bg-slate-100"
-              class="hidden sm:inline-flex p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer min-h-[44px]"
-              title="Workspace Settings"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <a routerLink="/owner/settings" routerLinkActive="text-n-900 bg-n-100"
+              class="hidden sm:inline-flex p-2 text-n-500 hover:text-n-900 hover:bg-n-100 rounded-lg transition-colors min-h-[44px] min-w-[44px] items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
             </a>
 
-            <!-- Owner Profile Avatar Link -->
-            <a
-              routerLink="/owner/profile"
-              routerLinkActive="ring-2 ring-[#2D7A5E]"
-              class="flex items-center space-x-2 p-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-slate-100 border border-slate-200/80 transition-all cursor-pointer group min-h-[44px]"
-              title="View Owner Profile"
-            >
-              <div class="w-8 h-8 rounded-full bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-bold text-xs shadow-xs overflow-hidden shrink-0">
-                <img *ngIf="user?.profileImage" [src]="user.profileImage" [alt]="userName" class="w-full h-full object-cover" />
+            <a routerLink="/owner/profile" class="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-n-100 border border-n-200 transition-colors min-h-[44px] cursor-pointer">
+              <div class="w-7 h-7 rounded-full bg-navy text-n-0 flex items-center justify-center text-xs font-semibold overflow-hidden shrink-0">
+                <img *ngIf="user?.profileImage" [src]="user.profileImage" [alt]="userName" class="w-full h-full object-cover"/>
                 <span *ngIf="!user?.profileImage">{{ userInitial }}</span>
               </div>
-              <div class="hidden lg:flex flex-col text-left">
-                <span class="text-xs font-bold text-slate-900 group-hover:text-[#2D7A5E] leading-tight">{{ userName }}</span>
-                <span class="text-[10px] text-slate-400 font-semibold">Property Owner</span>
+              <div class="hidden lg:flex flex-col">
+                <span class="text-xs font-semibold text-n-900 leading-tight">{{ userName }}</span>
+                <span class="text-n-400 leading-none" style="font-size: 10px;">Owner</span>
               </div>
             </a>
 
-            <!-- Logout Button (Desktop) -->
-            <button
-              (click)="onLogout()"
-              type="button"
-              class="hidden sm:inline-flex items-center px-3 py-1.5 border border-slate-200 text-xs font-bold text-slate-600 hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer min-h-[44px]"
-              title="Sign Out"
-            >
-              Logout
+            <button (click)="onLogout()" type="button"
+              class="hidden sm:inline-flex items-center px-3 py-1.5 border border-n-200 text-xs font-semibold text-n-500 hover:text-err-text hover:border-err-border hover:bg-err-bg rounded-lg transition-colors cursor-pointer min-h-[44px]">
+              Sign out
             </button>
           </div>
         </div>
       </header>
 
-      <!-- Main Content -->
-      <main class="flex-grow p-4 sm:p-6 pb-24 md:pb-6 max-w-7xl mx-auto w-full">
+      <main class="flex-grow px-4 sm:px-6 py-6 pb-24 md:pb-8 max-w-screen-xl mx-auto w-full">
         <router-outlet></router-outlet>
       </main>
 
-      <!-- Mobile Bottom Navigation Bar (Owner Role: Home, Properties, Applicants, Rentals, Profile) -->
-      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200/90 py-2 px-1 z-40 grid grid-cols-5 items-center justify-items-center shadow-lg pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
-        <!-- Home -->
-        <a
-          routerLink="/owner/dashboard"
-          routerLinkActive="text-[#2D7A5E] font-bold"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
-        >
-          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <!-- Mobile bottom tab bar -->
+      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-n-0 border-t border-n-200 grid grid-cols-5 z-40 pb-safe">
+        <a routerLink="/owner/dashboard" routerLinkActive="text-brand" [routerLinkActiveOptions]="{exact:true}"
+          class="flex flex-col items-center justify-center py-2 text-n-400 hover:text-n-700 transition-colors min-h-[56px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
             <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
-          <span class="text-[11px] font-medium tracking-tight mt-0.5">Home</span>
+          <span class="text-xs mt-0.5 font-semibold">Home</span>
         </a>
-
-        <!-- Properties -->
-        <a
-          routerLink="/owner/properties"
-          routerLinkActive="text-[#2D7A5E] font-bold"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
-        >
-          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/owner/properties" routerLinkActive="text-brand" [routerLinkActiveOptions]="{exact:true}"
+          class="flex flex-col items-center justify-center py-2 text-n-400 hover:text-n-700 transition-colors min-h-[56px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
-            <path d="M9 22v-4h6v4"/>
-            <path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/>
-            <path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/>
+            <path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/>
           </svg>
-          <span class="text-[11px] font-medium tracking-tight mt-0.5">Properties</span>
+          <span class="text-xs mt-0.5 font-semibold">Properties</span>
         </a>
-
-        <!-- Applicants -->
-        <a
-          routerLink="/owner/applicants"
-          routerLinkActive="text-[#2D7A5E] font-bold"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
-        >
-          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/owner/applicants" routerLinkActive="text-brand"
+          class="flex flex-col items-center justify-center py-2 text-n-400 hover:text-n-700 transition-colors min-h-[56px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <path stroke-linecap="round" stroke-linejoin="round" d="M22 21v-2a4 4 0 0 0-3-3.87"/>
             <path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
-          <span class="text-[11px] font-medium tracking-tight mt-0.5">Applicants</span>
+          <span class="text-xs mt-0.5 font-semibold">Applicants</span>
         </a>
-
-        <!-- Rentals -->
-        <a
-          routerLink="/owner/rentals"
-          routerLinkActive="text-[#2D7A5E] font-bold"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
-        >
-          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/owner/rentals" routerLinkActive="text-brand"
+          class="flex flex-col items-center justify-center py-2 text-n-400 hover:text-n-700 transition-colors min-h-[56px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
             <polyline points="14 2 14 8 20 8"/>
           </svg>
-          <span class="text-[11px] font-medium tracking-tight mt-0.5">Rentals</span>
+          <span class="text-xs mt-0.5 font-semibold">Rentals</span>
         </a>
-
-        <!-- Profile -->
-        <a
-          routerLink="/owner/profile"
-          routerLinkActive="text-[#2D7A5E] font-bold"
-          class="flex flex-col items-center justify-center py-1 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer w-full text-center group min-h-[44px]"
-        >
-          <svg class="w-5 h-5 stroke-[1.8] group-[.font-bold]:stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/owner/profile" routerLinkActive="text-brand"
+          class="flex flex-col items-center justify-center py-2 text-n-400 hover:text-n-700 transition-colors min-h-[56px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>
           </svg>
-          <span class="text-[11px] font-medium tracking-tight mt-0.5">Profile</span>
+          <span class="text-xs mt-0.5 font-semibold">Profile</span>
         </a>
       </nav>
     </div>
@@ -264,35 +161,18 @@ export class OwnerLayoutComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subs.add(
-      this.authService.currentUser$.subscribe((u) => {
-        this.user = u;
-      })
-    );
-
-    this.subs.add(
-      this.notificationService.unreadCount$.subscribe((count) => {
-        this.unreadCount = count;
-      })
-    );
-
+    this.subs.add(this.authService.currentUser$.subscribe((u) => { this.user = u; }));
+    this.subs.add(this.notificationService.unreadCount$.subscribe((count) => { this.unreadCount = count; }));
     this.notificationService.fetchNotifications();
   }
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
+  ngOnDestroy(): void { this.subs.unsubscribe(); }
 
-  get userName(): string {
-    return this.user?.fullName || this.user?.name || 'Property Owner';
-  }
-
-  get userInitial(): string {
-    return this.userName.charAt(0).toUpperCase() || 'O';
-  }
+  get userName(): string { return this.user?.fullName || this.user?.name || 'Owner'; }
+  get userInitial(): string { return this.userName.charAt(0).toUpperCase() || 'O'; }
 
   onLogout(): void {
-    if (confirm('Are you sure you want to sign out of Grih360?')) {
+    if (confirm('Sign out of Grih360?')) {
       this.authService.logout();
       this.router.navigate(['/auth/login'], { replaceUrl: true });
     }

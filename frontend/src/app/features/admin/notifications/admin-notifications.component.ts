@@ -16,14 +16,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">System Broadcast Announcements</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">System Broadcast Announcements</h1>
           <p class="text-xs text-slate-500">Send platform updates and system notifications to targeted user roles</p>
         </div>
       </div>
 
       <!-- Broadcast Announcement Form -->
       <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-sm max-w-2xl">
-        <h3 class="text-base font-black text-[#0F2937] mb-4">Send New Announcement</h3>
+        <h3 class="text-base font-semibold text-[#0F2937] mb-4">Send New Announcement</h3>
         <form (ngSubmit)="sendBroadcast()" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Announcement Title</label>

@@ -13,13 +13,13 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
   template: `
     <div class="min-h-screen bg-[#FAF9F5] flex flex-col justify-between font-sans text-slate-800">
       <!-- Top Simple Header -->
-      <header class="w-full bg-white/95 backdrop-blur-md border-b border-[#E8E6DF] py-3.5 px-4 sm:px-8">
+      <header class="w-full bg-white/95  border-b border-[#E8E6DF] py-3.5 px-4 sm:px-8">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
           <a routerLink="/" class="flex items-center space-x-2.5 group">
-            <div class="w-9 h-9 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-lg shadow-xs  transition-transform">
+            <div class="w-9 h-9 rounded-xl bg-navy text-n-0 flex items-center justify-center font-semibold text-lg shadow-xs  transition-transform">
               G
             </div>
-            <span class="text-xl font-extrabold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
+            <span class="text-xl font-semibold text-[#0F2937] tracking-tight">Grih<span class="text-[#2D7A5E]">360</span></span>
           </a>
 
           <button
@@ -34,17 +34,17 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
       <!-- Centered Verification Card -->
       <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-auto">
-        <div class="w-full max-w-md bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-[#E8E6DF] space-y-6">
+        <div class="w-full max-w-md bg-white rounded-xl p-6 sm:p-10 shadow-lg border border-[#E8E6DF] space-y-6">
           
           <!-- Step Progress Indicator -->
           <div class="space-y-2">
-            <div class="flex items-center justify-between text-[11px] font-extrabold uppercase tracking-wider">
+            <div class="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wider">
               <span class="text-emerald-700 flex items-center gap-1.5">
-                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-[10px] font-black"></span>
+                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-[10px] font-semibold"></span>
                 Credentials Accepted
               </span>
               <span class="text-[#2D7A5E] flex items-center gap-1.5">
-                <span class="w-5 h-5 rounded-full bg-[#2D7A5E] text-white flex items-center justify-center text-[10px] font-black">2</span>
+                <span class="w-5 h-5 rounded-full bg-[#2D7A5E] text-white flex items-center justify-center text-[10px] font-semibold">2</span>
                 Email OTP Verification
               </span>
             </div>
@@ -58,14 +58,14 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <div class="inline-flex items-center space-x-2 bg-emerald-50 text-[#2D7A5E] px-3.5 py-1.5 rounded-full text-xs font-bold border border-emerald-200">
               <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Two-Step Identity Verification</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">
+            <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">
               Verify Your Identity
             </h1>
             <p class="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
               We've dispatched a single-use 6-digit security code to your registered email address:
             </p>
             <div class="pt-1 flex flex-col items-center gap-1.5">
-              <span class="inline-block px-3.5 py-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-extrabold text-[#0F2937] tracking-wide font-mono">
+              <span class="inline-block px-3.5 py-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-semibold text-[#0F2937] tracking-wide font-mono">
                 {{ maskedEmail }}
               </span>
               <span class="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
@@ -128,7 +128,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
                 <div class="flex items-center justify-between gap-1.5 sm:gap-2.5 pointer-events-none relative z-10">
                   <div
                     *ngFor="let slot of [0, 1, 2, 3, 4, 5]"
-                    class="w-10 h-12 sm:w-14 sm:h-16 flex items-center justify-center text-center text-xl sm:text-2xl font-black rounded-xl sm:rounded-2xl border transition-all bg-white"
+                    class="w-10 h-12 sm:w-14 sm:h-16 flex items-center justify-center text-center text-xl sm:text-2xl font-semibold rounded-xl sm:rounded-2xl border transition-all bg-white"
                     [ngClass]="{
                       'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/20 bg-emerald-50/30 text-[#0F2937] shadow-xs': getSlotDigit(slot),
                       'border-[#2D7A5E] ring-2 ring-[#2D7A5E]/40 bg-white text-[#0F2937] shadow-xs': isSlotActive(slot),
@@ -151,7 +151,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <button
               type="submit"
               [disabled]="!isCodeComplete || isLoading || isLockedOut"
-              class="w-full min-h-[48px] h-[48px] bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 disabled:cursor-not-allowed text-white font-extrabold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
+              class="w-full min-h-[48px] h-[48px] bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
               <svg *ngIf="isLoading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

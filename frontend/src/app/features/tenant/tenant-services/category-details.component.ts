@@ -18,7 +18,7 @@ import { ServiceRequestService, ServiceCategoryCode } from '../../../core/servic
       <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div class="space-y-1">
           <span class="px-2.5 py-0.5 bg-[#EBF5F0] text-[#2D7A5E] text-xs font-bold rounded-full">Category Guide</span>
-          <h1 class="text-2xl font-black text-[#0F2937]">{{ getCategoryTitle() }}</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">{{ getCategoryTitle() }}</h1>
           <p class="text-xs text-[#64748B] max-w-xl">{{ getCategoryDescription() }}</p>
         </div>
         <button

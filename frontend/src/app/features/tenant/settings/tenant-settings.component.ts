@@ -28,7 +28,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <span>/</span>
             <span class="text-slate-800 font-bold">Settings</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Tenant Settings & Preferences</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Tenant Settings & Preferences</h1>
           <p class="text-xs text-slate-500 mt-0.5">Manage notifications, search criteria, credentials, and security configurations.</p>
         </div>
 
@@ -38,8 +38,8 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             *ngFor="let tab of tabs"
             (click)="activeTab = tab.id"
             type="button"
-            [class]="activeTab === tab.id ? 'bg-[#0F2937] text-[#FACC15]' : 'bg-white text-slate-700 hover:bg-slate-50'"
-            class="px-3.5 py-2 text-xs font-black rounded-xl border border-slate-200 shadow-2xs transition-colors cursor-pointer flex items-center gap-1.5"
+            [class]="activeTab === tab.id ? 'bg-navy text-n-0' : 'bg-white text-slate-700 hover:bg-slate-50'"
+            class="px-3.5 py-2 text-xs font-semibold rounded-xl border border-slate-200 shadow-2xs transition-colors cursor-pointer flex items-center gap-1.5"
           >
             <span [innerHTML]="tab.icon | safeHtml" class="w-4 h-4 inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4"></span>
             <span>{{ tab.label }}</span>
@@ -61,16 +61,16 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
       <div class="space-y-6">
 
         <!-- TAB 1: NOTIFICATIONS & ALERTS -->
-        <div *ngIf="activeTab === 'notifications'" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div *ngIf="activeTab === 'notifications'" class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Alerts & Automated Communications</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Alerts & Automated Communications</h2>
             <p class="text-xs text-slate-500 mt-0.5">Stay informed about rent cycle dates, new home matches, and maintenance updates.</p>
           </div>
 
           <div class="space-y-4">
             <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200/80">
               <div>
-                <span class="text-xs font-extrabold text-[#0F2937] block">Rent Due & Receipt Email Notifications</span>
+                <span class="text-xs font-semibold text-[#0F2937] block">Rent Due & Receipt Email Notifications</span>
                 <span class="text-[11px] text-slate-500 block mt-0.5">Receive monthly rent reminders 5 days prior to cycle due date and PDF receipts upon payment.</span>
               </div>
               <input
@@ -82,7 +82,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
             <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200/80">
               <div>
-                <span class="text-xs font-extrabold text-[#0F2937] block">WhatsApp Home Service Tracking</span>
+                <span class="text-xs font-semibold text-[#0F2937] block">WhatsApp Home Service Tracking</span>
                 <span class="text-[11px] text-slate-500 block mt-0.5">Receive real-time professional dispatch updates and service technician arrival notices on WhatsApp.</span>
               </div>
               <input
@@ -94,7 +94,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
             <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200/80">
               <div>
-                <span class="text-xs font-extrabold text-[#0F2937] block">Instant Home Match Alerts</span>
+                <span class="text-xs font-semibold text-[#0F2937] block">Instant Home Match Alerts</span>
                 <span class="text-[11px] text-slate-500 block mt-0.5">Get notified immediately when a new zero-brokerage listing matches your preferred locality and budget.</span>
               </div>
               <input
@@ -106,7 +106,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
             <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200/80">
               <div>
-                <span class="text-xs font-extrabold text-[#0F2937] block">SMS Security & Verification Codes</span>
+                <span class="text-xs font-semibold text-[#0F2937] block">SMS Security & Verification Codes</span>
                 <span class="text-[11px] text-slate-500 block mt-0.5">Standard authentication and tenant login security pin notifications.</span>
               </div>
               <input
@@ -121,7 +121,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <button
               (click)="saveNotificationSettings()"
               type="button"
-              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold text-xs rounded-xl shadow-xs transition cursor-pointer"
+              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-xs transition cursor-pointer"
             >
               Save Notification Preferences
             </button>
@@ -129,9 +129,9 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
         </div>
 
         <!-- TAB 2: SEARCH PREFERENCES -->
-        <div *ngIf="activeTab === 'preferences'" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div *ngIf="activeTab === 'preferences'" class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Rental Matching & Discovery Criteria</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Rental Matching & Discovery Criteria</h2>
             <p class="text-xs text-slate-500 mt-0.5">Configure your home search preferences for customized recommendations.</p>
           </div>
 
@@ -195,7 +195,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <button
               (click)="saveSearchPreferences()"
               type="button"
-              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-extrabold text-xs rounded-xl shadow-xs transition cursor-pointer"
+              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-xs transition cursor-pointer"
             >
               Update Search Preferences
             </button>
@@ -203,9 +203,9 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
         </div>
 
         <!-- TAB 3: SECURITY & PASSWORD -->
-        <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Password & Security Credentials</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Password & Security Credentials</h2>
             <p class="text-xs text-slate-500 mt-0.5">Ensure your account uses a secure password to protect personal data and rental contracts.</p>
           </div>
 
@@ -245,7 +245,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
                 (click)="changePassword()"
                 [disabled]="isUpdatingPassword"
                 type="button"
-                class="w-full px-6 py-2.5 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-black text-xs rounded-xl shadow-xs transition disabled:opacity-50 cursor-pointer"
+                class="w-full px-6 py-2.5 bg-navy hover:opacity-90 text-n-0 font-semibold text-xs rounded-xl shadow-xs transition disabled:opacity-50 cursor-pointer"
               >
                 {{ isUpdatingPassword ? 'Updating Password...' : 'Update Password' }}
               </button>
@@ -254,16 +254,16 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
         </div>
 
         <!-- TAB 4: ACCOUNT MANAGEMENT -->
-        <div *ngIf="activeTab === 'account'" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        <div *ngIf="activeTab === 'account'" class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm space-y-6">
           <div class="border-b border-slate-100 pb-4">
-            <h2 class="text-lg font-black text-[#0F2937]">Account Management & Privacy</h2>
+            <h2 class="text-lg font-semibold text-[#0F2937]">Account Management & Privacy</h2>
             <p class="text-xs text-slate-500 mt-0.5">Manage your tenant profile information and data privacy.</p>
           </div>
 
           <div class="space-y-4 text-xs">
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span class="font-extrabold text-slate-900 block">Personal Profile & Contact Info</span>
+                <span class="font-semibold text-slate-900 block">Personal Profile & Contact Info</span>
                 <span class="text-[11px] text-slate-500 block mt-0.5">Update your display name, phone number, bio, and employment data.</span>
               </div>
               <a
@@ -276,7 +276,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span class="font-extrabold text-slate-900 block">Download Personal Data Archive</span>
+                <span class="font-semibold text-slate-900 block">Download Personal Data Archive</span>
                 <span class="text-[11px] text-slate-500 block mt-0.5">Export a copy of your tenancy contracts, applications, and receipts.</span>
               </div>
               <button
@@ -290,7 +290,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 
             <div class="p-4 bg-rose-50/60 rounded-2xl border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span class="font-extrabold text-rose-900 block">Sign Out of Grih360</span>
+                <span class="font-semibold text-rose-900 block">Sign Out of Grih360</span>
                 <span class="text-[11px] text-rose-700 block mt-0.5">Safely end your current session across devices.</span>
               </div>
               <button

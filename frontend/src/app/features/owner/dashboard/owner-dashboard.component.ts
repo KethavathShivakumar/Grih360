@@ -20,54 +20,55 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
     EmptyStateComponent,
   ],
   template: `
-    <div class="space-y-6">
+    <div class="space-y-6 max-w-screen-xl mx-auto pb-12">
       <!-- Welcome Hero Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-md border border-slate-800 relative overflow-hidden">
-        <div class="space-y-2 relative z-10">
-          <div class="inline-flex items-center space-x-2 bg-[#1E3A8A] px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-blue-900">
-            <span> Property Owner Command Center</span>
+      <div class="bg-navy text-n-0 p-6 sm:p-8 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="space-y-2 max-w-xl">
+          <div class="inline-flex items-center gap-1.5 bg-n-0/10 px-3 py-1 rounded-full text-xs font-semibold text-n-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Owner Dashboard</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Welcome, {{ ownerName }}</h1>
-          <p class="text-xs sm:text-sm text-slate-100 max-w-xl font-medium">
-            Manage your property portfolio, screen tenant applications, and monitor automated rent collections.
+          <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-n-0">Welcome, {{ ownerName }}</h1>
+          <p class="text-sm text-n-300 leading-relaxed">
+            Manage your properties, review tenant applications with verified ID status, and monitor rent schedules.
           </p>
         </div>
 
         <button
           (click)="navigateTo('/owner/properties/new')"
           type="button"
-          class="px-6 py-3 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-extrabold rounded-2xl text-xs shadow-md transition-all  shrink-0 relative z-10 cursor-pointer flex items-center gap-2"
+          class="px-5 py-2.5 bg-brand hover:bg-brand-hover text-n-0 font-semibold rounded-lg text-sm transition-colors shrink-0 cursor-pointer flex items-center gap-2 min-h-[44px]"
         >
-          <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add New Property</span>
-          <span class="text-base">→</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span>List a Property</span>
         </button>
       </div>
 
-      <!-- Accent Highlight Bento Card -->
-      <div class="relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 bg-[#FEF9C3] border border-[#FDE047] p-5 sm:p-6 rounded-3xl shadow-2xs">
-        <div class="space-y-2 max-w-xl">
-          <div class="inline-flex items-center space-x-2 bg-amber-200/90 text-amber-950 px-3 py-1 rounded-full text-xs font-black">
-            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Portfolio Overview & Income Summary</span>
+      <!-- Information Callout Banner -->
+      <div class="card bg-brand-subtle border-brand/20 p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="space-y-1 max-w-xl">
+          <div class="inline-flex items-center gap-1 text-xs font-semibold text-brand">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span>Verified Tenant Screening</span>
           </div>
-          <h2 class="text-xl font-extrabold text-[#0F2937]">Maximized Rental Yields & Verified Tenancies</h2>
-          <p class="text-xs text-amber-950 font-bold leading-relaxed">
-            All applications pass Model Tenancy Act identity checks and background verification. Manage your active leases and view live collection metrics.
+          <p class="text-sm text-n-700 leading-relaxed">
+            Tenant identity documents are reviewed manually by our operations team. You only see verified status without storing sensitive Aadhaar or UIDAI data.
           </p>
         </div>
         <div class="flex items-center gap-3 shrink-0">
-          <div class="bg-white p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs">
-            <span class="text-2xl font-black text-[#0F2937]">0%</span>
-            <span class="block text-[10px] font-bold text-amber-900 uppercase">Broker Commission</span>
+          <div class="bg-n-0 px-4 py-2.5 rounded-lg border border-n-200 text-center">
+            <span class="text-lg font-semibold text-brand">0%</span>
+            <span class="block text-xs text-n-500">Brokerage</span>
           </div>
-          <div class="bg-white p-4 rounded-2xl border border-amber-300 text-center space-y-0.5 shadow-xs">
-            <span class="text-2xl font-black text-[#0F2937]">100%</span>
-            <span class="block text-[10px] font-bold text-amber-900 uppercase">Digital Leases</span>
+          <div class="bg-n-0 px-4 py-2.5 rounded-lg border border-n-200 text-center">
+            <span class="text-lg font-semibold text-brand">100%</span>
+            <span class="block text-xs text-n-500">Direct Owners</span>
           </div>
         </div>
       </div>
 
       <!-- Loading State -->
-      <app-loading-state *ngIf="isLoading" message="Calculating dashboard metrics..."></app-loading-state>
+      <app-loading-state *ngIf="isLoading" message="Loading property portfolio analytics..."></app-loading-state>
 
       <!-- Error State -->
       <app-error-state
@@ -80,150 +81,170 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       <!-- Empty State: New Owner with 0 Properties -->
       <app-empty-state
         *ngIf="!isLoading && !isError && metrics && metrics.totalProperties === 0"
-        title="Welcome to your Owner Command Center"
-        message="You haven't listed any properties yet. Add your first real estate listing to begin receiving tenant applications and collecting digital rent."
-        actionText="Add First Property Listing"
+        title="No properties listed yet"
+        message="List your residential property to start receiving verified tenant applications and automated rent tracking."
+        actionText="List Property"
         (action)="navigateTo('/owner/properties/new')"
       ></app-empty-state>
 
-      <!-- Metrics Grid (Bento Style) -->
-      <div *ngIf="!isLoading && !isError && metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+      <!-- Metrics Grid -->
+      <div *ngIf="!isLoading && !isError && metrics" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <!-- Card 1: Total Properties -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <div (click)="navigateTo('/owner/properties')" class="card p-4 hover:border-brand transition-colors cursor-pointer space-y-1">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Properties</span>
-            <span class="p-2 bg-slate-100 text-[#0F2937] rounded-xl  transition-transform text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+            <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Properties</span>
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
           </div>
-          <span class="text-3xl font-black text-[#0F2937] mt-3 block">{{ metrics.totalProperties }}</span>
-          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
-            View All →
-          </span>
+          <span class="text-2xl font-semibold text-n-900 block mt-2">{{ metrics.totalProperties }}</span>
+          <span class="text-xs font-semibold text-brand">View all →</span>
         </div>
 
         <!-- Card 2: Vacant / Available -->
-        <div (click)="navigateTo('/owner/properties')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <div (click)="navigateTo('/owner/properties')" class="card p-4 hover:border-brand transition-colors cursor-pointer space-y-1">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Vacant Homes</span>
-            <span class="p-2 bg-emerald-50 text-emerald-700 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg></span>
+            <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Available</span>
+            <div class="w-7 h-7 rounded-lg bg-brand-subtle border border-brand/20 flex items-center justify-center text-brand">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+            </div>
           </div>
-          <span class="text-3xl font-black text-emerald-800 mt-3 block">{{ metrics.availableProperties }}</span>
-          <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Available to lease</span>
+          <span class="text-2xl font-semibold text-brand block mt-2">{{ metrics.availableProperties }}</span>
+          <span class="text-xs text-n-500">Vacant homes</span>
         </div>
 
-        <!-- Card 3: Active Rentals / Tenancies -->
-        <div (click)="navigateTo('/owner/rentals')" class="bg-white p-5 rounded-3xl border border-emerald-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-white">
+        <!-- Card 3: Active Rentals -->
+        <div (click)="navigateTo('/owner/rentals')" class="card p-4 hover:border-brand transition-colors cursor-pointer space-y-1">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider">Active Rentals</span>
-            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+            <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Active Leases</span>
+            <div class="w-7 h-7 rounded-lg bg-brand-subtle border border-brand/20 flex items-center justify-center text-brand">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
           </div>
-          <span class="text-3xl font-black text-emerald-900 mt-3 block">{{ metrics.activeRentals ?? 0 }}</span>
-          <span class="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
-            Active Leases →
-          </span>
+          <span class="text-2xl font-semibold text-n-900 block mt-2">{{ metrics.activeRentals ?? 0 }}</span>
+          <span class="text-xs font-semibold text-brand">Manage leases →</span>
         </div>
 
-        <!-- Card 4: New Applications (Submitted) -->
-        <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-amber-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group bg-white">
+        <!-- Card 4: New Applications -->
+        <div (click)="navigateTo('/owner/applicants')" class="card p-4 hover:border-brand transition-colors cursor-pointer space-y-1">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">New Applications</span>
-            <span class="p-2 bg-amber-100 text-amber-800 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></span>
+            <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">New Apps</span>
+            <div class="w-7 h-7 rounded-lg bg-warn-bg border border-warn-border flex items-center justify-center text-warn-text">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
           </div>
-          <span class="text-3xl font-black text-amber-800 mt-3 block">{{ metrics.newApplications ?? 0 }}</span>
-          <span class="text-[11px] text-amber-700 font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
-            Review Submitted →
-          </span>
+          <span class="text-2xl font-semibold text-n-900 block mt-2">{{ metrics.newApplications ?? 0 }}</span>
+          <span class="text-xs font-semibold text-warn-text">To review →</span>
         </div>
 
-        <!-- Card 5: Applications Under Review (Applicant Decision Dossiers) -->
-        <div (click)="navigateTo('/owner/applicants')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <!-- Card 5: Applications Under Review -->
+        <div (click)="navigateTo('/owner/applicants')" class="card p-4 hover:border-brand transition-colors cursor-pointer space-y-1">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Applicant Reviews</span>
-            <span class="p-2 bg-slate-100 text-slate-700 rounded-xl transition-colors text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+            <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">In Review</span>
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
           </div>
-          <span class="text-3xl font-black text-slate-800 mt-3 block">{{ metrics.pendingApplications }}</span>
-          <span class="text-[11px] text-[#2D7A5E] font-bold mt-2 flex items-center gap-1 group-hover:text-amber-800 transition-colors">
-            Track Pipeline →
-          </span>
+          <span class="text-2xl font-semibold text-n-900 block mt-2">{{ metrics.pendingApplications }}</span>
+          <span class="text-xs font-semibold text-brand">Pipeline →</span>
         </div>
 
         <!-- Card 6: Monthly Rent Records -->
-        <div (click)="navigateTo('/owner/rent-tracking')" class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+        <div (click)="navigateTo('/owner/rent-tracking')" class="card p-4 hover:border-brand transition-colors cursor-pointer space-y-1">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Monthly Rent</span>
-            <span class="p-2 bg-indigo-50 text-indigo-700 rounded-xl  transition-transform text-sm"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></span>
+            <span class="text-xs font-semibold text-n-500 uppercase tracking-wider">Monthly Rent</span>
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            </div>
           </div>
-          <span class="text-xl font-black text-[#0F2937] mt-3 block">{{ formatCurrency(metrics.upcomingRent) }}</span>
-          <span class="text-[11px] text-slate-400 font-semibold mt-2 block">Expected collection</span>
+          <span class="text-lg font-semibold text-n-900 block mt-2 truncate">{{ formatCurrency(metrics.upcomingRent) }}</span>
+          <span class="text-xs text-n-500">Expected rent</span>
         </div>
       </div>
 
       <!-- Quick Actions Grid -->
-      <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm space-y-4">
-        <h2 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Owner Workspace Quick Navigation</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+      <div class="card space-y-3">
+        <h2 class="text-xs font-semibold text-n-500 uppercase tracking-wider">Owner Workspace Actions</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button
             (click)="navigateTo('/owner/properties/new')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></span>
-            Add Property
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            </div>
+            <span class="text-n-900">Add Property</span>
           </button>
           <button
             (click)="navigateTo('/owner/properties')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></span>
-            My Properties
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <span class="text-n-900">My Properties</span>
           </button>
           <button
             (click)="navigateTo('/owner/applicants')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
-            Applicants
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <span class="text-n-900">Applicants</span>
           </button>
           <button
             (click)="navigateTo('/owner/rentals')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"></span>
-            Rental Leases
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span class="text-n-900">Active Leases</span>
           </button>
           <button
             (click)="navigateTo('/owner/rent-tracking')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></span>
-            Rent Tracking
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            </div>
+            <span class="text-n-900">Rent Tracking</span>
           </button>
           <button
             (click)="navigateTo('/owner/notifications')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></span>
-            Notifications
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            </div>
+            <span class="text-n-900">Alerts</span>
           </button>
           <button
             (click)="navigateTo('/owner/profile')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></span>
-            Owner Profile
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <span class="text-n-900">Profile</span>
           </button>
           <button
             (click)="navigateTo('/owner/settings')"
             type="button"
-            class="p-4 bg-slate-50 hover:bg-[#0F2937] hover:text-white border border-slate-200/80 rounded-2xl text-left transition-all font-bold text-xs group cursor-pointer"
+            class="card p-3.5 hover:border-brand hover:bg-brand-subtle text-left transition-colors font-semibold text-xs cursor-pointer flex flex-col justify-between h-24"
           >
-            <span class="block text-xl mb-1  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
-            Settings
+            <div class="w-7 h-7 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center text-n-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-n-900">Settings</span>
           </button>
         </div>
       </div>

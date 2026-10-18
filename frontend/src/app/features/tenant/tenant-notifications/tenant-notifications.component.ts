@@ -17,7 +17,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
     <div class="space-y-6 max-w-4xl mx-auto pb-12 font-sans text-slate-800">
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Notifications Center</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Notifications Center</h1>
           <p class="text-xs text-slate-500">Real-time alerts regarding application statuses and property updates.</p>
         </div>
         <button
@@ -49,7 +49,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         >
           <div class="space-y-1 flex-1 min-w-0" [class.cursor-pointer]="item.link" (click)="onNotificationClick(item)">
             <div class="flex items-center gap-2">
-              <span class="text-[10px] font-black text-[#2D7A5E] uppercase tracking-wider bg-emerald-100/60 px-2 py-0.5 rounded-md">{{ item.type }}</span>
+              <span class="text-[10px] font-semibold text-[#2D7A5E] uppercase tracking-wider bg-emerald-100/60 px-2 py-0.5 rounded-md">{{ item.type }}</span>
               <span *ngIf="!item.isRead" class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
             </div>
             <h3 class="text-sm font-bold text-slate-900 leading-snug">{{ item.title }}</h3>

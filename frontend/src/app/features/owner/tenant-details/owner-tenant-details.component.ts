@@ -58,14 +58,14 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         <!-- Tenant Card Header -->
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 rounded-full bg-[#0F2937] text-white flex items-center justify-center font-extrabold text-2xl shrink-0">
+            <div class="w-16 h-16 rounded-full bg-[#0F2937] text-white flex items-center justify-center font-semibold text-2xl shrink-0">
               {{ tenantInitial }}
             </div>
             <div>
-              <span class="inline-flex items-center text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300">
+              <span class="inline-flex items-center text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300">
                 ACTIVE TENANT
               </span>
-              <h1 class="text-xl font-extrabold text-[#0F2937] mt-1">{{ tenantName }}</h1>
+              <h1 class="text-xl font-semibold text-[#0F2937] mt-1">{{ tenantName }}</h1>
               <p class="text-xs text-slate-500 mt-0.5">Lease Status: {{ tenantData.status }}</p>
             </div>
           </div>
@@ -83,7 +83,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Tenant Contact -->
           <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Tenant Contact Summary</h2>
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tenant Contact Summary</h2>
             <div class="space-y-3 text-xs font-semibold text-slate-700">
               <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                 <span class="text-slate-400 font-bold block">Email Address</span>
@@ -95,18 +95,18 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               </div>
               <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                 <span class="text-slate-400 font-bold block">Identity Verification Status</span>
-                <span class="text-sm font-extrabold text-emerald-700 uppercase">VERIFIED</span>
+                <span class="text-sm font-semibold text-emerald-700 uppercase">VERIFIED</span>
               </div>
             </div>
           </div>
 
           <!-- Lease Terms -->
           <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Lease & Agreement Parameters</h2>
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Lease & Agreement Parameters</h2>
             <div class="space-y-3 text-xs font-semibold text-slate-700">
               <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                 <span class="text-slate-400 font-bold block">Monthly Rent Amount</span>
-                <span class="text-lg font-extrabold text-[#0F2937]">{{ formatRent(tenantData.monthlyRent) }}</span>
+                <span class="text-lg font-semibold text-[#0F2937]">{{ formatRent(tenantData.monthlyRent) }}</span>
               </div>
               <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                 <span class="text-slate-400 font-bold block">Security Deposit Paid</span>

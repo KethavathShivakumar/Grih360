@@ -25,7 +25,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <span>/</span>
             <span class="text-slate-800 font-semibold">Record #{{ verificationId.slice(-6) }}</span>
           </div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937] tracking-tight">Administrative Verification Dossier</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937] tracking-tight">Administrative Verification Dossier</h1>
           <p class="text-xs text-slate-500 mt-0.5">
             Compliance officer verification inspection and tenancy eligibility determination
           </p>
@@ -43,13 +43,13 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       </div>
 
       <!-- Loading State -->
-      <div *ngIf="loading" class="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-xs">
+      <div *ngIf="loading" class="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-xs">
         <div class="animate-spin w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full mx-auto mb-3"></div>
         <p class="text-sm font-semibold text-slate-600">Loading verification dossier...</p>
       </div>
 
       <!-- Error State -->
-      <div *ngIf="!loading && errorMsg" class="bg-rose-50 border border-rose-200 p-6 rounded-3xl text-rose-900 space-y-3">
+      <div *ngIf="!loading && errorMsg" class="bg-rose-50 border border-rose-200 p-6 rounded-xl text-rose-900 space-y-3">
         <div class="flex items-center space-x-2 font-bold text-sm">
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
           <span>{{ errorMsg }}</span>
@@ -68,11 +68,11 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <div *ngIf="!loading && verification" class="space-y-6">
 
         <!-- Status & Review Action Callout Bar -->
-        <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
-            <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Current Verification Status</span>
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Current Verification Status</span>
             <div class="flex items-center space-x-3">
-              <span class="text-lg font-black text-slate-900">{{ verification.status }}</span>
+              <span class="text-lg font-semibold text-slate-900">{{ verification.status }}</span>
               <span *ngIf="verification.reviewedAt" class="text-xs text-slate-400">
                 (Reviewed on {{ verification.reviewedAt | date:'medium' }})
               </span>
@@ -112,10 +112,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Rejection Notice (if rejected) -->
-        <div *ngIf="verification.status === 'REJECTED'" class="bg-rose-50 border border-rose-200 p-5 rounded-3xl flex items-start space-x-3 text-rose-950">
+        <div *ngIf="verification.status === 'REJECTED'" class="bg-rose-50 border border-rose-200 p-5 rounded-xl flex items-start space-x-3 text-rose-950">
           <span class="text-lg"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></span>
           <div class="space-y-1">
-            <h4 class="text-xs font-extrabold uppercase tracking-wider text-rose-900">Rejection Reason</h4>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-rose-900">Rejection Reason</h4>
             <p class="text-xs text-rose-800 font-medium leading-relaxed">
               {{ verification.rejectionReason || 'Documents or identity credentials failed verification standards.' }}
             </p>
@@ -126,13 +126,13 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
           <!-- Applicant Profile Card -->
-          <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
             <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
               <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center shrink-0">
                 {{ (tenantUser?.name || 'T')[0] }}
               </div>
               <div class="min-w-0 flex-1">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Applicant</span>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block">Applicant</span>
                 <h3 class="text-sm font-bold text-slate-900 truncate">{{ tenantUser?.name || 'Applicant' }}</h3>
                 <span class="text-[11px] text-slate-500 truncate block">{{ tenantUser?.email || 'No email' }}</span>
               </div>
@@ -155,13 +155,13 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
 
           <!-- Target Property Card -->
-          <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
             <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
               <div class="w-12 h-12 bg-slate-100 rounded-xl overflow-hidden shrink-0 border border-slate-200">
                 <img [src]="propertyImage" [alt]="propertyTitle" class="w-full h-full object-cover" />
               </div>
               <div class="min-w-0 flex-1">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Target Property</span>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block">Target Property</span>
                 <h3 class="text-sm font-bold text-slate-900 truncate">{{ propertyTitle }}</h3>
                 <span class="text-[11px] text-slate-500 truncate block"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</span>
               </div>
@@ -170,7 +170,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="space-y-2 text-xs">
               <div class="flex justify-between">
                 <span class="text-slate-400">Listed Rent:</span>
-                <span class="font-extrabold text-[#2D7A5E]">₹{{ (propertyObj?.rentAmount || 0).toLocaleString('en-IN') }}/mo</span>
+                <span class="font-semibold text-[#2D7A5E]">₹{{ (propertyObj?.rentAmount || 0).toLocaleString('en-IN') }}/mo</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-slate-400">Owner Name:</span>
@@ -184,9 +184,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
 
           <!-- Application Terms Card -->
-          <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
             <div class="border-b border-slate-100 pb-3">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Application</span>
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block">Application</span>
               <h3 class="text-sm font-bold text-slate-900">
                 Application #{{ (applicationObj?._id || applicationObj?.id || '').slice(-6) }}
               </h3>
@@ -196,7 +196,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <div class="space-y-2 text-xs">
               <div class="flex justify-between">
                 <span class="text-slate-400">Offered Rent:</span>
-                <span class="font-extrabold text-slate-900">₹{{ (applicationObj?.proposedRent || 0).toLocaleString('en-IN') }}/mo</span>
+                <span class="font-semibold text-slate-900">₹{{ (applicationObj?.proposedRent || 0).toLocaleString('en-IN') }}/mo</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-slate-400">Target Move-In:</span>
@@ -214,18 +214,18 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Verification Steps & Integration Requirements -->
-        <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
-            <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Required Verification Step Audits</h3>
+            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Required Verification Step Audits</h3>
             <p class="text-xs text-slate-500 mt-0.5">Automated provider states & compliance checks</p>
           </div>
 
           <div class="space-y-3">
-            <div *ngFor="let step of verification.steps" class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div *ngFor="let step of verification.steps" class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div class="space-y-1">
                 <div class="flex items-center space-x-2">
                   <span class="text-xs font-bold text-slate-900">{{ step.name }}</span>
-                  <span *ngIf="step.isExternalProvider" class="px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-extrabold rounded-md">
+                  <span *ngIf="step.isExternalProvider" class="px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-semibold rounded-md">
                     {{ step.providerNotice || 'Verification provider integration required' }}
                   </span>
                 </div>
@@ -245,22 +245,22 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Sensitive Document Vault (Authorized Admin View) -->
-        <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Authorized Document Vault</h3>
+              <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Authorized Document Vault</h3>
               <p class="text-xs text-slate-500 mt-0.5">Sensitive credentials strictly accessible to administrative compliance personnel</p>
             </div>
-            <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-extrabold rounded-lg">
+            <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-semibold rounded-lg">
               <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Admin Privilege Level
             </span>
           </div>
 
-          <div *ngIf="!verification.documents || verification.documents.length === 0" class="p-6 text-center text-xs text-slate-400 italic bg-slate-50 rounded-2xl">
+          <div *ngIf="!verification.documents || verification.documents.length === 0" class="p-6 text-center text-xs text-slate-400 italic bg-slate-50 rounded-xl">
             No document files uploaded yet for this verification record.
           </div>
 
-          <div *ngIf="verification.documents && verification.documents.length > 0" class="divide-y divide-slate-100 border border-slate-200 rounded-2xl overflow-hidden">
+          <div *ngIf="verification.documents && verification.documents.length > 0" class="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
             <div *ngFor="let doc of verification.documents" class="p-4 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
               <div class="flex items-center space-x-3.5">
                 <span class="p-2.5 bg-slate-100 text-slate-700 rounded-xl font-bold text-base"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
@@ -286,7 +286,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 >
                   View File
                 </a>
-                <span [class]="getStepBadgeClass(doc.status)" class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase">
+                <span [class]="getStepBadgeClass(doc.status)" class="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase">
                   {{ doc.status }}
                 </span>
               </div>
@@ -295,17 +295,17 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Submitted Tenancy Details -->
-        <div *ngIf="verification.submittedInfo" class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+        <div *ngIf="verification.submittedInfo" class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
-            <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Submitted Residential & Reference Details</h3>
+            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Submitted Residential & Reference Details</h3>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
               <span class="text-slate-400 font-bold block text-[11px]">Current Residential Address</span>
               <span class="font-medium text-slate-800 mt-0.5 block">{{ verification.submittedInfo.currentAddress || 'Not provided' }}</span>
             </div>
-            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100">
+            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
               <span class="text-slate-400 font-bold block text-[11px]">Previous Landlord Contact</span>
               <span class="font-medium text-slate-800 mt-0.5 block">{{ verification.submittedInfo.previousLandlordContact || 'None' }}</span>
             </div>
@@ -313,8 +313,8 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Compliance Notes & Audit Determination Panel -->
-        <div class="bg-white rounded-3xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Administrative Determination</h3>
+        <div class="bg-white rounded-xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
+          <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Administrative Determination</h3>
 
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1.5">Compliance Officer Audit Notes</label>
@@ -322,7 +322,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               [(ngModel)]="adminNotes"
               rows="3"
               placeholder="Record notes on document validity, cross-checks performed, or reasons for decision..."
-              class="w-full border border-slate-300 rounded-2xl p-3 text-xs font-medium focus:ring-2 focus:ring-indigo-500 bg-white"
+              class="w-full border border-slate-300 rounded-xl p-3 text-xs font-medium focus:ring-2 focus:ring-indigo-500 bg-white"
             ></textarea>
           </div>
 
@@ -339,7 +339,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               <button
                 (click)="updateStatus('VERIFIED')"
                 [disabled]="isUpdating"
-                class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold rounded-xl shadow-xs transition disabled:opacity-50"
+                class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl shadow-xs transition disabled:opacity-50"
               >
                 Confirm Approval (VERIFIED)
               </button>

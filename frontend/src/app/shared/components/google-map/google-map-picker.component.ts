@@ -47,7 +47,7 @@ export interface SelectedLocationData {
         <div #mapContainer class="w-full h-full"></div>
 
         <!-- Coordinates Badge -->
-        <div class="absolute bottom-2.5 left-2.5 z-10 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-700 shadow-xs">
+        <div class="absolute bottom-2.5 left-2.5 z-10 bg-white/90  px-3 py-1 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-700 shadow-xs">
           <span>Coordinates: {{ currentLat.toFixed(5) }}, {{ currentLng.toFixed(5) }}</span>
         </div>
       </div>

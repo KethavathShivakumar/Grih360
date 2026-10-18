@@ -53,17 +53,17 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
-              <span class="bg-[#0F2937] text-white text-xs font-extrabold px-2.5 py-0.5 rounded">
+              <span class="bg-[#0F2937] text-white text-xs font-semibold px-2.5 py-0.5 rounded">
                 {{ property.propertyType }}
               </span>
               <span
                 [class]="property.availabilityStatus === 'VACANT' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-amber-100 text-amber-800 border-amber-300'"
-                class="text-xs font-extrabold px-2.5 py-0.5 rounded-full border"
+                class="text-xs font-semibold px-2.5 py-0.5 rounded-full border"
               >
                 {{ property.availabilityStatus }}
               </span>
             </div>
-            <h1 class="text-2xl font-extrabold text-[#0F2937] mt-2">{{ property.title }}</h1>
+            <h1 class="text-2xl font-semibold text-[#0F2937] mt-2">{{ property.title }}</h1>
             <p class="text-sm text-slate-500 mt-1">
               <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ property.propertyLocation.address }}, {{ property.propertyLocation.locality }}, {{ property.propertyLocation.city }}
             </p>
@@ -120,7 +120,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Image Gallery -->
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
           <div class="flex items-center justify-between pb-2">
-            <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Property Photo Gallery</h2>
+            <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">Property Photo Gallery</h2>
             <button
               (click)="navigateTo('/owner/properties/' + propertyId + '/images')"
               type="button"
@@ -153,23 +153,23 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Specs Overview -->
         <div class="bento-card bg-white p-6 border border-[#E8E6DF] space-y-4">
-          <h2 class="text-sm font-extrabold text-[#0F2937] uppercase tracking-wider">Property Specifications</h2>
+          <h2 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wider">Property Specifications</h2>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <span class="block text-xs font-bold text-slate-400 uppercase">Monthly Rent</span>
-              <span class="text-lg font-extrabold text-[#0F2937]">{{ formatRent(property.rentAmount) }}</span>
+              <span class="text-lg font-semibold text-[#0F2937]">{{ formatRent(property.rentAmount) }}</span>
             </div>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <span class="block text-xs font-bold text-slate-400 uppercase">Security Deposit</span>
-              <span class="text-lg font-extrabold text-slate-700">{{ formatDeposit(property.depositAmount) }}</span>
+              <span class="text-lg font-semibold text-slate-700">{{ formatDeposit(property.depositAmount) }}</span>
             </div>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <span class="block text-xs font-bold text-slate-400 uppercase">BHK Layout</span>
-              <span class="text-lg font-extrabold text-[#2D7A5E]">{{ property.bhk }} BHK</span>
+              <span class="text-lg font-semibold text-[#2D7A5E]">{{ property.bhk }} BHK</span>
             </div>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <span class="block text-xs font-bold text-slate-400 uppercase">Total Area</span>
-              <span class="text-lg font-extrabold text-slate-700">{{ property.areaSqFt }} sqft</span>
+              <span class="text-lg font-semibold text-slate-700">{{ property.areaSqFt }} sqft</span>
             </div>
           </div>
 

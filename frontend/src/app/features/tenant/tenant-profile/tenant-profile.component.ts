@@ -16,7 +16,7 @@ import { ApplicationService } from '../../../core/services/application.service';
       <!-- Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Tenant Account & Profile</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Tenant Account & Profile</h1>
           <p class="text-xs text-slate-500">Manage your profile details, photo, security settings, and verified tenancy documents.</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
@@ -60,11 +60,11 @@ import { ApplicationService } from '../../../core/services/application.service';
       <!-- TAB 1: OVERVIEW -->
       <div *ngIf="activeTab === 'overview'" class="space-y-6">
         <!-- Hero Card with Photo Management -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
             <!-- Profile Photo with Default Placeholder and Upload Actions -->
             <div class="relative group">
-              <div class="w-24 h-24 rounded-full bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-extrabold text-3xl shadow-md border-4 border-white overflow-hidden shrink-0">
+              <div class="w-24 h-24 rounded-full bg-navy text-n-0 flex items-center justify-center font-semibold text-3xl shadow-md border-4 border-white overflow-hidden shrink-0">
                 <img *ngIf="user?.profileImage" [src]="user.profileImage" [alt]="userName" class="w-full h-full object-cover" />
                 <span *ngIf="!user?.profileImage">{{ userInitial }}</span>
               </div>
@@ -72,10 +72,10 @@ import { ApplicationService } from '../../../core/services/application.service';
 
             <div class="space-y-1">
               <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900">{{ userName }}</h2>
+                <h2 class="text-xl sm:text-2xl font-semibold text-slate-900">{{ userName }}</h2>
                 <span
                   *ngIf="verificationState === 'verified'"
-                  class="inline-flex items-center text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wide"
+                  class="inline-flex items-center text-[10px] font-semibold text-[#2D7A5E] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wide"
                 >
                   Verified Tenant
                 </span>
@@ -114,40 +114,40 @@ import { ApplicationService } from '../../../core/services/application.service';
         <!-- Tenancy Portfolio Stats Summary -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Saved Homes -->
-          <div routerLink="/tenant/saved" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
+          <div routerLink="/tenant/saved" class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Bookmarked Homes</span>
               <span class="text-xl  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></span>
             </div>
-            <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ savedCount }}</span>
+            <span class="text-3xl font-semibold text-[#0F2937] mt-2 block">{{ savedCount }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">View Saved Listings →</span>
           </div>
 
           <!-- Applications Summary -->
-          <div routerLink="/tenant/applications" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
+          <div routerLink="/tenant/applications" class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Submitted Applications</span>
               <span class="text-xl  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
             </div>
-            <span class="text-3xl font-black text-[#0F2937] mt-2 block">{{ applicationCount }}</span>
+            <span class="text-3xl font-semibold text-[#0F2937] mt-2 block">{{ applicationCount }}</span>
             <span class="text-xs text-[#2D7A5E] font-bold mt-1 block">Track Applications →</span>
           </div>
 
           <!-- Active Rental Agreement Summary -->
-          <div routerLink="/tenant/rental" class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
+          <div routerLink="/tenant/rental" class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs hover:border-[#2D7A5E] transition-all cursor-pointer group">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Rental Agreements</span>
               <span class="text-xl  transition-transform"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg></span>
             </div>
-            <span class="text-3xl font-black text-[#0F2937] mt-2 block">1</span>
+            <span class="text-3xl font-semibold text-[#0F2937] mt-2 block">1</span>
             <span class="text-xs text-slate-400 font-bold mt-1 block">Model Tenancy Act Compliant</span>
           </div>
         </div>
 
         <!-- Mobile Workspace Quick Navigation Grid -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-3">
-            <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
+            <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
               <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
               <span>All Tenant Tools & Features</span>
             </h3>
@@ -262,13 +262,13 @@ import { ApplicationService } from '../../../core/services/application.service';
         </div>
 
         <!-- Identity & Document Verification Section -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
+            <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider flex items-center gap-2">
               <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
               <span>Identity & Document Verification</span>
             </h3>
-            <span [ngClass]="verificationBadgeClass" class="text-xs font-extrabold px-2.5 py-1 rounded-full border">
+            <span [ngClass]="verificationBadgeClass" class="text-xs font-semibold px-2.5 py-1 rounded-full border">
               {{ verificationStateLabel }}
             </span>
           </div>
@@ -342,9 +342,9 @@ import { ApplicationService } from '../../../core/services/application.service';
       </div>
 
       <!-- TAB 2: EDIT PROFILE -->
-      <div *ngIf="activeTab === 'edit'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-5">
+      <div *ngIf="activeTab === 'edit'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-5">
         <div class="border-b border-slate-100 pb-3">
-          <h2 class="text-base font-extrabold text-[#0F2937]">Edit Tenant Information</h2>
+          <h2 class="text-base font-semibold text-[#0F2937]">Edit Tenant Information</h2>
           <p class="text-xs text-slate-500">Update your public contact info, occupation, and preferred residential city.</p>
         </div>
 
@@ -419,7 +419,7 @@ import { ApplicationService } from '../../../core/services/application.service';
             <button
               type="submit"
               [disabled]="isSaving"
-              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
+              class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-sm transition-all cursor-pointer"
             >
               {{ isSaving ? 'Saving Changes...' : 'Save Profile Changes' }}
             </button>
@@ -428,9 +428,9 @@ import { ApplicationService } from '../../../core/services/application.service';
       </div>
 
       <!-- TAB 3: SECURITY & PASSWORD -->
-      <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-5">
+      <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-5">
         <div class="border-b border-slate-100 pb-3">
-          <h2 class="text-base font-extrabold text-[#0F2937]">Change Account Password</h2>
+          <h2 class="text-base font-semibold text-[#0F2937]">Change Account Password</h2>
           <p class="text-xs text-slate-500">Ensure your account is protected with a secure password.</p>
         </div>
 
@@ -474,7 +474,7 @@ import { ApplicationService } from '../../../core/services/application.service';
             <button
               type="submit"
               [disabled]="isSavingPassword"
-              class="px-6 py-2.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
+              class="px-6 py-2.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-sm transition-all cursor-pointer"
             >
               {{ isSavingPassword ? 'Updating Password...' : 'Update Password' }}
             </button>
@@ -483,7 +483,7 @@ import { ApplicationService } from '../../../core/services/application.service';
       </div>
 
       <!-- Account Actions (Logout) -->
-      <div class="p-6 bg-rose-50/60 rounded-3xl border border-rose-200/80 flex items-center justify-between">
+      <div class="p-6 bg-rose-50/60 rounded-xl border border-rose-200/80 flex items-center justify-between">
         <div>
           <h4 class="text-xs font-bold text-rose-900">Sign Out of Account</h4>
           <p class="text-[11px] text-rose-700/80">End your active session securely on this device.</p>

@@ -47,12 +47,12 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-800 px-3 py-0.5 rounded-full text-xs font-bold border border-amber-200 mb-1.5">
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Rent Collection & Financial Ledger</span>
         </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Rent Tracking & Records</h1>
+        <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Rent Tracking & Records</h1>
         <p class="text-xs text-slate-500">Track monthly billing cycles, digital rent payments, auto-invoicing, and tenant payment receipts.</p>
       </div>
 
       <!-- Property Selector (when in portfolio-wide view) -->
-      <div *ngIf="!isSpecificProperty && properties.length > 1" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div *ngIf="!isSpecificProperty && properties.length > 1" class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <span class="text-xs font-bold text-slate-700">Select Property Listing:</span>
         <select
           [(ngModel)]="selectedPropertyId"
@@ -90,24 +90,24 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
 
         <!-- Financial Summary KPI Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Billed</span>
-            <span class="text-xl sm:text-2xl font-black text-[#0F2937] mt-1 block">{{ formatCurrency(totalBilled) }}</span>
+            <span class="text-xl sm:text-2xl font-semibold text-[#0F2937] mt-1 block">{{ formatCurrency(totalBilled) }}</span>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-white">
+          <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-2xs bg-white">
             <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Total Collected</span>
-            <span class="text-xl sm:text-2xl font-black text-emerald-800 mt-1 block">{{ formatCurrency(totalCollected) }}</span>
+            <span class="text-xl sm:text-2xl font-semibold text-emerald-800 mt-1 block">{{ formatCurrency(totalCollected) }}</span>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-white">
+          <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-2xs bg-white">
             <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">Pending / Due</span>
-            <span class="text-xl sm:text-2xl font-black text-amber-800 mt-1 block">{{ formatCurrency(totalPending) }}</span>
+            <span class="text-xl sm:text-2xl font-semibold text-amber-800 mt-1 block">{{ formatCurrency(totalPending) }}</span>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Collection Rate</span>
-            <span class="text-xl sm:text-2xl font-black text-[#0F2937] mt-1 block">{{ collectionRate }}%</span>
+            <span class="text-xl sm:text-2xl font-semibold text-[#0F2937] mt-1 block">{{ collectionRate }}%</span>
           </div>
         </div>
 
@@ -121,10 +121,10 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         ></app-empty-state>
 
         <!-- Rent Records Table -->
-        <div *ngIf="records.length > 0" class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div *ngIf="records.length > 0" class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
-              <h2 class="text-base font-extrabold text-[#0F2937]">Monthly Rent Collection Ledger</h2>
+              <h2 class="text-base font-semibold text-[#0F2937]">Monthly Rent Collection Ledger</h2>
               <p class="text-xs text-slate-400 font-semibold">Model Tenancy Act compliant rent receipts & payment stamps</p>
             </div>
 
@@ -136,7 +136,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-slate-400 uppercase font-extrabold text-[10px] tracking-wider">
+                <tr class="bg-slate-50 border-b border-slate-200 text-slate-400 uppercase font-semibold text-[10px] tracking-wider">
                   <th class="py-3 px-4">Cycle / Due Date</th>
                   <th class="py-3 px-4">Rent Amount</th>
                   <th class="py-3 px-4">Payment Status</th>
@@ -149,7 +149,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                   <td class="py-3.5 px-4 text-slate-900 font-bold">
                     <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> {{ rec.dueDate | date: 'mediumDate' }}</span>
                   </td>
-                  <td class="py-3.5 px-4 text-[#0F2937] font-black text-sm">
+                  <td class="py-3.5 px-4 text-[#0F2937] font-semibold text-sm">
                     {{ formatCurrency(rec.amount) }}
                   </td>
                   <td class="py-3.5 px-4">

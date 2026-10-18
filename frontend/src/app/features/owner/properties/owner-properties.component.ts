@@ -22,7 +22,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <!-- Header Bar -->
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">My Properties</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">My Properties</h1>
           <p class="text-xs text-slate-500">Manage your real estate listings, applicants, active rentals, and rent records.</p>
         </div>
         <button
@@ -72,12 +72,12 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               </div>
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="bg-[#0F2937] text-white text-[10px] font-extrabold px-2 py-0.5 rounded">
+                  <span class="bg-[#0F2937] text-white text-[10px] font-semibold px-2 py-0.5 rounded">
                     {{ prop.propertyType }}
                   </span>
                   <span
                     [class]="prop.availabilityStatus === 'VACANT' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-amber-100 text-amber-800 border-amber-300'"
-                    class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border"
+                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full border"
                   >
                     {{ prop.availabilityStatus }}
                   </span>
@@ -95,7 +95,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             <div class="flex items-center space-x-6">
               <div>
                 <span class="block text-[10px] text-slate-400 font-bold uppercase">Monthly Rent</span>
-                <span class="text-base font-extrabold text-[#0F2937]">{{ formatRent(prop) }}</span>
+                <span class="text-base font-semibold text-[#0F2937]">{{ formatRent(prop) }}</span>
               </div>
               <div>
                 <span class="block text-[10px] text-slate-400 font-bold uppercase">Layout</span>

@@ -45,7 +45,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </span>
               <app-status-badge [status]="request.status"></app-status-badge>
             </div>
-            <h1 class="text-xl font-black text-[#0F2937] mt-2">{{ request.description }}</h1>
+            <h1 class="text-xl font-semibold text-[#0F2937] mt-2">{{ request.description }}</h1>
             <p class="text-xs text-[#64748B]">Scheduled Date: <strong>{{ request.scheduledDate | date: 'fullDate' }}</strong> ({{ request.preferredTimeWindow || 'Flexible' }})</p>
           </div>
           <app-customer-care></app-customer-care>
@@ -188,7 +188,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 </span>
                 <div class="flex items-center space-x-1 text-sm text-amber-500 font-bold">
                   <span>{{ ''.repeat(myReview.rating) }}{{ ''.repeat(5 - myReview.rating) }}</span>
-                  <span class="text-xs font-black text-slate-800 ml-1">({{ myReview.rating }}.0)</span>
+                  <span class="text-xs font-semibold text-slate-800 ml-1">({{ myReview.rating }}.0)</span>
                 </div>
               </div>
               <p class="text-xs text-slate-700 font-medium bg-[#FAF9F5] p-3 rounded-xl border border-slate-200 leading-relaxed">

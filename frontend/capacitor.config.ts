@@ -24,6 +24,11 @@ const config: CapacitorConfig = {
       resize: 'body',
       resizeOnFullScreen: true,
     },
+    SocialLogin: {
+      providers: {
+        google: true,
+      },
+    },
   },
 };
 

@@ -70,17 +70,17 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <div *ngIf="!isLoading && !isError && (rental || agreement)" class="space-y-6">
 
         <!-- Regulatory Notice Banner (Phase 6 Compliance) -->
-        <div class="bg-amber-50/90 border-2 border-amber-300/80 rounded-3xl p-5 shadow-xs">
+        <div class="bg-amber-50/90 border-2 border-amber-300/80 rounded-xl p-5 shadow-xs">
           <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-2xl bg-amber-200 text-amber-900 flex items-center justify-center text-lg shrink-0 font-black">
+            <div class="w-10 h-10 rounded-2xl bg-amber-200 text-amber-900 flex items-center justify-center text-lg shrink-0 font-semibold">
               <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <div class="space-y-1.5 flex-1">
               <div class="flex items-center gap-2">
-                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-amber-200 text-amber-900">
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider bg-amber-200 text-amber-900">
                   Regulatory Notice
                 </span>
-                <span class="text-xs font-black text-amber-950">
+                <span class="text-xs font-semibold text-amber-950">
                   {{ agreement?.agreementMetadata?.eSignNotice || 'Digital signature integration required' }}
                 </span>
               </div>
@@ -93,11 +93,11 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         </div>
 
         <!-- Status Card & Stepper -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div>
-              <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Rental Reference</span>
-              <h1 class="text-xl sm:text-2xl font-black text-[#0F2937]">
+              <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Rental Reference</span>
+              <h1 class="text-xl sm:text-2xl font-semibold text-[#0F2937]">
                 RENTAL-{{ rental?.id || agreement?.rentalId }}
               </h1>
               <p class="text-xs text-slate-500 mt-0.5">Agreement Version: {{ agreement?.agreementVersion || rental?.agreementVersion || 'v1.0' }}</p>
@@ -109,23 +109,23 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
 
           <!-- Lifecycle Stepper -->
           <div class="space-y-3">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Lease & Tenancy Lifecycle</h2>
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Lease & Tenancy Lifecycle</h2>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <!-- Step 1 -->
               <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
-                <span class="text-[10px] font-extrabold text-emerald-800 uppercase block">Step 1</span>
+                <span class="text-[10px] font-semibold text-emerald-800 uppercase block">Step 1</span>
                 <span class="font-bold text-slate-900 block">Application</span>
                 <span class="text-[11px] text-emerald-700 font-semibold"> Approved</span>
               </div>
               <!-- Step 2 -->
               <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
-                <span class="text-[10px] font-extrabold text-emerald-800 uppercase block">Step 2</span>
+                <span class="text-[10px] font-semibold text-emerald-800 uppercase block">Step 2</span>
                 <span class="font-bold text-slate-900 block">Agreement Draft</span>
                 <span class="text-[11px] text-emerald-700 font-semibold"> Generated</span>
               </div>
               <!-- Step 3 -->
               <div class="p-3.5 rounded-2xl space-y-1 border" [class]="ownerConfirmed ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-300'">
-                <span class="text-[10px] font-extrabold uppercase block" [class]="ownerConfirmed ? 'text-emerald-800' : 'text-amber-800'">Step 3</span>
+                <span class="text-[10px] font-semibold uppercase block" [class]="ownerConfirmed ? 'text-emerald-800' : 'text-amber-800'">Step 3</span>
                 <span class="font-bold text-slate-900 block">Owner Confirmation</span>
                 <span class="text-[11px] font-semibold" [class]="ownerConfirmed ? 'text-emerald-700' : 'text-amber-700'">
                   {{ ownerConfirmed ? ' Confirmed' : 'Action Required' }}
@@ -133,7 +133,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
               </div>
               <!-- Step 4 -->
               <div class="p-3.5 rounded-2xl space-y-1 border" [class]="isRentalActive ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200'">
-                <span class="text-[10px] font-extrabold uppercase block" [class]="isRentalActive ? 'text-emerald-800' : 'text-slate-400'">Step 4</span>
+                <span class="text-[10px] font-semibold uppercase block" [class]="isRentalActive ? 'text-emerald-800' : 'text-slate-400'">Step 4</span>
                 <span class="font-bold block" [class]="isRentalActive ? 'text-slate-900' : 'text-slate-500'">Rental Activation</span>
                 <span class="text-[11px] font-semibold" [class]="isRentalActive ? 'text-emerald-700' : 'text-slate-400'">
                   {{ isRentalActive ? ' Active Tenancy' : 'Pending Confirmation' }}
@@ -145,8 +145,8 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <!-- Parties Details (Owner & Tenant) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-1.5">
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Assigned Tenant</span>
-              <span class="font-black text-sm text-[#0F2937] block">{{ tenantName }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Assigned Tenant</span>
+              <span class="font-semibold text-sm text-[#0F2937] block">{{ tenantName }}</span>
               <span class="text-xs text-slate-500 block">{{ tenantEmail }}</span>
               <div class="pt-1 text-[11px] font-bold" [class]="tenantConfirmed ? 'text-emerald-700' : 'text-amber-700'">
                 {{ tenantConfirmed ? ' Tenant Confirmed Agreement' : 'Awaiting Tenant Confirmation' }}
@@ -154,8 +154,8 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             </div>
 
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-1.5">
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Owner Representation</span>
-              <span class="font-black text-sm text-[#0F2937] block">{{ ownerName }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Owner Representation</span>
+              <span class="font-semibold text-sm text-[#0F2937] block">{{ ownerName }}</span>
               <span class="text-xs text-slate-500 block">{{ ownerEmail }}</span>
               <div class="pt-1 text-[11px] font-bold" [class]="ownerConfirmed ? 'text-emerald-700' : 'text-amber-700'">
                 {{ ownerConfirmed ? ' Owner Confirmed & Activated' : 'Pending Your Confirmation' }}
@@ -166,26 +166,26 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <!-- Financial & Term Parameters Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200/80">
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Monthly Rent</span>
-              <span class="text-lg font-black text-[#0F2937] block mt-0.5">{{ formatRent(agreedRent) }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Monthly Rent</span>
+              <span class="text-lg font-semibold text-[#0F2937] block mt-0.5">{{ formatRent(agreedRent) }}</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Security Deposit</span>
-              <span class="text-lg font-black text-slate-800 block mt-0.5">{{ formatDeposit(agreedDeposit) }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Security Deposit</span>
+              <span class="text-lg font-semibold text-slate-800 block mt-0.5">{{ formatDeposit(agreedDeposit) }}</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Lease Start Date</span>
-              <span class="text-xs font-extrabold text-slate-800 block mt-1.5">{{ startDate | date: 'mediumDate' }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Lease Start Date</span>
+              <span class="text-xs font-semibold text-slate-800 block mt-1.5">{{ startDate | date: 'mediumDate' }}</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Lease End Date</span>
-              <span class="text-xs font-extrabold text-slate-800 block mt-1.5">{{ endDate | date: 'mediumDate' }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Lease End Date</span>
+              <span class="text-xs font-semibold text-slate-800 block mt-1.5">{{ endDate | date: 'mediumDate' }}</span>
             </div>
           </div>
 
           <!-- Terms Summary -->
           <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-1.5">
-            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Agreement Terms Summary</span>
+            <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Agreement Terms Summary</span>
             <p class="text-xs text-slate-600 leading-relaxed font-medium">
               {{ agreement?.termsSummary || 'Standard Grih360 Residential Rental Agreement v1.0. Zero-brokerage direct lease adhering to Model Tenancy Act principles.' }}
             </p>
@@ -195,7 +195,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <div class="border-t border-slate-100 pt-5 space-y-4">
             <div *ngIf="!ownerConfirmed && currentStatus !== 'CANCELLED'" class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#0F2937] text-white p-5 rounded-2xl">
               <div>
-                <h3 class="font-black text-sm text-[#FACC15]">Confirm Agreement & Activate Tenancy</h3>
+                <h3 class="font-semibold text-sm text-brand">Confirm Agreement & Activate Tenancy</h3>
                 <p class="text-xs text-slate-300 mt-0.5">
                   Confirming the agreement sets the rental to ACTIVE, reserves the property as RENTED, and schedules rent collections.
                 </p>
@@ -215,7 +215,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                   (click)="confirmAsOwner()"
                   [disabled]="isActioning"
                   type="button"
-                  class="px-5 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-black rounded-xl text-xs shadow-md transition-all  cursor-pointer disabled:opacity-50"
+                  class="px-5 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold rounded-xl text-xs shadow-md transition-all  cursor-pointer disabled:opacity-50"
                 >
                   {{ isActioning ? 'Activating...' : ' Confirm Agreement & Activate Rental' }}
                 </button>
@@ -225,11 +225,11 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             <!-- Active Status Banner -->
             <div *ngIf="isRentalActive" class="p-5 bg-emerald-50 border border-emerald-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-lg">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-semibold text-lg">
                   
                 </div>
                 <div>
-                  <h4 class="font-extrabold text-sm text-emerald-950">Rental Management is ACTIVE</h4>
+                  <h4 class="font-semibold text-sm text-emerald-950">Rental Management is ACTIVE</h4>
                   <p class="text-xs text-emerald-700">Tenancy confirmed and property marked as RENTED. Track upcoming rent and tenant details.</p>
                 </div>
               </div>
@@ -246,11 +246,11 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         </div>
 
         <!-- Phase 10: Property Maintenance & Service Requests Log -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
-              <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Property Upkeep</span>
-              <h3 class="text-base font-black text-[#0F2937]">Maintenance & Home Services Log</h3>
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Property Upkeep</span>
+              <h3 class="text-base font-semibold text-[#0F2937]">Maintenance & Home Services Log</h3>
             </div>
             <span class="text-xs text-slate-500 font-semibold">
               {{ maintenanceRequests.length }} requests recorded
@@ -272,13 +272,13 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
             >
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div class="flex items-center space-x-2.5">
-                  <span class="px-2.5 py-0.5 bg-white border border-[#E8E6DF] text-[#0F2937] text-[10px] font-extrabold rounded-md uppercase">
+                  <span class="px-2.5 py-0.5 bg-white border border-[#E8E6DF] text-[#0F2937] text-[10px] font-semibold rounded-md uppercase">
                     {{ req.categoryCode }}
                   </span>
                   <app-status-badge [status]="req.status"></app-status-badge>
                   <span class="text-xs text-slate-400">Scheduled: {{ req.scheduledDate | date: 'mediumDate' }}</span>
                 </div>
-                <span *ngIf="req.estimatedCost" class="text-xs font-black text-[#2D7A5E]">
+                <span *ngIf="req.estimatedCost" class="text-xs font-semibold text-[#2D7A5E]">
                   ₹{{ req.estimatedCost }}
                 </span>
               </div>
@@ -302,7 +302,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
                     *ngIf="!hasOwnerReviewed(req._id || req.id) && activeReviewRequestId !== (req._id || req.id)"
                     (click)="activeReviewRequestId = (req._id || req.id)"
                     type="button"
-                    class="text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                    class="text-[10px] font-semibold text-[#2D7A5E] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
                   >
                      Leave Owner Review
                   </button>

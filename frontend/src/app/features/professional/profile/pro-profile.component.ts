@@ -30,7 +30,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <span>/</span>
             <span class="text-[#0F2937]">Profile & Service Settings</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Professional Profile & Services</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Professional Profile & Services</h1>
           <p class="text-xs text-slate-500">Manage business details, categories served, service radius, and customer reviews.</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
@@ -76,11 +76,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- TAB 1: OVERVIEW -->
       <div *ngIf="!isLoading && activeTab === 'overview'" class="space-y-6">
         <!-- Hero Card with Photo Management -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
             <!-- Profile Photo with Default Placeholder and Upload Actions -->
             <div class="relative group">
-              <div class="w-24 h-24 rounded-full bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-extrabold text-3xl shadow-md border-4 border-white overflow-hidden shrink-0">
+              <div class="w-24 h-24 rounded-full bg-navy text-n-0 flex items-center justify-center font-semibold text-3xl shadow-md border-4 border-white overflow-hidden shrink-0">
                 <img *ngIf="user?.profileImage" [src]="user?.profileImage" [alt]="userName" class="w-full h-full object-cover" />
                 <span *ngIf="!user?.profileImage">{{ userInitial }}</span>
               </div>
@@ -88,14 +88,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
             <div class="space-y-1">
               <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900">{{ userName }}</h2>
+                <h2 class="text-xl sm:text-2xl font-semibold text-slate-900">{{ userName }}</h2>
                 <span [class]="getVerificationClass(profile?.verificationStatus || 'PENDING')">
                   {{ profile?.verificationStatus || 'VERIFIED PRO' }}
                 </span>
-                <span *ngIf="profile?.isAvailable" class="inline-flex items-center text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                <span *ngIf="profile?.isAvailable" class="inline-flex items-center text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                   ● Available for Jobs
                 </span>
-                <span *ngIf="!profile?.isAvailable" class="inline-flex items-center text-[10px] font-extrabold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
+                <span *ngIf="!profile?.isAvailable" class="inline-flex items-center text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
                   ○ On Leave
                 </span>
               </div>
@@ -135,11 +135,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Performance & Job Statistics Bento -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">
+          <div class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Rating</span>
             <div *ngIf="profile && profile.reviewCount > 0" class="mt-2 space-y-1">
               <div class="flex items-center space-x-1.5">
-                <span class="text-2xl font-black text-[#2D7A5E] flex items-center gap-1">
+                <span class="text-2xl font-semibold text-[#2D7A5E] flex items-center gap-1">
                   <svg class="w-6 h-6 fill-amber-400 text-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                   <span>{{ profile.rating.toFixed(1) }}</span>
                 </span>
@@ -148,26 +148,26 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <span class="text-xs text-slate-500 font-medium block">Based on {{ profile.reviewCount }} verified {{ profile.reviewCount === 1 ? 'review' : 'reviews' }}</span>
             </div>
             <div *ngIf="!profile || profile.reviewCount === 0" class="mt-2 space-y-1">
-              <span class="text-lg font-black text-slate-400 block">No reviews yet</span>
+              <span class="text-lg font-semibold text-slate-400 block">No reviews yet</span>
               <span class="text-xs text-slate-400 font-medium block">0 completed job reviews</span>
             </div>
           </div>
 
-          <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">
+          <div class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Experience</span>
-            <span class="text-2xl font-black text-[#0F2937] mt-2 block">{{ profile?.experienceYears || 5 }} Years</span>
+            <span class="text-2xl font-semibold text-[#0F2937] mt-2 block">{{ profile?.experienceYears || 5 }} Years</span>
             <span class="text-xs text-slate-500 font-medium mt-1 block">Field Experience</span>
           </div>
 
-          <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">
+          <div class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Service Categories</span>
-            <span class="text-2xl font-black text-[#0F2937] mt-2 block">{{ profile?.categories?.length || 2 }}</span>
+            <span class="text-2xl font-semibold text-[#0F2937] mt-2 block">{{ profile?.categories?.length || 2 }}</span>
             <span class="text-xs text-slate-500 font-medium mt-1 block">Active Trades</span>
           </div>
 
-          <div class="bg-white p-5 rounded-3xl border border-[#E8E6DF] shadow-xs">
+          <div class="bg-white p-5 rounded-xl border border-[#E8E6DF] shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Verification</span>
-            <span class="text-lg font-black text-[#2D7A5E] mt-2 block">{{ profile?.verificationStatus === 'VERIFIED' ? 'ID Verified' : 'Pending Verification' }}</span>
+            <span class="text-lg font-semibold text-[#2D7A5E] mt-2 block">{{ profile?.verificationStatus === 'VERIFIED' ? 'ID Verified' : 'Pending Verification' }}</span>
             <span class="text-xs text-slate-500 font-medium mt-1 block">Government ID & Trade License</span>
           </div>
         </div>
@@ -175,9 +175,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Services & Reviews Bento -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <!-- Active Services -->
-          <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 class="text-base font-black text-[#0F2937]">Active Service Categories</h3>
+              <h3 class="text-base font-semibold text-[#0F2937]">Active Service Categories</h3>
               <button (click)="activeTab = 'edit'" class="text-xs text-[#2D7A5E] font-bold hover:underline cursor-pointer">
                 Manage Services
               </button>
@@ -197,9 +197,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </div>
 
           <!-- Customer Reviews Feed -->
-          <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+          <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 class="text-base font-black text-[#0F2937]">Customer Reviews</h3>
+              <h3 class="text-base font-semibold text-[#0F2937]">Customer Reviews</h3>
               <span class="text-xs text-slate-400 font-medium">{{ reviews.length }} reviews</span>
             </div>
 
@@ -224,7 +224,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Account Actions -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs flex items-center justify-between">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs flex items-center justify-between">
           <div>
             <h4 class="text-sm font-bold text-slate-900">Sign Out</h4>
             <p class="text-xs text-slate-500">Sign out of your professional workspace securely.</p>
@@ -240,9 +240,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- TAB 2: EDIT PROFILE & SERVICES -->
-      <div *ngIf="!isLoading && activeTab === 'edit'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+      <div *ngIf="!isLoading && activeTab === 'edit'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
         <div>
-          <h2 class="text-lg font-black text-[#0F2937]">Edit Professional Details & Services</h2>
+          <h2 class="text-lg font-semibold text-[#0F2937]">Edit Professional Details & Services</h2>
           <p class="text-xs text-slate-500">Update your trade credentials, contact numbers, and service radius.</p>
         </div>
 
@@ -374,9 +374,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- TAB 3: SECURITY & PASSWORD -->
-      <div *ngIf="!isLoading && activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-6">
+      <div *ngIf="!isLoading && activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-6">
         <div>
-          <h2 class="text-lg font-black text-[#0F2937]">Account Security & Password</h2>
+          <h2 class="text-lg font-semibold text-[#0F2937]">Account Security & Password</h2>
           <p class="text-xs text-slate-500">Keep your professional credentials secure with regular password updates.</p>
         </div>
 
@@ -570,11 +570,11 @@ export class ProProfileComponent implements OnInit {
   public getVerificationClass(status: string): string {
     switch (status) {
       case 'VERIFIED':
-        return 'inline-flex items-center text-[10px] font-extrabold text-[#2D7A5E] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wide';
+        return 'inline-flex items-center text-[10px] font-semibold text-[#2D7A5E] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wide';
       case 'PENDING':
-        return 'inline-flex items-center text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 uppercase tracking-wide';
+        return 'inline-flex items-center text-[10px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 uppercase tracking-wide';
       default:
-        return 'inline-flex items-center text-[10px] font-extrabold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 uppercase tracking-wide';
+        return 'inline-flex items-center text-[10px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 uppercase tracking-wide';
     }
   }
 

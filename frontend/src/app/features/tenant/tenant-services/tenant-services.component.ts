@@ -25,7 +25,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <span class="px-2.5 py-0.5 bg-[#EBF5F0] text-[#2D7A5E] text-xs font-bold rounded-full">Home Maintenance Ecosystem</span>
             <span class="text-xs text-[#64748B] font-medium">Grih360 Verified Network</span>
           </div>
-          <h1 class="text-2xl font-black text-[#0F2937] mt-1">Home Services</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937] mt-1">Home Services</h1>
           <p class="text-xs text-[#64748B]">Book verified local professionals for plumbing, electrical, carpentry, cleaning & appliance repair.</p>
         </div>
         <div class="flex items-center space-x-3">

@@ -18,7 +18,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <div class="inline-flex items-center space-x-2 bg-emerald-50 text-[#2D7A5E] px-3 py-1 rounded-full text-xs font-bold border border-emerald-200 mb-2">
             <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> My Tenancy & Lease Lifecycle</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937]">Rental & Lease Agreement</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937]">Rental & Lease Agreement</h1>
           <p class="text-xs sm:text-sm text-slate-500">
             Review your standardized residential rental agreement, digital assent records, and active tenancy parameters.
           </p>
@@ -37,22 +37,22 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       </div>
 
       <!-- Loading State -->
-      <div *ngIf="loading" class="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-sm space-y-3">
+      <div *ngIf="loading" class="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-sm space-y-3">
         <div class="w-10 h-10 border-4 border-[#2D7A5E] border-t-transparent rounded-full animate-spin mx-auto"></div>
         <p class="text-xs font-bold text-slate-500">Fetching lease agreement and rental status...</p>
       </div>
 
       <!-- Empty State -->
-      <div *ngIf="!loading && !rental && !agreement" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-12 text-center space-y-4">
-        <div class="w-16 h-16 bg-slate-50 text-slate-400 rounded-3xl flex items-center justify-center mx-auto text-2xl border border-slate-200">
+      <div *ngIf="!loading && !rental && !agreement" class="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center space-y-4">
+        <div class="w-16 h-16 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center mx-auto text-2xl border border-slate-200">
           <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         </div>
-        <h2 class="text-lg font-extrabold text-[#0F2937]">No Active Rental or Pending Agreement Found</h2>
+        <h2 class="text-lg font-semibold text-[#0F2937]">No Active Rental or Pending Agreement Found</h2>
         <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
           You do not currently have an active tenancy or pending lease agreement. Browse available zero-brokerage homes and submit an application to start.
         </p>
         <div class="pt-2">
-          <a routerLink="/tenant/homes" class="inline-block px-6 py-3 bg-[#0F2937] text-[#FACC15] font-extrabold rounded-2xl text-xs shadow-md  transition-all">
+          <a routerLink="/tenant/homes" class="inline-block px-6 py-3 bg-navy text-n-0 font-semibold rounded-2xl text-xs shadow-md  transition-all">
             <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> Browse Available Homes
           </a>
         </div>
@@ -62,17 +62,17 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <div *ngIf="!loading && (rental || agreement)" class="space-y-6">
 
         <!-- Mandatory Digital Signature Regulatory Notice Banner -->
-        <div class="bg-amber-50/90 border-2 border-amber-300/80 rounded-3xl p-5 shadow-xs relative overflow-hidden">
+        <div class="bg-amber-50/90 border-2 border-amber-300/80 rounded-xl p-5 shadow-xs relative overflow-hidden">
           <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-2xl bg-amber-200 text-amber-900 flex items-center justify-center text-lg shrink-0 font-black">
+            <div class="w-10 h-10 rounded-2xl bg-amber-200 text-amber-900 flex items-center justify-center text-lg shrink-0 font-semibold">
               <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
             </div>
             <div class="space-y-1.5 flex-1">
               <div class="flex items-center gap-2">
-                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-amber-200 text-amber-900">
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider bg-amber-200 text-amber-900">
                   Compliance Notice
                 </span>
-                <span class="text-xs font-black text-amber-950">
+                <span class="text-xs font-semibold text-amber-950">
                   {{ agreement?.agreementMetadata?.eSignNotice || 'Digital signature integration required' }}
                 </span>
               </div>
@@ -85,16 +85,16 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Agreement Status & Summary Card -->
-        <div class="bg-white rounded-3xl shadow-sm border border-slate-200/90 p-6 sm:p-8 space-y-6">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200/90 p-6 sm:p-8 space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-black text-[#2D7A5E] uppercase tracking-wider">
+                <span class="text-xs font-semibold text-[#2D7A5E] uppercase tracking-wider">
                   {{ isRentalActive ? 'Active Lease Agreement' : 'Rental Agreement Under Review' }}
                 </span>
                 <span class="text-xs text-slate-400">• Version {{ agreement?.agreementVersion || rental?.agreementVersion || 'v1.0' }}</span>
               </div>
-              <h2 class="text-xl sm:text-2xl font-black text-[#0F2937] mt-1">
+              <h2 class="text-xl sm:text-2xl font-semibold text-[#0F2937] mt-1">
                 {{ propertyTitle }}
               </h2>
               <p class="text-xs text-slate-500 mt-0.5">{{ propertyAddress }}</p>
@@ -110,10 +110,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <!-- Owner Box -->
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/70 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Property Owner (Lessor)</span>
+                <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Property Owner (Lessor)</span>
                 <span class="text-xs"></span>
               </div>
-              <div class="font-extrabold text-sm text-[#0F2937]">{{ ownerName }}</div>
+              <div class="font-semibold text-sm text-[#0F2937]">{{ ownerName }}</div>
               <div class="text-xs text-slate-500">{{ ownerEmail }}</div>
               <div class="pt-1 flex items-center gap-1.5 text-[11px] font-bold" [class]="ownerConfirmed ? 'text-emerald-700' : 'text-amber-700'">
                 <span>{{ ownerConfirmed ? ' Confirmed by Owner' : 'Pending Owner Confirmation' }}</span>
@@ -123,10 +123,10 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <!-- Tenant Box -->
             <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/70 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Tenant (Lessee)</span>
+                <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Tenant (Lessee)</span>
                 <span class="text-xs"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></span>
               </div>
-              <div class="font-extrabold text-sm text-[#0F2937]">{{ tenantName }}</div>
+              <div class="font-semibold text-sm text-[#0F2937]">{{ tenantName }}</div>
               <div class="text-xs text-slate-500">{{ tenantEmail }}</div>
               <div class="pt-1 flex items-center gap-1.5 text-[11px] font-bold" [class]="tenantConfirmed ? 'text-emerald-700' : 'text-amber-700'">
                 <span>{{ tenantConfirmed ? ' Confirmed by You' : 'Action Required: Tenant Confirmation Pending' }}</span>
@@ -137,26 +137,26 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <!-- Financial & Term Parameters Grid -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200/80">
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Agreed Monthly Rent</span>
-              <span class="text-lg font-black text-[#0F2937] block mt-0.5">{{ formatINR(agreedRent) }}/mo</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Agreed Monthly Rent</span>
+              <span class="text-lg font-semibold text-[#0F2937] block mt-0.5">{{ formatINR(agreedRent) }}/mo</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Security Deposit</span>
-              <span class="text-lg font-black text-slate-800 block mt-0.5">{{ formatINR(agreedDeposit) }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Security Deposit</span>
+              <span class="text-lg font-semibold text-slate-800 block mt-0.5">{{ formatINR(agreedDeposit) }}</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Lease Start Date</span>
-              <span class="text-xs font-extrabold text-slate-800 block mt-1.5">{{ startDate | date: 'mediumDate' }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Lease Start Date</span>
+              <span class="text-xs font-semibold text-slate-800 block mt-1.5">{{ startDate | date: 'mediumDate' }}</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Lease End Date / Term</span>
-              <span class="text-xs font-extrabold text-slate-800 block mt-1.5">{{ endDate | date: 'mediumDate' }} ({{ termMonths }} Mo)</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Lease End Date / Term</span>
+              <span class="text-xs font-semibold text-slate-800 block mt-1.5">{{ endDate | date: 'mediumDate' }} ({{ termMonths }} Mo)</span>
             </div>
           </div>
 
           <!-- Standard Terms Summary -->
           <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2">
-            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Agreement Terms Summary</span>
+            <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Agreement Terms Summary</span>
             <p class="text-xs text-slate-600 leading-relaxed font-medium">
               {{ agreement?.termsSummary || 'Standard Grih360 Residential Rental Agreement v1.0. Compliance with Model Tenancy Act provisions, 11-month standard tenure, 30-day notice for vacating, and digital rent receipts generated on monthly basis.' }}
             </p>
@@ -165,13 +165,13 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           <!-- Digital Confirmation Representation Box -->
           <div class="border-t border-slate-100 pt-5 space-y-4">
             <div class="flex items-center justify-between">
-              <h3 class="text-xs font-extrabold text-[#0F2937] uppercase tracking-wider">Platform Confirmation Status</h3>
+              <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider">Platform Confirmation Status</h3>
               <span class="text-[10px] font-bold text-slate-400">Model Tenancy Act Compliant Recording</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div class="p-3.5 rounded-xl border" [class]="tenantConfirmed ? 'bg-emerald-50/60 border-emerald-200 text-emerald-900' : 'bg-amber-50/60 border-amber-200 text-amber-900'">
-                <div class="font-extrabold flex items-center justify-between">
+                <div class="font-semibold flex items-center justify-between">
                   <span>Tenant Digital Consent:</span>
                   <span>{{ tenantConfirmed ? 'CONFIRMED' : 'PENDING' }}</span>
                 </div>
@@ -181,7 +181,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </div>
 
               <div class="p-3.5 rounded-xl border" [class]="ownerConfirmed ? 'bg-emerald-50/60 border-emerald-200 text-emerald-900' : 'bg-amber-50/60 border-amber-200 text-amber-900'">
-                <div class="font-extrabold flex items-center justify-between">
+                <div class="font-semibold flex items-center justify-between">
                   <span>Owner Digital Consent:</span>
                   <span>{{ ownerConfirmed ? 'CONFIRMED' : 'PENDING' }}</span>
                 </div>
@@ -194,7 +194,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <!-- Tenant Action Button -->
             <div *ngIf="!tenantConfirmed && agreement?.status !== 'CANCELLED'" class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900 text-white p-4 rounded-2xl">
               <div>
-                <h4 class="font-bold text-sm text-[#FACC15]">Confirm Agreement Terms</h4>
+                <h4 class="font-bold text-sm text-brand">Confirm Agreement Terms</h4>
                 <p class="text-xs text-slate-300">By confirming, you record platform agreement to the lease terms and rental fees.</p>
                 <p *ngIf="confirmError" class="text-xs text-rose-400 font-bold mt-1"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ confirmError }}</p>
               </div>
@@ -202,7 +202,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
                 (click)="confirmAsTenant()"
                 [disabled]="isConfirming"
                 type="button"
-                class="px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black rounded-xl text-xs transition-all  shrink-0 cursor-pointer disabled:opacity-50"
+                class="px-5 py-2.5 bg-brand hover:bg-brand-hover text-n-0 font-semibold rounded-xl text-xs transition-all  shrink-0 cursor-pointer disabled:opacity-50"
               >
                 {{ isConfirming ? 'Confirming...' : ' Accept & Confirm Agreement' }}
               </button>
@@ -216,16 +216,16 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
         </div>
 
         <!-- Rent Payment Schedule (When Active) -->
-        <div *ngIf="isRentalActive" class="bg-white rounded-3xl shadow-sm border border-slate-200/90 p-6 sm:p-8 space-y-4">
+        <div *ngIf="isRentalActive" class="bg-white rounded-xl shadow-sm border border-slate-200/90 p-6 sm:p-8 space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-extrabold text-[#0F2937]">Active Rent Payment Schedule</h3>
-            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-black">Active Tenancy</span>
+            <h3 class="text-base font-semibold text-[#0F2937]">Active Rent Payment Schedule</h3>
+            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold">Active Tenancy</span>
           </div>
 
           <div class="p-5 bg-emerald-50 border border-emerald-200/80 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div class="text-[10px] text-emerald-700 font-extrabold uppercase tracking-wider">Current Cycle Status</div>
-              <div class="text-lg font-black text-emerald-950 mt-0.5">Status: {{ rental?.rentStatus || 'UPCOMING' }}</div>
+              <div class="text-[10px] text-emerald-700 font-semibold uppercase tracking-wider">Current Cycle Status</div>
+              <div class="text-lg font-semibold text-emerald-950 mt-0.5">Status: {{ rental?.rentStatus || 'UPCOMING' }}</div>
               <div class="text-xs text-emerald-700 mt-1">Monthly Due: {{ formatINR(agreedRent) }}</div>
             </div>
             <div class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold text-center shrink-0 shadow-xs">

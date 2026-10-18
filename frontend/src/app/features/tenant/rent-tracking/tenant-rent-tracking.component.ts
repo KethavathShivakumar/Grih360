@@ -31,7 +31,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <span>/</span>
             <span class="text-slate-800 font-bold">Rent Tracking & Receipts</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Rent Tracking & Payment Ledger</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Rent Tracking & Payment Ledger</h1>
           <p class="text-xs text-slate-500 mt-0.5">
             Model Tenancy Act compliant automated rent receipts, UPI payments, and monthly billing history.
           </p>
@@ -47,7 +47,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           </button>
           <a
             routerLink="/tenant/documents"
-            class="px-4 py-2 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-extrabold rounded-xl text-xs shadow-xs transition cursor-pointer"
+            class="px-4 py-2 bg-navy hover:opacity-90 text-n-0 font-semibold rounded-xl text-xs shadow-xs transition cursor-pointer"
           >
             <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> All Documents
           </a>
@@ -78,40 +78,40 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <div *ngIf="!isLoading && !isError && rental" class="space-y-6">
 
         <!-- Active Lease Property Header Card -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase rounded-full">
+              <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-semibold uppercase rounded-full">
                 Active Tenancy
               </span>
               <span class="text-xs text-slate-400 font-semibold">• Tenancy Agreement {{ rental.agreementVersion || 'v1.0' }}</span>
             </div>
-            <h2 class="text-xl font-black text-[#0F2937]">{{ propertyTitle }}</h2>
+            <h2 class="text-xl font-semibold text-[#0F2937]">{{ propertyTitle }}</h2>
             <p class="text-xs text-slate-500"><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ propertyLocation }}</p>
           </div>
 
           <div class="flex items-center gap-6 border-t md:border-t-0 md:border-l border-slate-100 pt-3 md:pt-0 md:pl-6 text-xs">
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase block">Monthly Rent</span>
-              <span class="text-base font-black text-[#0F2937] block mt-0.5">{{ formatINR(monthlyRent) }}/mo</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase block">Monthly Rent</span>
+              <span class="text-base font-semibold text-[#0F2937] block mt-0.5">{{ formatINR(monthlyRent) }}/mo</span>
             </div>
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase block">Deposit Held</span>
-              <span class="text-base font-black text-slate-700 block mt-0.5">{{ formatINR(depositAmount) }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase block">Deposit Held</span>
+              <span class="text-base font-semibold text-slate-700 block mt-0.5">{{ formatINR(depositAmount) }}</span>
             </div>
           </div>
         </div>
 
         <!-- Current Cycle Payment Due Bento Card -->
-        <div class="bg-[#0F2937] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
-          <div class="absolute -right-8 -top-8 w-60 h-60 bg-[#FACC15]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="bg-[#0F2937] text-white p-6 sm:p-8 rounded-xl shadow-lg relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-60 h-60 bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
             <div class="space-y-2 max-w-lg">
-              <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#FACC15] border border-white/15">
+              <div class="inline-flex items-center space-x-2 bg-white/10  px-3 py-1 rounded-full text-xs font-bold text-brand border border-white/15">
                 <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg> Current Billing Cycle</span>
               </div>
-              <h3 class="text-2xl font-black tracking-tight text-white">
+              <h3 class="text-2xl font-semibold tracking-tight text-white">
                 {{ isPaid ? 'Rent for this Month is Paid! ' : 'Upcoming Rent Payment Due' }}
               </h3>
               <p class="text-xs text-slate-300 leading-relaxed">
@@ -119,9 +119,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               </p>
             </div>
 
-            <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20 text-center shrink-0 space-y-2 min-w-56">
-              <span class="text-[10px] font-black uppercase text-slate-300 block">Amount Payable</span>
-              <span class="text-2xl font-black text-[#FACC15] block">{{ formatINR(monthlyRent) }}</span>
+            <div class="bg-white/10  p-5 rounded-2xl border border-white/20 text-center shrink-0 space-y-2 min-w-56">
+              <span class="text-[10px] font-semibold uppercase text-slate-300 block">Amount Payable</span>
+              <span class="text-2xl font-semibold text-brand block">{{ formatINR(monthlyRent) }}</span>
               <span class="text-[11px] font-bold block" [class]="isPaid ? 'text-emerald-400' : 'text-amber-300'">
                 Status: {{ currentRentStatus }}
               </span>
@@ -130,7 +130,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                 *ngIf="!isPaid"
                 (click)="openPayModal()"
                 type="button"
-                class="w-full mt-2 px-5 py-2.5 bg-[#FACC15] hover:bg-[#EAB308] text-[#0F2937] font-black text-xs rounded-xl shadow-md transition  cursor-pointer"
+                class="w-full mt-2 px-5 py-2.5 bg-brand hover:bg-brand-hover text-n-0 font-semibold text-xs rounded-xl shadow-md transition  cursor-pointer"
               >
                 <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Pay Rent Now
               </button>
@@ -148,10 +148,10 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Rent Records Ledger Table -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="text-base font-extrabold text-[#0F2937]">Rent Payment Ledger</h3>
+              <h3 class="text-base font-semibold text-[#0F2937]">Rent Payment Ledger</h3>
               <p class="text-xs text-slate-500">Historical rent records with certified receipts</p>
             </div>
             <span class="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded-lg">
@@ -162,7 +162,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead>
-                <tr class="border-b border-slate-200 text-slate-400 font-extrabold uppercase text-[10px]">
+                <tr class="border-b border-slate-200 text-slate-400 font-semibold uppercase text-[10px]">
                   <th class="py-3 px-4">Billing Date</th>
                   <th class="py-3 px-4">Amount</th>
                   <th class="py-3 px-4">Status</th>
@@ -175,12 +175,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
                   <td class="py-3.5 px-4 font-bold text-slate-800">
                     {{ (rec.dueDate || rec.createdAt || rec.paidDate) | date: 'mediumDate' }}
                   </td>
-                  <td class="py-3.5 px-4 font-black text-[#0F2937]">
+                  <td class="py-3.5 px-4 font-semibold text-[#0F2937]">
                     {{ formatINR(rec.amount || monthlyRent) }}
                   </td>
                   <td class="py-3.5 px-4">
                     <span
-                      class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase"
+                      class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase"
                       [class]="rec.status === 'PAID' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'"
                     >
                       {{ rec.status }}
@@ -215,12 +215,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- Payment Simulation Modal -->
-      <div *ngIf="showPayModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95 duration-150 my-auto">
+      <div *ngIf="showPayModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60  overflow-y-auto">
+        <div class="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95 duration-150 my-auto">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Fast & Secure</span>
-              <h3 class="text-lg font-black text-[#0F2937]">Pay Monthly Rent</h3>
+              <span class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider">Fast & Secure</span>
+              <h3 class="text-lg font-semibold text-[#0F2937]">Pay Monthly Rent</h3>
             </div>
             <button (click)="closePayModal()" type="button" class="text-slate-400 hover:text-slate-600 font-bold text-sm cursor-pointer">
               
@@ -241,7 +241,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <span>Platform Fee (Zero Brokerage)</span>
               <span>FREE</span>
             </div>
-            <div class="pt-2 border-t border-slate-200 flex justify-between font-black text-sm text-[#0F2937]">
+            <div class="pt-2 border-t border-slate-200 flex justify-between font-semibold text-sm text-[#0F2937]">
               <span>Total Payable</span>
               <span>{{ formatINR(monthlyRent) }}</span>
             </div>
@@ -249,13 +249,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Payment Mode Selection -->
           <div class="space-y-2">
-            <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Payment Mode</label>
+            <label class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider block">Payment Mode</label>
             <div class="grid grid-cols-3 gap-2">
               <button
                 *ngFor="let m of ['UPI', 'NETBANKING', 'CARD']"
                 (click)="selectedPaymentMode = m"
                 type="button"
-                [class]="selectedPaymentMode === m ? 'bg-[#0F2937] text-[#FACC15] font-black' : 'bg-slate-100 text-slate-700 font-bold hover:bg-slate-200'"
+                [class]="selectedPaymentMode === m ? 'bg-navy text-n-0 font-semibold' : 'bg-slate-100 text-slate-700 font-bold hover:bg-slate-200'"
                 class="py-2 rounded-xl text-xs transition cursor-pointer"
               >
                 {{ m }}
@@ -265,7 +265,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Transaction Notes / Reference -->
           <div class="space-y-1">
-            <label class="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Reference Note / UTR (Optional)</label>
+            <label class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider block">Reference Note / UTR (Optional)</label>
             <input
               type="text"
               [(ngModel)]="paymentNote"
@@ -291,7 +291,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               (click)="confirmPayment()"
               [disabled]="isPaying"
               type="button"
-              class="flex-1 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-black text-xs rounded-xl shadow-md transition disabled:opacity-50 cursor-pointer"
+              class="flex-1 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-md transition disabled:opacity-50 cursor-pointer"
             >
               {{ isPaying ? 'Processing...' : 'Confirm & Pay ' + formatINR(monthlyRent) }}
             </button>
@@ -300,14 +300,14 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- Receipt Viewer Modal -->
-      <div *ngIf="showReceiptModal && activeReceipt" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-5 sm:p-8 shadow-2xl space-y-6 animate-in fade-in zoom-in-95 duration-150 border border-slate-200 my-auto">
+      <div *ngIf="showReceiptModal && activeReceipt" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60  overflow-y-auto">
+        <div class="bg-white rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-5 sm:p-8 shadow-2xl space-y-6 animate-in fade-in zoom-in-95 duration-150 border border-slate-200 my-auto">
           <div class="flex items-center justify-between border-b border-slate-200 pb-4">
             <div>
-              <span class="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
                 Official Rent Receipt
               </span>
-              <h3 class="text-xl font-black text-[#0F2937] mt-1">Receipt for Rent Paid</h3>
+              <h3 class="text-xl font-semibold text-[#0F2937] mt-1">Receipt for Rent Paid</h3>
             </div>
             <button (click)="closeReceiptModal()" type="button" class="text-slate-400 hover:text-slate-600 font-bold text-sm cursor-pointer" aria-label="Close modal">
               ✕
@@ -333,7 +333,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             </div>
             <div class="flex justify-between border-b border-slate-200/60 pb-2">
               <span class="text-slate-400 font-bold uppercase text-[10px]">Amount Paid</span>
-              <span class="font-black text-base text-[#2D7A5E]">{{ formatINR(activeReceipt.amount || monthlyRent) }}</span>
+              <span class="font-semibold text-base text-[#2D7A5E]">{{ formatINR(activeReceipt.amount || monthlyRent) }}</span>
             </div>
             <div class="flex justify-between pt-1">
               <span class="text-slate-400 font-bold uppercase text-[10px]">Tenancy Record</span>
@@ -345,7 +345,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <button
               (click)="printReceipt()"
               type="button"
-              class="w-full py-2.5 bg-[#0F2937] hover:bg-[#1E3A8A] text-[#FACC15] font-black text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
+              class="w-full py-2.5 bg-navy hover:opacity-90 text-n-0 font-semibold text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
             >
               <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> Print / Download PDF</span>
             </button>

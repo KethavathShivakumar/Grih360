@@ -24,12 +24,12 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       <!-- Top Header / Profile Bar -->
       <div *ngIf="user" class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center space-x-4">
-          <div class="w-16 h-16 rounded-2xl bg-[#0F2937] text-white flex items-center justify-center font-black text-2xl shadow-sm">
+          <div class="w-16 h-16 rounded-2xl bg-[#0F2937] text-white flex items-center justify-center font-semibold text-2xl shadow-sm">
             {{ user.name ? user.name[0].toUpperCase() : 'U' }}
           </div>
           <div>
             <div class="flex items-center space-x-2">
-              <h1 class="text-2xl font-black text-[#0F2937]">{{ user.name }}</h1>
+              <h1 class="text-2xl font-semibold text-[#0F2937]">{{ user.name }}</h1>
               <span
                 [ngClass]="{
                   'bg-blue-100 text-blue-800': user.role === 'TENANT',
@@ -78,7 +78,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Column 1: Identity & Credentials -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
             Identity & Contact
           </h3>
           <div class="space-y-3 text-xs">
@@ -120,7 +120,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Column 2: Governance & Permissions -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
             Governance & Role
           </h3>
           <div class="space-y-4 text-xs">
@@ -165,7 +165,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Column 3: Platform Relationships -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">
             Operations & Navigation
           </h3>
           <div class="space-y-3 text-xs">

@@ -47,7 +47,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               RENT: {{ rental.rentStatus || 'UPCOMING' }}
             </span>
           </div>
-          <h1 class="text-2xl font-black text-[#0F2937]">Rental Agreement #{{ (rental._id || rental.id || '').slice(-6).toUpperCase() }}</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Rental Agreement #{{ (rental._id || rental.id || '').slice(-6).toUpperCase() }}</h1>
           <p class="text-xs text-slate-500 mt-0.5">Created: {{ rental.createdAt | date:'medium' }}</p>
         </div>
         <a routerLink="/admin/rentals" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition self-start">
@@ -63,11 +63,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Lease Parameters -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Lease Parameters</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Lease Parameters</h3>
           <div class="space-y-3 text-xs">
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between">
               <span class="text-slate-500 font-bold">Monthly Rent</span>
-              <span class="text-lg font-black text-[#0F2937]">₹{{ (rental.monthlyRent || 0).toLocaleString('en-IN') }}</span>
+              <span class="text-lg font-semibold text-[#0F2937]">₹{{ (rental.monthlyRent || 0).toLocaleString('en-IN') }}</span>
             </div>
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between">
               <span class="text-slate-500 font-bold">Security Deposit</span>
@@ -94,13 +94,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Tenant & Owner Contacts -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Parties</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Parties</h3>
           <div class="space-y-3 text-xs">
             <!-- Tenant -->
             <div>
               <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Tenant</span>
               <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-xl border border-blue-200">
-                <div class="w-9 h-9 rounded-full bg-blue-200 text-blue-800 font-black flex items-center justify-center">
+                <div class="w-9 h-9 rounded-full bg-blue-200 text-blue-800 font-semibold flex items-center justify-center">
                   {{ (rental.tenant?.name || rental.tenantId?.name || 'T')[0] }}
                 </div>
                 <div class="min-w-0 flex-1">
@@ -122,7 +122,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <div>
               <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Landlord / Owner</span>
               <div class="flex items-center space-x-3 p-3 bg-emerald-50 rounded-xl border border-emerald-200">
-                <div class="w-9 h-9 rounded-full bg-emerald-200 text-emerald-800 font-black flex items-center justify-center">
+                <div class="w-9 h-9 rounded-full bg-emerald-200 text-emerald-800 font-semibold flex items-center justify-center">
                   {{ (rental.owner?.name || rental.ownerId?.name || 'O')[0] }}
                 </div>
                 <div class="min-w-0 flex-1">
@@ -144,7 +144,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
         <!-- Property & Rent Status -->
         <div class="bg-white rounded-2xl p-6 border border-[#E8E6DF] shadow-xs space-y-4">
-          <h3 class="text-sm font-black text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Property & Rent Tracking</h3>
+          <h3 class="text-sm font-semibold text-[#0F2937] uppercase tracking-wide border-b border-slate-100 pb-2">Property & Rent Tracking</h3>
           <div class="space-y-3 text-xs">
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
               <span class="text-[10px] font-bold text-slate-400 uppercase">Property</span>
@@ -164,7 +164,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               }"
             >
               <span class="text-[10px] font-bold text-slate-500 uppercase block">Rent Status</span>
-              <span class="font-black text-base"
+              <span class="font-semibold text-base"
                 [ngClass]="{
                   'text-emerald-700': rental.rentStatus === 'PAID',
                   'text-amber-700': rental.rentStatus === 'DUE',

@@ -23,7 +23,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <!-- Header Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Tenant Applications</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Tenant Applications</h1>
           <p class="text-xs text-slate-500">Screen prospective tenants, verify KYC credentials, and issue Model Tenancy Act leases.</p>
         </div>
         <button
@@ -42,14 +42,14 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           *ngFor="let tab of filterTabs"
           (click)="selectedTab = tab.key"
           type="button"
-          [class]="selectedTab === tab.key ? 'bg-[#0F2937] text-white font-extrabold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold'"
+          [class]="selectedTab === tab.key ? 'bg-[#0F2937] text-white font-semibold shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold'"
           class="px-3 py-1.5 rounded-xl text-xs transition-all cursor-pointer flex items-center gap-1.5"
         >
           <span>{{ tab.label }}</span>
           <span
             *ngIf="getTabCount(tab.key) > 0"
             [class]="selectedTab === tab.key ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-800'"
-            class="px-1.5 py-0.2 rounded-full text-[10px] font-black"
+            class="px-1.5 py-0.2 rounded-full text-[10px] font-semibold"
           >
             {{ getTabCount(tab.key) }}
           </span>
@@ -79,10 +79,10 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
         <div
           *ngFor="let app of filteredApplications"
           (click)="viewApplicantDetails(app)"
-          class="bg-white p-5 rounded-3xl border border-[#E8E6DF] hover:border-[#2D7A5E] hover:shadow-md transition-all cursor-pointer flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group"
+          class="bg-white p-5 rounded-xl border border-[#E8E6DF] hover:border-[#2D7A5E] hover:shadow-md transition-all cursor-pointer flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group"
         >
           <div class="flex items-center space-x-4">
-            <div class="w-14 h-14 rounded-2xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-extrabold text-xl shrink-0  transition-transform shadow-xs">
+            <div class="w-14 h-14 rounded-2xl bg-navy text-n-0 flex items-center justify-center font-semibold text-xl shrink-0  transition-transform shadow-xs">
               {{ getApplicantInitial(app) }}
             </div>
             <div>
@@ -102,7 +102,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <div class="flex items-center space-x-6 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-100">
             <div>
               <span class="block text-[10px] text-slate-400 font-bold uppercase">Proposed Rent</span>
-              <span class="text-sm font-extrabold text-[#0F2937]">{{ formatRent(app.proposedRent) }}</span>
+              <span class="text-sm font-semibold text-[#0F2937]">{{ formatRent(app.proposedRent) }}</span>
             </div>
             <div>
               <span class="block text-[10px] text-slate-400 font-bold uppercase">Move-In Date</span>

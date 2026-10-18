@@ -13,10 +13,10 @@ import { UserRole } from '../../../shared/models/user.model';
       <!-- Header -->
       <header class="w-full flex items-center justify-between py-2 border-b border-[#E8E6DF] mobile-top-bar">
         <a routerLink="/" class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-xl bg-[#0F2937] text-[#FACC15] flex items-center justify-center font-black text-base shadow-xs">
+          <div class="w-8 h-8 rounded-xl bg-navy text-n-0 flex items-center justify-center font-semibold text-base shadow-xs">
             G
           </div>
-          <span class="text-lg font-black text-[#0F2937]">Grih<span class="text-[#2D7A5E]">360</span></span>
+          <span class="text-lg font-semibold text-[#0F2937]">Grih<span class="text-[#2D7A5E]">360</span></span>
         </a>
         <a routerLink="/auth/login" class="text-xs font-bold text-slate-500 hover:text-[#0F2937] flex items-center gap-1 min-h-[44px]">
           <span>Sign In →</span>
@@ -29,7 +29,7 @@ import { UserRole } from '../../../shared/models/user.model';
           <div class="inline-flex items-center gap-1 bg-emerald-50 text-[#2D7A5E] px-2.5 py-0.5 rounded-full text-[10px] font-bold border border-emerald-200">
             <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> Model Tenancy Act Verified</span>
           </div>
-          <h1 class="text-xl font-extrabold text-[#0F2937] tracking-tight mt-1">
+          <h1 class="text-xl font-semibold text-[#0F2937] tracking-tight mt-1">
             Create Your Account
           </h1>
           <p class="text-xs text-slate-500">
@@ -53,7 +53,7 @@ import { UserRole } from '../../../shared/models/user.model';
               <button
                 type="button"
                 (click)="onSetRole('TENANT')"
-                [class]="selectedRole === 'TENANT' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                [class]="selectedRole === 'TENANT' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'text-slate-600 font-semibold'"
                 class="py-2 text-xs rounded-lg text-center transition-all cursor-pointer flex items-center justify-center gap-1 min-h-[40px]"
               >
                 <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
@@ -63,7 +63,7 @@ import { UserRole } from '../../../shared/models/user.model';
               <button
                 type="button"
                 (click)="onSetRole('OWNER')"
-                [class]="selectedRole === 'OWNER' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                [class]="selectedRole === 'OWNER' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'text-slate-600 font-semibold'"
                 class="py-2 text-xs rounded-lg text-center transition-all cursor-pointer flex items-center justify-center gap-1 min-h-[40px]"
               >
                 <span></span>
@@ -73,7 +73,7 @@ import { UserRole } from '../../../shared/models/user.model';
               <button
                 type="button"
                 (click)="onSetRole('PROFESSIONAL')"
-                [class]="selectedRole === 'PROFESSIONAL' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                [class]="selectedRole === 'PROFESSIONAL' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'text-slate-600 font-semibold'"
                 class="py-2 text-xs rounded-lg text-center transition-all cursor-pointer flex items-center justify-center gap-1 min-h-[40px]"
               >
                 <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543-.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
@@ -198,7 +198,7 @@ import { UserRole } from '../../../shared/models/user.model';
           <button
             type="submit"
             [disabled]="registerForm.invalid || isLoading"
-            class="w-full py-3.5 bg-[#2D7A5E] active:bg-[#23614a] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
+            class="w-full py-3.5 bg-[#2D7A5E] active:bg-[#23614a] disabled:opacity-50 text-white font-semibold text-sm rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
           >
             <svg *ngIf="isLoading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -239,18 +239,18 @@ import { UserRole } from '../../../shared/models/user.model';
         <!-- Login Redirect -->
         <div class="text-center pt-2 border-t border-slate-200 text-xs text-slate-500">
           Already registered?
-          <a routerLink="/auth/login" class="font-extrabold text-[#0F2937] hover:underline ml-1">
+          <a routerLink="/auth/login" class="font-semibold text-[#0F2937] hover:underline ml-1">
             Sign In →
           </a>
         </div>
       </main>
 
       <!-- Profile Completion Bottom Sheet (Mobile) -->
-      <div *ngIf="showProfileSheet" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-end justify-center p-0">
+      <div *ngIf="showProfileSheet" class="fixed inset-0 bg-black/60  z-50 flex items-end justify-center p-0">
         <div class="bg-white rounded-t-3xl p-5 w-full max-w-md shadow-2xl space-y-4 border-t border-[#E8E6DF] animate-in slide-in-from-bottom duration-200">
           <div class="flex items-center justify-between pb-1 border-b border-slate-100">
             <div>
-              <h3 class="text-base font-extrabold text-[#0F2937]">Complete Your Profile</h3>
+              <h3 class="text-base font-semibold text-[#0F2937]">Complete Your Profile</h3>
               <p class="text-xs text-slate-500">Select your workspace role and enter phone</p>
             </div>
             <button (click)="closeProfileSheet.emit()" class="text-slate-400 hover:text-slate-700 text-base font-bold p-2 cursor-pointer">✕</button>
@@ -263,7 +263,7 @@ import { UserRole } from '../../../shared/models/user.model';
               <button
                 type="button"
                 (click)="onSetRole('TENANT')"
-                [class]="selectedRole === 'TENANT' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                [class]="selectedRole === 'TENANT' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'text-slate-600 font-semibold'"
                 class="py-2 text-xs rounded-lg transition-all text-center cursor-pointer min-h-[40px]"
               >
                 Tenant
@@ -271,7 +271,7 @@ import { UserRole } from '../../../shared/models/user.model';
               <button
                 type="button"
                 (click)="onSetRole('OWNER')"
-                [class]="selectedRole === 'OWNER' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                [class]="selectedRole === 'OWNER' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'text-slate-600 font-semibold'"
                 class="py-2 text-xs rounded-lg transition-all text-center cursor-pointer min-h-[40px]"
               >
                 Owner
@@ -279,7 +279,7 @@ import { UserRole } from '../../../shared/models/user.model';
               <button
                 type="button"
                 (click)="onSetRole('PROFESSIONAL')"
-                [class]="selectedRole === 'PROFESSIONAL' ? 'bg-[#0F2937] text-[#FACC15] font-extrabold shadow-sm' : 'text-slate-600 font-semibold'"
+                [class]="selectedRole === 'PROFESSIONAL' ? 'bg-navy text-n-0 font-semibold shadow-sm' : 'text-slate-600 font-semibold'"
                 class="py-2 text-xs rounded-lg transition-all text-center cursor-pointer min-h-[40px]"
               >
                 Pro
@@ -313,7 +313,7 @@ import { UserRole } from '../../../shared/models/user.model';
               (click)="completeProfile.emit()"
               [disabled]="isCompletingProfile || !profilePhone"
               type="button"
-              class="w-full py-3.5 bg-[#0F2937] active:bg-[#164E63] disabled:opacity-50 text-white font-extrabold text-sm rounded-xl shadow-md min-h-[48px] cursor-pointer"
+              class="w-full py-3.5 bg-[#0F2937] active:bg-[#164E63] disabled:opacity-50 text-white font-semibold text-sm rounded-xl shadow-md min-h-[48px] cursor-pointer"
             >
               {{ isCompletingProfile ? 'Registering...' : 'Complete Registration →' }}
             </button>

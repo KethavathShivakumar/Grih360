@@ -17,7 +17,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">Property Listings Moderation</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Property Listings Moderation</h1>
           <p class="text-xs text-slate-500">Monitor, inspect, and moderate property listings across Tier-2 and Tier-3 cities</p>
         </div>
       </div>
@@ -61,7 +61,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <div *ngFor="let p of properties" class="bg-white rounded-xl border border-[#E8E6DF] p-5 shadow-sm flex flex-col md:flex-row justify-between gap-4">
           <div class="space-y-2 max-w-2xl">
             <div class="flex items-center space-x-3">
-              <h3 class="text-base font-black text-[#0F2937]">{{ p.title }}</h3>
+              <h3 class="text-base font-semibold text-[#0F2937]">{{ p.title }}</h3>
               <span
                 [ngClass]="{
                   'bg-emerald-100 text-emerald-800': p.availabilityStatus === 'VACANT' || p.status === 'AVAILABLE',

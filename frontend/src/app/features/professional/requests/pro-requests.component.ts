@@ -29,7 +29,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 
       <div class="bg-white p-6 rounded-2xl border border-[#E8E6DF] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">Assigned Service Jobs</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Assigned Service Jobs</h1>
           <p class="text-xs text-[#64748B]">Review incoming job assignments, accept or start work, and record completions.</p>
         </div>
       </div>

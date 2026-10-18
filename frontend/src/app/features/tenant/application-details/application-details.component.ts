@@ -57,17 +57,17 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <!-- Application Detail Content -->
       <div *ngIf="!isLoading && !isError && application" class="space-y-6">
-        <div *ngIf="updateError" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-2xl flex items-center gap-2">
+        <div *ngIf="updateError" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-xl flex items-center gap-2">
           <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
           <span>{{ updateError }}</span>
         </div>
 
         <!-- Status Header Card -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
             <div>
               <span class="text-xs font-bold text-slate-400 uppercase">Rental Application</span>
-              <h1 class="text-xl font-extrabold text-[#0F2937]">{{ propertyTitle }}</h1>
+              <h1 class="text-xl font-semibold text-[#0F2937]">{{ propertyTitle }}</h1>
               <p class="text-xs text-slate-500 mt-0.5">Submitted on {{ applicationDate | date: 'longDate' }}</p>
             </div>
             <div class="flex items-center space-x-3">
@@ -77,11 +77,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- Timeline Stepper (Only Shows Steps Actually Reached / Current) -->
           <div class="pt-2">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-3">Application Lifecycle Timeline</h2>
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Application Lifecycle Timeline</h2>
             <div class="grid grid-cols-1 sm:grid-cols-6 gap-2.5">
               <!-- Step 1: Submitted -->
-              <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
-                <span class="text-[9px] font-black text-emerald-800 uppercase block">1. Submitted</span>
+              <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+                <span class="text-[9px] font-semibold text-emerald-800 uppercase block">1. Submitted</span>
                 <span class="text-xs font-bold text-slate-900 block">Submitted</span>
                 <span class="text-[10px] text-emerald-700 font-semibold block"> Reached</span>
               </div>
@@ -90,9 +90,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div
                 *ngIf="hasReachedStep('UNDER_REVIEW')"
                 [class]="getTimelineStepClass('UNDER_REVIEW')"
-                class="p-3 border rounded-2xl space-y-1"
+                class="p-3 border rounded-xl space-y-1"
               >
-                <span class="text-[9px] font-black uppercase block">2. Screening</span>
+                <span class="text-[9px] font-semibold uppercase block">2. Screening</span>
                 <span class="text-xs font-bold block">Under Review</span>
                 <span class="text-[10px] font-semibold block">{{ getTimelineStepState('UNDER_REVIEW') }}</span>
               </div>
@@ -101,9 +101,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div
                 *ngIf="hasReachedStep('VERIFICATION')"
                 [class]="getTimelineStepClass('VERIFICATION')"
-                class="p-3 border rounded-2xl space-y-1"
+                class="p-3 border rounded-xl space-y-1"
               >
-                <span class="text-[9px] font-black uppercase block">3. Verification</span>
+                <span class="text-[9px] font-semibold uppercase block">3. Verification</span>
                 <span class="text-xs font-bold block">KYC Check</span>
                 <span class="text-[10px] font-semibold block">{{ getTimelineStepState('VERIFICATION') }}</span>
               </div>
@@ -112,9 +112,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div
                 *ngIf="hasReachedStep('DECISION')"
                 [class]="getTimelineStepClass('DECISION')"
-                class="p-3 border rounded-2xl space-y-1"
+                class="p-3 border rounded-xl space-y-1"
               >
-                <span class="text-[9px] font-black uppercase block">4. Decision</span>
+                <span class="text-[9px] font-semibold uppercase block">4. Decision</span>
                 <span class="text-xs font-bold block">{{ isRejected ? 'Rejected' : (isApproved ? 'Approved' : 'Decision') }}</span>
                 <span class="text-[10px] font-semibold block">{{ isRejected ? 'Declined' : 'Approved' }}</span>
               </div>
@@ -123,9 +123,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div
                 *ngIf="hasReachedStep('AGREEMENT')"
                 [class]="getTimelineStepClass('AGREEMENT')"
-                class="p-3 border rounded-2xl space-y-1"
+                class="p-3 border rounded-xl space-y-1"
               >
-                <span class="text-[9px] font-black uppercase block">5. Agreement</span>
+                <span class="text-[9px] font-semibold uppercase block">5. Agreement</span>
                 <span class="text-xs font-bold block">Digital Lease</span>
                 <span class="text-[10px] font-semibold block">Generated</span>
               </div>
@@ -134,9 +134,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               <div
                 *ngIf="hasReachedStep('RENTAL_ACTIVATED')"
                 [class]="getTimelineStepClass('RENTAL_ACTIVATED')"
-                class="p-3 border rounded-2xl space-y-1"
+                class="p-3 border rounded-xl space-y-1"
               >
-                <span class="text-[9px] font-black uppercase block">6. Tenancy</span>
+                <span class="text-[9px] font-semibold uppercase block">6. Tenancy</span>
                 <span class="text-xs font-bold block">Activated</span>
                 <span class="text-[10px] font-semibold block">Active Resident</span>
               </div>
@@ -145,13 +145,13 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Property Summary Card -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-4">
-          <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Applied Property</h2>
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-4">
+          <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Applied Property</h2>
           <div class="flex items-center space-x-4">
             <img
               [src]="propertyImage"
               [alt]="propertyTitle"
-              class="w-20 h-20 rounded-2xl object-cover border border-slate-200"
+              class="w-20 h-20 rounded-xl object-cover border border-slate-200"
             />
             <div>
               <h3 class="text-base font-bold text-slate-900">{{ propertyTitle }}</h3>
@@ -168,35 +168,35 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         </div>
 
         <!-- Application Parameters & Verification Card -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-5">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs space-y-5">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Application Parameters & State</h2>
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Application Parameters & State</h2>
             <div class="flex items-center gap-2">
               <span class="text-xs text-slate-500 font-semibold">Verification:</span>
-              <span [class]="verificationStateBadgeClass" class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">
+              <span [class]="verificationStateBadgeClass" class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider">
                 {{ verificationStateText }}
               </span>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm font-semibold">
-            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
               <span class="text-[11px] text-slate-400 font-bold block uppercase">Proposed Rent</span>
-              <span class="text-lg font-extrabold text-[#0F2937] block mt-0.5">{{ formatRent(application.proposedRent) }}</span>
+              <span class="text-lg font-semibold text-[#0F2937] block mt-0.5">{{ formatRent(application.proposedRent) }}</span>
             </div>
-            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
               <span class="text-[11px] text-slate-400 font-bold block uppercase">Target Move-in Date</span>
-              <span class="text-sm font-extrabold text-slate-800 block mt-1">{{ application.moveInDate | date: 'longDate' }}</span>
+              <span class="text-sm font-semibold text-slate-800 block mt-1">{{ application.moveInDate | date: 'longDate' }}</span>
             </div>
-            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+            <div class="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
               <span class="text-[11px] text-slate-400 font-bold block uppercase">Agreement State</span>
-              <span class="text-xs font-extrabold text-[#2D7A5E] block mt-1.5">{{ agreementStateText }}</span>
+              <span class="text-xs font-semibold text-[#2D7A5E] block mt-1.5">{{ agreementStateText }}</span>
             </div>
           </div>
 
           <div *ngIf="application.message" class="pt-2 space-y-1">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Applicant Cover Note</span>
-            <p class="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-2xl border border-slate-100 italic">
+            <p class="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-100 italic">
               "{{ application.message }}"
             </p>
           </div>
@@ -205,17 +205,17 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
           <div *ngIf="application.applicationData" class="pt-2 space-y-2">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Submitted Profile Information</span>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+              <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl">
                 <span class="text-slate-400 font-bold block">Employment Status</span>
                 <span class="text-slate-800 font-bold text-sm mt-0.5 block">{{ application.applicationData.employmentStatus || 'Employed' }}</span>
               </div>
-              <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+              <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl">
                 <span class="text-slate-400 font-bold block">Monthly Household Income</span>
                 <span class="text-slate-800 font-bold text-sm mt-0.5 block">
                   {{ application.applicationData.monthlyIncome ? ('₹' + application.applicationData.monthlyIncome.toLocaleString('en-IN') + '/mo') : 'Verified' }}
                 </span>
               </div>
-              <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+              <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl">
                 <span class="text-slate-400 font-bold block">Occupants</span>
                 <span class="text-slate-800 font-bold text-sm mt-0.5 block">{{ application.applicationData.occupantsCount || 1 }} Person(s)</span>
               </div>
@@ -224,11 +224,11 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
           <!-- What Do I Need To Do Next Guidance Box -->
           <div class="pt-3 border-t border-slate-100">
-            <div class="bg-indigo-50/70 border border-indigo-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <span class="text-xs font-extrabold text-indigo-700 uppercase tracking-wider block">Next Steps & Guidance</span>
+                <span class="text-xs font-semibold text-indigo-700 uppercase tracking-wider block">Next Steps & Guidance</span>
                 <p class="text-xs text-indigo-900 font-semibold mt-0.5">
-                  Current Status: <span class="font-extrabold underline">{{ application.status }}</span>
+                  Current Status: <span class="font-semibold underline">{{ application.status }}</span>
                 </p>
                 <p class="text-xs text-indigo-800 mt-1">
                   {{ getNextActionText() }}

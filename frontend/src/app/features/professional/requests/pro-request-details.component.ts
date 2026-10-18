@@ -44,7 +44,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
               </span>
               <app-status-badge [status]="request.status"></app-status-badge>
             </div>
-            <h1 class="text-xl font-black text-[#0F2937] mt-2">{{ request.description }}</h1>
+            <h1 class="text-xl font-semibold text-[#0F2937] mt-2">{{ request.description }}</h1>
             <p class="text-xs text-[#64748B]">Scheduled Date: <strong>{{ request.scheduledDate | date: 'fullDate' }}</strong> ({{ request.preferredTimeWindow || 'Flexible' }})</p>
           </div>
           <app-customer-care></app-customer-care>

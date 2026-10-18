@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E8E6DF] mb-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-n-200 mb-6">
       <div>
-        <h1 class="text-2xl font-black text-[#0F2937] tracking-tight">{{ title }}</h1>
-        <p *ngIf="subtitle" class="text-xs text-slate-500 font-medium mt-0.5">{{ subtitle }}</p>
+        <h1 class="text-xl font-semibold text-n-900 tracking-tight">{{ title }}</h1>
+        <p *ngIf="subtitle" class="text-sm text-n-500 mt-0.5">{{ subtitle }}</p>
       </div>
       <ng-content></ng-content>
     </div>

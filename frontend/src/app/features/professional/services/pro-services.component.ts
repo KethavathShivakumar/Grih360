@@ -29,7 +29,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             <span>/</span>
             <span class="text-[#0F2937]">Offered Services</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Services & Specializations</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Services & Specializations</h1>
           <p class="text-xs text-slate-500">Configure which of the 8 service categories you are verified and equipped to handle.</p>
         </div>
         <div class="flex items-center space-x-3">
@@ -44,12 +44,12 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
       </div>
 
       <!-- Success & Error Banners -->
-      <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
+      <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-between">
         <span> {{ successMessage }}</span>
         <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
 
-      <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
+      <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs font-bold flex items-center justify-between">
         <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
         <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
@@ -57,9 +57,9 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
       <app-loading-state *ngIf="isLoading" message="Loading your service configuration..."></app-loading-state>
 
       <!-- Form Container -->
-      <div *ngIf="!isLoading" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-8">
+      <div *ngIf="!isLoading" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-8">
         <div>
-          <h2 class="text-base font-black text-[#0F2937]">Select Service Categories</h2>
+          <h2 class="text-base font-semibold text-[#0F2937]">Select Service Categories</h2>
           <p class="text-xs text-slate-500 mt-1">
             You will only receive automatic job matches and assignments for categories selected below.
           </p>
@@ -71,24 +71,24 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             *ngFor="let cat of availableCategories"
             (click)="toggleCategory(cat.code)"
             [class]="isCategorySelected(cat.code) ? 'border-[#0F2937] bg-[#FAF9F5] ring-2 ring-[#0F2937]/10' : 'border-[#E8E6DF] hover:border-slate-400 bg-white'"
-            class="p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between space-y-3 group select-none"
+            class="p-5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between space-y-3 group select-none"
           >
             <div class="flex items-start justify-between">
               <span [innerHTML]="cat.icon | safeHtml" class="w-6 h-6 flex items-center justify-center text-slate-700 [&>svg]:w-6 [&>svg]:h-6 [&>svg]:stroke-[1.8]"></span>
               <span
                 [class]="isCategorySelected(cat.code) ? 'bg-[#0F2937] text-white' : 'bg-slate-100 text-slate-400 group-hover:text-slate-600'"
-                class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black transition-colors"
+                class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition-colors"
               >
                 {{ isCategorySelected(cat.code) ? '' : '+' }}
               </span>
             </div>
 
             <div>
-              <h3 class="text-sm font-black text-[#0F2937]">{{ cat.name }}</h3>
+              <h3 class="text-sm font-semibold text-[#0F2937]">{{ cat.name }}</h3>
               <p class="text-xs text-slate-500 mt-1 leading-relaxed">{{ cat.desc }}</p>
             </div>
 
-            <div class="pt-2 border-t border-slate-100 text-[10px] font-extrabold uppercase tracking-wider">
+            <div class="pt-2 border-t border-slate-100 text-[10px] font-semibold uppercase tracking-wider">
               <span [class]="isCategorySelected(cat.code) ? 'text-[#2D7A5E]' : 'text-slate-400'">
                 {{ isCategorySelected(cat.code) ? '● Active' : '○ Not selected' }}
               </span>
@@ -131,7 +131,7 @@ import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
             (click)="saveServices()"
             [disabled]="isSaving"
             type="button"
-            class="px-8 py-3 bg-[#0F2937] hover:bg-[#133E4D] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50"
+            class="px-8 py-3 bg-[#0F2937] hover:bg-[#133E4D] text-white text-xs font-semibold rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50"
           >
             {{ isSaving ? 'Saving Changes...' : 'Save Services & Experience' }}
           </button>

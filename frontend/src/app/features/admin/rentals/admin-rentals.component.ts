@@ -16,7 +16,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       
 
       <div>
-        <h1 class="text-2xl font-black text-[#0F2937]">Active Rentals & Rent Tracking</h1>
+        <h1 class="text-2xl font-semibold text-[#0F2937]">Active Rentals & Rent Tracking</h1>
         <p class="text-xs text-slate-500">Monitor active lease agreements and monthly rent tracking records</p>
       </div>
 

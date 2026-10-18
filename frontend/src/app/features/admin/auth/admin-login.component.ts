@@ -9,52 +9,49 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   template: `
-    <div class="min-h-screen bg-[#0A192F] text-slate-100 flex flex-col justify-between p-4 sm:p-8 font-sans selection:bg-amber-400 selection:text-slate-900">
+    <div class="min-h-screen bg-n-50 text-n-900 flex flex-col justify-between p-4 sm:p-8 font-sans">
       <!-- Top Bar -->
-      <header class="max-w-6xl mx-auto w-full flex items-center justify-between py-4 border-b border-slate-800">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-[#F59E0B] flex items-center justify-center font-black text-slate-950 text-xl shadow-lg">
-            360
+      <header class="max-w-4xl mx-auto w-full flex items-center justify-between py-4 border-b border-n-200">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-navy flex items-center justify-center font-semibold text-n-0 text-sm">
+            G
           </div>
           <div>
-            <div class="flex items-center space-x-2">
-              <span class="text-lg font-black tracking-tight text-white">Grih360</span>
-              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                Admin Console
+            <div class="flex items-center gap-2">
+              <span class="text-base font-semibold text-navy">Grih<span class="text-brand">360</span></span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-n-100 text-n-700 border border-n-200 uppercase tracking-wide">
+                Admin
               </span>
             </div>
-            <p class="text-[11px] text-slate-400">Platform Governance & Operational Infrastructure</p>
+            <p class="text-xs text-n-500">Platform operations & verification queue</p>
           </div>
         </div>
 
-        <a routerLink="/" class="text-xs font-bold text-slate-400 hover:text-white transition flex items-center space-x-1">
-          <span>← Return to Public Site</span>
+        <a routerLink="/" class="text-xs font-semibold text-n-500 hover:text-n-900 transition-colors flex items-center gap-1">
+          <span>← Public site</span>
         </a>
       </header>
 
       <!-- Centered Security Card -->
       <main class="max-w-md w-full mx-auto my-12">
-        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl backdrop-blur-xl space-y-6">
-          <div class="text-center space-y-2">
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto text-2xl">
-              <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            </div>
-            <h1 class="text-2xl font-black text-white tracking-tight">Administrative Sign In</h1>
-            <p class="text-xs text-slate-400">
-              Restricted portal. Unauthorized access attempts are monitored and logged.
+        <div class="card p-6 sm:p-8 space-y-6">
+          <div class="space-y-1">
+            <h1 class="text-xl font-semibold text-n-900 tracking-tight">Admin Console Sign In</h1>
+            <p class="text-xs text-n-500">
+              Sign in with your administrator credentials to access the ID review queue and platform tools.
             </p>
           </div>
 
           <!-- Error Alert -->
-          <div *ngIf="errorMessage" class="p-3.5 bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold rounded-2xl flex items-center justify-between">
-            <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
-            <button (click)="errorMessage = ''" class="text-rose-400 hover:text-rose-200"></button>
+          <div *ngIf="errorMessage" class="p-3 bg-err-bg border border-err-border text-err-text text-xs font-semibold rounded-lg flex items-center justify-between gap-2">
+            <span>{{ errorMessage }}</span>
+            <button (click)="errorMessage = ''" type="button" class="text-err-text hover:opacity-75 cursor-pointer">×</button>
           </div>
 
           <!-- Form -->
           <form (ngSubmit)="onSubmit()" class="space-y-4 text-xs">
             <div class="space-y-1.5">
-              <label class="font-bold uppercase tracking-wider text-[11px] text-slate-400">Administrator Email / ID</label>
+              <label class="block font-semibold text-xs text-n-700">Administrator Email</label>
               <input
                 type="text"
                 [(ngModel)]="identifier"
@@ -62,17 +59,17 @@ import { AuthService } from '../../../core/services/auth.service';
                 required
                 autocomplete="username"
                 placeholder="admin@grih360.com"
-                class="w-full p-3.5 bg-slate-800/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm font-medium outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
+                class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-lg text-n-900 placeholder-n-400 text-sm outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
               />
             </div>
 
             <div class="space-y-1.5">
               <div class="flex items-center justify-between">
-                <label class="font-bold uppercase tracking-wider text-[11px] text-slate-400">Master Password</label>
+                <label class="block font-semibold text-xs text-n-700">Password</label>
                 <button
                   type="button"
                   (click)="showPassword = !showPassword"
-                  class="text-[11px] text-amber-400 hover:text-amber-300 font-semibold cursor-pointer"
+                  class="text-xs text-brand hover:text-brand-hover font-semibold cursor-pointer"
                 >
                   {{ showPassword ? 'Hide' : 'Show' }}
                 </button>
@@ -84,30 +81,29 @@ import { AuthService } from '../../../core/services/auth.service';
                 required
                 autocomplete="current-password"
                 placeholder="••••••••••••"
-                class="w-full p-3.5 bg-slate-800/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm font-medium outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
+                class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-lg text-n-900 placeholder-n-400 text-sm outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
               />
             </div>
 
             <button
               type="submit"
               [disabled]="isLoading || !identifier || !password"
-              class="w-full py-3.5 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-black rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-sm mt-2"
+              class="w-full py-2.5 bg-brand hover:bg-brand-hover active:bg-brand text-n-0 font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-sm mt-2 min-h-[44px]"
             >
-              {{ isLoading ? 'Verifying Credentials...' : 'Authenticate as Administrator' }}
+              {{ isLoading ? 'Verifying...' : 'Sign In as Administrator' }}
             </button>
           </form>
 
           <!-- Security Notice -->
-          <div class="pt-4 border-t border-slate-800/80 text-[11px] text-slate-500 text-center space-y-1">
-            <p><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> 256-bit TLS encrypted administrative session</p>
-            <p>Role-based access verification enforced on every API request.</p>
+          <div class="pt-4 border-t border-n-200 text-xs text-n-400 text-center space-y-1">
+            <p>Encrypted session with role-based verification.</p>
           </div>
         </div>
       </main>
 
       <!-- Footer -->
-      <footer class="max-w-6xl mx-auto w-full text-center py-4 border-t border-slate-800 text-xs text-slate-500">
-        Grih360 Enterprise Platform &copy; 2026. All rights reserved.
+      <footer class="max-w-4xl mx-auto w-full text-center py-4 border-t border-n-200 text-xs text-n-400">
+        Grih360 Operations Portal &copy; 2026.
       </footer>
     </div>
   `,
@@ -144,7 +140,6 @@ export class AdminLoginComponent implements OnInit {
       next: (res) => {
         const user = res.data?.user;
         if (!user || user.role !== 'ADMIN') {
-          // Reject non-admin users attempting to access the admin portal
           this.authService.logout();
           this.isLoading = false;
           this.errorMessage = 'Access Denied: This console is strictly reserved for authorized platform administrators.';
@@ -156,7 +151,7 @@ export class AdminLoginComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error?.message || 'Invalid administrator credentials. Access logged.';
+        this.errorMessage = err.error?.message || 'Invalid administrator credentials.';
       },
     });
   }

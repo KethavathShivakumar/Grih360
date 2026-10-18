@@ -27,7 +27,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             <span>/</span>
             <span class="text-[#0F2937]">Service Area</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Service Coverage & Radius</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Service Coverage & Radius</h1>
           <p class="text-xs text-slate-500">Define your primary operating cities, localities, and travel radius.</p>
         </div>
         <div class="flex items-center space-x-3">
@@ -42,27 +42,27 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
       </div>
 
       <!-- Success & Error Banners -->
-      <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between">
+      <div *ngIf="successMessage" class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-between">
         <span> {{ successMessage }}</span>
         <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
 
-      <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between">
+      <div *ngIf="errorMessage" class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs font-bold flex items-center justify-between">
         <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
         <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
 
       <app-loading-state *ngIf="isLoading" message="Fetching coverage configuration..."></app-loading-state>
 
-      <div *ngIf="!isLoading" class="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8E6DF] shadow-xs space-y-8">
+      <div *ngIf="!isLoading" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-8">
         <!-- Service Radius Slider / Select -->
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <div>
-              <h2 class="text-base font-black text-[#0F2937]">Maximum Travel Radius</h2>
+              <h2 class="text-base font-semibold text-[#0F2937]">Maximum Travel Radius</h2>
               <p class="text-xs text-slate-500">Only service requests within this distance from your base will be assigned to you.</p>
             </div>
-            <span class="px-4 py-1.5 bg-[#FAF9F5] border border-[#E8E6DF] text-sm font-black text-[#2D7A5E] rounded-xl">
+            <span class="px-4 py-1.5 bg-[#FAF9F5] border border-[#E8E6DF] text-sm font-semibold text-[#2D7A5E] rounded-xl">
               {{ serviceRadiusKm }} km Radius
             </span>
           </div>
@@ -73,9 +73,9 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               (click)="serviceRadiusKm = r"
               type="button"
               [class]="serviceRadiusKm === r ? 'bg-[#0F2937] text-white border-[#0F2937]' : 'bg-[#FAF9F5] text-slate-700 border-[#E8E6DF] hover:bg-slate-100'"
-              class="p-4 rounded-2xl border text-center transition cursor-pointer"
+              class="p-4 rounded-xl border text-center transition cursor-pointer"
             >
-              <span class="block text-lg font-black">{{ r }} km</span>
+              <span class="block text-lg font-semibold">{{ r }} km</span>
               <span class="text-[10px] opacity-75 font-semibold">{{ getRadiusDescription(r) }}</span>
             </button>
           </div>
@@ -84,7 +84,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Operating Cities -->
         <div class="space-y-4 pt-6 border-t border-slate-100">
           <div>
-            <h2 class="text-base font-black text-[#0F2937]">Active Operating Cities</h2>
+            <h2 class="text-base font-semibold text-[#0F2937]">Active Operating Cities</h2>
             <p class="text-xs text-slate-500">Select all metro hubs and cities where you operate regular service routes.</p>
           </div>
 
@@ -104,7 +104,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
         <!-- Custom Localities / Local Areas -->
         <div class="space-y-3 pt-6 border-t border-slate-100">
           <div>
-            <h2 class="text-base font-black text-[#0F2937]">Preferred Localities & Neighborhoods</h2>
+            <h2 class="text-base font-semibold text-[#0F2937]">Preferred Localities & Neighborhoods</h2>
             <p class="text-xs text-slate-500">Add specific postal localities (e.g. Banjara Hills, Gachibowli, Madhapur, Hitec City, Jubilee Hills, Secunderabad).</p>
           </div>
 
@@ -132,7 +132,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
               class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 rounded-lg"
             >
               <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ area }}</span>
-              <button (click)="removeArea(area)" type="button" class="text-slate-400 hover:text-rose-600 font-black cursor-pointer">×</button>
+              <button (click)="removeArea(area)" type="button" class="text-slate-400 hover:text-rose-600 font-semibold cursor-pointer">×</button>
             </span>
           </div>
         </div>
@@ -147,7 +147,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
             (click)="saveAreaSettings()"
             [disabled]="isSaving"
             type="button"
-            class="px-8 py-3 bg-[#0F2937] hover:bg-[#133E4D] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50"
+            class="px-8 py-3 bg-[#0F2937] hover:bg-[#133E4D] text-white text-xs font-semibold rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50"
           >
             {{ isSaving ? 'Saving Changes...' : 'Save Service Coverage' }}
           </button>

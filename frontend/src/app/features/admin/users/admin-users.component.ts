@@ -17,7 +17,7 @@ import { ErrorStateComponent } from '../../../shared/components/error-state/erro
 
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-black text-[#0F2937]">User Account Management</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">User Account Management</h1>
           <p class="text-xs text-slate-500">Monitor and manage platform user roles, account activation, and profile data</p>
         </div>
       </div>

@@ -56,5 +56,11 @@ android/app/release/
 # Database and code backups
 backup/
 **/backup/
+backups/
+**/backups/
+*.txt
+!README.md
+backend/check-properties.js
+backend/db-inspection.txt
 
 

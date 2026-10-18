@@ -23,7 +23,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <!-- Header Bar: Responsive stacking for mobile (390px) to prevent overlap -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/60">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937] tracking-tight">Saved Homes</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937] tracking-tight">Saved Homes</h1>
           <p class="text-xs text-slate-500 mt-0.5">Keep track of properties you are interested in applying for.</p>
         </div>
         <button

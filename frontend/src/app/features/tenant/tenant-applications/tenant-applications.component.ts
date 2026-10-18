@@ -23,7 +23,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-extrabold text-[#0F2937]">Rental Applications</h1>
+          <h1 class="text-2xl font-semibold text-[#0F2937]">Rental Applications</h1>
           <p class="text-xs text-slate-500">Track application statuses and owner updates in real-time.</p>
         </div>
         <button
@@ -86,7 +86,7 @@ import { LoadingStateComponent } from '../../../shared/components/loading-state/
           <div class="flex items-center space-x-6 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-slate-100">
             <div class="text-left md:text-right">
               <span class="block text-[10px] text-slate-400 font-bold uppercase">Proposed Rent</span>
-              <span class="text-sm font-extrabold text-[#0F2937]">{{ formatRent(app.proposedRent) }}</span>
+              <span class="text-sm font-semibold text-[#0F2937]">{{ formatRent(app.proposedRent) }}</span>
             </div>
             <div class="text-left md:text-right">
               <span class="block text-[10px] text-slate-400 font-bold uppercase">Move-In Date</span>

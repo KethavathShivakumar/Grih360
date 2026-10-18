@@ -47,11 +47,11 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       </div>
 
       <!-- Feedback Banners -->
-      <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
+      <div *ngIf="successMessage" class="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-between shadow-2xs">
         <span> {{ successMessage }}</span>
         <button (click)="successMessage = ''" class="text-emerald-600 hover:text-emerald-900 cursor-pointer"></button>
       </div>
-      <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center justify-between shadow-2xs">
+      <div *ngIf="errorMessage" class="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-xs font-bold flex items-center justify-between shadow-2xs">
         <span><svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> {{ errorMessage }}</span>
         <button (click)="errorMessage = ''" class="text-rose-600 hover:text-rose-900 cursor-pointer"></button>
       </div>
@@ -70,27 +70,27 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       <!-- Main Content -->
       <div *ngIf="!isLoading && !isError && property" class="space-y-6">
         <!-- Property Summary Header Card -->
-        <div class="bg-white p-6 rounded-3xl border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="bg-white p-6 rounded-xl border border-[#E8E6DF] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="flex items-center gap-2">
-              <span class="bg-[#0F2937] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">
+              <span class="bg-[#0F2937] text-white text-[10px] font-semibold px-2 py-0.5 rounded uppercase">
                 {{ property.propertyType }}
               </span>
               <span class="text-xs text-slate-500 font-semibold">{{ property.propertyLocation.locality || property.propertyLocation.city }}</span>
             </div>
-            <h1 class="text-xl font-extrabold text-[#0F2937]">{{ property.title }}</h1>
+            <h1 class="text-xl font-semibold text-[#0F2937]">{{ property.title }}</h1>
             <p class="text-xs text-slate-500">
               <svg class="w-4 h-4 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> {{ property.propertyLocation.address }}, {{ property.propertyLocation.locality || property.propertyLocation.city }}
             </p>
           </div>
 
-          <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-center">
+          <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-200 text-center">
             <div>
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase block">Total Photos</span>
-              <span class="text-xl font-black text-[#0F2937]">{{ images.length }}</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase block">Total Photos</span>
+              <span class="text-xl font-semibold text-[#0F2937]">{{ images.length }}</span>
             </div>
             <div class="border-l border-slate-200 pl-4">
-              <span class="text-[10px] font-extrabold text-slate-400 uppercase block">Main Cover</span>
+              <span class="text-[10px] font-semibold text-slate-400 uppercase block">Main Cover</span>
               <span class="text-xs font-bold text-emerald-700">{{ hasMainImage ? 'Configured' : 'First Photo' }}</span>
             </div>
           </div>
@@ -109,7 +109,7 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
         <div *ngIf="images.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           <div
             *ngFor="let img of images; let i = index"
-            class="bg-white rounded-3xl border overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col"
+            class="bg-white rounded-xl border overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col"
             [ngClass]="img.isMain || (i === 0 && !hasExplicitMain) ? 'border-emerald-400 ring-2 ring-emerald-400/20' : 'border-slate-200'"
           >
             <!-- Image Thumbnail Area -->
@@ -124,14 +124,14 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
               <!-- Cover Badge -->
               <span
                 *ngIf="img.isMain || (i === 0 && !hasExplicitMain)"
-                class="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#2D7A5E] text-white text-[10px] font-black rounded-lg shadow-sm tracking-wide uppercase flex items-center gap-1"
+                class="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#2D7A5E] text-white text-[10px] font-semibold rounded-lg shadow-sm tracking-wide uppercase flex items-center gap-1"
               >
                 <svg class="w-3 h-3 fill-amber-300 text-amber-300" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                 <span>Cover Photo</span>
               </span>
 
               <!-- Photo Order Tag -->
-              <span class="absolute top-2.5 right-2.5 px-2 py-0.5 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
+              <span class="absolute top-2.5 right-2.5 px-2 py-0.5 bg-black/60  text-white text-[10px] font-bold rounded-md">
                 #{{ i + 1 }}
               </span>
             </div>
@@ -201,10 +201,10 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
       </div>
 
       <!-- Add Image Modal -->
-      <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95">
+      <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 ">
+        <div class="bg-white rounded-xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-base font-extrabold text-[#0F2937]">Add Property Photo</h3>
+            <h3 class="text-base font-semibold text-[#0F2937]">Add Property Photo</h3>
             <button (click)="closeAddModal()" class="text-slate-400 hover:text-slate-600 font-bold cursor-pointer text-lg"></button>
           </div>
 

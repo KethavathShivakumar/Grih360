@@ -33,7 +33,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             <span>/</span>
             <span class="text-[#0F2937]">Job History</span>
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F2937] tracking-tight">Service Job History</h1>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-[#0F2937] tracking-tight">Service Job History</h1>
           <p class="text-xs text-slate-500">Review your past completed jobs, tenant feedback, and historical records.</p>
         </div>
         <div class="flex items-center space-x-3">
@@ -48,7 +48,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       </div>
 
       <!-- Filters & Search Bar -->
-      <div class="bg-white p-4 rounded-2xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="bg-white p-4 rounded-xl border border-[#E8E6DF] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center space-x-2 w-full sm:w-auto">
           <button
             *ngFor="let tab of filterTabs"
@@ -87,7 +87,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
       <div *ngIf="!isLoading && !errorMessage && filteredJobs.length > 0" class="space-y-4">
         <div
           *ngFor="let job of filteredJobs"
-          class="bg-white p-6 rounded-3xl border border-[#E8E6DF] hover:border-[#0F2937] shadow-xs transition space-y-4"
+          class="bg-white p-6 rounded-xl border border-[#E8E6DF] hover:border-[#0F2937] shadow-xs transition space-y-4"
         >
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
             <div class="flex items-center space-x-3">
@@ -99,7 +99,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
             </div>
 
             <div class="flex items-center space-x-2">
-              <span *ngIf="job.estimatedCost" class="text-sm font-black text-[#2D7A5E]">
+              <span *ngIf="job.estimatedCost" class="text-sm font-semibold text-[#2D7A5E]">
                 ₹{{ job.estimatedCost }}
               </span>
               <a
@@ -119,9 +119,9 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
 
           <!-- Completion Notes Banner -->
-          <div *ngIf="job.completion" class="p-3.5 bg-emerald-50/60 border border-emerald-200/80 rounded-2xl text-xs text-emerald-900 space-y-1">
+          <div *ngIf="job.completion" class="p-3.5 bg-emerald-50/60 border border-emerald-200/80 rounded-xl text-xs text-emerald-900 space-y-1">
             <div class="flex items-center justify-between">
-              <span class="font-extrabold flex items-center gap-1.5">
+              <span class="font-semibold flex items-center gap-1.5">
                 <span></span> Completed on {{ job.completion.completedAt | date: 'mediumDate' }}
               </span>
             </div>
@@ -129,7 +129,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
           </div>
 
           <!-- Cancellation Notice -->
-          <div *ngIf="job.cancellation" class="p-3.5 bg-rose-50 border border-rose-200 text-xs text-rose-800 rounded-2xl space-y-1">
+          <div *ngIf="job.cancellation" class="p-3.5 bg-rose-50 border border-rose-200 text-xs text-rose-800 rounded-xl space-y-1">
             <span class="font-bold">Cancelled on {{ job.cancellation.cancelledAt | date: 'mediumDate' }}</span>
             <p class="text-xs mt-0.5">Reason: {{ job.cancellation.reason || 'N/A' }}</p>
           </div>
