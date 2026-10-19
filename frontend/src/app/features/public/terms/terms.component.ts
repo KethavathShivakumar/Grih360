@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
             <section>
               <h2 class="text-base font-bold text-[#0F2937] mb-2">1. Agreement to Terms</h2>
               <p>
-                By accessing or using the Grih360 website or mobile application, operated by [COMPANY_LEGAL_NAME]
+                By accessing or using the Grih360 website or mobile application, operated by Grih360 Technologies Private Limited
                 ("Grih360", "we", "us", or "our"), you agree to be bound by these Terms and Conditions.
                 If you do not agree to these terms, do not access or use the platform.
               </p>
@@ -105,10 +105,10 @@ import { RouterModule } from '@angular/router';
             <section>
               <h2 class="text-base font-bold text-[#0F2937] mb-2">8. Limitation of Liability and Jurisdiction</h2>
               <p>
-                To the fullest extent permitted by Indian law, Grih360 and [COMPANY_LEGAL_NAME] shall not be liable for
+                To the fullest extent permitted by Indian law, Grih360 and Grih360 Technologies Private Limited shall not be liable for
                 indirect, punitive, or consequential damages resulting from platform usage.
                 These terms are governed by the laws of India. Any disputes arising hereunder shall be subject to the
-                exclusive jurisdiction of the courts at [REGISTERED_ADDRESS].
+                exclusive jurisdiction of the courts at Hyderabad, Telangana, India.
               </p>
             </section>
 
@@ -116,9 +116,9 @@ import { RouterModule } from '@angular/router';
               <h2 class="text-base font-bold text-[#0F2937] mb-2">9. Contact Information</h2>
               <p class="mb-2">For legal notices or questions regarding these Terms, contact:</p>
               <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
-                <p><strong>Entity Name:</strong> [COMPANY_LEGAL_NAME]</p>
-                <p><strong>Registered Address:</strong> [REGISTERED_ADDRESS]</p>
-                <p><strong>Legal Inquiries:</strong> [CONTACT_EMAIL]</p>
+                <p><strong>Entity Name:</strong> Grih360 Technologies Private Limited</p>
+                <p><strong>Registered Address:</strong> Hyderabad, Telangana, India</p>
+                <p><strong>Legal Inquiries:</strong> support@grih360.com</p>
               </div>
             </section>
           </div>

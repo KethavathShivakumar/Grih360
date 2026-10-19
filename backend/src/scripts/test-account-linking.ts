@@ -88,32 +88,16 @@ async function runTests() {
       console.error('❌ FAIL: User does not list both providers', updatedUser1?.authProviders);
     }
 
-    // 1f. Attempt email login with new password -> Generates OTP Challenge
+    // 1f. Attempt email login with new password -> Directly issues tokens
     const loginRes1 = await AuthService.loginUser({
       identifier: email1,
       password: 'NewValidPass123!',
       role: 'TENANT',
     });
-    if (loginRes1.requiresEmailOtp && loginRes1.challengeId) {
-      console.log(`✅ [Step 1f] Email login successful! Challenge created: ${loginRes1.challengeId.substring(0, 8)}...`);
+    if (loginRes1.tokens && loginRes1.tokens.accessToken) {
+      console.log(`✅ [Step 1f] Direct password login successful! Access token issued.`);
     } else {
-      console.error('❌ FAIL: Expected 2-step challenge from login', loginRes1);
-    }
-
-    // 1g. Verify challenge OTP
-    const challengeOtp1 = await OtpModel.findOne({ email: email1, purpose: 'LOGIN', isUsed: false }).sort({ createdAt: -1 }).select('+otpHash');
-    let validChallengeOtp1 = '';
-    for (let c = 100000; c <= 999999; c++) {
-      if (OtpService.verifyOtpHash(c.toString(), challengeOtp1!.otpHash)) {
-        validChallengeOtp1 = c.toString();
-        break;
-      }
-    }
-    const verifyLoginRes1 = await AuthService.verifyLoginChallenge(loginRes1.challengeId!, validChallengeOtp1);
-    if (verifyLoginRes1.tokens && verifyLoginRes1.tokens.accessToken) {
-      console.log(`✅ [Step 1g] Two-step OTP verified. Session JWT token issued for user: ${verifyLoginRes1.user.email}`);
-    } else {
-      console.error('❌ FAIL: OTP verification failed', verifyLoginRes1);
+      console.error('❌ FAIL: Expected direct tokens from password login', loginRes1);
     }
 
     // -------------------------------------------------------------------------
@@ -172,7 +156,7 @@ async function runTests() {
       password: originalPassword,
       role: 'TENANT',
     });
-    if (loginRes2.requiresEmailOtp) {
+    if (loginRes2.tokens && loginRes2.tokens.accessToken) {
       console.log(`✅ [Step 2d] Email & password login still works after Google linking!`);
     } else {
       console.error('❌ FAIL: Email login failed after Google linking');

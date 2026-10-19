@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  appVersion: '1.4.8-dev',
+  appVersion: '1.4.9-dev',
   commitHash: 'dev',
   siteUrl: 'http://localhost:4200',
   apiUrl: 'http://localhost:5000/api/v1',

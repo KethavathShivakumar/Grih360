@@ -376,6 +376,69 @@ export class AuthService {
     return this.apiService.post<any>('/auth/resend-login-otp', { challengeId });
   }
 
+  public requestLoginOtp(identifier: string): Observable<any> {
+    return this.apiService.post<any>('/auth/login-otp/send', { identifier });
+  }
+
+  public verifyLoginOtpDirect(identifier: string, otp: string, role?: string): Observable<any> {
+    return this.apiService.post<any>('/auth/login-otp/verify', { identifier, otp, role }).pipe(
+      switchMap(async (res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
+        }
+        return res;
+      })
+    );
+  }
+
+  public requestRegistrationOtp(userData: {
+    email: string;
+    name?: string;
+    phone?: string;
+    role?: string;
+  }): Observable<any> {
+    return this.apiService.post<any>('/auth/register/send-otp', userData);
+  }
+
+  public verifyRegistrationOtpAndCreate(data: {
+    email: string;
+    otp: string;
+    password: string;
+    confirmPassword: string;
+    name: string;
+    phone: string;
+    role: string;
+  }): Observable<any> {
+    return this.apiService.post<any>('/auth/register/verify-and-create', data).pipe(
+      switchMap(async (res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
+        }
+        return res;
+      })
+    );
+  }
+
+  public setGoogleInitialPassword(data: {
+    onboardingToken: string;
+    otp: string;
+    password: string;
+    confirmPassword: string;
+  }): Observable<any> {
+    return this.apiService.post<any>('/auth/google/set-initial-password', data).pipe(
+      switchMap(async (res) => {
+        if (res.success && res.data?.tokens?.accessToken) {
+          await this.saveTokensAndUser(res.data.tokens, res.data.user);
+        }
+        return res;
+      })
+    );
+  }
+
+  public resendGoogleOnboardingOtp(onboardingToken: string): Observable<any> {
+    return this.apiService.post<any>('/auth/google/resend-otp', { onboardingToken });
+  }
+
   public waitForInit(): Observable<boolean> {
     return this.isInitialized$.pipe(
       filter((init) => init === true),

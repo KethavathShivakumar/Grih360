@@ -24,6 +24,13 @@ export class GoogleAuthService {
   private scriptLoadingPromise: Promise<void> | null = null;
 
   public profileRequired$ = new Subject<GoogleProfileRequirement>();
+  public passwordSetupRequired$ = new Subject<{
+    onboardingToken: string;
+    email: string;
+    name?: string;
+    emailMasked?: string;
+    role?: string;
+  }>();
 
   constructor(
     private authService: AuthService,
@@ -147,7 +154,7 @@ export class GoogleAuthService {
    */
   public async signInNative(
     role?: string
-  ): Promise<{ success: boolean; needsProfile?: boolean; error?: string; cancelled?: boolean }> {
+  ): Promise<{ success: boolean; needsProfile?: boolean; error?: string; cancelled?: boolean; needsPassword?: boolean }> {
     const webClientId = this.getClientId();
     if (!webClientId) {
       return { success: false, error: 'Google sign in is currently unavailable.' };
@@ -302,7 +309,7 @@ export class GoogleAuthService {
     idToken: string,
     role?: string,
     phone?: string
-  ): Promise<{ success: boolean; needsProfile?: boolean; error?: string }> {
+  ): Promise<{ success: boolean; needsProfile?: boolean; error?: string; needsPassword?: boolean }> {
     try {
       const res: any = await this.authService.loginWithGoogle(idToken, role, phone).toPromise();
 
@@ -315,6 +322,17 @@ export class GoogleAuthService {
           suggestedRole: role || res.data?.suggestedRole || 'TENANT',
         });
         return { success: true, needsProfile: true };
+      }
+
+      if (res && (res.needsPassword || res.data?.needsPassword)) {
+        this.passwordSetupRequired$.next({
+          onboardingToken: res.onboardingToken || res.data?.onboardingToken,
+          email: res.data?.email || res.email,
+          name: res.data?.name || res.name,
+          emailMasked: res.data?.emailMasked || res.emailMasked,
+          role: role || res.data?.role || 'TENANT',
+        });
+        return { success: true, needsPassword: true };
       }
 
       if (res && res.success && res.data?.user) {

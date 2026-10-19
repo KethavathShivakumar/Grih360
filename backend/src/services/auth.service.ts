@@ -29,6 +29,15 @@ import { PersistentStore } from '../config/persistent-store';
 // Persistent store fallback when MongoDB daemon is offline
 export const memoryUsers = new Map<string, any>();
 
+// Account lockout tracker for password failures (15 min lockout after 5 failed attempts)
+interface FailedLoginTracker {
+  attempts: number;
+  lockedUntil?: Date;
+}
+const failedPasswordAttempts = new Map<string, FailedLoginTracker>();
+const MAX_PASSWORD_ATTEMPTS = 5;
+const LOCKOUT_MS = 15 * 60 * 1000;
+
 // Load any existing persisted users into memory cache
 const loadedUsers = PersistentStore.loadCollection('users');
 for (const u of loadedUsers) {
@@ -41,148 +50,308 @@ export class AuthService {
   }
 
   /**
+   * Helper to create tokens and store rotating 30-day refresh token in DB
+   */
+  static async createSessionTokens(user: any) {
+    const userId = (user._id || user.id).toString();
+    const tokens = JwtUtil.generateTokens({
+      userId,
+      role: user.role,
+      email: user.email,
+    });
+
+    const tokenHash = JwtUtil.hashToken(tokens.refreshToken);
+    const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    if (AuthService.isMongoConnected() && user._id) {
+      await RefreshTokenModel.create({
+        userId: user._id,
+        tokenHash,
+        expiresAt,
+      });
+    }
+    return tokens;
+  }
+
+  /**
    * Seed Default Platform Accounts (Disabled - No demo data)
    */
   static async seedDemoUsers(): Promise<void> {
-    // Permanent no-op: demo seeding removed
     return;
   }
 
   /**
-   * Real User Registration with Password Hashing & Profile Creation
+   * Request Registration OTP (Step 1 of Email Registration)
+   * Validates uniqueness and dispatches 6-digit verification code.
    */
-  static async registerUser(input: RegisterInput) {
-    const emailNormalized = input.email.toLowerCase().trim();
-    const phoneNormalized = input.phone.trim();
+  static async requestRegistrationOtp(input: {
+    email: string;
+    name?: string;
+    phone?: string;
+    role?: string;
+  }) {
+    if (!input.email || typeof input.email !== 'string') {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email address is required.' };
+    }
+
+    const normalizedEmail = input.email.trim().toLowerCase();
+    if (!normalizedEmail.includes('@') || !normalizedEmail.includes('.')) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Please enter a valid email address.' };
+    }
+
+    const existingUser = await AuthService.findUserByIdentifier(normalizedEmail);
+    if (existingUser) {
+      const isGoogle =
+        (existingUser.authProviders && existingUser.authProviders.includes('GOOGLE')) ||
+        existingUser.authProvider === 'GOOGLE' ||
+        !!existingUser.googleId;
+      throw {
+        statusCode: 409,
+        code: 'EMAIL_ALREADY_REGISTERED',
+        message: 'This email is already registered. Please sign in or continue with Google.',
+        authProviders: existingUser.authProviders || (isGoogle ? ['GOOGLE'] : ['LOCAL']),
+      };
+    }
+
+    if (input.phone) {
+      const cleanPhone = input.phone.replace(/\D/g, '');
+      if (cleanPhone.length === 10) {
+        if (AuthService.isMongoConnected()) {
+          const existingPhone = await UserModel.findOne({ phone: cleanPhone });
+          if (existingPhone) {
+            throw {
+              statusCode: 409,
+              code: 'PHONE_EXISTS',
+              message: 'An account with this mobile number already exists.',
+            };
+          }
+        }
+      }
+    }
+
+    const res = await OtpService.createAndSendOtp({
+      email: normalizedEmail,
+      purpose: 'REGISTRATION',
+      userName: input.name,
+    });
+
+    return {
+      success: true,
+      message: 'Verification code sent to your email.',
+      emailMasked: res.emailMasked,
+      expiresInSeconds: res.expiresInSeconds,
+      ...(res.rawOtp ? { rawOtp: res.rawOtp } : {}),
+    };
+  }
+
+  /**
+   * Verify Registration OTP and Create User (Step 2 of Email Registration)
+   * Creates the account ONLY after the OTP is verified and the password is set.
+   */
+  static async verifyRegistrationOtpAndCreate(input: {
+    email: string;
+    otp: string;
+    password: string;
+    confirmPassword?: string;
+    name: string;
+    phone: string;
+    role: string;
+  }) {
+    const normalized = (input.email || '').trim().toLowerCase();
+    const cleanOtp = (input.otp || '').trim();
+    const cleanName = (input.name || '').trim();
+    const cleanPhone = (input.phone || '').replace(/\D/g, '');
+    const requestedRole = (input.role || 'TENANT').toUpperCase();
+
+    if (!normalized || !cleanOtp || !cleanName || !cleanPhone || !input.password) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'All registration fields are required.' };
+    }
+
+    if (cleanName.length < 2) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Name must be at least 2 characters long.' };
+    }
+
+    if (cleanPhone.length !== 10) {
+      throw { statusCode: 400, code: 'INVALID_PHONE', message: 'Please provide a valid 10-digit mobile number.' };
+    }
+
+    if (input.password.length < 8) {
+      throw { statusCode: 400, code: 'WEAK_PASSWORD', message: 'Password must be at least 8 characters long.' };
+    }
+
+    if (
+      !/[A-Z]/.test(input.password) ||
+      !/[a-z]/.test(input.password) ||
+      !/[0-9]/.test(input.password)
+    ) {
+      throw {
+        statusCode: 400,
+        code: 'WEAK_PASSWORD',
+        message: 'Password must contain uppercase, lowercase, and a number.',
+      };
+    }
+
+    if (input.confirmPassword && input.password !== input.confirmPassword) {
+      throw { statusCode: 400, code: 'PASSWORD_MISMATCH', message: 'Passwords do not match.' };
+    }
+
+    const validRoles: UserRole[] = ['TENANT', 'OWNER', 'PROFESSIONAL'];
+    const roleToUse: UserRole = validRoles.includes(requestedRole as UserRole)
+      ? (requestedRole as UserRole)
+      : 'TENANT';
+
+    // Verify OTP first
+    const verification = await OtpService.verifyOtp({
+      email: normalized,
+      otp: cleanOtp,
+      purpose: 'REGISTRATION',
+    });
+
+    if (!verification.valid) {
+      throw {
+        statusCode: verification.statusCode || 400,
+        code: 'INVALID_OTP',
+        message: verification.message || 'Invalid or expired verification code.',
+        remainingAttempts: verification.remainingAttempts,
+      };
+    }
+
+    // Double check email uniqueness in database
+    const existingUser = await AuthService.findUserByIdentifier(normalized);
+    if (existingUser) {
+      throw {
+        statusCode: 409,
+        code: 'EMAIL_ALREADY_REGISTERED',
+        message: 'This email is already registered. Please sign in or continue with Google.',
+        authProviders: existingUser.authProviders || ['LOCAL'],
+      };
+    }
+
+    // Double check phone uniqueness
+    if (AuthService.isMongoConnected()) {
+      const existingPhone = await UserModel.findOne({ phone: cleanPhone });
+      if (existingPhone) {
+        throw {
+          statusCode: 409,
+          code: 'PHONE_EXISTS',
+          message: 'An account with this mobile number already exists.',
+        };
+      }
+    }
+
+    // Hash password
     const passwordHash = await PasswordUtil.hashPassword(input.password);
 
     if (AuthService.isMongoConnected()) {
-      const existingUser = await UserModel.findOne({
-        $or: [{ email: emailNormalized }, { phone: phoneNormalized }],
-      });
-
-      if (existingUser) {
-        if (existingUser.email === emailNormalized) {
-          if (existingUser.authProviders && existingUser.authProviders.includes('GOOGLE') && !existingUser.passwordHash) {
-            throw {
-              statusCode: 409,
-              code: 'ACCOUNT_EXISTS_GOOGLE',
-              message: 'An account with this email already exists using Google sign-in. Continue with Google, or set a password with Forgot Password.',
-            };
-          }
-          throw { statusCode: 409, code: 'EMAIL_EXISTS', message: 'An account with this email address already exists' };
-        }
-        throw { statusCode: 409, code: 'PHONE_EXISTS', message: 'An account with this phone number already exists' };
-      }
-
       const newUser = await UserModel.create({
-        name: input.name.trim(),
-        email: emailNormalized,
-        phone: phoneNormalized,
+        name: cleanName,
+        email: normalized,
+        phone: cleanPhone,
+        role: roleToUse,
         passwordHash,
-        role: input.role,
+        authProviders: ['LOCAL'],
         isActive: true,
+        isEmailVerified: true,
+        isPhoneVerified: false,
         identityVerificationStatus: 'NOT_STARTED',
       });
 
-      if (input.role === 'TENANT') {
+      if (roleToUse === 'TENANT') {
         await TenantProfileModel.create({ userId: newUser._id });
-      } else if (input.role === 'OWNER') {
+      } else if (roleToUse === 'OWNER') {
         await OwnerProfileModel.create({ userId: newUser._id });
-      } else if (input.role === 'PROFESSIONAL') {
+      } else if (roleToUse === 'PROFESSIONAL') {
         await ProfessionalProfileModel.create({
           userId: newUser._id,
-          businessName: input.name,
+          businessName: cleanName,
         });
       }
 
-      const tokens = JwtUtil.generateTokens({
-        userId: (newUser._id as any).toString(),
-        role: newUser.role,
-        email: newUser.email,
-      });
-
-      // Initiate Email OTP Challenge for newly registered account
-      const challenge = await OtpService.createLoginChallenge({
-        _id: newUser._id,
-        id: (newUser._id as any).toString(),
-        email: newUser.email,
-        name: newUser.name,
-      });
+      const tokens = await AuthService.createSessionTokens(newUser);
 
       return {
         user: newUser.toJSON(),
         tokens,
-        requiresEmailOtp: true,
-        challengeId: challenge.challengeId,
-        maskedEmail: challenge.maskedEmail,
-        message: 'Account registered successfully. Verification code sent to your email.',
+        hasPassword: true,
+        authProviders: ['LOCAL'],
+        message: 'Account registered successfully. Welcome to Grih360!',
       };
     } else {
-      if (process.env.NODE_ENV === 'production') {
-        throw { statusCode: 503, code: 'DATABASE_UNAVAILABLE', message: 'MongoDB Atlas connection is required in production. In-memory accounts are forbidden.' };
-      }
-      // Resilient In-Memory Mode
-      for (const u of memoryUsers.values()) {
-        if (u.email === emailNormalized) {
-          throw { statusCode: 409, code: 'EMAIL_EXISTS', message: 'An account with this email address already exists' };
-        }
-        if (u.phone === phoneNormalized) {
-          throw { statusCode: 409, code: 'PHONE_EXISTS', message: 'An account with this phone number already exists' };
-        }
-      }
-
       const id = 'mem_usr_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
       const userDoc = {
         _id: id,
         id,
-        name: input.name.trim(),
-        email: emailNormalized,
-        phone: phoneNormalized,
+        name: cleanName,
+        email: normalized,
+        phone: cleanPhone,
         passwordHash,
-        role: input.role,
+        role: roleToUse,
+        authProviders: ['LOCAL'],
         isActive: true,
+        isEmailVerified: true,
+        isPhoneVerified: false,
         identityVerificationStatus: 'NOT_STARTED',
         createdAt: new Date(),
         updatedAt: new Date(),
       };
-
       PersistentStore.insert('users', userDoc);
       memoryUsers.set(id, userDoc);
 
-      const tokens = JwtUtil.generateTokens({
-        userId: id,
-        role: input.role,
-        email: emailNormalized,
-      });
-
-      // Initiate Email OTP Challenge for in-memory registration
-      const challenge = await OtpService.createLoginChallenge({
-        _id: id,
-        id,
-        email: emailNormalized,
-        name: input.name.trim(),
-      });
-
+      const tokens = await AuthService.createSessionTokens(userDoc);
       const { passwordHash: _, ...safeUser } = userDoc;
+
       return {
         user: safeUser,
         tokens,
-        requiresEmailOtp: true,
-        challengeId: challenge.challengeId,
-        maskedEmail: challenge.maskedEmail,
-        message: 'Account registered successfully. Verification code sent to your email.',
+        hasPassword: true,
+        authProviders: ['LOCAL'],
+        message: 'Account registered successfully. Welcome to Grih360!',
       };
     }
   }
 
   /**
-   * Real User Login with Two-Step Authentication Challenge (Step A)
+   * Real User Registration (Legacy / Direct path)
+   */
+  static async registerUser(input: RegisterInput) {
+    return await AuthService.verifyRegistrationOtpAndCreate({
+      email: input.email,
+      otp: '000000',
+      password: input.password,
+      name: input.name,
+      phone: input.phone,
+      role: input.role,
+    }).catch(async (err) => {
+      // If OTP failed in legacy call, check uniqueness and throw
+      const normalized = input.email.trim().toLowerCase();
+      const existingUser = await AuthService.findUserByIdentifier(normalized);
+      if (existingUser) {
+        throw { statusCode: 409, code: 'EMAIL_ALREADY_REGISTERED', message: 'This email is already registered.' };
+      }
+      throw err;
+    });
+  }
+
+  /**
+   * Real User Password Login (Method 1)
+   * Logs in directly after a correct password without extra OTP step.
+   * Lockout after repeated failed attempts.
    */
   static async loginUser(input: LoginInput) {
     let identifierNormalized = input.identifier.trim().toLowerCase();
     if (identifierNormalized === 'admin') {
       identifierNormalized = 'admin@grih360.com';
+    }
+
+    // Check account lockout for password attempts
+    const lockRecord = failedPasswordAttempts.get(identifierNormalized);
+    if (lockRecord?.lockedUntil && lockRecord.lockedUntil.getTime() > Date.now()) {
+      const remainingMinutes = Math.ceil((lockRecord.lockedUntil.getTime() - Date.now()) / (60 * 1000));
+      console.warn(`[Auth Security] Login rejected: Account locked for identifier [${identifierNormalized}]`);
+      throw {
+        statusCode: 429,
+        code: 'ACCOUNT_LOCKED',
+        message: `Account temporarily locked due to repeated failed login attempts. Please try again in ${remainingMinutes} minute${remainingMinutes === 1 ? '' : 's'}.`,
+      };
     }
 
     if (AuthService.isMongoConnected()) {
@@ -191,6 +360,7 @@ export class AuthService {
       }).select('+passwordHash');
 
       if (!user) {
+        AuthService.recordFailedPasswordAttempt(identifierNormalized);
         console.warn(`[Auth Security] Login rejected: Unknown account for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
@@ -200,7 +370,7 @@ export class AuthService {
         throw {
           statusCode: 400,
           code: 'GOOGLE_AUTH_REQUIRED',
-          message: 'This account uses Google sign-in. Continue with Google, or set a password with Forgot Password.',
+          message: 'No password set for this account. Use an email code or Continue with Google, or set one with Forgot Password.',
         };
       }
 
@@ -211,6 +381,7 @@ export class AuthService {
 
       const isPasswordValid = await PasswordUtil.comparePassword(input.password, user.passwordHash);
       if (!isPasswordValid) {
+        AuthService.recordFailedPasswordAttempt(identifierNormalized);
         console.warn(`[Auth Security] Login rejected: Password verification mismatch for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
@@ -236,41 +407,24 @@ export class AuthService {
         }
       }
 
-      // If directToken is requested by internal scripts, headless automation, or admin portal
-      if (input.directToken) {
-        if (process.env.NODE_ENV === 'production' && user.role !== 'ADMIN') {
-          throw { statusCode: 403, code: 'DIRECT_TOKEN_FORBIDDEN', message: 'Direct token bypass is disabled in production for non-administrators.' };
-        }
-        const tokens = JwtUtil.generateTokens({
-          userId: (user._id as any).toString(),
-          role: user.role,
-          email: user.email,
-        });
-        return {
-          user: user.toJSON(),
-          tokens,
-        };
-      }
+      // Reset failed attempts on success
+      failedPasswordAttempts.delete(identifierNormalized);
 
-      // Step A: Initiate Stateful Two-Step Authentication Flow
-      const challenge = await OtpService.createLoginChallenge({
-        _id: user._id,
-        id: (user._id as any).toString(),
-        email: user.email,
-        name: user.name,
-      });
+      // Issue access token (15m) and rotating refresh token (30d) directly
+      const tokens = await AuthService.createSessionTokens(user);
 
       return {
-        requiresEmailOtp: true,
-        challengeId: challenge.challengeId,
-        maskedEmail: challenge.maskedEmail,
-        message: 'Verification code sent to your registered email.',
+        user: user.toJSON(),
+        tokens,
+        hasPassword: true,
+        authProviders: user.authProviders || ['LOCAL'],
+        message: 'Login successful',
       };
     } else {
       if (process.env.NODE_ENV === 'production') {
-        throw { statusCode: 503, code: 'DATABASE_UNAVAILABLE', message: 'MongoDB Atlas connection is required in production. In-memory fallback is disabled.' };
+        throw { statusCode: 503, code: 'DATABASE_UNAVAILABLE', message: 'MongoDB Atlas connection is required in production.' };
       }
-      // In-Memory Mode
+
       let user: any = null;
       for (const u of memoryUsers.values()) {
         if (u.email === identifierNormalized || u.phone === identifierNormalized) {
@@ -280,27 +434,29 @@ export class AuthService {
       }
 
       if (!user) {
+        AuthService.recordFailedPasswordAttempt(identifierNormalized);
         console.warn(`[Auth Security] In-memory login rejected: Unknown account for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
       if (!user.passwordHash) {
-        console.warn(`[Auth Security] In-memory login rejected: Account uses Google sign-in (no password configured) [${identifierNormalized}]`);
+        console.warn(`[Auth Security] In-memory login rejected: Account uses Google sign-in [${identifierNormalized}]`);
         throw {
           statusCode: 400,
           code: 'GOOGLE_AUTH_REQUIRED',
-          message: 'This account uses Google sign-in. Continue with Google, or set a password with Forgot Password.',
+          message: 'No password set for this account. Use an email code or Continue with Google, or set one with Forgot Password.',
         };
       }
 
       if (!user.isActive) {
-        console.warn(`[Auth Security] In-memory login rejected: Account is inactive or suspended for identifier [${identifierNormalized}]`);
+        console.warn(`[Auth Security] In-memory login rejected: Account suspended for [${identifierNormalized}]`);
         throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
       }
 
       const isPasswordValid = await PasswordUtil.comparePassword(input.password, user.passwordHash);
       if (!isPasswordValid) {
-        console.warn(`[Auth Security] In-memory login rejected: Password verification mismatch for identifier [${identifierNormalized}]`);
+        AuthService.recordFailedPasswordAttempt(identifierNormalized);
+        console.warn(`[Auth Security] In-memory login rejected: Password mismatch for [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
       }
 
@@ -308,7 +464,6 @@ export class AuthService {
         const requestedRole = input.role.trim().toUpperCase();
         const userRole = (user.role || '').toUpperCase();
         if (requestedRole && requestedRole !== userRole) {
-          console.warn(`[Auth Security] In-memory login rejected: Role mismatch for identifier [${identifierNormalized}]. Account role: [${userRole}], portal: [${requestedRole}]`);
           const portalNameMap: Record<string, string> = {
             TENANT: 'Tenant portal',
             OWNER: 'Owner portal',
@@ -324,36 +479,32 @@ export class AuthService {
         }
       }
 
-      // If directToken is requested by internal scripts
-      if (input.directToken) {
-        const tokens = JwtUtil.generateTokens({
-          userId: user.id || user._id,
-          role: user.role,
-          email: user.email,
-        });
-        const { passwordHash: _, ...safeUser } = user;
-        return { user: safeUser, tokens };
-      }
-
-      // Step A: Initiate Stateful Two-Step Authentication Flow
-      const challenge = await OtpService.createLoginChallenge({
-        _id: user._id || user.id,
-        id: user.id || user._id,
-        email: user.email,
-        name: user.name,
-      });
+      failedPasswordAttempts.delete(identifierNormalized);
+      const tokens = await AuthService.createSessionTokens(user);
+      const { passwordHash: _, ...safeUser } = user;
 
       return {
-        requiresEmailOtp: true,
-        challengeId: challenge.challengeId,
-        maskedEmail: challenge.maskedEmail,
-        message: 'Verification code sent to your registered email.',
+        user: safeUser,
+        tokens,
+        hasPassword: true,
+        authProviders: user.authProviders || ['LOCAL'],
+        message: 'Login successful',
       };
     }
   }
 
+  private static recordFailedPasswordAttempt(identifierNormalized: string) {
+    const record = failedPasswordAttempts.get(identifierNormalized) || { attempts: 0 };
+    record.attempts += 1;
+    if (record.attempts >= MAX_PASSWORD_ATTEMPTS) {
+      record.lockedUntil = new Date(Date.now() + LOCKOUT_MS);
+      console.warn(`[Auth Security] Identifier [${identifierNormalized}] locked out for 15 minutes after ${record.attempts} failed attempts`);
+    }
+    failedPasswordAttempts.set(identifierNormalized, record);
+  }
+
   /**
-   * Step B: Code Validation Challenge (POST /api/v1/auth/verify-login-otp)
+   * Step B: Code Validation Challenge (POST /api/v1/auth/verify-login-otp) - Backward compatible
    */
   static async verifyLoginChallenge(challengeId: string, otp: string) {
     const result = await OtpService.verifyLoginChallengeOtp(challengeId, otp);
@@ -367,17 +518,15 @@ export class AuthService {
     }
 
     const user = result.user;
-    const userId = (user._id || user.id).toString();
-    const tokens = JwtUtil.generateTokens({
-      userId,
-      role: user.role,
-      email: user.email,
-    });
+    const tokens = await AuthService.createSessionTokens(user);
+    const safeUser = typeof user.toJSON === 'function' ? user.toJSON() : { ...user };
+    delete safeUser.passwordHash;
 
-    const { passwordHash: _, ...safeUser } = user;
     return {
       user: safeUser,
       tokens,
+      hasPassword: !!(user.passwordHash || user.password),
+      authProviders: user.authProviders || (user.passwordHash ? ['LOCAL'] : ['GOOGLE']),
     };
   }
 
@@ -396,7 +545,7 @@ export class AuthService {
     if (AuthService.isMongoConnected()) {
       return await UserModel.findOne({
         $or: [{ email: normalized }, { phone: normalized }],
-      });
+      }).select('+passwordHash');
     } else {
       for (const u of memoryUsers.values()) {
         if (u.email === normalized || u.phone === normalized) {
@@ -408,71 +557,108 @@ export class AuthService {
   }
 
   /**
-   * Initiates sending a secure 6-digit login OTP via Gmail API OAuth2
+   * Request Login OTP (Method 2 for existing users)
+   * Rate limited. Returns neutral message if user does not exist.
    */
   static async requestLoginOtp(identifier: string) {
     if (!identifier || typeof identifier !== 'string') {
-      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email or phone identifier is required' };
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email address is required' };
     }
 
-    const user = await AuthService.findUserByIdentifier(identifier);
-    if (!user) {
-      throw { statusCode: 404, code: 'USER_NOT_FOUND', message: 'No registered account found with this email or phone' };
+    const normalized = identifier.trim().toLowerCase();
+    const user = await AuthService.findUserByIdentifier(normalized);
+
+    // Neutral enumeration protection
+    if (!user || !user.isActive) {
+      console.log(`[OTP Login] Code requested for unknown or inactive account [${normalized}]. Returning neutral response.`);
+      return {
+        success: true,
+        message: 'If this email is registered, a code was sent.',
+        emailMasked: OtpService.maskEmail(normalized),
+        expiresInSeconds: (config.emailOtpExpiryMinutes || 10) * 60,
+      };
     }
 
-    if (!user.isActive) {
-      throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
-    }
-
-    return await OtpService.createAndSendOtp({
+    const res = await OtpService.createAndSendOtp({
       email: user.email,
       purpose: 'LOGIN',
       userName: user.name,
     });
+
+    return {
+      success: true,
+      message: 'If this email is registered, a code was sent.',
+      emailMasked: res.emailMasked,
+      expiresInSeconds: res.expiresInSeconds,
+      ...(res.rawOtp ? { rawOtp: res.rawOtp } : {}),
+    };
   }
 
   /**
-   * Verifies login OTP and returns authenticated JWT tokens
+   * Verify Login OTP (Method 2 for existing users)
+   * Validates OTP and issues access + refresh tokens.
    */
-  static async loginWithOtp(identifier: string, otp: string) {
+  static async loginWithOtp(identifier: string, otp: string, role?: string) {
     if (!identifier || !otp) {
-      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Identifier and OTP code are required' };
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email address and 6-digit code are required.' };
     }
 
-    const user = await AuthService.findUserByIdentifier(identifier);
+    const normalized = identifier.trim().toLowerCase();
+    const cleanOtp = otp.trim();
+
+    const user = await AuthService.findUserByIdentifier(normalized);
     if (!user) {
-      throw { statusCode: 404, code: 'USER_NOT_FOUND', message: 'No registered account found with this email or phone' };
+      throw { statusCode: 401, code: 'INVALID_OTP', message: 'Invalid or expired verification code.' };
     }
 
     if (!user.isActive) {
-      throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
+      throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended.' };
+    }
+
+    if (role) {
+      const requestedRole = role.trim().toUpperCase();
+      const userRole = (user.role || '').toUpperCase();
+      if (requestedRole && requestedRole !== userRole) {
+        const portalNameMap: Record<string, string> = {
+          TENANT: 'Tenant portal',
+          OWNER: 'Owner portal',
+          PROFESSIONAL: 'Professional portal',
+          ADMIN: 'Admin console',
+        };
+        const targetPortal = portalNameMap[userRole] || `${userRole} portal`;
+        throw {
+          statusCode: 403,
+          code: 'ROLE_MISMATCH',
+          message: `This account is registered for the ${targetPortal}. Please switch to the ${targetPortal} to log in.`,
+        };
+      }
     }
 
     const verification = await OtpService.verifyOtp({
       email: user.email,
-      otp,
+      otp: cleanOtp,
       purpose: 'LOGIN',
     });
 
     if (!verification.valid) {
-      throw { statusCode: 401, code: 'INVALID_OTP', message: verification.message };
+      throw {
+        statusCode: verification.statusCode || 401,
+        code: 'INVALID_OTP',
+        message: verification.message || 'Invalid or expired verification code.',
+        remainingAttempts: verification.remainingAttempts,
+      };
     }
 
-    const userId = user._id ? (user._id as any).toString() : user.id;
-    const tokens = JwtUtil.generateTokens({
-      userId,
-      role: user.role,
-      email: user.email,
-    });
-
-    const safeUser = typeof user.toJSON === 'function' ? user.toJSON() : (() => {
-      const { passwordHash: _, ...rest } = user;
-      return rest;
-    })();
+    const tokens = await AuthService.createSessionTokens(user);
+    const safeUser = typeof user.toJSON === 'function' ? user.toJSON() : { ...user };
+    delete safeUser.passwordHash;
 
     return {
       user: safeUser,
       tokens,
+      hasPassword: !!(user.passwordHash || user.password),
+      authProviders: user.authProviders || (user.passwordHash ? ['LOCAL'] : ['GOOGLE']),
+      message: 'Authentication successful',
     };
   }
 

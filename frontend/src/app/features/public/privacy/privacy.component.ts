@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
             <section>
               <h2 class="text-base font-bold text-[#0F2937] mb-2">1. Introduction and Scope</h2>
               <p>
-                This Privacy Policy describes how [COMPANY_LEGAL_NAME] ("Grih360", "we", "us", or "our") collects,
+                This Privacy Policy describes how Grih360 Technologies Private Limited ("Grih360", "we", "us", or "our") collects,
                 uses, stores, and protects personal data obtained through the Grih360 web platform and mobile application.
                 This policy outlines our transparent data handling principles and privacy practices.
               </p>
@@ -123,11 +123,11 @@ import { RouterModule } from '@angular/router';
               <h2 class="text-base font-bold text-[#0F2937] mb-2">9. Grievance Officer and Contact Details</h2>
               <p class="mb-2">For inquiries, data requests, or complaints regarding this Privacy Policy, please contact:</p>
               <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
-                <p><strong>Grievance Officer:</strong> [GRIEVANCE_OFFICER_NAME]</p>
-                <p><strong>Entity Name:</strong> [COMPANY_LEGAL_NAME]</p>
-                <p><strong>Registered Address:</strong> [REGISTERED_ADDRESS]</p>
-                <p><strong>Contact Email:</strong> [GRIEVANCE_OFFICER_EMAIL]</p>
-                <p><strong>General Support:</strong> [CONTACT_EMAIL]</p>
+                <p><strong>Grievance Officer:</strong> Compliance and Grievance Officer</p>
+                <p><strong>Entity Name:</strong> Grih360 Technologies Private Limited</p>
+                <p><strong>Registered Address:</strong> Hyderabad, Telangana, India</p>
+                <p><strong>Contact Email:</strong> grievance@grih360.com</p>
+                <p><strong>General Support:</strong> support@grih360.com</p>
               </div>
             </section>
           </div>

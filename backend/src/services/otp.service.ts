@@ -11,6 +11,7 @@ export interface SendOtpResult {
   message: string;
   emailMasked: string;
   expiresInSeconds: number;
+  rawOtp?: string;
 }
 
 export interface VerifyOtpResult {
@@ -743,6 +744,7 @@ export class OtpService {
       message: 'Verification code sent to your registered email address.',
       emailMasked: this.maskEmail(normalizedEmail),
       expiresInSeconds: expirySecs,
+      ...(process.env.NODE_ENV !== 'production' ? { rawOtp } : {}),
     };
   }
 
@@ -765,11 +767,13 @@ export class OtpService {
 
     if (mongoose.connection.readyState === 1) {
       const record = await OtpModel.findOne({
-        identifier: normalizedEmail,
+        $or: [{ identifier: normalizedEmail }, { email: normalizedEmail }],
         purpose: params.purpose,
         isUsed: false,
         expiresAt: { $gt: now },
-      }).select('+otpHash');
+      })
+        .sort({ createdAt: -1 })
+        .select('+otpHash');
 
       if (!record) {
         return {
@@ -783,6 +787,7 @@ export class OtpService {
         await record.save();
         return {
           valid: false,
+          remainingAttempts: 0,
           message: 'Too many incorrect attempts. This code is invalidated. Please request a new one.',
         };
       }
@@ -790,11 +795,17 @@ export class OtpService {
       const isMatch = this.verifyOtpHash(enteredOtp, record.otpHash);
       if (!isMatch) {
         record.attempts += 1;
+        const remaining = Math.max(0, record.maxAttempts - record.attempts);
+        if (remaining === 0) {
+          record.isUsed = true;
+        }
         await record.save();
-        const remaining = record.maxAttempts - record.attempts;
         return {
           valid: false,
-          message: `Incorrect code. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.`,
+          remainingAttempts: remaining,
+          message: remaining === 0
+            ? 'Too many incorrect attempts. This code is invalidated. Please request a new one.'
+            : `Incorrect code. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.`,
         };
       }
 

@@ -1,6 +1,6 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
-export type OtpPurpose = 'LOGIN' | 'PASSWORD_RESET' | 'VERIFICATION' | 'REGISTRATION';
+export type OtpPurpose = 'LOGIN' | 'PASSWORD_RESET' | 'VERIFICATION' | 'REGISTRATION' | 'GOOGLE_ONBOARDING';
 
 export interface IOtpDocument extends Document {
   userId?: Types.ObjectId | string;
@@ -42,7 +42,7 @@ const OtpSchema = new Schema<IOtpDocument>(
     },
     purpose: {
       type: String,
-      enum: ['LOGIN', 'PASSWORD_RESET', 'VERIFICATION', 'REGISTRATION'],
+      enum: ['LOGIN', 'PASSWORD_RESET', 'VERIFICATION', 'REGISTRATION', 'GOOGLE_ONBOARDING'],
       default: 'LOGIN',
       required: true,
       index: true,

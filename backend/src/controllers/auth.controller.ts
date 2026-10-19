@@ -7,7 +7,7 @@ import { AuthenticatedRequest } from '../middleware/auth.middleware';
 
 export class AuthController {
   /**
-   * Real User Registration
+   * Real User Registration (Legacy / Direct)
    * POST /api/v1/auth/register
    */
   static async register(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -17,12 +17,71 @@ export class AuthController {
       res.status(201).json({
         success: true,
         message: result.message || 'User account registered successfully',
-        requiresEmailOtp: result.requiresEmailOtp,
-        challengeId: result.challengeId,
-        maskedEmail: result.maskedEmail,
         data: result,
       });
-    } catch (err) {
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'REGISTRATION_ERROR',
+          message: err.message,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Request Registration OTP (Step 1 of Email Registration)
+   * POST /api/v1/auth/register/send-otp
+   */
+  static async registerSendOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, name, phone, role } = req.body;
+      const result = await AuthService.requestRegistrationOtp({ email, name, phone, role });
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'REGISTRATION_ERROR',
+          message: err.message,
+          authProviders: err.authProviders,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Verify Registration OTP and Create Account (Step 2 of Email Registration)
+   * POST /api/v1/auth/register/verify-and-create
+   */
+  static async registerVerifyAndCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, otp, password, confirmPassword, name, phone, role } = req.body;
+      const result = await AuthService.verifyRegistrationOtpAndCreate({
+        email,
+        otp,
+        password,
+        confirmPassword,
+        name,
+        phone,
+        role,
+      });
+      ApiResponseUtil.success(res, result.message, result, 201);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'REGISTRATION_ERROR',
+          message: err.message,
+          remainingAttempts: err.remainingAttempts,
+        });
+        return;
+      }
       next(err);
     }
   }
@@ -48,7 +107,19 @@ export class AuthController {
       if ((result as any).needsProfile) {
         res.status(200).json({
           success: true,
+          isNewUser: true,
           needsProfile: true,
+          message: (result as any).message,
+          data: result,
+        });
+        return;
+      }
+
+      if ((result as any).needsPassword) {
+        res.status(200).json({
+          success: true,
+          isNewUser: true,
+          needsPassword: true,
           message: (result as any).message,
           data: result,
         });
@@ -70,12 +141,62 @@ export class AuthController {
   }
 
   /**
-   * Step A: Password Verification & Challenge Generation
+   * Google First Registration Password Setup
+   * POST /api/v1/auth/google/set-initial-password
+   */
+  static async googleSetInitialPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { onboardingToken, otp, password, confirmPassword } = req.body;
+      const result = await GoogleAuthService.setInitialPassword({
+        onboardingToken,
+        otp,
+        password,
+        confirmPassword,
+      });
+      ApiResponseUtil.success(res, result.message, result, 201);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'GOOGLE_SET_PASSWORD_ERROR',
+          message: err.message,
+          remainingAttempts: err.remainingAttempts,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Resend Verification OTP for Google First Registration
+   * POST /api/v1/auth/google/resend-otp
+   */
+  static async googleResendOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { onboardingToken } = req.body;
+      const result = await GoogleAuthService.resendOnboardingOtp(onboardingToken);
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'GOOGLE_RESEND_ERROR',
+          message: err.message,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Password Login (Method 1: Direct token issue after correct password)
    * POST /api/v1/auth/login
    */
   static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { identifier, email, password, role, directToken } = req.body;
+      const { identifier, email, password, role } = req.body;
       const effectiveIdentifier = (email || identifier || '').trim();
 
       if (!effectiveIdentifier || !password) {
@@ -83,35 +204,13 @@ export class AuthController {
         return;
       }
 
-      // Check if caller requests direct token bypass (e.g., internal integration script header)
-      const allowDirectToken = directToken === true || req.headers['x-auth-step'] === 'direct';
-
       const result = await AuthService.loginUser({
         identifier: effectiveIdentifier,
         password,
         role: typeof role === 'string' && role.trim() ? role.trim() : undefined,
-        directToken: allowDirectToken,
       });
 
-      // If Two-Step Challenge is returned
-      if (result.requiresEmailOtp) {
-        res.status(200).json({
-          success: true,
-          requiresEmailOtp: true,
-          challengeId: result.challengeId,
-          maskedEmail: result.maskedEmail,
-          message: result.message || 'Verification code sent to your registered email.',
-          data: {
-            requiresEmailOtp: true,
-            challengeId: result.challengeId,
-            maskedEmail: result.maskedEmail,
-          },
-        });
-        return;
-      }
-
-      // Direct login path (for backwards-compatibility / administrative scripts)
-      ApiResponseUtil.success(res, 'Login successful', result, 200);
+      ApiResponseUtil.success(res, result.message || 'Login successful', result, 200);
     } catch (err: any) {
       if (err.statusCode) {
         res.status(err.statusCode).json({
@@ -126,19 +225,28 @@ export class AuthController {
   }
 
   /**
-   * Step B: Code Validation Challenge
+   * Verify Login OTP (Method 2: Email Code OR Legacy Challenge)
    * POST /api/v1/auth/verify-login-otp
    */
   static async verifyLoginOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { challengeId, otp } = req.body;
-      if (!challengeId || typeof challengeId !== 'string' || !otp || typeof otp !== 'string') {
-        ApiResponseUtil.error(res, 'Both challengeId and 6-digit verification code are required', 400, 'VALIDATION_ERROR');
+      const { challengeId, identifier, email, otp, role } = req.body;
+      const effectiveIdentifier = (email || identifier || '').trim();
+      const cleanOtp = (otp || '').trim();
+
+      if (challengeId && typeof challengeId === 'string') {
+        const result = await AuthService.verifyLoginChallenge(challengeId.trim(), cleanOtp);
+        ApiResponseUtil.success(res, 'Authentication successful via OTP verification', result, 200);
         return;
       }
 
-      const result = await AuthService.verifyLoginChallenge(challengeId.trim(), otp.trim());
-      ApiResponseUtil.success(res, 'Authentication successful via OTP verification', result, 200);
+      if (!effectiveIdentifier || !cleanOtp) {
+        ApiResponseUtil.error(res, 'Both email address and 6-digit verification code are required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      const result = await AuthService.loginWithOtp(effectiveIdentifier, cleanOtp, role);
+      ApiResponseUtil.success(res, result.message || 'Authentication successful via OTP verification', result, 200);
     } catch (err: any) {
       if (err.statusCode) {
         res.status(err.statusCode).json({

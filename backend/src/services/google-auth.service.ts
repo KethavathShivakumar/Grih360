@@ -5,6 +5,8 @@ import { OwnerProfileModel } from '../models/owner-profile.model';
 import { ProfessionalProfileModel } from '../models/professional-profile.model';
 import { RefreshTokenModel } from '../models/refresh-token.model';
 import { JwtUtil } from '../utils/jwt.util';
+import { PasswordUtil } from '../utils/password.util';
+import { OtpService } from './otp.service';
 import { UserRole } from '../types/auth.types';
 import mongoose from 'mongoose';
 
@@ -234,10 +236,13 @@ export class GoogleAuthService {
       return {
         user: user.toJSON(),
         tokens,
+        isNewUser: false,
+        hasPassword: !!user.passwordHash,
+        authProviders: user.authProviders || (user.passwordHash ? ['LOCAL', 'GOOGLE'] : ['GOOGLE']),
       };
     }
 
-    // 3. New User Flow
+    // 3. New User Flow - Do NOT create user in database yet!
     const requestedRole = (input.role || '').toUpperCase();
     const validRoles: UserRole[] = ['TENANT', 'OWNER', 'PROFESSIONAL'];
     const roleToUse: UserRole = validRoles.includes(requestedRole as UserRole)
@@ -246,14 +251,16 @@ export class GoogleAuthService {
 
     const phoneNormalized = (input.phone || '').trim();
 
-    // If phone is mandatory in the model, return needsProfile: true
+    // If phone is missing, prompt user to select role and enter phone
     if (!phoneNormalized) {
       return {
+        isNewUser: true,
         needsProfile: true,
         email: emailNormalized,
         name,
         profileImage: picture,
         suggestedRole: roleToUse,
+        idToken: input.idToken,
         message: 'Profile completion required. Please choose your role and provide your mobile number.',
       };
     }
@@ -268,7 +275,7 @@ export class GoogleAuthService {
       };
     }
 
-    // Check if phone number is already registered
+    // Check if phone number is already registered by another account
     const existingPhone = await UserModel.findOne({ phone: cleanPhone });
     if (existingPhone) {
       throw {
@@ -278,29 +285,157 @@ export class GoogleAuthService {
       };
     }
 
-    // Create new user (Google sign-in must not mark identityVerificationStatus as verified)
-    const newUser = await UserModel.create({
-      name: name || 'Google User',
+    // Generate secure onboarding token containing verified Google details
+    const onboardingPayload = {
       email: emailNormalized,
+      name: name || 'Google User',
       phone: cleanPhone,
       role: roleToUse,
       googleId,
-      authProviders: ['GOOGLE'],
+      picture,
+    };
+    const onboardingToken = JwtUtil.generateOnboardingToken(onboardingPayload);
+
+    // Automatically send 6-digit OTP to the verified Google email
+    await OtpService.createAndSendOtp({
+      email: emailNormalized,
+      purpose: 'GOOGLE_ONBOARDING',
+      userName: name || 'Google User',
+    });
+
+    return {
+      isNewUser: true,
+      needsPassword: true,
+      onboardingToken,
+      email: emailNormalized,
+      name: name || 'Google User',
+      role: roleToUse,
+      phone: cleanPhone,
+      maskedEmail: OtpService.maskEmail(emailNormalized),
+      message: 'A verification code has been sent to your Google email. Please enter the code and set your password to finish creating your account.',
+    };
+  }
+
+  /**
+   * Complete Google First Registration: Verifies Email OTP, Hashes Password, Creates User
+   */
+  static async setInitialPassword(input: {
+    onboardingToken: string;
+    otp: string;
+    password: string;
+    confirmPassword?: string;
+  }) {
+    if (!input.onboardingToken) {
+      throw {
+        statusCode: 400,
+        code: 'VALIDATION_ERROR',
+        message: 'Onboarding session token is required.',
+      };
+    }
+
+    const cleanOtp = (input.otp || '').trim();
+    if (!cleanOtp || cleanOtp.length !== 6) {
+      throw {
+        statusCode: 400,
+        code: 'VALIDATION_ERROR',
+        message: 'A 6-digit verification code is required.',
+      };
+    }
+
+    if (!input.password) {
+      throw {
+        statusCode: 400,
+        code: 'VALIDATION_ERROR',
+        message: 'Password is required.',
+      };
+    }
+
+    if (input.password.length < 8) {
+      throw {
+        statusCode: 400,
+        code: 'WEAK_PASSWORD',
+        message: 'Password must be at least 8 characters long.',
+      };
+    }
+
+    if (
+      !/[A-Z]/.test(input.password) ||
+      !/[a-z]/.test(input.password) ||
+      !/[0-9]/.test(input.password)
+    ) {
+      throw {
+        statusCode: 400,
+        code: 'WEAK_PASSWORD',
+        message: 'Password must contain uppercase, lowercase, and a number.',
+      };
+    }
+
+    if (input.confirmPassword && input.password !== input.confirmPassword) {
+      throw {
+        statusCode: 400,
+        code: 'PASSWORD_MISMATCH',
+        message: 'Passwords do not match.',
+      };
+    }
+
+    // Verify onboarding token
+    const decoded = JwtUtil.verifyOnboardingToken(input.onboardingToken);
+
+    // Verify OTP
+    const verification = await OtpService.verifyOtp({
+      email: decoded.email,
+      otp: cleanOtp,
+      purpose: 'GOOGLE_ONBOARDING',
+    });
+
+    if (!verification.valid) {
+      throw {
+        statusCode: verification.statusCode || 400,
+        code: 'INVALID_OTP',
+        message: verification.message || 'Invalid or expired verification code.',
+        remainingAttempts: verification.remainingAttempts,
+      };
+    }
+
+    // Double check email and phone uniqueness in DB before creating
+    const existingUser = await UserModel.findOne({
+      $or: [{ email: decoded.email }, { phone: decoded.phone }],
+    });
+    if (existingUser) {
+      throw {
+        statusCode: 409,
+        code: 'USER_EXISTS',
+        message: 'An account with this email or mobile number already exists.',
+      };
+    }
+
+    // Hash password
+    const passwordHash = await PasswordUtil.hashPassword(input.password);
+
+    // Create user only now!
+    const newUser = await UserModel.create({
+      name: decoded.name || 'Google User',
+      email: decoded.email,
+      phone: decoded.phone,
+      role: decoded.role,
+      googleId: decoded.googleId,
+      passwordHash,
+      authProviders: ['GOOGLE', 'LOCAL'],
       isActive: true,
       isEmailVerified: true,
       isPhoneVerified: false,
-      profileImage: picture,
+      profileImage: decoded.picture || null,
       identityVerificationStatus: 'NOT_STARTED',
     });
 
-    if (roleToUse === 'TENANT') {
+    if (decoded.role === 'TENANT') {
       await TenantProfileModel.create({ userId: newUser._id });
-    } else if (roleToUse === 'OWNER') {
+    } else if (decoded.role === 'OWNER') {
       await OwnerProfileModel.create({ userId: newUser._id });
-    } else if (roleToUse === 'PROFESSIONAL') {
+    } else if (decoded.role === 'PROFESSIONAL') {
       await ProfessionalProfileModel.create({
         userId: newUser._id,
-        businessName: name || 'Professional Services',
+        businessName: decoded.name || 'Professional Services',
       });
     }
 
@@ -321,6 +456,29 @@ export class GoogleAuthService {
     return {
       user: newUser.toJSON(),
       tokens,
+      hasPassword: true,
+      authProviders: ['GOOGLE', 'LOCAL'],
+      message: 'Account created successfully. Welcome to Grih360!',
     };
+  }
+
+  /**
+   * Resends verification OTP for new Google user onboarding
+   */
+  static async resendOnboardingOtp(onboardingToken: string) {
+    if (!onboardingToken) {
+      throw {
+        statusCode: 400,
+        code: 'VALIDATION_ERROR',
+        message: 'Onboarding session token is required.',
+      };
+    }
+
+    const decoded = JwtUtil.verifyOnboardingToken(onboardingToken);
+    return await OtpService.createAndSendOtp({
+      email: decoded.email,
+      purpose: 'GOOGLE_ONBOARDING',
+      userName: decoded.name,
+    });
   }
 }

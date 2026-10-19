@@ -12,7 +12,7 @@ export interface SendEmailOptions {
 export interface SendOtpEmailOptions {
   to: string;
   otp: string;
-  purpose?: 'LOGIN' | 'PASSWORD_RESET' | 'VERIFICATION' | 'REGISTRATION';
+  purpose?: 'LOGIN' | 'PASSWORD_RESET' | 'VERIFICATION' | 'REGISTRATION' | 'GOOGLE_ONBOARDING';
   userName?: string;
   expiryMinutes?: number;
 }

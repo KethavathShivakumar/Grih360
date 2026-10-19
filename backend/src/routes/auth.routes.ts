@@ -6,16 +6,22 @@ import { authRateLimiter } from '../middleware/security.middleware';
 
 const router = Router();
 
-// Standard Password Authentication
+// Standard Password & Registration Flow
+router.post('/register/send-otp', authRateLimiter, AuthController.registerSendOtp);
+router.post('/register/verify-and-create', authRateLimiter, AuthController.registerVerifyAndCreate);
 router.post('/register', authRateLimiter, AuthValidator.validateRegister, AuthController.register);
 
 // Google OAuth Authentication (GIS & Android Native)
 router.post('/google', authRateLimiter, AuthController.googleLogin);
+router.post('/google/set-initial-password', authRateLimiter, AuthController.googleSetInitialPassword);
+router.post('/google/resend-otp', authRateLimiter, AuthController.googleResendOtp);
 
-// Two-Step Authentication Flow
+// Existing User Authentication Flow (Method 1: Password direct, Method 2: Email OTP)
 router.post('/login', authRateLimiter, AuthValidator.validateLogin, AuthController.login);
 router.post('/verify-login-otp', authRateLimiter, AuthController.verifyLoginOtp);
 router.post('/resend-login-otp', authRateLimiter, AuthController.resendLoginOtp);
+router.post('/login-otp/send', authRateLimiter, AuthController.sendOtp);
+router.post('/login-otp/verify', authRateLimiter, AuthController.verifyOtp);
 router.get('/me', authenticateToken, AuthController.getMe);
 router.post('/logout', authenticateToken, AuthController.logout);
 router.post('/refresh', authRateLimiter, AuthController.refreshToken);
