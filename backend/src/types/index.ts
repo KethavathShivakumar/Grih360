@@ -32,6 +32,8 @@ export interface HealthCheckResponse {
   database: string;
   secrets: string;
   email: string;
+  googleConfigured: boolean;
+  commitHash: string;
   envStatus?: {
     hasJwtAccessSecret: boolean;
     hasJwtRefreshSecret: boolean;

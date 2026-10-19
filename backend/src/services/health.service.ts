@@ -14,6 +14,16 @@ export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
   const hasSmtpPass = Boolean(config.smtpPass || process.env.SMTP_PASS);
   const hasEmail = hasSmtpUser && hasSmtpPass;
 
+  const googleConfigured = Boolean((config.googleWebClientId || process.env.GOOGLE_WEB_CLIENT_ID || '').trim());
+  let commitHash = (process.env.VERCEL_GIT_COMMIT_SHA || '').substring(0, 7);
+  if (!commitHash) {
+    try {
+      commitHash = require('child_process').execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
+    } catch {
+      commitHash = 'unknown';
+    }
+  }
+
   const response: HealthCheckResponse = {
     success: true,
     message: 'Grih360 API is running',
@@ -26,6 +36,8 @@ export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
     database: mongoState === 'connected' ? 'ok' : 'disconnected',
     secrets: hasSecrets ? 'ok' : 'incomplete',
     email: hasEmail ? 'ok' : 'incomplete',
+    googleConfigured,
+    commitHash,
   };
 
   if (isAdmin) {
