@@ -136,6 +136,15 @@ export class AuthService {
     this.fetchCurrentUserPromise();
   }
 
+  public updateCurrentUser(partial: Partial<User>): void {
+    const current = this.currentUserSubject.value;
+    if (current) {
+      const updated = { ...current, ...partial };
+      this.currentUserSubject.next(updated);
+      this.storageService.setUser(updated);
+    }
+  }
+
   /**
    * Attempt to refresh expired access token using stored refresh token.
    * Clears session ONLY if the refresh endpoint explicitly rejects (401/403).
@@ -208,8 +217,8 @@ export class AuthService {
     );
   }
 
-  public login(identifier: string, password: string): Observable<any> {
-    return this.apiService.post<any>('/auth/login', { identifier, password }).pipe(
+  public login(identifier: string, password: string, role?: string): Observable<any> {
+    return this.apiService.post<any>('/auth/login', { identifier, password, role }).pipe(
       switchMap(async (res) => {
         if (res.success && res.data?.tokens?.accessToken) {
           await this.saveTokensAndUser(res.data.tokens, res.data.user);
@@ -239,6 +248,14 @@ export class AuthService {
         return res;
       })
     );
+  }
+
+  public sendForgotPasswordOtp(email: string): Observable<any> {
+    return this.apiService.post<any>('/auth/forgot-password/send-otp', { email });
+  }
+
+  public resetPasswordWithOtp(email: string, otp: string, newPassword: string): Observable<any> {
+    return this.apiService.post<any>('/auth/forgot-password/reset', { email, otp, newPassword });
   }
 
   public async logout(): Promise<void> {

@@ -97,7 +97,7 @@ const UserSchema = new Schema<IUserDocument>(
 // Method to return safe JSON representation excluding passwordHash
 UserSchema.methods.toJSON = function () {
   const obj = this.toObject();
-  const hasPassword = Boolean(obj.passwordHash);
+  const hasPassword = Boolean(obj.passwordHash || (Array.isArray(obj.authProviders) && obj.authProviders.includes('LOCAL')));
   delete obj.passwordHash;
   delete obj.__v;
   obj.hasPassword = hasPassword;

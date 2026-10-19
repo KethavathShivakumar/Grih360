@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../core/services/user.service';
 import { PropertyService } from '../../../core/services/property.service';
 import { ApplicationService } from '../../../core/services/application.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-tenant-profile',
@@ -430,11 +431,31 @@ import { ApplicationService } from '../../../core/services/application.service';
       <!-- TAB 3: SECURITY & PASSWORD -->
       <div *ngIf="activeTab === 'security'" class="bg-white p-6 sm:p-8 rounded-xl border border-[#E8E6DF] shadow-xs space-y-5">
         <div class="border-b border-slate-100 pb-3">
-          <h2 class="text-base font-semibold text-[#0F2937]">Change Account Password</h2>
-          <p class="text-xs text-slate-500">Ensure your account is protected with a secure password.</p>
+          <h2 class="text-base font-semibold text-[#0F2937]">Password & Authentication</h2>
+          <p class="text-xs text-slate-500">Manage your sign-in methods and account credentials.</p>
         </div>
 
-        <form (ngSubmit)="onChangePassword()" class="space-y-4 max-w-md">
+        <!-- Linked Sign-in Methods -->
+        <div class="space-y-2">
+          <label class="font-bold text-slate-700 block text-xs">Linked Sign-in Methods</label>
+          <div class="flex flex-wrap gap-2">
+            <span *ngIf="hasGoogleLinked" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+              Google Sign-in: Active
+            </span>
+            <span *ngIf="hasPasswordAccount" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Email & Password: Set
+            </span>
+            <span *ngIf="!hasPasswordAccount" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              Password: Not Set (Google Only)
+            </span>
+          </div>
+        </div>
+
+        <!-- Section A: When user HAS password -> Show CHANGE PASSWORD -->
+        <form *ngIf="hasPasswordAccount" (ngSubmit)="onChangePassword()" class="space-y-4 max-w-md pt-2">
           <div class="space-y-1">
             <label class="text-xs font-bold text-slate-700 block">Current Password <span class="text-rose-500">*</span></label>
             <input
@@ -453,8 +474,7 @@ import { ApplicationService } from '../../../core/services/application.service';
               [(ngModel)]="newPassword"
               name="newPassword"
               required
-              minlength="6"
-              placeholder="At least 6 characters"
+              placeholder="Minimum 8 characters"
               class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm"
             />
           </div>
@@ -476,10 +496,93 @@ import { ApplicationService } from '../../../core/services/application.service';
               [disabled]="isSavingPassword"
               class="px-6 py-2.5 bg-[#0F2937] hover:bg-[#164E63] disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-sm transition-all cursor-pointer"
             >
-              {{ isSavingPassword ? 'Updating Password...' : 'Update Password' }}
+              {{ isSavingPassword ? 'Updating Password...' : 'Change Password' }}
             </button>
           </div>
         </form>
+
+        <!-- Section B: When user is GOOGLE-ONLY -> Show SET PASSWORD with OTP -->
+        <div *ngIf="!hasPasswordAccount" class="space-y-4 max-w-md pt-2">
+          <h3 class="text-xs font-semibold text-[#0F2937] uppercase tracking-wider">Set Account Password</h3>
+          <p class="text-xs text-slate-600">
+            Your account currently signs in through Google. Set a password to also log in with your email and password. A verification code will be sent to your email ({{ user?.email }}).
+          </p>
+
+          <div *ngIf="!setPasswordOtpSent" class="pt-2">
+            <button
+              (click)="sendSetPasswordOtp()"
+              [disabled]="isSendingSetPasswordOtp"
+              type="button"
+              class="w-full px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-xs transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+            >
+              <svg *ngIf="isSendingSetPasswordOtp" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>{{ isSendingSetPasswordOtp ? 'Sending OTP...' : 'Send Verification OTP to Email' }}</span>
+            </button>
+          </div>
+
+          <div *ngIf="setPasswordOtpSent" class="space-y-4">
+            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800 font-medium">
+              Verification code sent to <strong>{{ user?.email }}</strong>. Please check your inbox.
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-700 block">6-Digit Verification Code *</label>
+              <input
+                type="text"
+                [(ngModel)]="setOtp"
+                placeholder="Enter 6-digit OTP"
+                maxlength="6"
+                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-mono tracking-widest text-center text-sm font-bold text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
+              />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-700 block">New Password *</label>
+              <input
+                type="password"
+                [(ngModel)]="newPassword"
+                placeholder="Minimum 8 characters (upper, lower, num, sym)"
+                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
+              />
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-700 block">Confirm New Password *</label>
+              <input
+                type="password"
+                [(ngModel)]="confirmPassword"
+                placeholder="Re-enter new password"
+                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-[#2D7A5E]"
+              />
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <button
+                (click)="sendSetPasswordOtp()"
+                [disabled]="isSendingSetPasswordOtp"
+                type="button"
+                class="text-xs font-semibold text-[#2D7A5E] hover:underline cursor-pointer"
+              >
+                Resend code
+              </button>
+              <button
+                (click)="submitSetPassword()"
+                [disabled]="isSavingPassword || !setOtp || !newPassword || !confirmPassword"
+                type="button"
+                class="px-6 py-2.5 bg-[#2D7A5E] hover:bg-[#23614a] text-white font-semibold text-xs rounded-xl shadow-xs transition disabled:opacity-50 cursor-pointer flex items-center gap-2"
+              >
+                <svg *ngIf="isSavingPassword" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>{{ isSavingPassword ? 'Saving...' : 'Set Password' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Account Actions (Logout) -->
@@ -512,8 +615,11 @@ import { ApplicationService } from '../../../core/services/application.service';
 
       <!-- Build Stamp Footer -->
       <div class="mt-8 pt-4 border-t border-slate-200 text-center space-y-1">
-        <p class="text-[11px] font-mono font-bold text-slate-500">
-          Grih360 Android App v1.3.0 (Build 7)
+        <p class="text-[11px] font-mono font-bold text-slate-700">
+          Grih360 App v{{ appVersion }} (Commit: {{ commitHash }})
+        </p>
+        <p class="text-[10px] font-mono text-slate-500">
+          API Base URL: {{ apiUrl }}
         </p>
         <p class="text-[10px] font-mono text-slate-400">
           Build Time: {{ buildTimestamp }}
@@ -523,7 +629,10 @@ import { ApplicationService } from '../../../core/services/application.service';
   `,
 })
 export class TenantProfileComponent implements OnInit {
-  buildTimestamp: string = '2026-10-10 14:55:00 IST';
+  appVersion: string = (environment as any).appVersion || '1.4.8';
+  commitHash: string = (environment as any).commitHash || 'ebb30e1';
+  apiUrl: string = environment.apiUrl;
+  buildTimestamp: string = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
   user: any = null;
   activeTab: 'overview' | 'edit' | 'security' = 'overview';
 
@@ -539,6 +648,20 @@ export class TenantProfileComponent implements OnInit {
   currentPassword: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
+  setOtp: string = '';
+  setPasswordOtpSent: boolean = false;
+  isSendingSetPasswordOtp: boolean = false;
+
+  get hasPasswordAccount(): boolean {
+    return Boolean(this.user?.hasPassword);
+  }
+
+  get hasGoogleLinked(): boolean {
+    return Boolean(
+      Array.isArray(this.user?.authProviders) &&
+      this.user.authProviders.includes('GOOGLE')
+    );
+  }
 
   isSaving: boolean = false;
   isSavingPassword: boolean = false;
@@ -714,6 +837,79 @@ export class TenantProfileComponent implements OnInit {
     });
   }
 
+  sendSetPasswordOtp(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.isSendingSetPasswordOtp = true;
+    this.userService.sendSetPasswordOtp().subscribe({
+      next: (res: any) => {
+        this.isSendingSetPasswordOtp = false;
+        this.setPasswordOtpSent = true;
+        this.successMessage = res?.message || 'Verification code sent to your registered email.';
+        setTimeout(() => (this.successMessage = ''), 4000);
+      },
+      error: (err: any) => {
+        this.isSendingSetPasswordOtp = false;
+        this.errorMessage = err?.error?.message || 'Failed to send verification code. Please try again.';
+      },
+    });
+  }
+
+  submitSetPassword(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+    const cleanOtp = (this.setOtp || '').trim();
+    if (cleanOtp.length !== 6) {
+      this.errorMessage = 'Please enter the 6-digit verification code.';
+      return;
+    }
+    if (!this.newPassword) {
+      this.errorMessage = 'Please enter your new password.';
+      return;
+    }
+    if (this.newPassword.length < 8) {
+      this.errorMessage = 'New password must be at least 8 characters long.';
+      return;
+    }
+    if (
+      !/[A-Z]/.test(this.newPassword) ||
+      !/[a-z]/.test(this.newPassword) ||
+      !/[0-9]/.test(this.newPassword) ||
+      !/[^A-Za-z0-9]/.test(this.newPassword)
+    ) {
+      this.errorMessage = 'Password must include uppercase, lowercase, number, and special character.';
+      return;
+    }
+    if (this.newPassword !== this.confirmPassword) {
+      this.errorMessage = 'New password and confirmation password do not match.';
+      return;
+    }
+
+    this.isSavingPassword = true;
+    this.userService.setPassword({ otp: cleanOtp, newPassword: this.newPassword }).subscribe({
+      next: (res: any) => {
+        this.isSavingPassword = false;
+        this.successMessage = res?.message || 'Password created successfully! Both Google and email sign-in are now active.';
+        if (this.user) {
+          this.user.hasPassword = true;
+          const providers = Array.isArray(this.user.authProviders) ? [...this.user.authProviders] : [];
+          if (!providers.includes('LOCAL')) providers.push('LOCAL');
+          this.user.authProviders = providers;
+          this.authService.updateCurrentUser(this.user);
+        }
+        this.setPasswordOtpSent = false;
+        this.setOtp = '';
+        this.newPassword = '';
+        this.confirmPassword = '';
+        setTimeout(() => (this.successMessage = ''), 5000);
+      },
+      error: (err: any) => {
+        this.isSavingPassword = false;
+        this.errorMessage = err?.error?.message || 'Failed to set password. Please check the code and try again.';
+      },
+    });
+  }
+
   onChangePassword(): void {
     if (!this.currentPassword || !this.newPassword) {
       this.errorMessage = 'Please provide both current and new passwords.';
@@ -725,8 +921,8 @@ export class TenantProfileComponent implements OnInit {
       return;
     }
 
-    if (this.newPassword.length < 6) {
-      this.errorMessage = 'New password must be at least 6 characters.';
+    if (this.newPassword.length < 8) {
+      this.errorMessage = 'New password must be at least 8 characters.';
       return;
     }
 

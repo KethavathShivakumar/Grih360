@@ -5,6 +5,7 @@ import { UserModel } from '../models';
 import { memoryUsers } from '../services/auth.service';
 import { PasswordUtil } from '../utils/password.util';
 import mongoose from 'mongoose';
+import { OtpService } from '../services/otp.service';
 
 import { PersistentStore } from '../config/persistent-store';
 
@@ -88,6 +89,111 @@ export class UserController {
     }
   }
 
+  /**
+   * Request OTP to Set Password for Google-only account
+   * POST /api/v1/users/set-password/send-otp
+   */
+  static async sendSetPasswordOtp(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      if (!req.user || !req.user.userId) {
+        ApiResponseUtil.error(res, 'Authentication required', 401, 'UNAUTHORIZED');
+        return;
+      }
+      const userId = req.user.userId;
+      let user: any = null;
+      if (mongoose.connection.readyState === 1) {
+        user = await UserModel.findById(userId);
+      } else {
+        user = memoryUsers.get(userId) || PersistentStore.findById('users', userId);
+      }
+
+      if (!user) {
+        ApiResponseUtil.error(res, 'User not found', 404, 'NOT_FOUND');
+        return;
+      }
+
+      await OtpService.createAndSendOtp({
+        email: user.email,
+        purpose: 'PASSWORD_RESET',
+        userName: user.name,
+      });
+
+      ApiResponseUtil.success(res, 'Verification code sent to your registered email address.');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * Set Password with Email OTP Verification (for Google-only accounts)
+   * POST /api/v1/users/set-password
+   */
+  static async setPassword(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      if (!req.user || !req.user.userId) {
+        ApiResponseUtil.error(res, 'Authentication required', 401, 'UNAUTHORIZED');
+        return;
+      }
+      const { otp, newPassword } = req.body;
+      if (!otp || !newPassword) {
+        ApiResponseUtil.error(res, 'Verification code and new password are required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+      if (typeof newPassword !== 'string' || newPassword.length < 6) {
+        ApiResponseUtil.error(res, 'New password must be at least 6 characters long', 400, 'WEAK_PASSWORD');
+        return;
+      }
+
+      const userId = req.user.userId;
+      let user: any = null;
+      if (mongoose.connection.readyState === 1) {
+        user = await UserModel.findById(userId).select('+passwordHash');
+      } else {
+        user = memoryUsers.get(userId) || PersistentStore.findById('users', userId);
+      }
+
+      if (!user) {
+        ApiResponseUtil.error(res, 'User not found', 404, 'NOT_FOUND');
+        return;
+      }
+
+      const verification = await OtpService.verifyOtp({
+        email: user.email,
+        otp: (otp || '').trim(),
+        purpose: 'PASSWORD_RESET',
+      });
+
+      if (!verification.valid) {
+        ApiResponseUtil.error(res, verification.message || 'Invalid or expired verification code', 400, 'INVALID_OTP');
+        return;
+      }
+
+      const passwordHash = await PasswordUtil.hashPassword(newPassword);
+      if (mongoose.connection.readyState === 1) {
+        user.passwordHash = passwordHash;
+        if (!Array.isArray(user.authProviders)) user.authProviders = ['GOOGLE'];
+        if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
+        user.isEmailVerified = true;
+        await user.save();
+      } else {
+        user.passwordHash = passwordHash;
+        if (!Array.isArray(user.authProviders)) user.authProviders = ['GOOGLE'];
+        if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
+        user.isEmailVerified = true;
+        memoryUsers.set(userId, user);
+        PersistentStore.update('users', userId, { passwordHash, authProviders: user.authProviders, isEmailVerified: true });
+      }
+
+      ApiResponseUtil.success(res, 'Password created successfully. You can now log in using either Google or your email and password.');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * Change Password (for accounts that already have a password)
+   * POST /api/v1/users/change-password
+   */
   static async changePassword(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       if (!req.user || !req.user.userId) {
@@ -112,13 +218,9 @@ export class UserController {
           return;
         }
 
-        // If user was created via Google and has no password yet
+        // If user has no password yet, guide them to set-password
         if (!user.passwordHash) {
-          user.passwordHash = await PasswordUtil.hashPassword(newPassword);
-          if (!user.authProviders) user.authProviders = ['GOOGLE'];
-          if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
-          await user.save();
-          ApiResponseUtil.success(res, 'Password created successfully');
+          ApiResponseUtil.error(res, 'No existing password found. Please use Set Password to configure a password.', 400, 'NO_PASSWORD_SET');
           return;
         }
 
@@ -133,6 +235,8 @@ export class UserController {
           return;
         }
         user.passwordHash = await PasswordUtil.hashPassword(newPassword);
+        if (!Array.isArray(user.authProviders)) user.authProviders = ['LOCAL'];
+        if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
         await user.save();
         ApiResponseUtil.success(res, 'Password changed successfully');
       } else {
@@ -142,12 +246,7 @@ export class UserController {
           return;
         }
         if (!user.passwordHash) {
-          user.passwordHash = await PasswordUtil.hashPassword(newPassword);
-          if (!user.authProviders) user.authProviders = ['GOOGLE'];
-          if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
-          memoryUsers.set(userId, user);
-          PersistentStore.update('users', userId, { passwordHash: user.passwordHash, authProviders: user.authProviders });
-          ApiResponseUtil.success(res, 'Password created successfully');
+          ApiResponseUtil.error(res, 'No existing password found. Please use Set Password to configure a password.', 400, 'NO_PASSWORD_SET');
           return;
         }
 
@@ -161,8 +260,10 @@ export class UserController {
           return;
         }
         user.passwordHash = await PasswordUtil.hashPassword(newPassword);
+        if (!Array.isArray(user.authProviders)) user.authProviders = ['LOCAL'];
+        if (!user.authProviders.includes('LOCAL')) user.authProviders.push('LOCAL');
         memoryUsers.set(userId, user);
-        PersistentStore.update('users', userId, { passwordHash: user.passwordHash });
+        PersistentStore.update('users', userId, { passwordHash: user.passwordHash, authProviders: user.authProviders });
         ApiResponseUtil.success(res, 'Password changed successfully');
       }
     } catch (err) {

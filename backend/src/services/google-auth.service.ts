@@ -179,9 +179,8 @@ export class GoogleAuthService {
 
       let updated = false;
 
-      // If that account's own email was not verified, clear its password hash to prevent account takeover
+      // Mark email verified since Google has verified it
       if (!user.isEmailVerified) {
-        user.passwordHash = undefined;
         user.isEmailVerified = true;
         updated = true;
       }
@@ -192,11 +191,19 @@ export class GoogleAuthService {
         updated = true;
       }
 
-      // Update authProviders
-      if (!user.authProviders) user.authProviders = ['LOCAL'];
-      if (!user.authProviders.includes('GOOGLE')) {
-        user.authProviders.push('GOOGLE');
+      // Maintain authProviders list ensuring both methods are reflected
+      if (!Array.isArray(user.authProviders)) {
+        user.authProviders = user.passwordHash ? ['LOCAL', 'GOOGLE'] : ['GOOGLE'];
         updated = true;
+      } else {
+        if (!user.authProviders.includes('GOOGLE')) {
+          user.authProviders.push('GOOGLE');
+          updated = true;
+        }
+        if (user.passwordHash && !user.authProviders.includes('LOCAL')) {
+          user.authProviders.push('LOCAL');
+          updated = true;
+        }
       }
 
       // Save profile image if absent

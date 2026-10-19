@@ -20,6 +20,10 @@ router.get('/me', authenticateToken, AuthController.getMe);
 router.post('/logout', authenticateToken, AuthController.logout);
 router.post('/refresh', authRateLimiter, AuthController.refreshToken);
 
+// Forgot / Set Password Flow
+router.post('/forgot-password/send-otp', authRateLimiter, AuthController.forgotPasswordSendOtp);
+router.post('/forgot-password/reset', authRateLimiter, AuthController.forgotPasswordReset);
+
 // Direct OTP Authentication (Dispatched via Gmail SMTP)
 router.post('/otp/send', authRateLimiter, AuthController.sendOtp);
 router.post('/otp/verify', authRateLimiter, AuthController.verifyOtp);

@@ -20,4 +20,12 @@ export class UserService {
   public changePassword(data: { currentPassword: string; newPassword: string }): Observable<{ success: boolean; message: string }> {
     return this.apiService.post<{ success: boolean; message: string }>('/users/change-password', data);
   }
+
+  public sendSetPasswordOtp(): Observable<{ success: boolean; message: string }> {
+    return this.apiService.post<{ success: boolean; message: string }>('/users/set-password/send-otp', {});
+  }
+
+  public setPassword(data: { otp: string; newPassword: string }): Observable<{ success: boolean; message: string }> {
+    return this.apiService.post<{ success: boolean; message: string }>('/users/set-password', data);
+  }
 }

@@ -75,7 +75,7 @@ export class AuthController {
    */
   static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { identifier, email, password, directToken } = req.body;
+      const { identifier, email, password, role, directToken } = req.body;
       const effectiveIdentifier = (email || identifier || '').trim();
 
       if (!effectiveIdentifier || !password) {
@@ -89,6 +89,7 @@ export class AuthController {
       const result = await AuthService.loginUser({
         identifier: effectiveIdentifier,
         password,
+        role: typeof role === 'string' && role.trim() ? role.trim() : undefined,
         directToken: allowDirectToken,
       });
 
@@ -111,7 +112,15 @@ export class AuthController {
 
       // Direct login path (for backwards-compatibility / administrative scripts)
       ApiResponseUtil.success(res, 'Login successful', result, 200);
-    } catch (err) {
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'AUTH_ERROR',
+          message: err.message,
+        });
+        return;
+      }
       next(err);
     }
   }
@@ -321,6 +330,60 @@ export class AuthController {
       ApiResponseUtil.success(res, 'Test email delivered successfully via Gmail SMTP', result, 200);
     } catch (err: any) {
       ApiResponseUtil.error(res, err.message || 'Failed to dispatch test email', 500);
+    }
+  }
+
+  /**
+   * Request Forgot Password OTP
+   * POST /api/v1/auth/forgot-password/send-otp
+   */
+  static async forgotPasswordSendOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email } = req.body;
+      if (!email || typeof email !== 'string') {
+        ApiResponseUtil.error(res, 'A valid email address is required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      const result = await AuthService.sendForgotPasswordOtp(email);
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'FORGOT_PASSWORD_ERROR',
+          message: err.message,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Reset / Set Password with OTP
+   * POST /api/v1/auth/forgot-password/reset
+   */
+  static async forgotPasswordReset(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, otp, newPassword } = req.body;
+      if (!email || !otp || !newPassword) {
+        ApiResponseUtil.error(res, 'Email, 6-digit verification code, and new password are required', 400, 'VALIDATION_ERROR');
+        return;
+      }
+
+      const result = await AuthService.resetPasswordWithOtp(email, otp, newPassword);
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'PASSWORD_RESET_ERROR',
+          message: err.message,
+        });
+        return;
+      }
+      next(err);
     }
   }
 }

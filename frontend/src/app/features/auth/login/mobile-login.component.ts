@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-mobile-login',
@@ -58,8 +59,32 @@ import { RouterLink } from '@angular/router';
         </div>
 
         <!-- Error Alert Banner -->
-        <div *ngIf="errorMessage" class="p-3 bg-err-bg border border-err-border text-err-text rounded-lg text-xs font-semibold flex items-start gap-2">
-          <span>{{ errorMessage }}</span>
+        <div *ngIf="errorMessage" class="p-3 bg-err-bg border border-err-border text-err-text rounded-lg text-xs font-semibold space-y-2.5">
+          <div class="flex items-start gap-2">
+            <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span class="leading-relaxed">{{ errorMessage }}</span>
+          </div>
+          <div *ngIf="isGoogleOnlyAccount" class="flex flex-col sm:flex-row gap-2 pt-1">
+            <button
+              type="button"
+              (click)="googleSignIn.emit()"
+              class="w-full sm:w-auto px-3.5 py-2 bg-navy text-n-0 text-xs font-semibold rounded-lg hover:opacity-90 flex items-center justify-center gap-2 cursor-pointer min-h-[38px]">
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+            <button
+              type="button"
+              (click)="openSetPassword.emit()"
+              class="w-full sm:w-auto px-3.5 py-2 bg-n-0 border border-n-300 text-n-900 hover:bg-n-100 text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 cursor-pointer min-h-[38px]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+              <span>Set a password</span>
+            </button>
+          </div>
         </div>
 
         <!-- Login Form -->
@@ -234,13 +259,18 @@ import { RouterLink } from '@angular/router';
       </div>
 
       <!-- Footer -->
-      <footer class="py-2 text-center text-xs text-n-400 border-t border-n-200">
-        © 2026 Grih360 Technologies
+      <footer class="py-2 text-center text-[10px] text-n-400 border-t border-n-200 space-y-0.5">
+        <p>© 2026 Grih360 Technologies</p>
+        <p class="font-mono text-slate-500 font-medium">v{{ appVersion }} ({{ commitHash }}) • {{ apiUrl }}</p>
       </footer>
     </div>
   `,
 })
 export class MobileLoginComponent {
+  appVersion: string = (environment as any).appVersion || '1.4.8';
+  commitHash: string = (environment as any).commitHash || 'ebb30e1';
+  apiUrl: string = environment.apiUrl;
+
   @Input() identifier: string = '';
   @Output() identifierChange = new EventEmitter<string>();
 
@@ -252,10 +282,12 @@ export class MobileLoginComponent {
 
   @Input() isLoading: boolean = false;
   @Input() errorMessage: string = '';
+  @Input() isGoogleOnlyAccount: boolean = false;
   @Input() showPassword: boolean = false;
 
   @Input() isGoogleLoading: boolean = false;
   @Output() googleSignIn = new EventEmitter<void>();
+  @Output() openSetPassword = new EventEmitter<void>();
 
   @Input() showProfileSheet: boolean = false;
   @Output() closeProfileSheet = new EventEmitter<void>();

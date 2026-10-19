@@ -21,9 +21,11 @@ import { environment } from '../../../../environments/environment';
         [(selectedRole)]="selectedRole"
         [isLoading]="isLoading"
         [errorMessage]="errorMessage"
+        [isGoogleOnlyAccount]="isGoogleOnlyAccount"
         [showPassword]="showPassword"
         [isGoogleLoading]="isGoogleLoading"
         (googleSignIn)="onGoogleSignIn()"
+        (openSetPassword)="openForgotPasswordModal(identifier)"
         [showProfileSheet]="showProfileCompletionModal"
         (closeProfileSheet)="showProfileCompletionModal = false"
         [(profilePhone)]="profilePhone"
@@ -32,7 +34,7 @@ import { environment } from '../../../../environments/environment';
         (completeProfile)="submitProfileCompletion()"
         (loginSubmit)="onLoginSubmit()"
         (togglePasswordVisibility)="togglePasswordVisibility()"
-        (openForgotPassword)="showForgotPassword = true"
+        (openForgotPassword)="openForgotPasswordModal(identifier)"
       ></app-mobile-login>
     } @else {
       <div class="min-h-screen bg-n-50 flex flex-col justify-between">
@@ -157,10 +159,39 @@ import { environment } from '../../../../environments/environment';
                 </div>
               </div>
 
-              <!-- Error -->
-              <div *ngIf="errorMessage" class="p-3 bg-err-bg border border-err-border text-err-text rounded-lg text-sm flex items-start gap-2">
-                <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span>{{ errorMessage }}</span>
+              <!-- Success Message -->
+              <div *ngIf="loginSuccessMessage" class="p-3 bg-ok-bg border border-ok-border text-ok-text rounded-lg text-sm flex items-start gap-2">
+                <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>{{ loginSuccessMessage }}</span>
+              </div>
+
+              <!-- Error Banner -->
+              <div *ngIf="errorMessage" class="p-3.5 bg-err-bg border border-err-border text-err-text rounded-lg text-sm space-y-2.5">
+                <div class="flex items-start gap-2">
+                  <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  <span class="leading-relaxed">{{ errorMessage }}</span>
+                </div>
+                <div *ngIf="isGoogleOnlyAccount" class="flex flex-wrap gap-2 pt-1">
+                  <button
+                    type="button"
+                    (click)="onGoogleSignIn()"
+                    class="px-3.5 py-1.5 bg-navy text-n-0 text-xs font-semibold rounded-lg hover:opacity-90 flex items-center gap-1.5 cursor-pointer">
+                    <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                    </svg>
+                    <span>Continue with Google</span>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="openForgotPasswordModal(identifier)"
+                    class="px-3.5 py-1.5 bg-n-0 border border-n-300 text-n-900 hover:bg-n-100 text-xs font-semibold rounded-lg flex items-center gap-1.5 cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                    <span>Set a password</span>
+                  </button>
+                </div>
               </div>
 
               <!-- Login form -->
@@ -172,6 +203,7 @@ import { environment } from '../../../../environments/environment';
                     id="login-identifier"
                     type="text"
                     [(ngModel)]="identifier"
+                    (ngModelChange)="isGoogleOnlyAccount = false; errorMessage = ''"
                     name="identifier"
                     required
                     placeholder="email@example.com or 9876543210"
@@ -184,7 +216,7 @@ import { environment } from '../../../../environments/environment';
                   <div class="flex items-center justify-between">
                     <label class="form-label" for="login-password">Password</label>
                     <button
-                      (click)="showForgotPassword = true"
+                      (click)="openForgotPasswordModal(identifier)"
                       type="button"
                       class="text-xs font-semibold text-brand hover:text-brand-hover cursor-pointer">
                       Forgot password?
@@ -324,28 +356,135 @@ import { environment } from '../../../../environments/environment';
               </button>
             </div>
           </div>
-        </div>
-
-        <!-- Forgot password modal -->
+        </div>        <!-- Forgot / Set password modal -->
         <div *ngIf="showForgotPassword" class="fixed inset-0 bg-n-900/50 z-50 flex items-center justify-center p-4">
-          <div class="bg-n-0 rounded-xl p-6 max-w-md w-full shadow-sm border border-n-200 space-y-4">
+          <div class="bg-n-0 rounded-xl p-6 max-w-md w-full shadow-lg border border-n-200 space-y-4">
             <div class="flex items-center justify-between">
-              <h3 class="text-base font-semibold text-n-900">Reset password</h3>
+              <div>
+                <h3 class="text-base font-semibold text-n-900">
+                  {{ forgotStep === 'EMAIL' ? 'Forgot / Set Password' : 'Verify Code & Set Password' }}
+                </h3>
+                <p class="text-xs text-n-500 mt-0.5">
+                  {{ forgotStep === 'EMAIL' ? 'Enter your registered email to receive a verification code.' : 'Enter the OTP sent to your email to set a new password.' }}
+                </p>
+              </div>
               <button (click)="showForgotPassword = false" class="text-n-400 hover:text-n-900 cursor-pointer p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
               </button>
             </div>
-            <p class="text-sm text-n-500">Enter your registered email or mobile number. Recovery instructions will be sent if the account exists.</p>
-            <div class="space-y-1">
-              <label class="form-label" for="forgot-id">Email or phone</label>
-              <input id="forgot-id" type="text" [(ngModel)]="forgotIdentifier" placeholder="Email or phone" class="form-input"/>
+
+            <!-- Error and Success Banners -->
+            <div *ngIf="forgotErrorMessage" class="p-3 bg-err-bg border border-err-border text-err-text rounded-lg text-xs font-semibold flex items-start gap-2">
+              <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span>{{ forgotErrorMessage }}</span>
             </div>
-            <div *ngIf="forgotSent" class="p-3 bg-ok-bg border border-ok-border rounded-lg text-sm text-ok-text font-semibold">
-              Recovery instructions sent if the account exists.
+
+            <div *ngIf="forgotSuccessMessage" class="p-3 bg-ok-bg border border-ok-border text-ok-text rounded-lg text-xs font-semibold flex items-start gap-2">
+              <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>{{ forgotSuccessMessage }}</span>
             </div>
-            <div class="flex items-center justify-end gap-2 pt-2">
-              <button (click)="showForgotPassword = false" type="button" class="btn-ghost cursor-pointer">Close</button>
-              <button (click)="forgotSent = true" type="button" class="btn-primary cursor-pointer">Send link</button>
+
+            <!-- Step 1: Email Form -->
+            <div *ngIf="forgotStep === 'EMAIL'" class="space-y-4">
+              <div class="space-y-1">
+                <label class="form-label" for="forgot-email">Registered Email Address</label>
+                <input
+                  id="forgot-email"
+                  type="email"
+                  [(ngModel)]="forgotEmail"
+                  placeholder="name@example.com"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="flex items-center justify-end gap-2 pt-2">
+                <button (click)="showForgotPassword = false" type="button" class="btn-ghost cursor-pointer min-h-[44px]">Cancel</button>
+                <button
+                  (click)="sendForgotOtp()"
+                  [disabled]="isForgotLoading || !forgotEmail"
+                  type="button"
+                  class="btn-primary cursor-pointer min-h-[44px] flex items-center gap-2">
+                  <svg *ngIf="isForgotLoading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>{{ isForgotLoading ? 'Sending OTP...' : 'Send Verification OTP' }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: OTP & New Password Form -->
+            <div *ngIf="forgotStep === 'RESET'" class="space-y-3.5">
+              <div class="p-2.5 bg-n-100 rounded-lg text-xs text-n-700 flex items-center justify-between">
+                <span>Code sent to: <strong class="text-n-900">{{ forgotEmail }}</strong></span>
+                <button (click)="forgotStep = 'EMAIL'; forgotErrorMessage = ''; forgotSuccessMessage = ''" class="text-brand font-semibold hover:underline">Change</button>
+              </div>
+
+              <div class="space-y-1">
+                <label class="form-label" for="forgot-otp">6-Digit Email Code</label>
+                <input
+                  id="forgot-otp"
+                  type="text"
+                  [(ngModel)]="forgotOtp"
+                  placeholder="Enter 6-digit code"
+                  maxlength="6"
+                  class="form-input font-mono tracking-widest text-center text-base"
+                />
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <label class="form-label" for="forgot-new-pwd">New Password</label>
+                  <button
+                    type="button"
+                    (click)="showForgotNewPassword = !showForgotNewPassword"
+                    class="text-xs font-semibold text-n-500 hover:text-n-900">
+                    {{ showForgotNewPassword ? 'Hide' : 'Show' }}
+                  </button>
+                </div>
+                <input
+                  id="forgot-new-pwd"
+                  [type]="showForgotNewPassword ? 'text' : 'password'"
+                  [(ngModel)]="forgotNewPassword"
+                  placeholder="Min 8 characters (upper, lower, num, sym)"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="space-y-1">
+                <label class="form-label" for="forgot-confirm-pwd">Confirm New Password</label>
+                <input
+                  id="forgot-confirm-pwd"
+                  [type]="showForgotNewPassword ? 'text' : 'password'"
+                  [(ngModel)]="forgotConfirmPassword"
+                  placeholder="Re-enter new password"
+                  class="form-input"
+                />
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <button
+                  (click)="sendForgotOtp()"
+                  [disabled]="isForgotLoading"
+                  type="button"
+                  class="text-xs font-semibold text-brand hover:underline cursor-pointer">
+                  Resend code
+                </button>
+                <div class="flex items-center gap-2">
+                  <button (click)="showForgotPassword = false" type="button" class="btn-ghost cursor-pointer min-h-[44px]">Cancel</button>
+                  <button
+                    (click)="submitForgotReset()"
+                    [disabled]="isForgotLoading || !forgotOtp || !forgotNewPassword || !forgotConfirmPassword"
+                    type="button"
+                    class="btn-primary cursor-pointer min-h-[44px] flex items-center gap-2">
+                    <svg *ngIf="isForgotLoading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>{{ isForgotLoading ? 'Saving...' : 'Set Password' }}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -355,30 +494,6 @@ import { environment } from '../../../../environments/environment';
         </footer>
       </div>
     }
-
-    <!-- Forgot password modal (mobile) -->
-    <div *ngIf="showForgotPassword && isMobile.isMobile()" class="fixed inset-0 bg-n-900/50 z-50 flex items-center justify-center p-4">
-      <div class="bg-n-0 rounded-xl p-5 max-w-sm w-full shadow-sm border border-n-200 space-y-4">
-        <div class="flex items-center justify-between">
-          <h3 class="text-base font-semibold text-n-900">Reset password</h3>
-          <button (click)="showForgotPassword = false" class="text-n-400 hover:text-n-900 cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-        <p class="text-sm text-n-500">Recovery instructions will be sent if the account exists.</p>
-        <div class="space-y-1">
-          <label class="form-label" for="mobile-forgot-id">Email or phone</label>
-          <input id="mobile-forgot-id" type="text" [(ngModel)]="forgotIdentifier" placeholder="Email or phone" class="form-input"/>
-        </div>
-        <div *ngIf="forgotSent" class="p-3 bg-ok-bg border border-ok-border rounded-lg text-sm text-ok-text font-semibold">
-          Instructions sent if the account exists.
-        </div>
-        <div class="flex items-center justify-end gap-2 pt-2">
-          <button (click)="showForgotPassword = false" type="button" class="btn-ghost cursor-pointer min-h-[44px]">Close</button>
-          <button (click)="forgotSent = true" type="button" class="btn-primary cursor-pointer min-h-[44px]">Send link</button>
-        </div>
-      </div>
-    </div>
   `,
 })
 export class LoginComponent implements OnInit {
@@ -387,10 +502,21 @@ export class LoginComponent implements OnInit {
   selectedRole: string = 'TENANT';
   isLoading: boolean = false;
   errorMessage: string = '';
+  loginSuccessMessage: string = '';
+  isGoogleOnlyAccount: boolean = false;
   showPassword: boolean = false;
+
+  // Forgot password / Set password state
   showForgotPassword: boolean = false;
-  forgotIdentifier: string = '';
-  forgotSent: boolean = false;
+  forgotStep: 'EMAIL' | 'RESET' = 'EMAIL';
+  forgotEmail: string = '';
+  forgotOtp: string = '';
+  forgotNewPassword: string = '';
+  forgotConfirmPassword: string = '';
+  showForgotNewPassword: boolean = false;
+  isForgotLoading: boolean = false;
+  forgotErrorMessage: string = '';
+  forgotSuccessMessage: string = '';
 
   // Google Authentication State
   isGoogleLoading: boolean = false;
@@ -531,6 +657,88 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  openForgotPasswordModal(prefillEmail?: string): void {
+    this.showForgotPassword = true;
+    this.forgotStep = 'EMAIL';
+    this.forgotEmail = (prefillEmail || this.identifier || '').trim();
+    this.forgotOtp = '';
+    this.forgotNewPassword = '';
+    this.forgotConfirmPassword = '';
+    this.forgotErrorMessage = '';
+    this.forgotSuccessMessage = '';
+  }
+
+  sendForgotOtp(): void {
+    this.forgotErrorMessage = '';
+    this.forgotSuccessMessage = '';
+    const cleanEmail = this.forgotEmail.trim().toLowerCase();
+    if (!cleanEmail || !cleanEmail.includes('@')) {
+      this.forgotErrorMessage = 'Please enter a valid email address.';
+      return;
+    }
+    this.isForgotLoading = true;
+    this.authService.sendForgotPasswordOtp(cleanEmail).subscribe({
+      next: (res: any) => {
+        this.isForgotLoading = false;
+        this.forgotStep = 'RESET';
+        this.forgotSuccessMessage = res.message || 'Verification code sent to your email.';
+      },
+      error: (err: any) => {
+        this.isForgotLoading = false;
+        this.forgotErrorMessage = err?.error?.message || 'Unable to send verification code. Please check your email.';
+      },
+    });
+  }
+
+  submitForgotReset(): void {
+    this.forgotErrorMessage = '';
+    const cleanEmail = this.forgotEmail.trim().toLowerCase();
+    const cleanOtp = this.forgotOtp.trim();
+
+    if (!cleanOtp || cleanOtp.length !== 6) {
+      this.forgotErrorMessage = 'Please enter the 6-digit verification code sent to your email.';
+      return;
+    }
+    if (!this.forgotNewPassword) {
+      this.forgotErrorMessage = 'Please enter your new password.';
+      return;
+    }
+    if (this.forgotNewPassword.length < 8) {
+      this.forgotErrorMessage = 'Password must be at least 8 characters long.';
+      return;
+    }
+    if (
+      !/[A-Z]/.test(this.forgotNewPassword) ||
+      !/[a-z]/.test(this.forgotNewPassword) ||
+      !/[0-9]/.test(this.forgotNewPassword) ||
+      !/[^A-Za-z0-9]/.test(this.forgotNewPassword)
+    ) {
+      this.forgotErrorMessage = 'Password must contain uppercase, lowercase, number, and special character.';
+      return;
+    }
+    if (this.forgotNewPassword !== this.forgotConfirmPassword) {
+      this.forgotErrorMessage = 'New password and confirm password do not match.';
+      return;
+    }
+
+    this.isForgotLoading = true;
+    this.authService.resetPasswordWithOtp(cleanEmail, cleanOtp, this.forgotNewPassword).subscribe({
+      next: () => {
+        this.isForgotLoading = false;
+        this.showForgotPassword = false;
+        this.isGoogleOnlyAccount = false;
+        this.errorMessage = '';
+        this.loginSuccessMessage = 'Password set successfully! You can now sign in with your email and password.';
+        this.identifier = cleanEmail;
+        this.password = '';
+      },
+      error: (err: any) => {
+        this.isForgotLoading = false;
+        this.forgotErrorMessage = err?.error?.message || 'Failed to reset password. Please check the OTP and try again.';
+      },
+    });
+  }
+
   onLoginSubmit(): void {
     if (!this.identifier || !this.password) {
       this.errorMessage = 'Please enter both your email/phone and password.';
@@ -541,7 +749,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage = '';
 
     this.authService
-      .login(this.identifier, this.password)
+      .login(this.identifier, this.password, this.selectedRole)
       .pipe(
         timeout(45000),
         finalize(() => {
@@ -586,18 +794,24 @@ export class LoginComponent implements OnInit {
           if (!environment.production) {
             console.error('[Login Technical Error]:', err);
           }
+          const errCode = err?.error?.code;
+          const errMsg = err?.error?.message;
+          if (errCode === 'GOOGLE_AUTH_REQUIRED' || errMsg?.includes('This account uses Google sign-in')) {
+            this.isGoogleOnlyAccount = true;
+            this.errorMessage = 'This account uses Google sign-in. Continue with Google, or set a password with Forgot Password.';
+            return;
+          }
+          this.isGoogleOnlyAccount = false;
           if (err.name === 'TimeoutError' || err.status === 0) {
             this.errorMessage = 'Unable to connect to the server. Please check your internet connection.';
-          } else if (err.status === 401) {
-            this.errorMessage = err?.error?.message || 'Invalid email or password. Please try again.';
+          } else if (err.status === 400 || err.status === 401 || err.status === 404) {
+            this.errorMessage = 'Incorrect email or password. Please try again.';
           } else if (err.status === 403) {
-            this.errorMessage = err?.error?.message || 'Your account has been deactivated or suspended.';
-          } else if (err.status === 404) {
-            this.errorMessage = 'No registered account found with this email or mobile number.';
+            this.errorMessage = errMsg || 'Your account has been deactivated or suspended.';
           } else if (err.status === 429) {
             this.errorMessage = 'Too many sign-in attempts. Please wait a few minutes and try again.';
           } else if (err.status === 503) {
-            this.errorMessage = err?.error?.message || 'Authentication service is temporarily unavailable. Please try again shortly.';
+            this.errorMessage = errMsg || 'Authentication service is temporarily unavailable. Please try again shortly.';
           } else {
             this.errorMessage = 'A server error occurred. Please try again in a few moments.';
           }

@@ -18,6 +18,8 @@ export interface User {
   status: string;
   profileImage?: string; // Note: No auto-generated profile image per section 18
   identityVerificationStatus: VerificationStatus;
+  hasPassword?: boolean;
+  authProviders?: string[];
 }
 
 export interface AuthState {

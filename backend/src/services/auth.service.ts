@@ -20,6 +20,7 @@ export { GoogleAuthInput };
 export interface LoginInput {
   identifier: string; // Email or Phone
   password: string;
+  role?: string;
   directToken?: boolean;
 }
 
@@ -62,6 +63,13 @@ export class AuthService {
 
       if (existingUser) {
         if (existingUser.email === emailNormalized) {
+          if (existingUser.authProviders && existingUser.authProviders.includes('GOOGLE') && !existingUser.passwordHash) {
+            throw {
+              statusCode: 409,
+              code: 'ACCOUNT_EXISTS_GOOGLE',
+              message: 'An account with this email already exists using Google sign-in. Continue with Google, or set a password with Forgot Password.',
+            };
+          }
           throw { statusCode: 409, code: 'EMAIL_EXISTS', message: 'An account with this email address already exists' };
         }
         throw { statusCode: 409, code: 'PHONE_EXISTS', message: 'An account with this phone number already exists' };
@@ -182,9 +190,18 @@ export class AuthService {
         $or: [{ email: identifierNormalized }, { phone: identifierNormalized }],
       }).select('+passwordHash');
 
-      if (!user || !user.passwordHash) {
-        console.warn(`[Auth Security] Login rejected: Account not found or missing password hash for identifier [${identifierNormalized}]`);
+      if (!user) {
+        console.warn(`[Auth Security] Login rejected: Unknown account for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
+      }
+
+      if (!user.passwordHash) {
+        console.warn(`[Auth Security] Login rejected: Account uses Google sign-in (no password configured) [${identifierNormalized}]`);
+        throw {
+          statusCode: 400,
+          code: 'GOOGLE_AUTH_REQUIRED',
+          message: 'This account uses Google sign-in. Continue with Google, or set a password with Forgot Password.',
+        };
       }
 
       if (!user.isActive) {
@@ -196,6 +213,27 @@ export class AuthService {
       if (!isPasswordValid) {
         console.warn(`[Auth Security] Login rejected: Password verification mismatch for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
+      }
+
+      // Check role mismatch if role was provided from login portal
+      if (input.role) {
+        const requestedRole = input.role.trim().toUpperCase();
+        const userRole = (user.role || '').toUpperCase();
+        if (requestedRole && requestedRole !== userRole) {
+          console.warn(`[Auth Security] Login rejected: Role mismatch for identifier [${identifierNormalized}]. Account role: [${userRole}], portal: [${requestedRole}]`);
+          const portalNameMap: Record<string, string> = {
+            TENANT: 'Tenant portal',
+            OWNER: 'Owner portal',
+            PROFESSIONAL: 'Professional portal',
+            ADMIN: 'Admin console',
+          };
+          const targetPortal = portalNameMap[userRole] || `${userRole} portal`;
+          throw {
+            statusCode: 403,
+            code: 'ROLE_MISMATCH',
+            message: `This account is registered for the ${targetPortal}. Please switch to the ${targetPortal} to log in.`,
+          };
+        }
       }
 
       // If directToken is requested by internal scripts, headless automation, or admin portal
@@ -242,8 +280,17 @@ export class AuthService {
       }
 
       if (!user) {
-        console.warn(`[Auth Security] In-memory login rejected: Account not found for identifier [${identifierNormalized}]`);
+        console.warn(`[Auth Security] In-memory login rejected: Unknown account for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
+      }
+
+      if (!user.passwordHash) {
+        console.warn(`[Auth Security] In-memory login rejected: Account uses Google sign-in (no password configured) [${identifierNormalized}]`);
+        throw {
+          statusCode: 400,
+          code: 'GOOGLE_AUTH_REQUIRED',
+          message: 'This account uses Google sign-in. Continue with Google, or set a password with Forgot Password.',
+        };
       }
 
       if (!user.isActive) {
@@ -255,6 +302,26 @@ export class AuthService {
       if (!isPasswordValid) {
         console.warn(`[Auth Security] In-memory login rejected: Password verification mismatch for identifier [${identifierNormalized}]`);
         throw { statusCode: 401, code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' };
+      }
+
+      if (input.role) {
+        const requestedRole = input.role.trim().toUpperCase();
+        const userRole = (user.role || '').toUpperCase();
+        if (requestedRole && requestedRole !== userRole) {
+          console.warn(`[Auth Security] In-memory login rejected: Role mismatch for identifier [${identifierNormalized}]. Account role: [${userRole}], portal: [${requestedRole}]`);
+          const portalNameMap: Record<string, string> = {
+            TENANT: 'Tenant portal',
+            OWNER: 'Owner portal',
+            PROFESSIONAL: 'Professional portal',
+            ADMIN: 'Admin console',
+          };
+          const targetPortal = portalNameMap[userRole] || `${userRole} portal`;
+          throw {
+            statusCode: 403,
+            code: 'ROLE_MISMATCH',
+            message: `This account is registered for the ${targetPortal}. Please switch to the ${targetPortal} to log in.`,
+          };
+        }
       }
 
       // If directToken is requested by internal scripts
@@ -436,6 +503,131 @@ export class AuthService {
    */
   static async loginWithGoogle(input: GoogleAuthInput) {
     return await GoogleAuthService.loginWithGoogle(input);
+  }
+
+  /**
+   * Send Password Reset OTP
+   */
+  static async sendForgotPasswordOtp(email: string) {
+    const normalizedEmail = (email || '').trim().toLowerCase();
+    if (!normalizedEmail || !normalizedEmail.includes('@')) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'A valid email address is required.' };
+    }
+
+    const user = await AuthService.findUserByIdentifier(normalizedEmail);
+    // If account doesn't exist, return neutral success message to prevent user enumeration
+    if (!user) {
+      console.log(`[Forgot Password] Requested for non-existent email [${normalizedEmail}]. Returning neutral response.`);
+      return {
+        success: true,
+        message: 'If an account exists with this email address, a verification code has been sent.',
+      };
+    }
+
+    if (!user.isActive) {
+      throw { statusCode: 403, code: 'ACCOUNT_SUSPENDED', message: 'Your account has been deactivated or suspended' };
+    }
+
+    await OtpService.createAndSendOtp({
+      email: user.email,
+      purpose: 'PASSWORD_RESET',
+      userName: user.name,
+    });
+
+    return {
+      success: true,
+      message: 'Verification code sent to your registered email address.',
+    };
+  }
+
+  /**
+   * Reset or Set Password with Email OTP Verification
+   */
+  static async resetPasswordWithOtp(email: string, otp: string, newPassword: string) {
+    const normalizedEmail = (email || '').trim().toLowerCase();
+    const cleanOtp = (otp || '').trim();
+
+    if (!normalizedEmail || !cleanOtp || !newPassword) {
+      throw {
+        statusCode: 400,
+        code: 'VALIDATION_ERROR',
+        message: 'Email address, 6-digit verification code, and new password are required.',
+      };
+    }
+
+    if (newPassword.length < 6) {
+      throw {
+        statusCode: 400,
+        code: 'WEAK_PASSWORD',
+        message: 'Password must be at least 6 characters long.',
+      };
+    }
+
+    const verification = await OtpService.verifyOtp({
+      email: normalizedEmail,
+      otp: cleanOtp,
+      purpose: 'PASSWORD_RESET',
+    });
+
+    if (!verification.valid) {
+      throw {
+        statusCode: 400,
+        code: 'INVALID_OTP',
+        message: verification.message || 'Invalid or expired verification code.',
+      };
+    }
+
+    const passwordHash = await PasswordUtil.hashPassword(newPassword);
+
+    if (AuthService.isMongoConnected()) {
+      const user = await UserModel.findOne({ email: normalizedEmail }).select('+passwordHash');
+      if (!user) {
+        throw { statusCode: 404, code: 'USER_NOT_FOUND', message: 'User account not found.' };
+      }
+
+      user.passwordHash = passwordHash;
+      if (!Array.isArray(user.authProviders)) {
+        user.authProviders = ['LOCAL'];
+      }
+      if (!user.authProviders.includes('LOCAL')) {
+        user.authProviders.push('LOCAL');
+      }
+      user.isEmailVerified = true;
+      await user.save();
+
+      return {
+        success: true,
+        message: 'Password updated successfully. You can now sign in with your email and password.',
+      };
+    } else {
+      let user: any = null;
+      for (const u of memoryUsers.values()) {
+        if (u.email === normalizedEmail) {
+          user = u;
+          break;
+        }
+      }
+      if (!user) {
+        throw { statusCode: 404, code: 'USER_NOT_FOUND', message: 'User account not found.' };
+      }
+
+      user.passwordHash = passwordHash;
+      if (!Array.isArray(user.authProviders)) {
+        user.authProviders = ['LOCAL'];
+      }
+      if (!user.authProviders.includes('LOCAL')) {
+        user.authProviders.push('LOCAL');
+      }
+      user.isEmailVerified = true;
+      user.updatedAt = new Date();
+      memoryUsers.set(user._id || user.id, user);
+      PersistentStore.update('users', user._id || user.id, user);
+
+      return {
+        success: true,
+        message: 'Password updated successfully. You can now sign in with your email and password.',
+      };
+    }
   }
 }
 

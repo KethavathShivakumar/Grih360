@@ -326,21 +326,72 @@ export class GoogleAuthService {
       return { success: false, error: res?.message || 'Authentication failed' };
     } catch (err: any) {
       if (!environment.production) {
-        console.error('[Google Auth Technical Error]:', err);
+        console.error('[Google Auth Technical Error]:', {
+          status: err?.status,
+          statusText: err?.statusText,
+          url: err?.url,
+          error: err?.error,
+          message: err?.message,
+        });
       }
+
+      // Network / connection failure
       if (err.name === 'TimeoutError' || err.status === 0) {
-        return { success: false, error: 'Unable to connect to the server. Please check your internet connection.' };
+        return {
+          success: false,
+          error: 'Network failure: Unable to reach the API server. Please check your internet connection.',
+        };
       }
+
+      const backendCode = err?.error?.code || err?.error?.error?.code;
+      const backendMessage = err?.error?.message || err?.error?.error?.message;
+
+      // HTTP 503 Service Unavailable
       if (err.status === 503) {
-        return { success: false, error: 'Google sign-in is currently unavailable on this server. Please use password login.' };
+        if (backendCode === 'DATABASE_UNAVAILABLE') {
+          return {
+            success: false,
+            error: backendMessage || 'Database connection is temporarily unavailable on the server. Please try again shortly.',
+          };
+        }
+        if (backendCode === 'SERVICE_UNAVAILABLE') {
+          return {
+            success: false,
+            error: backendMessage || 'Google sign-in is not configured on the server (missing GOOGLE_WEB_CLIENT_ID). Please use password login.',
+          };
+        }
+        return {
+          success: false,
+          error: backendMessage || 'Server is temporarily unavailable (503). Please try again later or use password login.',
+        };
       }
+
+      // HTTP 403 Forbidden
       if (err.status === 403) {
-        return { success: false, error: err?.error?.message || 'Administrative accounts cannot sign in using Google.' };
+        if (backendCode === 'ADMIN_GOOGLE_LOGIN_FORBIDDEN') {
+          return { success: false, error: 'Administrative accounts cannot sign in using Google. Please use the Admin Portal.' };
+        }
+        if (backendCode === 'ACCOUNT_SUSPENDED') {
+          return { success: false, error: 'Your account has been deactivated. Please contact Grih360 support.' };
+        }
+        return { success: false, error: backendMessage || 'Access forbidden for this account.' };
       }
+
+      // HTTP 401 Unauthorized
       if (err.status === 401) {
-        return { success: false, error: 'Google authentication token expired or could not be verified. Please try again.' };
+        if (backendCode === 'UNVERIFIED_EMAIL') {
+          return { success: false, error: 'Your Google email address is unverified. Please verify your email with Google first.' };
+        }
+        return { success: false, error: backendMessage || 'Google authentication token expired or could not be verified. Please try again.' };
       }
-      const msg = err?.error?.message || 'Google sign-in could not be completed at this time.';
+
+      // HTTP 400 Bad Request
+      if (err.status === 400) {
+        return { success: false, error: backendMessage || 'Invalid Google authentication request parameters.' };
+      }
+
+      // Fallback
+      const msg = backendMessage || err?.message || 'Google sign-in could not be completed at this time.';
       return { success: false, error: msg };
     }
   }
