@@ -4,7 +4,7 @@ import { UserRole, VerificationStatus } from '../types/auth.types';
 export interface IUserDocument extends Document {
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   passwordHash?: string;
   role: UserRole;
   isActive: boolean;
@@ -36,10 +36,10 @@ const UserSchema = new Schema<IUserDocument>(
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
+      sparse: true,
       trim: true,
-      index: true,
     },
     passwordHash: {
       type: String,

@@ -663,9 +663,13 @@ export class OtpService {
         const remainingSeconds = Math.ceil(
           (this.RESEND_COOLDOWN_MS - (now.getTime() - recentOtp.createdAt.getTime())) / 1000
         );
-        throw new Error(
+        const err: any = new Error(
           `Please wait ${remainingSeconds} seconds before requesting a new verification code.`
         );
+        err.statusCode = 429;
+        err.code = 'RATE_LIMIT_COOLDOWN';
+        err.remainingSeconds = remainingSeconds;
+        throw err;
       }
     } else {
       const { PersistentStore } = require('../config/persistent-store');
@@ -675,7 +679,11 @@ export class OtpService {
         new Date(o.createdAt).getTime() >= (now.getTime() - this.RESEND_COOLDOWN_MS)
       );
       if (recent) {
-        throw new Error('Please wait 60 seconds before requesting a new verification code.');
+        const err: any = new Error('Please wait 60 seconds before requesting a new verification code.');
+        err.statusCode = 429;
+        err.code = 'RATE_LIMIT_COOLDOWN';
+        err.remainingSeconds = 60;
+        throw err;
       }
     }
 

@@ -24,6 +24,11 @@ export class GoogleAuthService {
   private scriptLoadingPromise: Promise<void> | null = null;
 
   public profileRequired$ = new Subject<GoogleProfileRequirement>();
+  public roleChoiceRequired$ = new Subject<{
+    idToken: string;
+    email: string;
+    name?: string;
+  }>();
   public passwordSetupRequired$ = new Subject<{
     onboardingToken: string;
     email: string;
@@ -309,9 +314,18 @@ export class GoogleAuthService {
     idToken: string,
     role?: string,
     phone?: string
-  ): Promise<{ success: boolean; needsProfile?: boolean; error?: string; needsPassword?: boolean }> {
+  ): Promise<{ success: boolean; needsProfile?: boolean; error?: string; needsPassword?: boolean; needsRoleChoice?: boolean }> {
     try {
       const res: any = await this.authService.loginWithGoogle(idToken, role, phone).toPromise();
+
+      if (res && res.needsRoleChoice) {
+        this.roleChoiceRequired$.next({
+          idToken,
+          email: res.data?.email || res.email || '',
+          name: res.data?.name || res.name || '',
+        });
+        return { success: true, needsRoleChoice: true };
+      }
 
       if (res && res.needsProfile) {
         this.profileRequired$.next({
@@ -325,13 +339,17 @@ export class GoogleAuthService {
       }
 
       if (res && (res.needsPassword || res.data?.needsPassword)) {
-        this.passwordSetupRequired$.next({
+        const payload = {
           onboardingToken: res.onboardingToken || res.data?.onboardingToken,
           email: res.data?.email || res.email,
           name: res.data?.name || res.name,
-          emailMasked: res.data?.emailMasked || res.emailMasked,
+          emailMasked: res.data?.maskedEmail || res.maskedEmail || res.data?.emailMasked || res.emailMasked,
           role: role || res.data?.role || 'TENANT',
-        });
+        };
+        try {
+          localStorage.setItem('grih360_google_onboarding', JSON.stringify(payload));
+        } catch (_) {}
+        this.passwordSetupRequired$.next(payload);
         return { success: true, needsPassword: true };
       }
 

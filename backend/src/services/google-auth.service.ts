@@ -249,40 +249,35 @@ export class GoogleAuthService {
       ? (requestedRole as UserRole)
       : 'TENANT';
 
-    const phoneNormalized = (input.phone || '').trim();
-
-    // If phone is missing, prompt user to select role and enter phone
-    if (!phoneNormalized) {
+    // If role was not supplied, prompt user for role choice first
+    if (!input.role) {
       return {
         isNewUser: true,
-        needsProfile: true,
+        needsRoleChoice: true,
         email: emailNormalized,
         name,
         profileImage: picture,
-        suggestedRole: roleToUse,
         idToken: input.idToken,
-        message: 'Profile completion required. Please choose your role and provide your mobile number.',
+        message: 'Please choose your account type.',
       };
     }
 
-    // Validate phone number format (10 digits)
-    const cleanPhone = phoneNormalized.replace(/\D/g, '');
-    if (cleanPhone.length !== 10) {
-      throw {
-        statusCode: 400,
-        code: 'INVALID_PHONE',
-        message: 'Please provide a valid 10-digit mobile number.',
-      };
-    }
-
-    // Check if phone number is already registered by another account
-    const existingPhone = await UserModel.findOne({ phone: cleanPhone });
-    if (existingPhone) {
-      throw {
-        statusCode: 409,
-        code: 'PHONE_EXISTS',
-        message: 'An account with this mobile number already exists.',
-      };
+    // Optional phone normalization if supplied
+    const phoneNormalized = (input.phone || '').trim();
+    let cleanPhone: string | undefined = undefined;
+    if (phoneNormalized) {
+      const digits = phoneNormalized.replace(/\D/g, '');
+      if (digits.length === 10) {
+        const existingPhone = await UserModel.findOne({ phone: digits });
+        if (existingPhone) {
+          throw {
+            statusCode: 409,
+            code: 'PHONE_EXISTS',
+            message: 'An account with this mobile number already exists.',
+          };
+        }
+        cleanPhone = digits;
+      }
     }
 
     // Generate secure onboarding token containing verified Google details
@@ -397,16 +392,25 @@ export class GoogleAuthService {
       };
     }
 
-    // Double check email and phone uniqueness in DB before creating
-    const existingUser = await UserModel.findOne({
-      $or: [{ email: decoded.email }, { phone: decoded.phone }],
-    });
+    // Double check email uniqueness in DB before creating
+    const existingUser = await UserModel.findOne({ email: decoded.email });
     if (existingUser) {
       throw {
         statusCode: 409,
         code: 'USER_EXISTS',
-        message: 'An account with this email or mobile number already exists.',
+        message: 'An account with this email already exists.',
       };
+    }
+
+    if (decoded.phone) {
+      const existingPhone = await UserModel.findOne({ phone: decoded.phone });
+      if (existingPhone) {
+        throw {
+          statusCode: 409,
+          code: 'PHONE_EXISTS',
+          message: 'An account with this mobile number already exists.',
+        };
+      }
     }
 
     // Hash password
@@ -416,7 +420,7 @@ export class GoogleAuthService {
     const newUser = await UserModel.create({
       name: decoded.name || 'Google User',
       email: decoded.email,
-      phone: decoded.phone,
+      phone: decoded.phone || undefined,
       role: decoded.role,
       googleId: decoded.googleId,
       passwordHash,

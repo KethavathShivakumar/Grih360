@@ -29,18 +29,22 @@ export class EmailService {
    */
   public static getTransporter(): Transporter {
     if (!this.transporter) {
+      const cleanPass = (config.smtpPass || '').replace(/\s+/g, '');
+      const port = config.smtpPort || 587;
+      const isSecure = config.smtpSecure !== undefined ? config.smtpSecure : (port === 465);
+
       this.transporter = nodemailer.createTransport({
         host: config.smtpHost || 'smtp.gmail.com',
-        port: config.smtpPort || 587,
-        secure: config.smtpSecure || false, // false for port 587 with STARTTLS
+        port: port,
+        secure: isSecure,
         auth: {
           user: config.smtpUser || 'grih360@gmail.com',
-          pass: config.smtpPass || '',
+          pass: cleanPass,
         },
-        requireTLS: true,
-        connectionTimeout: 10000, // 10s connection timeout
-        greetingTimeout: 10000,
-        socketTimeout: 15000,
+        requireTLS: !isSecure,
+        connectionTimeout: 7000, // 7s serverless timeout
+        greetingTimeout: 7000,
+        socketTimeout: 10000,
         tls: {
           rejectUnauthorized: true,
           minVersion: 'TLSv1.2',
@@ -65,9 +69,58 @@ export class EmailService {
   }
 
   /**
+   * Categorizes SMTP verify / send errors into standard categories without leaking credentials
+   */
+  public static categorizeSmtpError(error: any): 'authentication failed' | 'connection refused' | 'rate limited' | 'connection timeout' | 'unconfigured' | 'connection failed' {
+    if (!error) return 'connection failed';
+    const msg = (error.message || '').toLowerCase();
+    const code = (error.code || '').toUpperCase();
+    const respCode = error.responseCode;
+
+    if (code === 'EAUTH' || respCode === 535 || msg.includes('invalid login') || msg.includes('badcredentials') || msg.includes('username and password not accepted')) {
+      return 'authentication failed';
+    }
+    if (code === 'ECONNREFUSED' || msg.includes('connection refused') || msg.includes('econnrefused')) {
+      return 'connection refused';
+    }
+    if (code === 'ETIMEDOUT' || code === 'ESOCKETTIMEDOUT' || msg.includes('timed out') || msg.includes('timeout')) {
+      return 'connection timeout';
+    }
+    if (respCode === 421 || respCode === 450 || respCode === 452 || msg.includes('rate limit') || msg.includes('daily user sending limit') || msg.includes('quota')) {
+      return 'rate limited';
+    }
+    return 'connection failed';
+  }
+
+  /**
+   * Real SMTP verification for the health check.
+   * Reports "ok" or the categorized failure: "authentication failed", "connection refused", "rate limited".
+   * Never prints or leaks passwords, secrets, or credential values.
+   */
+  public static async getHealthSmtpStatus(): Promise<string> {
+    if (!config.smtpPass || config.smtpPass.trim().length === 0 || !config.smtpUser) {
+      return 'unconfigured';
+    }
+
+    try {
+      const transporter = this.getTransporter();
+      // Execute verify with a strict 5-second timeout so health check remains snappy
+      await Promise.race([
+        transporter.verify(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timed out')), 5000))
+      ]);
+      return 'ok';
+    } catch (error: any) {
+      const category = this.categorizeSmtpError(error);
+      console.error(`[EmailService] Health SMTP verification failed [Category: ${category}]:`, error?.message || error);
+      return category;
+    }
+  }
+
+  /**
    * Verifies the SMTP connection to Gmail without sending an email.
    */
-  public static async verifyConnection(): Promise<{ success: boolean; message: string; host?: string; port?: number; user?: string }> {
+  public static async verifyConnection(): Promise<{ success: boolean; message: string; host?: string; port?: number; user?: string; category?: string }> {
     if (!config.smtpPass || config.smtpPass.trim().length === 0) {
       return {
         success: false,
@@ -75,6 +128,7 @@ export class EmailService {
         host: config.smtpHost,
         port: config.smtpPort,
         user: config.smtpUser,
+        category: 'unconfigured',
       };
     }
 
@@ -87,15 +141,18 @@ export class EmailService {
         host: config.smtpHost,
         port: config.smtpPort,
         user: config.smtpUser,
+        category: 'ok',
       };
     } catch (error: any) {
-      console.error('[EmailService] SMTP connection verification failed:', error?.message || error);
+      const category = this.categorizeSmtpError(error);
+      console.error(`[EmailService] SMTP connection verification failed [Category: ${category}]:`, error?.message || error);
       return {
         success: false,
-        message: `SMTP verification failed: ${error?.message || 'Unknown SMTP error'}`,
+        message: `SMTP verification failed: ${category}`,
         host: config.smtpHost,
         port: config.smtpPort,
         user: config.smtpUser,
+        category,
       };
     }
   }
@@ -120,7 +177,8 @@ export class EmailService {
     }
 
     const transporter = this.getTransporter();
-    const sender = from || config.emailFrom || `"Grih360" <${config.smtpUser || 'grih360@gmail.com'}>`;
+    const user = config.smtpUser || 'grih360@gmail.com';
+    const sender = `"Grih360" <${user}>`;
     const plainText = text || (html ? html.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim() : '');
 
     try {

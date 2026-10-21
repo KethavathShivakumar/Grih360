@@ -6,8 +6,12 @@ import { authRateLimiter } from '../middleware/security.middleware';
 
 const router = Router();
 
+// Account Discovery & Verification Flow
+router.post('/check-email', authRateLimiter, AuthController.checkEmail);
+
 // Standard Password & Registration Flow
 router.post('/register/send-otp', authRateLimiter, AuthController.registerSendOtp);
+router.post('/register/verify-code', authRateLimiter, AuthController.registerVerifyCode);
 router.post('/register/verify-and-create', authRateLimiter, AuthController.registerVerifyAndCreate);
 router.post('/register', authRateLimiter, AuthValidator.validateRegister, AuthController.register);
 

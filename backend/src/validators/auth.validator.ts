@@ -16,8 +16,8 @@ export class AuthValidator {
       return;
     }
 
-    if (!phone || typeof phone !== 'string' || phone.trim().length < 8) {
-      ApiResponseUtil.error(res, 'Valid phone number is required', 400, 'VALIDATION_ERROR');
+    if (phone && (typeof phone !== 'string' || phone.trim().length < 8)) {
+      ApiResponseUtil.error(res, 'Valid phone number is required if provided', 400, 'VALIDATION_ERROR');
       return;
     }
 

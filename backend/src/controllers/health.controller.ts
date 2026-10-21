@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getHealthStatus } from '../services/health.service';
 import { JwtUtil } from '../utils/jwt.util';
 
-export const checkHealth = (req: Request, res: Response): void => {
+export const checkHealth = async (req: Request, res: Response): Promise<void> => {
   let isAdmin = false;
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -17,7 +17,7 @@ export const checkHealth = (req: Request, res: Response): void => {
     }
   }
 
-  const healthData = getHealthStatus(isAdmin);
+  const healthData = await getHealthStatus(isAdmin);
   res.status(200).json(healthData);
 };
 

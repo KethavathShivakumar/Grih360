@@ -40,6 +40,20 @@ import { environment } from '../../../../environments/environment';
           </p>
         </div>
 
+        <!-- Two Clear Top Options: Already a user? Sign in | New here? Register -->
+        <div class="grid grid-cols-2 gap-1 p-1 bg-n-100 border border-n-200 rounded-lg">
+          <div class="py-2 text-xs rounded-md bg-n-0 text-navy font-semibold shadow-xs border border-n-200 text-center flex items-center justify-center min-h-[44px]">
+            Already a user? Sign in
+          </div>
+          <a
+            [routerLink]="['/auth/register']"
+            [queryParams]="{ role: selectedRole }"
+            class="py-2 text-xs rounded-md text-n-500 hover:text-n-900 font-semibold text-center flex items-center justify-center min-h-[44px]"
+          >
+            New here? Register
+          </a>
+        </div>
+
         <!-- Role Selector Tabs -->
         <div class="space-y-1">
           <label class="text-xs font-semibold text-n-500 uppercase tracking-wider block">
@@ -239,7 +253,7 @@ import { environment } from '../../../../environments/environment';
                 (ngModelChange)="otpCodeChange.emit($event)"
                 name="otpCode"
                 maxlength="6"
-                placeholder="Enter 6-digit code"
+                placeholder="6-digit code"
                 class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-lg text-base text-center tracking-widest font-mono text-n-900 placeholder-n-400 focus:border-brand focus:ring-1 focus:ring-brand outline-none transition-colors min-h-[44px]"
                 autocomplete="one-time-code"
               />
@@ -321,82 +335,24 @@ import { environment } from '../../../../environments/environment';
         </div>
       </main>
 
-      <!-- Profile Completion Bottom Sheet (Mobile) -->
-      <div *ngIf="showProfileSheet" class="fixed inset-0 bg-n-900/50 z-50 flex items-end justify-center p-0">
-        <div class="bg-n-0 rounded-t-xl p-5 w-full max-w-md shadow-sm space-y-4 border-t border-n-200 animate-in slide-in-from-bottom duration-200">
-          <div class="flex items-center justify-between pb-2 border-b border-n-200">
-            <div>
-              <h3 class="text-base font-semibold text-n-900">Complete Profile</h3>
-              <p class="text-xs text-n-500">Select role and enter mobile number</p>
-            </div>
-            <button (click)="closeProfileSheet.emit()" class="text-n-400 hover:text-n-700 text-base font-semibold p-2 cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center">✕</button>
-          </div>
-
-          <!-- Role Selector -->
-          <div class="space-y-1">
-            <label class="text-xs font-semibold text-n-500 uppercase tracking-wider block">Workspace Role</label>
-            <div class="grid grid-cols-3 gap-1.5 p-1 bg-n-100 rounded-lg border border-n-200">
-              <button
-                *ngFor="let r of roles"
-                type="button"
-                (click)="onSelectRole(r.value)"
-                [class]="selectedRole === r.value ? 'bg-navy text-n-0 font-semibold' : 'text-n-500 font-semibold'"
-                class="py-2 text-xs rounded-md transition-colors text-center cursor-pointer min-h-[44px]"
-              >
-                {{ r.label }}
-              </button>
-            </div>
-          </div>
-
-          <!-- Phone Number Input -->
-          <div class="space-y-1">
-            <label class="text-xs font-semibold text-n-700 block">Mobile Number</label>
-            <div class="flex">
-              <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-n-200 bg-n-100 text-xs font-semibold text-n-600">
-                +91
-              </span>
-              <input
-                type="tel"
-                [(ngModel)]="profilePhone"
-                (ngModelChange)="profilePhoneChange.emit($event)"
-                placeholder="10-digit mobile number"
-                maxlength="10"
-                class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-none rounded-r-lg text-sm text-n-900 placeholder-n-400 focus:border-brand outline-none font-medium min-h-[44px]"
-              />
-            </div>
-            <span *ngIf="profileError" class="text-xs text-err-text font-semibold block">
-              {{ profileError }}
-            </span>
-          </div>
-
-          <div class="pt-2">
-            <button
-              (click)="completeProfile.emit()"
-              [disabled]="isCompletingProfile || !profilePhone"
-              type="button"
-              class="w-full py-2.5 bg-brand hover:bg-brand-hover active:bg-brand disabled:opacity-50 text-n-0 font-semibold text-sm rounded-lg min-h-[44px] cursor-pointer transition-colors"
-            >
-              {{ isCompletingProfile ? 'Registering...' : 'Complete Registration →' }}
-            </button>
-          </div>
-        </div>
-      </div>
-
       <!-- Google First Login "Set Your Password" Modal (Mobile) -->
-      <div *ngIf="showGooglePasswordModal" class="fixed inset-0 bg-n-900/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-n-0 rounded-xl p-5 w-full max-w-md shadow-sm border border-n-200 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div *ngIf="showGooglePasswordModal" class="fixed inset-0 bg-n-900/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-n-0 rounded-xl p-5 w-full max-w-md shadow-lg border border-n-200 space-y-4 max-h-[92vh] overflow-y-auto">
           <div class="flex items-center justify-between pb-2 border-b border-n-200">
             <div>
-              <h3 class="text-base font-semibold text-n-900">Set Your Password</h3>
+              <h3 class="text-base font-semibold text-n-900">Set your password</h3>
               <p class="text-xs text-n-500 mt-0.5">Finish creating your account</p>
             </div>
-            <button (click)="closeGooglePasswordModal.emit()" class="text-n-400 hover:text-n-900 cursor-pointer p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+            <button
+              (click)="closeGooglePasswordModal.emit()"
+              type="button"
+              class="text-n-400 hover:text-n-900 cursor-pointer p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
               ✕
             </button>
           </div>
 
           <div class="p-2.5 bg-brand-subtle border border-brand-border rounded-lg text-xs text-ok-text">
-            <span>A 6-digit code was sent to <strong>{{ googleOnboardingData?.emailMasked || 'your Google email' }}</strong>.</span>
+            <span>A 6-digit code was sent to <strong>{{ googleOnboardingData?.emailMasked || googleOnboardingData?.email || 'your Google email' }}</strong>.</span>
           </div>
 
           <div *ngIf="googlePasswordError" class="p-3 bg-err-bg border border-err-border text-err-text rounded-lg text-xs font-semibold">
@@ -405,25 +361,26 @@ import { environment } from '../../../../environments/environment';
 
           <!-- 6-digit OTP -->
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-n-700 block">6-Digit Verification Code</label>
+            <label class="text-xs font-semibold text-n-700 block">6-digit code</label>
             <input
               type="text"
               [(ngModel)]="googleOtp"
               (ngModelChange)="googleOtpChange.emit($event)"
               maxlength="6"
-              placeholder="Enter 6-digit code"
+              placeholder="6-digit code"
               class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-lg text-base text-center tracking-widest font-mono text-n-900 min-h-[44px]"
             />
+            <p class="text-[11px] text-n-400">Code never auto-submits. Enter the code and set your password below.</p>
           </div>
 
           <!-- Password -->
           <div class="space-y-1">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-semibold text-n-700 block">Create Password</label>
+              <label class="text-xs font-semibold text-n-700 block">New password</label>
               <button
                 type="button"
                 (click)="toggleGooglePasswordVisibility.emit()"
-                class="text-xs font-semibold text-n-500 hover:text-n-900">
+                class="text-xs font-semibold text-n-500 hover:text-n-900 min-h-[36px] flex items-center">
                 {{ showGooglePassword ? 'Hide' : 'Show' }}
               </button>
             </div>
@@ -431,21 +388,40 @@ import { environment } from '../../../../environments/environment';
               [type]="showGooglePassword ? 'text' : 'password'"
               [(ngModel)]="googlePassword"
               (ngModelChange)="googlePasswordChange.emit($event)"
-              placeholder="Min 8 chars (upper, lower, num)"
+              placeholder="New password"
               class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-lg text-sm text-n-900 min-h-[44px]"
             />
           </div>
 
           <!-- Confirm Password -->
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-n-700 block">Confirm Password</label>
+            <label class="text-xs font-semibold text-n-700 block">Confirm password</label>
             <input
               [type]="showGooglePassword ? 'text' : 'password'"
               [(ngModel)]="googleConfirmPassword"
               (ngModelChange)="googleConfirmPasswordChange.emit($event)"
-              placeholder="Re-enter password"
+              placeholder="Confirm password"
               class="w-full px-3.5 py-2.5 bg-n-0 border border-n-200 rounded-lg text-sm text-n-900 min-h-[44px]"
             />
+          </div>
+
+          <!-- Live Password Rules Validation Helper -->
+          <div class="p-2.5 bg-n-100 rounded-lg border border-n-200 space-y-1.5 text-xs">
+            <div class="text-[11px] font-semibold text-n-500 uppercase tracking-wider">Password requirements:</div>
+            <div class="grid grid-cols-2 gap-1 text-[11px]">
+              <span [class]="hasMinLength ? 'text-emerald-700 font-semibold' : 'text-n-500'">
+                {{ hasMinLength ? '✓' : '○' }} 8+ characters
+              </span>
+              <span [class]="hasUpperLower ? 'text-emerald-700 font-semibold' : 'text-n-500'">
+                {{ hasUpperLower ? '✓' : '○' }} Upper & lower
+              </span>
+              <span [class]="hasNumber ? 'text-emerald-700 font-semibold' : 'text-n-500'">
+                {{ hasNumber ? '✓' : '○' }} At least 1 number
+              </span>
+              <span [class]="passwordsMatch ? 'text-emerald-700 font-semibold' : 'text-n-500'">
+                {{ passwordsMatch ? '✓' : '○' }} Passwords match
+              </span>
+            </div>
           </div>
 
           <div class="flex items-center justify-between pt-2">
@@ -467,7 +443,7 @@ import { environment } from '../../../../environments/environment';
             <button
               type="button"
               (click)="submitGooglePassword.emit()"
-              [disabled]="isGooglePasswordSubmitting || !googleOtp || googleOtp.length !== 6 || !googlePassword || !googleConfirmPassword"
+              [disabled]="isGooglePasswordSubmitting || !isPasswordFormValid"
               class="px-4 py-2.5 bg-brand hover:bg-brand-hover text-n-0 text-xs font-semibold rounded-lg min-h-[44px] flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
             >
               <svg *ngIf="isGooglePasswordSubmitting" class="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
@@ -556,6 +532,33 @@ export class MobileLoginComponent {
   @Output() loginSubmit = new EventEmitter<void>();
   @Output() togglePasswordVisibility = new EventEmitter<void>();
   @Output() openForgotPassword = new EventEmitter<void>();
+
+  get hasMinLength(): boolean {
+    return (this.googlePassword || '').length >= 8;
+  }
+
+  get hasUpperLower(): boolean {
+    const pw = this.googlePassword || '';
+    return /[a-z]/.test(pw) && /[A-Z]/.test(pw);
+  }
+
+  get hasNumber(): boolean {
+    return /[0-9]/.test(this.googlePassword || '');
+  }
+
+  get passwordsMatch(): boolean {
+    return !!this.googlePassword && this.googlePassword === this.googleConfirmPassword;
+  }
+
+  get isPasswordFormValid(): boolean {
+    return (
+      (this.googleOtp || '').trim().length === 6 &&
+      this.hasMinLength &&
+      this.hasUpperLower &&
+      this.hasNumber &&
+      this.passwordsMatch
+    );
+  }
 
   roles = [
     { label: 'Tenant', value: 'TENANT' },

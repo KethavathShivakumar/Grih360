@@ -1,7 +1,8 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, isDevMode } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
+import { isRawOrTechnicalError, GENERIC_ERROR_MESSAGE } from '../utils/error-sanitizer.util';
 import { catchError, switchMap, throwError, EMPTY } from 'rxjs';
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
@@ -65,6 +66,40 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
             catchError((refreshErr) => throwError(() => refreshErr))
           );
         }
+      }
+
+      // 3. Log technical error details ONLY in development mode
+      if (isDevMode()) {
+        console.error('[API Error Details]', {
+          method: req.method,
+          url: req.urlWithParams,
+          status: err?.status,
+          statusText: err?.statusText,
+          error: err?.error,
+        });
+      }
+
+      // 4. Sanitize raw technical errors (e.g., 404 "Resource not found: /api/...", 5xx, HTML traces)
+      if (isRawOrTechnicalError(err)) {
+        let sanitizedBody: any = {
+          success: false,
+          message: GENERIC_ERROR_MESSAGE,
+        };
+        if (err?.error && typeof err.error === 'object') {
+          sanitizedBody = {
+            ...err.error,
+            success: false,
+            message: GENERIC_ERROR_MESSAGE,
+          };
+        }
+        const sanitizedErr = new HttpErrorResponse({
+          error: sanitizedBody,
+          headers: err?.headers,
+          status: err?.status || 500,
+          statusText: err?.statusText || 'Error',
+          url: err?.url || req.url,
+        });
+        return throwError(() => sanitizedErr);
       }
 
       return throwError(() => err);

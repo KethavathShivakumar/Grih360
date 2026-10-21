@@ -1,8 +1,9 @@
 import { getMongoStatus } from '../config/database';
 import { config } from '../config/env';
 import { HealthCheckResponse } from '../types';
+import { EmailService } from './email.service';
 
-export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
+export const getHealthStatus = async (isAdmin = false): Promise<HealthCheckResponse> => {
   const mongoState = getMongoStatus();
 
   const hasJwtAccess = Boolean(config.jwtAccessSecret || process.env.JWT_ACCESS_SECRET);
@@ -13,6 +14,9 @@ export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
   const hasSmtpUser = Boolean(config.smtpUser || process.env.SMTP_USER);
   const hasSmtpPass = Boolean(config.smtpPass || process.env.SMTP_PASS);
   const hasEmail = hasSmtpUser && hasSmtpPass;
+
+  // Real SMTP verify check
+  const smtpStatus = await EmailService.getHealthSmtpStatus();
 
   const googleConfigured = Boolean((config.googleWebClientId || process.env.GOOGLE_WEB_CLIENT_ID || '').trim());
   let commitHash = (process.env.VERCEL_GIT_COMMIT_SHA || '').substring(0, 7);
@@ -36,6 +40,7 @@ export const getHealthStatus = (isAdmin = false): HealthCheckResponse => {
     database: mongoState === 'connected' ? 'ok' : 'disconnected',
     secrets: hasSecrets ? 'ok' : 'incomplete',
     email: hasEmail ? 'ok' : 'incomplete',
+    smtp: smtpStatus,
     googleConfigured,
     commitHash,
   };

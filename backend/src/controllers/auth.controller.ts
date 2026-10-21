@@ -33,6 +33,28 @@ export class AuthController {
   }
 
   /**
+   * Check whether an email account exists, its auth methods, and roles
+   * POST /api/v1/auth/check-email
+   */
+  static async checkEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email } = req.body;
+      const result = await AuthService.checkEmail(email);
+      ApiResponseUtil.success(res, 'Email account check completed', result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'VALIDATION_ERROR',
+          message: err.message,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
    * Request Registration OTP (Step 1 of Email Registration)
    * POST /api/v1/auth/register/send-otp
    */
@@ -48,6 +70,29 @@ export class AuthController {
           code: err.code || 'REGISTRATION_ERROR',
           message: err.message,
           authProviders: err.authProviders,
+        });
+        return;
+      }
+      next(err);
+    }
+  }
+
+  /**
+   * Verify Registration OTP Code (Step 2 of step-by-step Email Registration)
+   * POST /api/v1/auth/register/verify-code
+   */
+  static async registerVerifyCode(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, otp } = req.body;
+      const result = await AuthService.verifyRegistrationOtpCode(email, otp);
+      ApiResponseUtil.success(res, result.message, result, 200);
+    } catch (err: any) {
+      if (err.statusCode) {
+        res.status(err.statusCode).json({
+          success: false,
+          code: err.code || 'INVALID_OTP',
+          message: err.message,
+          remainingAttempts: err.remainingAttempts,
         });
         return;
       }
@@ -103,6 +148,17 @@ export class AuthController {
         role,
         phone,
       });
+
+      if ((result as any).needsRoleChoice) {
+        res.status(200).json({
+          success: true,
+          isNewUser: true,
+          needsRoleChoice: true,
+          message: (result as any).message,
+          data: result,
+        });
+        return;
+      }
 
       if ((result as any).needsProfile) {
         res.status(200).json({

@@ -80,6 +80,37 @@ export class AuthService {
   }
 
   /**
+   * Check whether an email account exists, its authentication methods, and roles
+   * POST /api/v1/auth/check-email
+   */
+  static async checkEmail(email: string) {
+    const normalized = (email || '').trim().toLowerCase();
+    if (!normalized || !normalized.includes('@') || !normalized.includes('.')) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Please enter a valid email address.' };
+    }
+
+    const user = await AuthService.findUserByIdentifier(normalized);
+    if (!user) {
+      return {
+        exists: false,
+      };
+    }
+
+    const isGoogle = (user.authProviders && user.authProviders.includes('GOOGLE')) || user.authProvider === 'GOOGLE' || !!user.googleId;
+    const hasPassword = !!(user.passwordHash || (user as any).password);
+    const roles: string[] = [user.role || 'TENANT'];
+
+    return {
+      exists: true,
+      hasPassword,
+      authProviders: user.authProviders || (isGoogle ? ['GOOGLE'] : ['LOCAL']),
+      role: user.role || 'TENANT',
+      roles,
+      emailMasked: OtpService.maskEmail(normalized),
+    };
+  }
+
+  /**
    * Request Registration OTP (Step 1 of Email Registration)
    * Validates uniqueness and dispatches 6-digit verification code.
    */
@@ -144,35 +175,85 @@ export class AuthService {
   }
 
   /**
-   * Verify Registration OTP and Create User (Step 2 of Email Registration)
-   * Creates the account ONLY after the OTP is verified and the password is set.
+   * Verify Registration OTP Code only (returns registrationToken for step-by-step signup)
+   */
+  static async verifyRegistrationOtpCode(email: string, otp: string) {
+    const normalized = (email || '').trim().toLowerCase();
+    const cleanOtp = (otp || '').trim();
+
+    if (!normalized || !cleanOtp) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email and 6-digit verification code are required.' };
+    }
+
+    const verification = await OtpService.verifyOtp({
+      email: normalized,
+      otp: cleanOtp,
+      purpose: 'REGISTRATION',
+    });
+
+    if (!verification.valid) {
+      throw {
+        statusCode: verification.statusCode || 400,
+        code: 'INVALID_OTP',
+        message: verification.message || 'Invalid or expired verification code.',
+        remainingAttempts: verification.remainingAttempts,
+      };
+    }
+
+    const registrationToken = JwtUtil.generateRegistrationToken({ email: normalized });
+    return {
+      success: true,
+      message: 'Email verification successful.',
+      registrationToken,
+      email: normalized,
+    };
+  }
+
+  /**
+   * Verify Registration OTP and Create User (Step 2/Final of Email Registration)
+   * Accepts either (email + otp) or (registrationToken)
    */
   static async verifyRegistrationOtpAndCreate(input: {
-    email: string;
-    otp: string;
+    email?: string;
+    otp?: string;
+    registrationToken?: string;
     password: string;
     confirmPassword?: string;
-    name: string;
-    phone: string;
-    role: string;
+    name?: string;
+    phone?: string;
+    role?: string;
   }) {
-    const normalized = (input.email || '').trim().toLowerCase();
-    const cleanOtp = (input.otp || '').trim();
-    const cleanName = (input.name || '').trim();
-    const cleanPhone = (input.phone || '').replace(/\D/g, '');
+    let normalized = '';
+    if (input.registrationToken) {
+      const decoded = JwtUtil.verifyRegistrationToken(input.registrationToken);
+      normalized = (decoded.email || '').trim().toLowerCase();
+    } else {
+      normalized = (input.email || '').trim().toLowerCase();
+      const cleanOtp = (input.otp || '').trim();
+      if (!normalized || !cleanOtp) {
+        throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email and verification code are required.' };
+      }
+      const verification = await OtpService.verifyOtp({
+        email: normalized,
+        otp: cleanOtp,
+        purpose: 'REGISTRATION',
+      });
+      if (!verification.valid) {
+        throw {
+          statusCode: verification.statusCode || 400,
+          code: 'INVALID_OTP',
+          message: verification.message || 'Invalid or expired verification code.',
+          remainingAttempts: verification.remainingAttempts,
+        };
+      }
+    }
+
+    if (!normalized || !input.password) {
+      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email and password are required.' };
+    }
+
+    const cleanName = (input.name || '').trim() || normalized.split('@')[0];
     const requestedRole = (input.role || 'TENANT').toUpperCase();
-
-    if (!normalized || !cleanOtp || !cleanName || !cleanPhone || !input.password) {
-      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'All registration fields are required.' };
-    }
-
-    if (cleanName.length < 2) {
-      throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Name must be at least 2 characters long.' };
-    }
-
-    if (cleanPhone.length !== 10) {
-      throw { statusCode: 400, code: 'INVALID_PHONE', message: 'Please provide a valid 10-digit mobile number.' };
-    }
 
     if (input.password.length < 8) {
       throw { statusCode: 400, code: 'WEAK_PASSWORD', message: 'Password must be at least 8 characters long.' };
@@ -194,26 +275,20 @@ export class AuthService {
       throw { statusCode: 400, code: 'PASSWORD_MISMATCH', message: 'Passwords do not match.' };
     }
 
+    // Optional phone validation if provided
+    let cleanPhone: string | undefined = undefined;
+    const phoneNormalized = (input.phone || '').trim();
+    if (phoneNormalized) {
+      const digits = phoneNormalized.replace(/\D/g, '');
+      if (digits.length === 10) {
+        cleanPhone = digits;
+      }
+    }
+
     const validRoles: UserRole[] = ['TENANT', 'OWNER', 'PROFESSIONAL'];
     const roleToUse: UserRole = validRoles.includes(requestedRole as UserRole)
       ? (requestedRole as UserRole)
       : 'TENANT';
-
-    // Verify OTP first
-    const verification = await OtpService.verifyOtp({
-      email: normalized,
-      otp: cleanOtp,
-      purpose: 'REGISTRATION',
-    });
-
-    if (!verification.valid) {
-      throw {
-        statusCode: verification.statusCode || 400,
-        code: 'INVALID_OTP',
-        message: verification.message || 'Invalid or expired verification code.',
-        remainingAttempts: verification.remainingAttempts,
-      };
-    }
 
     // Double check email uniqueness in database
     const existingUser = await AuthService.findUserByIdentifier(normalized);
@@ -226,8 +301,8 @@ export class AuthService {
       };
     }
 
-    // Double check phone uniqueness
-    if (AuthService.isMongoConnected()) {
+    // Double check phone uniqueness only if phone was provided
+    if (cleanPhone && AuthService.isMongoConnected()) {
       const existingPhone = await UserModel.findOne({ phone: cleanPhone });
       if (existingPhone) {
         throw {
@@ -245,7 +320,7 @@ export class AuthService {
       const newUser = await UserModel.create({
         name: cleanName,
         email: normalized,
-        phone: cleanPhone,
+        phone: cleanPhone || undefined,
         role: roleToUse,
         passwordHash,
         authProviders: ['LOCAL'],
@@ -282,7 +357,7 @@ export class AuthService {
         id,
         name: cleanName,
         email: normalized,
-        phone: cleanPhone,
+        phone: cleanPhone || undefined,
         passwordHash,
         role: roleToUse,
         authProviders: ['LOCAL'],

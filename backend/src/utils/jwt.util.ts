@@ -63,4 +63,26 @@ export class JwtUtil {
       };
     }
   }
+
+  static generateRegistrationToken(payload: { email: string }): string {
+    return jwt.sign({ ...payload, purpose: 'REGISTRATION_STEP' }, config.jwtAccessSecret, {
+      expiresIn: '30m',
+    });
+  }
+
+  static verifyRegistrationToken(token: string): { email: string } {
+    try {
+      const decoded: any = jwt.verify(token, config.jwtAccessSecret);
+      if (decoded.purpose !== 'REGISTRATION_STEP') {
+        throw new Error('Invalid token purpose');
+      }
+      return decoded;
+    } catch (e) {
+      throw {
+        statusCode: 401,
+        code: 'INVALID_TOKEN',
+        message: 'Registration session expired. Please verify your email again.',
+      };
+    }
+  }
 }

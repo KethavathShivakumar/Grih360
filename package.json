@@ -8,7 +8,9 @@
     "build:frontend": "cd frontend && npm install && npm run build",
     "build:backend": "cd backend && npm install && npm run build",
     "start:backend": "cd backend && npm start",
-    "start:frontend": "cd frontend && npm start"
+    "start:frontend": "cd frontend && npm start",
+    "check:routes": "node scripts/check-deployment-routes.js",
+    "security:scan": "node scripts/security-scan.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

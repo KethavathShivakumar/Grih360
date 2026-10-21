@@ -21,10 +21,10 @@ export const config = {
   // Gmail SMTP Delivery Configuration
   smtpHost: (process.env.SMTP_HOST || 'smtp.gmail.com').trim(),
   smtpPort: parseInt(process.env.SMTP_PORT || '587', 10),
-  smtpSecure: process.env.SMTP_SECURE === 'true',
+  smtpSecure: process.env.SMTP_SECURE !== undefined ? process.env.SMTP_SECURE === 'true' : parseInt(process.env.SMTP_PORT || '587', 10) === 465,
   smtpUser: (process.env.SMTP_USER || 'grih360@gmail.com').trim(),
-  smtpPass: (process.env.SMTP_PASS || '').trim(),
-  emailFrom: (process.env.EMAIL_FROM || 'Grih360 <grih360@gmail.com>').trim(),
+  smtpPass: (process.env.SMTP_PASS || '').replace(/\s+/g, ''),
+  emailFrom: (process.env.EMAIL_FROM || '').trim(),
   emailOtpExpiryMinutes: parseInt(process.env.EMAIL_OTP_EXPIRY_MINUTES || '10', 10),
   emailOtpLength: parseInt(process.env.EMAIL_OTP_LENGTH || '6', 10),
 };

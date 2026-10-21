@@ -62,5 +62,6 @@ backups/
 !README.md
 backend/check-properties.js
 backend/db-inspection.txt
+frontend/scripts/capture_auth_screenshots.js
 
 

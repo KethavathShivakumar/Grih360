@@ -32,6 +32,7 @@ export interface HealthCheckResponse {
   database: string;
   secrets: string;
   email: string;
+  smtp?: string;
   googleConfigured: boolean;
   commitHash: string;
   envStatus?: {

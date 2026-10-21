@@ -391,6 +391,10 @@ export class AuthService {
     );
   }
 
+  public checkEmail(email: string): Observable<any> {
+    return this.apiService.post<any>('/auth/check-email', { email });
+  }
+
   public requestRegistrationOtp(userData: {
     email: string;
     name?: string;
@@ -400,14 +404,19 @@ export class AuthService {
     return this.apiService.post<any>('/auth/register/send-otp', userData);
   }
 
+  public verifyRegistrationOtpCode(email: string, otp: string): Observable<any> {
+    return this.apiService.post<any>('/auth/register/verify-code', { email, otp });
+  }
+
   public verifyRegistrationOtpAndCreate(data: {
-    email: string;
-    otp: string;
+    email?: string;
+    otp?: string;
+    registrationToken?: string;
     password: string;
-    confirmPassword: string;
-    name: string;
-    phone: string;
-    role: string;
+    confirmPassword?: string;
+    name?: string;
+    phone?: string;
+    role?: string;
   }): Observable<any> {
     return this.apiService.post<any>('/auth/register/verify-and-create', data).pipe(
       switchMap(async (res) => {
