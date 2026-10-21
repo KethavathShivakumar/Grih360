@@ -10,6 +10,9 @@ import routes from './routes';
 
 const app: Express = express();
 
+// Trust reverse proxy (Vercel / Cloudflare) to ensure accurate client IP resolution
+app.set('trust proxy', 1);
+
 // 1. Security Headers via Helmet
 app.use(helmetSecurityHeaders);
 

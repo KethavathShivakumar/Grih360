@@ -32,9 +32,10 @@ export const apiRateLimiter = rateLimit({
 // 3. Strict Rate Limiter for Authentication & Sensitive Endpoints
 export const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 30, // Max 30 login/register requests per 15 mins per IP
+  max: 100, // Max 100 login/register requests per 15 mins per client IP
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS',
   handler: (req, res) => {
     ApiResponseUtil.error(res, 'Too many authentication attempts. Please try again after 15 minutes', 429, 'AUTH_RATE_LIMIT_EXCEEDED');
   },
