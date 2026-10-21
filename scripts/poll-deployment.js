@@ -1,4 +1,4 @@
-const targetCommit = 'bd91b42';
+const targetCommit = '72bbc19';
 const url = 'https://grih360.vercel.app/api/v1/health';
 
 async function checkHealth() {
