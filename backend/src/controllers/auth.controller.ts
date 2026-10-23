@@ -83,8 +83,8 @@ export class AuthController {
    */
   static async registerVerifyCode(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { email, otp } = req.body;
-      const result = await AuthService.verifyRegistrationOtpCode(email, otp);
+      const { email, otp, role } = req.body;
+      const result = await AuthService.verifyRegistrationOtpCode(email, otp, role);
       ApiResponseUtil.success(res, result.message, result, 200);
     } catch (err: any) {
       if (err.statusCode) {
@@ -106,10 +106,11 @@ export class AuthController {
    */
   static async registerVerifyAndCreate(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { email, otp, password, confirmPassword, name, phone, role } = req.body;
+      const { email, otp, registrationToken, password, confirmPassword, name, phone, role } = req.body;
       const result = await AuthService.verifyRegistrationOtpAndCreate({
         email,
         otp,
+        registrationToken,
         password,
         confirmPassword,
         name,

@@ -177,9 +177,10 @@ export class AuthService {
   /**
    * Verify Registration OTP Code only (returns registrationToken for step-by-step signup)
    */
-  static async verifyRegistrationOtpCode(email: string, otp: string) {
+  static async verifyRegistrationOtpCode(email: string, otp: string, role?: string) {
     const normalized = (email || '').trim().toLowerCase();
     const cleanOtp = (otp || '').trim();
+    const requestedRole = (role || 'TENANT').toUpperCase();
 
     if (!normalized || !cleanOtp) {
       throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email and 6-digit verification code are required.' };
@@ -200,12 +201,13 @@ export class AuthService {
       };
     }
 
-    const registrationToken = JwtUtil.generateRegistrationToken({ email: normalized });
+    const registrationToken = JwtUtil.generateRegistrationToken({ email: normalized, role: requestedRole });
     return {
       success: true,
       message: 'Email verification successful.',
       registrationToken,
       email: normalized,
+      role: requestedRole,
     };
   }
 
@@ -224,14 +226,21 @@ export class AuthService {
     role?: string;
   }) {
     let normalized = '';
+    let roleFromToken: string | undefined;
+
     if (input.registrationToken) {
       const decoded = JwtUtil.verifyRegistrationToken(input.registrationToken);
-      normalized = (decoded.email || '').trim().toLowerCase();
+      normalized = (decoded.email || input.email || '').trim().toLowerCase();
+      roleFromToken = decoded.role;
     } else {
       normalized = (input.email || '').trim().toLowerCase();
       const cleanOtp = (input.otp || '').trim();
       if (!normalized || !cleanOtp) {
-        throw { statusCode: 400, code: 'VALIDATION_ERROR', message: 'Email and verification code are required.' };
+        throw {
+          statusCode: 400,
+          code: 'SESSION_EXPIRED',
+          message: 'Registration session expired or verification code missing. Please verify your email again.',
+        };
       }
       const verification = await OtpService.verifyOtp({
         email: normalized,
@@ -253,7 +262,7 @@ export class AuthService {
     }
 
     const cleanName = (input.name || '').trim() || normalized.split('@')[0];
-    const requestedRole = (input.role || 'TENANT').toUpperCase();
+    const requestedRole = (input.role || roleFromToken || 'TENANT').toUpperCase();
 
     if (input.password.length < 8) {
       throw { statusCode: 400, code: 'WEAK_PASSWORD', message: 'Password must be at least 8 characters long.' };

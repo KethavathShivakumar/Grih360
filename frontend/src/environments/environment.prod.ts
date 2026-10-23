@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  appVersion: '1.5.0',
+  appVersion: '1.5.5',
   commitHash: '7d8d850',
   siteUrl: 'https://grih360.vercel.app',
   apiUrl: 'https://grih360.vercel.app/api/v1',

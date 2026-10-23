@@ -15,6 +15,8 @@ export class SeoService {
   private defaultDescription = 'Grih360: Unified Property, Rental & Home Ecosystem for Tier-2 & Tier-3 India. Zero brokerage, verified properties, digital agreements, and automated rent tracking.';
 
   private routeDescriptions: Record<string, string> = {
+    '/login': 'Sign in securely to your Grih360 workspace with 256-bit encryption and two-step verification.',
+    '/register': 'Create a verified Grih360 account as a tenant, property owner, or service professional.',
     '/role-selection': 'Select your workspace persona on Grih360: Property Owner, Tenant, or Trade Professional.',
     '/auth/login': 'Sign in securely to your Grih360 workspace with 256-bit encryption and two-step verification.',
     '/auth/register': 'Create a verified Grih360 account as a tenant, property owner, or service professional.',

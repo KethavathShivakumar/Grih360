@@ -1,0 +1,473 @@
+<div class="min-h-screen bg-n-50 flex flex-col justify-between font-sans text-n-900 safe-area-bottom">
+  <!-- Top Brand Header -->
+  <header class="w-full bg-n-0 border-b border-n-200 px-4 sm:px-8 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      @if (step > 1) {
+        <button
+          id="btn-reg-back"
+          (click)="handleBackNavigation()"
+          type="button"
+          class="p-2 -ml-2 rounded-lg text-n-700 hover:text-navy hover:bg-n-100 transition-colors flex items-center justify-center min-h-[44px] min-w-[44px] cursor-pointer"
+          aria-label="Go back"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        </button>
+      }
+      <a routerLink="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-navy text-n-0 flex items-center justify-center font-semibold text-sm">
+          G
+        </div>
+        <span class="text-base font-semibold text-navy">Grih<span class="text-brand">360</span></span>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="text-xs font-semibold text-n-500 bg-n-100 px-2.5 py-1 rounded-full">
+        Step {{ step }} of 4
+      </span>
+      <a
+        routerLink="/login"
+        class="text-xs font-semibold text-brand hover:underline cursor-pointer min-h-[44px] flex items-center"
+      >
+        Sign in
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow flex items-center justify-center p-4 sm:p-6 my-auto">
+    <div class="w-full max-w-md bg-n-0 rounded-2xl border border-n-200 p-6 sm:p-8 shadow-xs">
+
+      <!-- ======================================================== -->
+      <!-- STEP 1: Choose Account Type                              -->
+      <!-- ======================================================== -->
+      @if (step === 1) {
+        <div class="space-y-6 step-transition" id="screen-register-step-1">
+          <div class="space-y-1.5 text-left">
+            <h1 class="text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+              Create your account
+            </h1>
+            <p class="text-sm text-n-500">
+              Select your role to get started with Grih360.
+            </p>
+          </div>
+
+          <!-- Three Large Tappable Cards Stacked -->
+          <div class="space-y-3 text-left">
+            <!-- 1. Tenant Card -->
+            <button
+              id="card-tenant"
+              (click)="selectAccountType('TENANT')"
+              type="button"
+              class="w-full p-4 rounded-xl border border-n-200 hover:border-brand-border bg-n-0 hover:bg-brand-subtle/40 text-left flex items-start gap-4 transition-all cursor-pointer min-h-[72px]"
+            >
+              <div class="w-11 h-11 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </div>
+              <div class="flex-grow">
+                <span class="text-base font-semibold text-navy block">Tenant</span>
+                <span class="text-xs text-n-500 mt-0.5 block">Find a home</span>
+              </div>
+            </button>
+
+            <!-- 2. Owner Card -->
+            <button
+              id="card-owner"
+              (click)="selectAccountType('OWNER')"
+              type="button"
+              class="w-full p-4 rounded-xl border border-n-200 hover:border-navy bg-n-0 hover:bg-[#0F2937]/5 text-left flex items-start gap-4 transition-all cursor-pointer min-h-[72px]"
+            >
+              <div class="w-11 h-11 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+                  <path d="M9 22v-4h6v4"/>
+                  <path d="M8 6h.01"/><path d="M16 6h.01"/>
+                  <path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/>
+                  <path d="M16 10h.01"/><path d="M16 14h.01"/>
+                  <path d="M8 10h.01"/><path d="M8 14h.01"/>
+                </svg>
+              </div>
+              <div class="flex-grow">
+                <span class="text-base font-semibold text-navy block">Owner</span>
+                <span class="text-xs text-n-500 mt-0.5 block">List a home and manage tenants</span>
+              </div>
+            </button>
+
+            <!-- 3. Service Professional Card -->
+            <button
+              id="card-pro"
+              (click)="selectAccountType('PROFESSIONAL')"
+              type="button"
+              class="w-full p-4 rounded-xl border border-n-200 hover:border-amber-300 bg-n-0 hover:bg-amber-50/50 text-left flex items-start gap-4 transition-all cursor-pointer min-h-[72px]"
+            >
+              <div class="w-11 h-11 rounded-lg bg-n-100 border border-n-200 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+              </div>
+              <div class="flex-grow">
+                <span class="text-base font-semibold text-navy block">Service professional</span>
+                <span class="text-xs text-n-500 mt-0.5 block">Offer maintenance, repair and home services</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Bottom Link: Sign In -->
+          <div class="pt-2 text-center text-xs">
+            <span class="text-n-500">Already have an account? </span>
+            <a
+              routerLink="/login"
+              class="font-semibold text-brand hover:underline cursor-pointer min-h-[36px] inline-flex items-center"
+            >
+              Sign in
+            </a>
+          </div>
+        </div>
+      }
+
+      <!-- ======================================================== -->
+      <!-- STEP 2: Email & Google Entry                             -->
+      <!-- ======================================================== -->
+      @if (step === 2) {
+        <div class="space-y-5 step-transition" id="screen-register-step-2">
+          <!-- Heading & Role Context -->
+          <div class="space-y-1.5 text-left">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-brand bg-brand-subtle px-2 py-0.5 rounded">
+                {{ getRoleName(selectedRole) }}
+              </span>
+              <button
+                (click)="goToStep(1)"
+                type="button"
+                class="text-xs text-n-500 hover:text-navy cursor-pointer"
+              >
+                Change role
+              </button>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+              Enter your email
+            </h1>
+            <p class="text-sm text-n-500">
+              We'll send a 6-digit verification code to verify your address.
+            </p>
+          </div>
+
+          <!-- Continue with Google Button -->
+          <button
+            id="btn-google-reg"
+            (click)="onGoogleSignIn()"
+            [disabled]="isGoogleLoading"
+            type="button"
+            class="w-full px-4 py-3 bg-n-0 hover:bg-n-50 border border-n-300 text-n-900 font-semibold text-sm rounded-xl min-h-[48px] flex items-center justify-center gap-3 transition-colors cursor-pointer disabled:opacity-50"
+          >
+            @if (isGoogleLoading) {
+              <svg class="animate-spin h-4 w-4 text-navy" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            } @else {
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+            }
+            <span>{{ isGoogleLoading ? 'Connecting...' : 'Continue with Google' }}</span>
+          </button>
+
+          <!-- "OR" Divider -->
+          <div class="relative flex items-center justify-center py-0.5">
+            <div class="w-full border-t border-n-200"></div>
+            <span class="absolute bg-n-0 px-3 text-xs text-n-400 font-semibold tracking-wider">OR</span>
+          </div>
+
+          <!-- Plain Error Banner -->
+          @if (errorMessage && !emailAlreadyRegistered) {
+            <div class="p-3 bg-err-bg border border-err-border text-err-text rounded-xl text-xs font-semibold text-left">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <!-- Email Already Registered Callout -->
+          @if (emailAlreadyRegistered) {
+            <div id="email-exists-banner" class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl space-y-2.5 text-xs text-amber-950 text-left">
+              <div class="flex items-center gap-2 font-semibold text-amber-900">
+                <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>This email is already registered</span>
+              </div>
+              <p class="text-n-600 leading-relaxed">
+                An account with this email already exists on Grih360.
+              </p>
+              <div class="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  id="btn-goto-login-prefill"
+                  type="button"
+                  (click)="goToLoginWithPrefill()"
+                  class="px-3.5 py-2 bg-navy hover:bg-navy-hover active:bg-navy text-n-0 font-semibold rounded-lg text-xs cursor-pointer inline-flex items-center gap-1.5 transition-colors min-h-[36px]"
+                >
+                  <span>Sign in as {{ getRoleName(selectedRole) }}</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+                <button
+                  id="btn-reg-google-fallback"
+                  type="button"
+                  (click)="onGoogleSignIn()"
+                  class="px-3.5 py-2 bg-n-0 hover:bg-n-50 border border-n-300 text-n-900 font-semibold rounded-lg text-xs cursor-pointer inline-flex items-center gap-1.5 transition-colors min-h-[36px]"
+                >
+                  <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                  </svg>
+                  <span>Continue with Google</span>
+                </button>
+              </div>
+            </div>
+          }
+
+          <!-- Form Area -->
+          <div class="space-y-4 text-left">
+            <div class="space-y-1.5">
+              <label for="reg-email-input" class="text-xs font-semibold text-n-700 block">
+                Email address <span class="text-red-500">*</span>
+              </label>
+              <input
+                id="reg-email-input"
+                type="email"
+                [(ngModel)]="email"
+                (keyup.enter)="onSubmitEmailStep()"
+                (input)="errorMessage = ''; emailAlreadyRegistered = false"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="name@example.com"
+                class="w-full text-base px-3.5 py-3 bg-n-0 border border-n-300 rounded-xl text-n-900 placeholder-n-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand min-h-[48px]"
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              id="btn-reg-step2-submit"
+              (click)="onSubmitEmailStep()"
+              [disabled]="!isEmailValid || isLoading"
+              type="button"
+              class="w-full px-4 py-3 bg-navy hover:bg-navy-hover active:bg-navy text-n-0 font-semibold text-sm rounded-xl min-h-[48px] flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              @if (isLoading) {
+                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              }
+              <span>{{ isLoading ? 'Sending code...' : 'Continue' }}</span>
+            </button>
+
+            <!-- Legal Consent -->
+            <p class="text-n-400 text-[11px] leading-relaxed text-center pt-1">
+              By creating an account, you accept the
+              <a routerLink="/terms" class="text-n-600 font-semibold hover:underline">Terms of Service</a>
+              and acknowledge our
+              <a routerLink="/privacy" class="text-n-600 font-semibold hover:underline">Privacy Policy</a>.
+            </p>
+
+            <!-- Bottom Link: Sign In -->
+            <div class="pt-2 text-center text-xs">
+              <span class="text-n-500">Already have an account? </span>
+              <a
+                routerLink="/login"
+                class="font-semibold text-brand hover:underline cursor-pointer min-h-[36px] inline-flex items-center"
+              >
+                Sign in
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ======================================================== -->
+      <!-- STEP 3: Enter 6-digit Code                               -->
+      <!-- ======================================================== -->
+      @if (step === 3) {
+        <div class="space-y-6 step-transition" id="screen-register-step-3">
+          <div class="space-y-1.5 text-left">
+            <h1 class="text-2xl font-semibold text-navy tracking-tight">
+              Enter the 6-digit code
+            </h1>
+            <p class="text-xs text-n-500 flex items-center justify-between">
+              <span>Sent to {{ maskedEmail || email }}</span>
+              <button
+                (click)="changeEmail()"
+                type="button"
+                class="text-brand hover:underline font-semibold cursor-pointer ml-2 shrink-0 min-h-[44px] flex items-center"
+              >
+                Change email
+              </button>
+            </p>
+          </div>
+
+          <!-- Six OTP Boxes -->
+          <div class="flex items-center justify-between gap-2 sm:gap-2.5 my-3">
+            @for (idx of [0, 1, 2, 3, 4, 5]; track idx) {
+              <input
+                #otpInput
+                [id]="'otp-digit-' + idx"
+                [(ngModel)]="otpDigits[idx]"
+                (input)="onOtpDigitInput($event, idx)"
+                (keydown)="onOtpKeyDown($event, idx)"
+                (paste)="onOtpPaste($event)"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="one-time-code"
+                [class.otp-box-error]="!!errorMessage"
+                class="otp-box"
+                aria-label="Digit {{ idx + 1 }}"
+              />
+            }
+          </div>
+
+          <!-- Plain Error Banner -->
+          @if (errorMessage) {
+            <div id="otp-error-banner" class="p-3 bg-err-bg border border-err-border text-err-text rounded-xl text-xs font-semibold text-left">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <!-- Verify / Continue Button -->
+          <button
+            id="btn-verify-otp"
+            (click)="onVerifyOtp()"
+            [disabled]="(!isOtpComplete && !registrationToken) || isLoading"
+            type="button"
+            class="w-full px-4 py-3 bg-navy hover:bg-navy-hover active:bg-navy text-n-0 font-semibold text-sm rounded-xl min-h-[48px] flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
+          >
+            @if (isLoading) {
+              <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            }
+            <span>{{ isLoading ? 'Verifying code...' : (registrationToken ? 'Continue' : 'Verify') }}</span>
+          </button>
+
+          <!-- Resend with Countdown -->
+          <div class="space-y-2 text-center text-xs">
+            <div class="flex items-center justify-center min-h-[32px]">
+              @if (resendCooldown > 0) {
+                <span class="text-n-400 font-medium">Resend in {{ formatCountdown(resendCooldown) }}</span>
+              } @else {
+                <button
+                  (click)="resendCode()"
+                  type="button"
+                  class="text-brand font-semibold hover:underline cursor-pointer min-h-[44px] flex items-center"
+                >
+                  Resend code
+                </button>
+              }
+            </div>
+
+            <p class="text-n-500 font-normal">
+              Code expires in 10 minutes. {{ remainingAttempts }} attempts remaining.
+            </p>
+          </div>
+        </div>
+      }
+
+      <!-- ======================================================== -->
+      <!-- STEP 4: Create Password                                  -->
+      <!-- ======================================================== -->
+      @if (step === 4) {
+        <div class="space-y-6 step-transition" id="screen-register-step-4">
+          <div class="space-y-1.5 text-left">
+            <h1 class="text-2xl font-semibold text-navy tracking-tight">
+              Create your password
+            </h1>
+            <p class="text-sm text-n-500">
+              Set a password for {{ email }} ({{ getRoleName(selectedRole) }})
+            </p>
+          </div>
+
+          @if (errorMessage) {
+            <div class="p-3 bg-err-bg border border-err-border text-err-text rounded-xl text-xs font-semibold text-left">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="space-y-4 text-left">
+            <div class="space-y-1.5">
+              <label for="create-password-input" class="text-xs font-semibold text-n-700 block">
+                Password
+              </label>
+              <div class="relative">
+                <input
+                  id="create-password-input"
+                  [type]="showNewPassword ? 'text' : 'password'"
+                  [(ngModel)]="newPassword"
+                  (keyup.enter)="onCompleteAccountCreation()"
+                  placeholder="Enter a secure password"
+                  class="w-full text-base px-3.5 py-3 pr-11 bg-n-0 border border-n-300 rounded-xl text-n-900 placeholder-n-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand min-h-[48px]"
+                />
+                <button
+                  (click)="showNewPassword = !showNewPassword"
+                  type="button"
+                  class="absolute right-2.5 top-1/2 -translate-y-1/2 text-n-400 hover:text-n-700 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                  aria-label="Toggle password visibility"
+                >
+                  <svg *ngIf="!showNewPassword" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  <svg *ngIf="showNewPassword" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Rules Checklist -->
+            <div class="space-y-1.5 p-3 bg-n-50 border border-n-200 rounded-xl text-xs text-n-600">
+              <div class="flex items-center gap-2" [class.text-brand]="newPassword.length >= 8">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span>At least 8 characters</span>
+              </div>
+              <div class="flex items-center gap-2" [class.text-brand]="hasNumber(newPassword)">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span>At least 1 number</span>
+              </div>
+              <div class="flex items-center gap-2" [class.text-brand]="hasLetter(newPassword)">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span>At least 1 letter</span>
+              </div>
+            </div>
+
+            <!-- Complete Account Button -->
+            <button
+              id="btn-complete-create-password"
+              (click)="onCompleteAccountCreation()"
+              [disabled]="!isPasswordValid || isLoading"
+              type="button"
+              class="w-full px-4 py-3 bg-navy hover:bg-navy-hover active:bg-navy text-n-0 font-semibold text-sm rounded-xl min-h-[48px] flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
+            >
+              @if (isLoading) {
+                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              }
+              <span>{{ isLoading ? 'Completing account...' : 'Complete account' }}</span>
+            </button>
+          </div>
+        </div>
+      }
+
+    </div>
+  </main>
+
+  <!-- Bottom Simple Footer -->
+  <footer class="w-full py-4 text-center text-xs text-n-400">
+    <span>Grih360 &copy; 2026. All rights reserved.</span>
+  </footer>
+</div>

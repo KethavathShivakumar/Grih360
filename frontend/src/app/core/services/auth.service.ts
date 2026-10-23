@@ -275,7 +275,7 @@ export class AuthService {
     this.sessionInitPromise = Promise.resolve();
 
     try {
-      this.router.navigate(['/auth/login'], { replaceUrl: true });
+      this.router.navigate(['/login'], { replaceUrl: true });
     } catch (_) {}
 
     setTimeout(() => {
@@ -404,8 +404,8 @@ export class AuthService {
     return this.apiService.post<any>('/auth/register/send-otp', userData);
   }
 
-  public verifyRegistrationOtpCode(email: string, otp: string): Observable<any> {
-    return this.apiService.post<any>('/auth/register/verify-code', { email, otp });
+  public verifyRegistrationOtpCode(email: string, otp: string, role?: string): Observable<any> {
+    return this.apiService.post<any>('/auth/register/verify-code', { email, otp, role });
   }
 
   public verifyRegistrationOtpAndCreate(data: {

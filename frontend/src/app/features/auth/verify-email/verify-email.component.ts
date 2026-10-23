@@ -247,7 +247,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedRole = navState?.selectedRole || activeChallenge?.selectedRole || 'TENANT';
 
     if (!this.challengeId) {
-      this.router.navigate(['/auth/login'], { replaceUrl: true });
+      this.router.navigate(['/login'], { replaceUrl: true });
       return;
     }
 
@@ -521,7 +521,7 @@ export class VerifyEmailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onBackToLogin(): void {
     this.authService.clearActiveChallenge();
-    this.router.navigate(['/auth/login'], { replaceUrl: true });
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 
   getRoleIcon(): string {

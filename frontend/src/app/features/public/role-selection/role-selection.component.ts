@@ -29,10 +29,10 @@ import { MobileRoleSelectionComponent } from './mobile-role-selection.component'
               <span class="text-base font-semibold text-navy">Grih<span class="text-brand">360</span></span>
             </div>
             <div class="flex items-center gap-3">
-              <a routerLink="/auth/login" class="text-xs font-semibold text-n-700 hover:text-n-900 px-3 py-1.5 rounded-lg hover:bg-n-100 transition-colors">
+              <a routerLink="/login" class="text-xs font-semibold text-n-700 hover:text-n-900 px-3 py-1.5 rounded-lg hover:bg-n-100 transition-colors">
                 Sign In
               </a>
-              <a routerLink="/auth/register" class="text-xs font-semibold text-n-0 bg-brand hover:bg-brand-hover px-3.5 py-1.5 rounded-lg transition-colors">
+              <a routerLink="/register" class="text-xs font-semibold text-n-0 bg-brand hover:bg-brand-hover px-3.5 py-1.5 rounded-lg transition-colors">
                 Get Started
               </a>
             </div>
@@ -128,14 +128,14 @@ export class RoleSelectionComponent {
   ) {}
 
   selectOwner(): void {
-    this.router.navigate(['/auth/login'], { queryParams: { role: 'OWNER' } });
+    this.router.navigate(['/register'], { queryParams: { role: 'OWNER' } });
   }
 
   selectTenant(): void {
-    this.router.navigate(['/auth/login'], { queryParams: { role: 'TENANT' } });
+    this.router.navigate(['/register'], { queryParams: { role: 'TENANT' } });
   }
 
   selectPro(): void {
-    this.router.navigate(['/auth/login'], { queryParams: { role: 'PROFESSIONAL' } });
+    this.router.navigate(['/register'], { queryParams: { role: 'PROFESSIONAL' } });
   }
 }

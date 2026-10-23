@@ -16,8 +16,8 @@ import { RouterModule } from '@angular/router';
             </div>
             <span class="font-bold text-lg text-white">Grih<span class="text-[#2D7A5E]">360</span></span>
           </a>
-          <a routerLink="/auth/login" class="text-xs font-bold text-slate-200 hover:text-white transition-colors">
-            Back to Login
+          <a routerLink="/login" class="text-xs font-bold text-slate-200 hover:text-white transition-colors">
+            Back to Sign In
           </a>
         </div>
       </header>

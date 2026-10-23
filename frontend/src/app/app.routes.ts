@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { RoleSelectionComponent } from './features/public/role-selection/role-selection.component';
-import { RegisterComponent } from './features/public/register/register.component';
+import { RegisterComponent } from './features/auth/register/register.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { TenantLayoutComponent } from './layouts/tenant/tenant-layout.component';
 import { OwnerLayoutComponent } from './layouts/owner/owner-layout.component';
@@ -92,13 +92,13 @@ import { PrivacyComponent } from './features/public/privacy/privacy.component';
 import { TermsComponent } from './features/public/terms/terms.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: 'role-selection', component: RoleSelectionComponent, canActivate: [guestGuard], title: 'Select Workspace Persona | Grih360' },
-  { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: 'register', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'role-selection', redirectTo: 'register', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, canActivate: [guestGuard], title: 'Sign In | Grih360' },
+  { path: 'register', component: RegisterComponent, canActivate: [guestGuard], title: 'Create Your Account | Grih360' },
+  { path: 'auth/login', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'auth/register', redirectTo: 'register', pathMatch: 'full' },
   { path: 'verify-email', redirectTo: 'auth/verify-email', pathMatch: 'full' },
-  { path: 'auth/login', component: LoginComponent, canActivate: [guestGuard], title: 'Sign In | Grih360' },
-  { path: 'auth/register', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth/verify-email', component: VerifyEmailComponent, canActivate: [guestGuard], title: 'Verify Email OTP | Grih360' },
   { path: 'admin/login', component: AdminLoginComponent, canActivate: [guestGuard], title: 'Admin Console Sign In | Grih360' },
   { path: 'privacy', component: PrivacyComponent, title: 'Privacy Policy | Grih360' },

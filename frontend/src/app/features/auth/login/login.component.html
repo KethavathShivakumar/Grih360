@@ -2,8 +2,9 @@
   <!-- Top Brand Header -->
   <header class="w-full bg-n-0 border-b border-n-200 px-4 sm:px-8 py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      @if (currentStep !== 'ACCOUNT_TYPE' && currentStep !== 'SIGN_IN') {
+      @if (currentStep !== 'SIGN_IN') {
         <button
+          id="btn-header-back"
           (click)="handleBackNavigation()"
           type="button"
           class="p-2 -ml-2 rounded-lg text-n-700 hover:text-navy hover:bg-n-100 transition-colors flex items-center justify-center min-h-[44px] min-w-[44px] cursor-pointer"
@@ -22,19 +23,16 @@
       </a>
     </div>
 
-    @if (currentStep === 'ACCOUNT_TYPE') {
-      <button
-        (click)="goToSignIn()"
-        type="button"
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-n-500 hidden sm:inline">New here?</span>
+      <a
+        id="header-link-register"
+        routerLink="/register"
         class="text-xs font-semibold text-brand hover:underline cursor-pointer min-h-[44px] flex items-center"
       >
-        Sign in
-      </button>
-    } @else {
-      <a routerLink="/" class="text-xs font-semibold text-n-500 hover:text-navy transition-colors flex items-center gap-1 min-h-[44px]">
-        Home
+        Register
       </a>
-    }
+    </div>
   </header>
 
   <!-- Main Content Container -->
@@ -42,107 +40,17 @@
     <div class="w-full max-w-md bg-n-0 rounded-2xl border border-n-200 p-6 sm:p-8 shadow-xs">
 
       <!-- ======================================================== -->
-      <!-- SCREEN 1: "Choose your account type" (first launch / reg) -->
-      <!-- ======================================================== -->
-      @if (currentStep === 'ACCOUNT_TYPE') {
-        <div class="space-y-6 step-transition" id="screen-account-type">
-          <div class="space-y-1.5 text-left">
-            <h1 class="text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
-              Choose your account type
-            </h1>
-            <p class="text-sm text-n-500">
-              Select your role to get started with Grih360.
-            </p>
-          </div>
-
-          <!-- Three Large Tappable Cards Stacked -->
-          <div class="space-y-3 text-left">
-            <!-- 1. Tenant Card -->
-            <button
-              id="card-tenant"
-              (click)="selectAccountType('TENANT')"
-              type="button"
-              class="w-full p-4 rounded-xl border border-brand-border bg-brand-subtle/50 hover:bg-brand-subtle text-left flex items-start gap-4 transition-all cursor-pointer min-h-[72px]"
-            >
-              <div class="w-11 h-11 rounded-lg bg-n-0 border border-brand-border flex items-center justify-center shrink-0 shadow-xs">
-                <!-- Lucide Home line icon -->
-                <svg class="w-6 h-6 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-              </div>
-              <div class="flex-grow">
-                <span class="text-base font-semibold text-navy block">Tenant</span>
-                <span class="text-xs text-n-500 mt-0.5 block">Find a home</span>
-              </div>
-            </button>
-
-            <!-- 2. Owner Card -->
-            <button
-              id="card-owner"
-              (click)="selectAccountType('OWNER')"
-              type="button"
-              class="w-full p-4 rounded-xl border border-n-200 bg-[#0F2937]/5 hover:bg-[#0F2937]/10 text-left flex items-start gap-4 transition-all cursor-pointer min-h-[72px]"
-            >
-              <div class="w-11 h-11 rounded-lg bg-n-0 border border-n-300 flex items-center justify-center shrink-0 shadow-xs">
-                <!-- Lucide Building line icon -->
-                <svg class="w-6 h-6 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
-                  <path d="M9 22v-4h6v4"/>
-                  <path d="M8 6h.01"/><path d="M16 6h.01"/>
-                  <path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/>
-                  <path d="M16 10h.01"/><path d="M16 14h.01"/>
-                  <path d="M8 10h.01"/><path d="M8 14h.01"/>
-                </svg>
-              </div>
-              <div class="flex-grow">
-                <span class="text-base font-semibold text-navy block">Owner</span>
-                <span class="text-xs text-n-500 mt-0.5 block">List a home and manage tenants</span>
-              </div>
-            </button>
-
-            <!-- 3. Service Professional Card -->
-            <button
-              id="card-pro"
-              (click)="selectAccountType('PROFESSIONAL')"
-              type="button"
-              class="w-full p-4 rounded-xl border border-amber-200 bg-amber-50/60 hover:bg-amber-50 text-left flex items-start gap-4 transition-all cursor-pointer min-h-[72px]"
-            >
-              <div class="w-11 h-11 rounded-lg bg-n-0 border border-amber-200 flex items-center justify-center shrink-0 shadow-xs">
-                <!-- Lucide Tool/Wrench line icon -->
-                <svg class="w-6 h-6 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                </svg>
-              </div>
-              <div class="flex-grow">
-                <span class="text-base font-semibold text-navy block">Service professional</span>
-                <span class="text-xs text-n-500 mt-0.5 block">Get service requests</span>
-              </div>
-            </button>
-          </div>
-
-          <!-- Legal Disclaimer -->
-          <div class="pt-2 text-center text-xs text-n-500 leading-relaxed">
-            By continuing you agree to the
-            <a routerLink="/terms" class="text-navy font-semibold hover:underline">Terms of Service</a>
-            and
-            <a routerLink="/privacy" class="text-navy font-semibold hover:underline">Privacy Policy</a>.
-          </div>
-        </div>
-      }
-
-      <!-- ======================================================== -->
-      <!-- SCREEN 2: Sign In (Pattern layout matching Unstop ref)   -->
+      <!-- SCREEN: Sign In                                          -->
       <!-- ======================================================== -->
       @if (currentStep === 'SIGN_IN') {
         <div class="space-y-5 step-transition" id="screen-sign-in">
           <!-- Heading & Short Helper Text -->
           <div class="space-y-1.5 text-left">
             <h1 class="text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
-              Welcome to Grih360
+              Welcome back
             </h1>
             <p class="text-sm text-n-500">
-              Sign in to access your dashboard and manage rentals.
+              Sign in to access your Grih360 workspace.
             </p>
           </div>
 
@@ -177,7 +85,7 @@
             </button>
           </div>
 
-          <!-- Continue with Google Button (Full width, outlined) -->
+          <!-- Continue with Google Button -->
           <button
             id="btn-google-signin"
             (click)="onGoogleSignIn()"
@@ -208,9 +116,31 @@
           </div>
 
           <!-- Plain Error Banner (shake-free) -->
-          @if (errorMessage) {
+          @if (errorMessage && !noAccountFound) {
             <div class="p-3 bg-err-bg border border-err-border text-err-text rounded-xl text-xs font-semibold text-left">
               {{ errorMessage }}
+            </div>
+          }
+
+          <!-- No Account Found Callout with Prefilled Register Action -->
+          @if (noAccountFound) {
+            <div id="no-account-banner" class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl space-y-2.5 text-xs text-amber-950 text-left">
+              <div class="flex items-center gap-2 font-semibold text-amber-900">
+                <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>No account found for this email</span>
+              </div>
+              <p class="text-n-600 leading-relaxed">
+                We couldn't find an existing Grih360 account for this email address.
+              </p>
+              <button
+                id="btn-goto-register-prefill"
+                type="button"
+                (click)="goToRegisterWithPrefill()"
+                class="px-3.5 py-2 bg-navy hover:bg-navy-hover active:bg-navy text-n-0 font-semibold rounded-lg text-xs cursor-pointer inline-flex items-center gap-1.5 transition-colors min-h-[36px]"
+              >
+                <span>Register as {{ getRoleName(selectedRole) }}</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
             </div>
           }
 
@@ -225,7 +155,7 @@
                 type="email"
                 [(ngModel)]="email"
                 (keyup.enter)="onSubmitSignForm()"
-                (input)="errorMessage = ''"
+                (input)="errorMessage = ''; noAccountFound = false"
                 inputmode="email"
                 autocomplete="email"
                 placeholder="Enter Email"
@@ -268,7 +198,7 @@
                     [type]="showPassword ? 'text' : 'password'"
                     [(ngModel)]="password"
                     (keyup.enter)="onSubmitSignForm()"
-                    (input)="errorMessage = ''"
+                    (input)="errorMessage = ''; noAccountFound = false"
                     placeholder="Enter Password"
                     class="w-full text-base px-3.5 py-3 pr-11 bg-n-0 border border-n-300 rounded-xl text-n-900 placeholder-n-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand min-h-[48px]"
                   />
@@ -313,26 +243,18 @@
               <span>{{ mainButtonLabel }}</span>
             </button>
 
-            <!-- Bottom Links: Register & Legal Notice -->
-            <div class="pt-2 space-y-2 text-center text-xs">
+            <!-- Bottom Links: Register Only -->
+            <div class="pt-2 text-center text-xs">
               <div>
                 <span class="text-n-500">New here? </span>
-                <button
+                <a
                   id="link-register"
-                  (click)="goToAccountType()"
-                  type="button"
+                  routerLink="/register"
                   class="font-semibold text-brand hover:underline cursor-pointer min-h-[36px] inline-flex items-center"
                 >
                   Register
-                </button>
+                </a>
               </div>
-
-              <p class="text-n-400 text-[11px] leading-relaxed">
-                By signing in, you accept the
-                <a routerLink="/terms" class="text-n-600 font-semibold hover:underline">Terms of Service</a>
-                and acknowledge our
-                <a routerLink="/privacy" class="text-n-600 font-semibold hover:underline">Privacy Policy</a>.
-              </p>
             </div>
           </div>
         </div>
@@ -388,7 +310,7 @@
             </div>
           }
 
-          <!-- Verify Button (Never auto-submits, enabled when 6 digits entered) -->
+          <!-- Verify Button -->
           <button
             id="btn-verify-otp"
             (click)="onVerifyOtp()"
@@ -434,88 +356,6 @@
                 Use password instead
               </button>
             </div>
-          </div>
-        </div>
-      }
-
-      <!-- ======================================================== -->
-      <!-- SCREEN: "Create your password" (New user after code)     -->
-      <!-- ======================================================== -->
-      @if (currentStep === 'CREATE_PASSWORD') {
-        <div class="space-y-6 step-transition" id="screen-create-password">
-          <div class="space-y-1.5 text-left">
-            <h1 class="text-2xl font-semibold text-navy tracking-tight">
-              Create your password
-            </h1>
-            <p class="text-sm text-n-500">
-              Set a password for {{ email }} ({{ getRoleName(selectedRole) }})
-            </p>
-          </div>
-
-          @if (errorMessage) {
-            <div class="p-3 bg-err-bg border border-err-border text-err-text rounded-xl text-xs font-semibold">
-              {{ errorMessage }}
-            </div>
-          }
-
-          <div class="space-y-4 text-left">
-            <div class="space-y-1.5">
-              <label for="create-password-input" class="text-xs font-semibold text-n-700 block">
-                Password
-              </label>
-              <div class="relative">
-                <input
-                  id="create-password-input"
-                  [type]="showNewPassword ? 'text' : 'password'"
-                  [(ngModel)]="newPassword"
-                  (keyup.enter)="onCompleteAccountCreation()"
-                  placeholder="Enter a secure password"
-                  class="w-full text-base px-3.5 py-3 pr-11 bg-n-0 border border-n-300 rounded-xl text-n-900 placeholder-n-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand min-h-[48px]"
-                />
-                <button
-                  (click)="showNewPassword = !showNewPassword"
-                  type="button"
-                  class="absolute right-2.5 top-1/2 -translate-y-1/2 text-n-400 hover:text-n-700 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
-                  aria-label="Toggle password visibility"
-                >
-                  <svg *ngIf="!showNewPassword" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                  <svg *ngIf="showNewPassword" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Simple Rules Checklist -->
-            <div class="space-y-1.5 p-3 bg-n-50 border border-n-200 rounded-xl text-xs text-n-600">
-              <div class="flex items-center gap-2" [class.text-brand]="newPassword.length >= 8">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                <span>At least 8 characters</span>
-              </div>
-              <div class="flex items-center gap-2" [class.text-brand]="hasNumber(newPassword)">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                <span>At least 1 number</span>
-              </div>
-              <div class="flex items-center gap-2" [class.text-brand]="hasLetter(newPassword)">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                <span>At least 1 letter</span>
-              </div>
-            </div>
-
-            <!-- Complete Account Button -->
-            <button
-              id="btn-complete-create-password"
-              (click)="onCompleteAccountCreation()"
-              [disabled]="!isPasswordValid || isLoading"
-              type="button"
-              class="w-full px-4 py-3 bg-navy hover:bg-navy-hover active:bg-navy text-n-0 font-semibold text-sm rounded-xl min-h-[48px] flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
-            >
-              @if (isLoading) {
-                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              }
-              <span>{{ isLoading ? 'Completing account...' : 'Complete account' }}</span>
-            </button>
           </div>
         </div>
       }

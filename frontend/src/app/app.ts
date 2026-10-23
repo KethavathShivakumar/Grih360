@@ -59,7 +59,8 @@ export class App implements OnInit {
         '/owner/dashboard',
         '/professional/dashboard',
         '/admin/dashboard',
-        '/auth/login'
+        '/auth/login',
+        '/login'
       ];
 
       const cleanPath = this.currentUrl.split('?')[0].split('#')[0];

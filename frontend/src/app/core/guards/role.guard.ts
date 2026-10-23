@@ -31,7 +31,7 @@ export const roleGuard = (allowedRoles: UserRole[]): CanActivateFn => {
           return false;
         }
 
-        const loginRoute = state.url.startsWith('/admin') ? '/admin/login' : '/auth/login';
+        const loginRoute = state.url.startsWith('/admin') ? '/admin/login' : '/login';
 
         // Unauthenticated user - strictly navigate to Login screen
         router.navigate([loginRoute], { replaceUrl: true });

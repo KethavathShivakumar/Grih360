@@ -10,10 +10,8 @@ import { App } from '@capacitor/app';
 import { finalize, timeout, Subscription } from 'rxjs';
 
 export type AuthStep =
-  | 'ACCOUNT_TYPE'
   | 'SIGN_IN'
   | 'ENTER_CODE'
-  | 'CREATE_PASSWORD'
   | 'GOOGLE_NO_PASSWORD'
   | 'ROLE_MISMATCH'
   | 'FORGOT_PASSWORD_RESET';
@@ -49,8 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // OTP State
   otpDigits: string[] = ['', '', '', '', '', ''];
-  otpPurpose: 'REGISTRATION' | 'LOGIN_OTP' | 'FORGOT_PASSWORD' = 'LOGIN_OTP';
-  registrationToken: string = '';
+  otpPurpose: 'LOGIN_OTP' | 'FORGOT_PASSWORD' = 'LOGIN_OTP';
   resendCooldown: number = 0;
   private cooldownTimer: any = null;
   remainingAttempts: number = 3;
@@ -59,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isGoogleLoading: boolean = false;
   errorMessage: string = '';
+  noAccountFound: boolean = false;
 
   private subscriptions: Subscription = new Subscription();
   private backButtonListener: any = null;
@@ -80,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     } catch (_) {}
 
-    // Check query params
+    // Check query params for role and email prefill
     this.route.queryParams.subscribe((params) => {
       if (params['role']) {
         const r = params['role'].toUpperCase();
@@ -88,17 +86,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.selectedRole = r;
         }
       }
-      if (params['mode'] === 'register') {
-        this.currentStep = 'ACCOUNT_TYPE';
-        this.flowHistory = ['ACCOUNT_TYPE'];
+      if (params['email']) {
+        this.email = params['email'].trim().toLowerCase();
       }
     });
-
-    // Check route url: if navigated to /register or /auth/register
-    if (this.router.url.includes('register')) {
-      this.currentStep = 'ACCOUNT_TYPE';
-      this.flowHistory = ['ACCOUNT_TYPE'];
-    }
 
     // Restore flow state if reopening app
     this.restoreFlowState();
@@ -136,8 +127,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         maskedEmail: this.maskedEmail,
         selectedRole: this.selectedRole,
         loginMode: this.loginMode,
-        registrationToken: this.registrationToken,
         otpPurpose: this.otpPurpose,
+        savedOtpCode: this.otpDigits.join(''),
         cooldownUntil: this.resendCooldown > 0 ? Date.now() + this.resendCooldown * 1000 : null,
       };
       localStorage.setItem('grih360_auth_flow', JSON.stringify(state));
@@ -149,15 +140,24 @@ export class LoginComponent implements OnInit, OnDestroy {
       const saved = localStorage.getItem('grih360_auth_flow');
       if (saved) {
         const data = JSON.parse(saved);
-        if (data && data.currentStep && data.currentStep !== 'SIGN_IN' && data.currentStep !== 'ACCOUNT_TYPE' && data.email) {
+        const validSteps: AuthStep[] = ['ENTER_CODE', 'GOOGLE_NO_PASSWORD', 'ROLE_MISMATCH', 'FORGOT_PASSWORD_RESET'];
+        if (data && validSteps.includes(data.currentStep) && data.email) {
           this.currentStep = data.currentStep;
           this.flowHistory = data.flowHistory && data.flowHistory.length ? data.flowHistory : ['SIGN_IN', data.currentStep];
           this.email = data.email || '';
           this.maskedEmail = data.maskedEmail || '';
           this.selectedRole = data.selectedRole || 'TENANT';
           this.loginMode = data.loginMode || 'otp';
-          this.registrationToken = data.registrationToken || '';
           this.otpPurpose = data.otpPurpose || 'LOGIN_OTP';
+
+          if (data.savedOtpCode && typeof data.savedOtpCode === 'string' && data.savedOtpCode.length === 6) {
+            this.otpDigits = data.savedOtpCode.split('');
+          }
+
+          if (this.currentStep === 'FORGOT_PASSWORD_RESET' && !this.isOtpComplete) {
+            this.currentStep = 'ENTER_CODE';
+            this.flowHistory = ['SIGN_IN', 'ENTER_CODE'];
+          }
 
           if (data.cooldownUntil) {
             const diff = Math.ceil((data.cooldownUntil - Date.now()) / 1000);
@@ -196,14 +196,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  goToAccountType(): void {
-    this.goToStep('ACCOUNT_TYPE');
-  }
-
   goToSignIn(): void {
     this.currentStep = 'SIGN_IN';
     this.flowHistory = ['SIGN_IN'];
     this.errorMessage = '';
+    this.noAccountFound = false;
     this.persistFlowState();
   }
 
@@ -211,32 +208,35 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.currentStep = 'SIGN_IN';
     this.flowHistory = ['SIGN_IN'];
     this.errorMessage = '';
+    this.noAccountFound = false;
     this.otpDigits = ['', '', '', '', '', ''];
     this.password = '';
     this.newPassword = '';
     this.persistFlowState();
   }
 
-  // --- Screen 1: Account Type Selection ---
-
-  selectAccountType(role: string): void {
-    this.selectedRole = role;
-    this.currentStep = 'SIGN_IN';
-    this.flowHistory = ['ACCOUNT_TYPE', 'SIGN_IN'];
-    this.persistFlowState();
+  goToRegisterWithPrefill(): void {
+    this.router.navigate(['/register'], {
+      queryParams: {
+        email: this.email,
+        role: this.selectedRole,
+      },
+    });
   }
 
-  // --- Screen 2: Segmented Role Toggle & Mode Switching ---
+  // --- Segmented Role Toggle & Mode Switching ---
 
   onSelectRole(role: string): void {
     this.selectedRole = role;
     this.errorMessage = '';
+    this.noAccountFound = false;
     this.persistFlowState();
   }
 
   setLoginMode(mode: 'otp' | 'password'): void {
     this.loginMode = mode;
     this.errorMessage = '';
+    this.noAccountFound = false;
     try {
       localStorage.setItem('grih360_login_mode', mode);
     } catch (_) {}
@@ -277,12 +277,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  // --- Screen 2 Action: Continue with OTP ---
+  // --- Action: Continue with OTP ---
 
   onContinueWithOtp(): void {
     const cleanEmail = (this.email || '').trim().toLowerCase();
     this.isLoading = true;
     this.errorMessage = '';
+    this.noAccountFound = false;
 
     this.authService
       .checkEmail(cleanEmail)
@@ -299,12 +300,14 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.maskedEmail = info.emailMasked || this.maskEmail(cleanEmail);
 
           if (!info.exists) {
-            // New user registration flow
-            this.sendRegistrationOtp(cleanEmail);
-          } else {
-            // Existing user OTP login flow
-            this.sendLoginOtp(cleanEmail);
+            // Unregistered email -> show friendly callout with Register button
+            this.noAccountFound = true;
+            this.errorMessage = 'No account found for this email.';
+            return;
           }
+
+          // Existing user -> send login OTP
+          this.sendLoginOtp(cleanEmail);
         },
         error: (err: any) => {
           this.errorMessage = getCleanErrorMessage(err, 'Unable to verify email address. Please try again.');
@@ -312,35 +315,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  private sendRegistrationOtp(email: string): void {
+  private sendLoginOtp(cleanEmail: string): void {
     this.isLoading = true;
     this.authService
-      .requestRegistrationOtp({ email, role: this.selectedRole })
-      .pipe(
-        timeout(15000),
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe({
-        next: (res: any) => {
-          this.otpPurpose = 'REGISTRATION';
-          this.maskedEmail = res?.data?.emailMasked || res?.emailMasked || this.maskEmail(email);
-          this.startResendCooldown(60);
-          this.otpDigits = ['', '', '', '', '', ''];
-          this.goToStep('ENTER_CODE');
-          setTimeout(() => this.focusFirstOtpBox(), 100);
-        },
-        error: (err: any) => {
-          this.errorMessage = getCleanErrorMessage(err, 'Unable to send verification code. Please try again.');
-        },
-      });
-  }
-
-  private sendLoginOtp(email: string): void {
-    this.isLoading = true;
-    this.authService
-      .requestLoginOtp(email)
+      .requestLoginOtp(cleanEmail)
       .pipe(
         timeout(15000),
         finalize(() => {
@@ -350,14 +328,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.otpPurpose = 'LOGIN_OTP';
-          this.maskedEmail = res?.data?.emailMasked || res?.emailMasked || this.maskEmail(email);
+          this.maskedEmail = res?.data?.emailMasked || res?.emailMasked || this.maskEmail(cleanEmail);
           this.startResendCooldown(60);
           this.otpDigits = ['', '', '', '', '', ''];
           this.goToStep('ENTER_CODE');
           setTimeout(() => this.focusFirstOtpBox(), 100);
         },
         error: (err: any) => {
-          this.errorMessage = getCleanErrorMessage(err, 'Unable to send verification code. Please try again.');
+          this.errorMessage = getCleanErrorMessage(err, 'Unable to send login verification code. Please try again.');
         },
       });
   }
@@ -366,7 +344,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.onContinueWithOtp();
   }
 
-  // --- Screen 2 Action: Sign In with Password ---
+  // --- Action: Sign In with Password ---
 
   onLoginWithPassword(): void {
     const cleanEmail = (this.email || '').trim().toLowerCase();
@@ -374,6 +352,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
     this.errorMessage = '';
+    this.noAccountFound = false;
 
     this.authService
       .login(cleanEmail, this.password, this.selectedRole)
@@ -393,7 +372,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           const errCode = err?.error?.code;
           const errMsg = getCleanErrorMessage(err, 'Incorrect password. Please try again or use OTP.');
 
-          if (errCode === 'NO_PASSWORD_SET' || errMsg.toLowerCase().includes('google') || errMsg.toLowerCase().includes('no password')) {
+          if (
+            err.status === 404 ||
+            errCode === 'USER_NOT_FOUND' ||
+            errCode === 'ACCOUNT_NOT_FOUND' ||
+            errMsg.toLowerCase().includes('no account found') ||
+            errMsg.toLowerCase().includes('user not found')
+          ) {
+            this.noAccountFound = true;
+            this.errorMessage = 'No account found for this email.';
+          } else if (errCode === 'NO_PASSWORD_SET' || errMsg.toLowerCase().includes('google') || errMsg.toLowerCase().includes('no password')) {
             this.goToStep('GOOGLE_NO_PASSWORD');
           } else if (errCode === 'ROLE_MISMATCH' || errMsg.toLowerCase().includes('workspace') || errMsg.toLowerCase().includes('role mismatch')) {
             const match = errMsg.match(/(TENANT|OWNER|PROFESSIONAL|ADMIN)/i);
@@ -406,7 +394,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  // --- Screen 2 Action: Forgot Password ---
+  // --- Action: Forgot Password ---
 
   onForgotPasswordClick(): void {
     const cleanEmail = (this.email || '').trim().toLowerCase();
@@ -417,6 +405,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
     this.errorMessage = '';
+    this.noAccountFound = false;
 
     this.authService
       .sendForgotPasswordOtp(cleanEmail)
@@ -436,51 +425,47 @@ export class LoginComponent implements OnInit, OnDestroy {
           setTimeout(() => this.focusFirstOtpBox(), 100);
         },
         error: (err: any) => {
-          this.errorMessage = getCleanErrorMessage(err, 'Unable to send password reset code. Please try again.');
+          const errMsg = getCleanErrorMessage(err, 'Unable to initiate password reset.');
+          if (err.status === 404 || errMsg.toLowerCase().includes('not found')) {
+            this.noAccountFound = true;
+            this.errorMessage = 'No account found for this email.';
+          } else {
+            this.errorMessage = errMsg;
+          }
         },
       });
   }
 
-  // --- Role Mismatch Resolution ---
+  // --- OTP Verification Logic ---
 
-  switchPortalAndProceed(): void {
-    this.selectedRole = this.mismatchedRole;
-    this.goToSignIn();
-  }
-
-  // --- OTP Verification Screen (6 Boxes, No Auto-submit) ---
-
-  onOtpDigitInput(event: any, index: number): void {
+  onOtpDigitInput(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
-    const val = input.value.replace(/\D/g, '');
+    let val = input.value;
 
-    if (val.length > 0) {
-      const char = val.charAt(val.length - 1);
-      this.otpDigits[index] = char;
-      input.value = char;
-
-      if (index < 5) {
-        this.focusOtpBox(index + 1);
-      }
-    } else {
-      this.otpDigits[index] = '';
-      input.value = '';
+    if (val && !/^\d$/.test(val)) {
+      val = val.replace(/\D/g, '').slice(-1);
+      input.value = val;
     }
+
+    this.otpDigits[index] = val;
     this.errorMessage = '';
+    this.persistFlowState();
+
+    if (val && index < 5) {
+      this.focusOtpBox(index + 1);
+    }
   }
 
   onOtpKeyDown(event: KeyboardEvent, index: number): void {
     if (event.key === 'Backspace') {
-      if (this.otpDigits[index] === '' && index > 0) {
-        event.preventDefault();
-        this.otpDigits[index - 1] = '';
+      if (!this.otpDigits[index] && index > 0) {
         this.focusOtpBox(index - 1);
+        this.otpDigits[index - 1] = '';
+        this.persistFlowState();
       }
     } else if (event.key === 'ArrowLeft' && index > 0) {
-      event.preventDefault();
       this.focusOtpBox(index - 1);
     } else if (event.key === 'ArrowRight' && index < 5) {
-      event.preventDefault();
       this.focusOtpBox(index + 1);
     }
   }
@@ -525,26 +510,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.errorMessage = '';
 
-    if (this.otpPurpose === 'REGISTRATION') {
-      this.authService
-        .verifyRegistrationOtpCode(this.email, otpCode)
-        .pipe(
-          timeout(15000),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
-        .subscribe({
-          next: (res: any) => {
-            this.registrationToken = res?.data?.registrationToken || res?.registrationToken || '';
-            this.goToStep('CREATE_PASSWORD');
-          },
-          error: (err: any) => {
-            this.remainingAttempts = err?.error?.remainingAttempts ?? this.remainingAttempts;
-            this.errorMessage = getCleanErrorMessage(err, 'Incorrect verification code. Please try again.');
-          },
-        });
-    } else if (this.otpPurpose === 'LOGIN_OTP') {
+    if (this.otpPurpose === 'LOGIN_OTP') {
       this.authService
         .verifyLoginOtpDirect(this.email, otpCode, this.selectedRole)
         .pipe(
@@ -575,6 +541,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     } else if (this.otpPurpose === 'FORGOT_PASSWORD') {
       this.isLoading = false;
+      this.persistFlowState();
       this.goToStep('FORGOT_PASSWORD_RESET');
     }
   }
@@ -585,26 +552,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.errorMessage = '';
 
-    if (this.otpPurpose === 'REGISTRATION') {
-      this.authService
-        .requestRegistrationOtp({ email: this.email, role: this.selectedRole })
-        .pipe(
-          timeout(15000),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
-        .subscribe({
-          next: () => {
-            this.startResendCooldown(60);
-            this.otpDigits = ['', '', '', '', '', ''];
-            this.focusFirstOtpBox();
-          },
-          error: (err: any) => {
-            this.errorMessage = getCleanErrorMessage(err, 'Unable to resend verification code.');
-          },
-        });
-    } else if (this.otpPurpose === 'LOGIN_OTP') {
+    if (this.otpPurpose === 'LOGIN_OTP') {
       this.authService
         .requestLoginOtp(this.email)
         .pipe(
@@ -645,7 +593,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  // --- Screen: Create Password (New Users, role is already known) ---
+  // --- Password Rules & Reset ---
 
   hasNumber(val: string): boolean {
     return /\d/.test(val || '');
@@ -658,40 +606,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   get isPasswordValid(): boolean {
     return (this.newPassword || '').length >= 8 && this.hasNumber(this.newPassword) && this.hasLetter(this.newPassword);
   }
-
-  onCompleteAccountCreation(): void {
-    if (!this.isPasswordValid) {
-      this.errorMessage = 'Password must be at least 8 characters with 1 letter and 1 number.';
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.authService
-      .verifyRegistrationOtpAndCreate({
-        registrationToken: this.registrationToken,
-        password: this.newPassword,
-        role: this.selectedRole,
-      })
-      .pipe(
-        timeout(20000),
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe({
-        next: () => {
-          this.clearFlowState();
-          this.navigateByRole(this.selectedRole);
-        },
-        error: (err: any) => {
-          this.errorMessage = getCleanErrorMessage(err, 'Unable to complete account registration. Please try again.');
-        },
-      });
-  }
-
-  // --- Screen: Reset Password Submit ---
 
   onResetPasswordSubmit(): void {
     if (!this.isPasswordValid) {
@@ -713,25 +627,37 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: () => {
-          this.authService.login(this.email, this.newPassword, this.selectedRole).subscribe({
-            next: (loginRes: any) => {
-              this.clearFlowState();
-              const user = loginRes?.data?.user || loginRes?.user;
-              this.navigateByRole(user?.role || this.selectedRole);
-            },
-            error: () => {
-              this.clearFlowState();
-              this.goToSignIn();
-            },
-          });
+          this.clearFlowState();
+          this.authService
+            .login(this.email, this.newPassword, this.selectedRole)
+            .subscribe({
+              next: (res: any) => {
+                const user = res?.data?.user || res?.user;
+                this.navigateByRole(user?.role || this.selectedRole);
+              },
+              error: () => {
+                this.goToSignIn();
+              },
+            });
         },
         error: (err: any) => {
-          this.errorMessage = getCleanErrorMessage(err, 'Unable to reset password. Please try again.');
+          this.errorMessage = getCleanErrorMessage(err, 'Unable to reset password. Please verify the code and try again.');
         },
       });
   }
 
-  // --- Google OAuth ---
+  // --- Role Mismatch Actions ---
+
+  switchPortalAndProceed(): void {
+    this.selectedRole = this.mismatchedRole;
+    this.currentStep = 'SIGN_IN';
+    this.flowHistory = ['SIGN_IN'];
+    this.errorMessage = '';
+    this.noAccountFound = false;
+    this.persistFlowState();
+  }
+
+  // --- Google Sign-in Handler ---
 
   onGoogleSignIn(): void {
     if (!this.googleAuthService.isAvailable()) {

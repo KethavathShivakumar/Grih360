@@ -1,0 +1,61 @@
+/* Grih360 Registration Styles */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: var(--color-n-50);
+  color: var(--color-n-900);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* 6-box OTP input styling (>= 48px) */
+.otp-box {
+  width: 48px;
+  height: 52px;
+  min-width: 48px;
+  min-height: 48px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1.5px solid var(--color-n-300);
+  background-color: var(--color-n-0);
+  color: var(--color-n-900);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .otp-box {
+    width: 52px;
+    height: 56px;
+    font-size: 22px;
+  }
+}
+
+.otp-box:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-brand-border);
+}
+
+.otp-box.otp-box-error {
+  border-color: var(--color-err-border);
+  background-color: rgba(254, 242, 242, 0.5);
+  color: var(--color-err-text);
+}
+
+/* Subtle transitions (150-250ms) */
+.step-transition {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-transition,
+  .otp-box {
+    transition: none !important;
+  }
+}
+
+/* Safe areas */
+.safe-area-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}

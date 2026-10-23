@@ -15,11 +15,11 @@ import { RouterOutlet, RouterModule } from '@angular/router';
           <span class="text-base font-semibold text-navy">Grih<span class="text-brand">360</span></span>
         </a>
         <div class="flex items-center gap-2">
-          <a routerLink="/auth/login"
+          <a routerLink="/login"
             class="text-sm font-semibold text-n-500 hover:text-n-900 px-3 py-1.5 rounded-lg hover:bg-n-100 transition-colors whitespace-nowrap">
             Sign in
           </a>
-          <a routerLink="/auth/register"
+          <a routerLink="/register"
             class="btn-primary text-sm" style="padding: 8px 16px; min-height: 36px;">
             Register
           </a>

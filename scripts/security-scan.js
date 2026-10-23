@@ -1,7 +1,8 @@
 const { execSync } = require('child_process');
 
 function scanDiff() {
-  const diff = execSync('git diff 7d8d850', { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
+  const baseRef = process.argv[2] || 'origin/main';
+  const diff = execSync(`git diff ${baseRef}`, { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
   const lines = diff.split('\n');
 
   const secretPatterns = [

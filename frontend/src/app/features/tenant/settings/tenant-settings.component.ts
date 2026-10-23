@@ -650,7 +650,7 @@ export class TenantSettingsComponent implements OnInit {
   signOut(): void {
     if (confirm('Are you sure you want to sign out?')) {
       this.authService.logout();
-      this.router.navigate(['/auth/login'], { replaceUrl: true });
+      this.router.navigate(['/login'], { replaceUrl: true });
     }
   }
 }

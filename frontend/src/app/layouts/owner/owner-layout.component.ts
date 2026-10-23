@@ -174,7 +174,7 @@ export class OwnerLayoutComponent implements OnInit, OnDestroy {
   onLogout(): void {
     if (confirm('Sign out of Grih360?')) {
       this.authService.logout();
-      this.router.navigate(['/auth/login'], { replaceUrl: true });
+      this.router.navigate(['/login'], { replaceUrl: true });
     }
   }
 }

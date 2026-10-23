@@ -703,7 +703,7 @@ export class ProProfileComponent implements OnInit {
   public onLogout(): void {
     if (confirm('Are you sure you want to log out of your Grih360 account?')) {
       this.authService.logout();
-      this.router.navigate(['/auth/login'], { replaceUrl: true });
+      this.router.navigate(['/login'], { replaceUrl: true });
     }
   }
 }
