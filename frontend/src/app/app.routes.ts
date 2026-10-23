@@ -90,9 +90,11 @@ import { AdminLoginComponent } from './features/admin/auth/admin-login.component
 import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.component';
 import { PrivacyComponent } from './features/public/privacy/privacy.component';
 import { TermsComponent } from './features/public/terms/terms.component';
+import { BrandIntroComponent } from './features/public/intro/brand-intro.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: BrandIntroComponent, canActivate: [guestGuard], title: 'Grih360 | Find, verify and manage homes' },
+  { path: 'intro', redirectTo: '', pathMatch: 'full' },
   { path: 'role-selection', redirectTo: 'register', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [guestGuard], title: 'Sign In | Grih360' },
   { path: 'register', component: RegisterComponent, canActivate: [guestGuard], title: 'Create Your Account | Grih360' },

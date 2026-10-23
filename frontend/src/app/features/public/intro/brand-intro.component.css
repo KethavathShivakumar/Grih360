@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-intro-page {
+  background-color: var(--navy);
+}
+
+/* 1. Wordmark: settles in as mark finishes (800ms - 1100ms) */
+.intro-wordmark {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: wordmarkEntrance var(--dur-intro-settle) var(--ease) 800ms forwards;
+}
+
+/* 2. Tagline: fades in smoothly (1150ms - 1550ms) */
+.intro-tagline {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: taglineEntrance var(--dur-intro-tagline) var(--ease) 1150ms forwards;
+}
+
+/* 3. Actions: fade in at the end (1550ms - 1900ms) */
+.intro-actions {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: actionsEntrance var(--dur-intro-actions) var(--ease) 1550ms forwards;
+}
+
+/* Keyframes: ease-out only, no bounce, no float, no loop, no parallax */
+@keyframes wordmarkEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes taglineEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes actionsEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Completed static state (for skip, returning users, or post-animation) */
+.brand-intro-page.intro-completed .intro-wordmark,
+.brand-intro-page.intro-completed .intro-tagline,
+.brand-intro-page.intro-completed .intro-actions {
+  opacity: 1;
+  transform: translateY(0);
+  animation: none;
+}
+
+/* Reduced motion support: instantaneous final state, zero layout shift */
+@media (prefers-reduced-motion: reduce) {
+  .intro-wordmark,
+  .intro-tagline,
+  .intro-actions {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+.brand-intro-page.reduced-motion .intro-wordmark,
+.brand-intro-page.reduced-motion .intro-tagline,
+.brand-intro-page.reduced-motion .intro-actions {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}

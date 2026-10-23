@@ -16,6 +16,10 @@ export class AuthService {
   private initializationSubject = new BehaviorSubject<boolean>(false);
   public isInitialized$: Observable<boolean> = this.initializationSubject.asObservable();
 
+  // Tracks whether we are actively restoring an existing stored session
+  private isRestoringSessionSubject = new BehaviorSubject<boolean>(false);
+  public isRestoringSession$: Observable<boolean> = this.isRestoringSessionSubject.asObservable();
+
   private isRefreshing = false;
   private isLoggingOut = false;
   private sessionInitPromise: Promise<void> | null = null;
@@ -36,6 +40,7 @@ export class AuthService {
         setTimeout(() => {
           console.warn('[Auth Service] initSession timed out after 5000ms; completing session initialization');
           this.initializationSubject.next(true);
+          this.isRestoringSessionSubject.next(false);
           resolve();
         }, 5000);
       });
@@ -51,24 +56,34 @@ export class AuthService {
       const token = this.storageService.getToken();
       const cachedUser = this.storageService.getUser();
 
+      if (token) {
+        // Only show session restore screen when there is actually a session to restore
+        this.isRestoringSessionSubject.next(true);
+      }
+
       // OPTIMISTIC RESTORE: If token AND stored user exist in Preferences/Storage,
       // restore state immediately without blocking UI on network call
       if (token && cachedUser) {
         this.currentUserSubject.next(cachedUser);
         this.initializationSubject.next(true);
+        this.isRestoringSessionSubject.next(false);
 
         // Validate session asynchronously in background
         this.validateSessionInBackground();
       } else if (token) {
         // Token exists but no cached user details: fetch user synchronously before ready
         await this.fetchCurrentUserPromise();
+        this.initializationSubject.next(true);
+        this.isRestoringSessionSubject.next(false);
       } else {
         this.initializationSubject.next(true);
+        this.isRestoringSessionSubject.next(false);
       }
     } catch (err) {
       console.error('[Auth Service] initSession error:', err);
     } finally {
       this.initializationSubject.next(true);
+      this.isRestoringSessionSubject.next(false);
     }
   }
 

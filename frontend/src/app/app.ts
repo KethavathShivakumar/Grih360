@@ -4,6 +4,7 @@ import { Location, AsyncPipe, NgIf } from '@angular/common';
 import { Capacitor } from '@capacitor/core';
 import { App as CapApp } from '@capacitor/app';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { AuthService } from './core/services/auth.service';
 import { Observable } from 'rxjs';
 
@@ -18,6 +19,7 @@ export class App implements OnInit {
   title = 'Grih360';
   private currentUrl = '';
   public isInitialized$: Observable<boolean>;
+  public isRestoringSession$: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -25,6 +27,7 @@ export class App implements OnInit {
     private authService: AuthService
   ) {
     this.isInitialized$ = this.authService.isInitialized$;
+    this.isRestoringSession$ = this.authService.isRestoringSession$;
   }
 
   ngOnInit(): void {
@@ -43,6 +46,13 @@ export class App implements OnInit {
       console.warn('StatusBar initialization warning:', e);
     }
 
+    // Hide native splash once auth init is completed
+    this.authService.isInitialized$.subscribe((init) => {
+      if (init) {
+        SplashScreen.hide({ fadeOutDuration: 200 }).catch(() => {});
+      }
+    });
+
     // Track current route URL
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -53,6 +63,7 @@ export class App implements OnInit {
     // 2. Android Hardware Back Button Handler via @capacitor/app
     CapApp.addListener('backButton', ({ canGoBack }) => {
       const rootRoutes = [
+        '',
         '/',
         '/role-selection',
         '/tenant/dashboard',
